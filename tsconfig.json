@@ -9,7 +9,8 @@
     "paths": {
       "shadcn-ember/tests/*": ["./tests/*"],
       "shadcn-ember/*": ["./app/*"],
-      "*": ["./types/*"]
+      "*": ["./types/*"],
+      "@/*": ["./app/*"]
     },
     "types": ["ember-source/types", "@embroider/core/virtual", "vite/client"]
   }
