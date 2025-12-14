@@ -5,7 +5,8 @@ import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { fn } from '@ember/helper';
 import { cn } from '@/lib/utils';
-import PhX from 'ember-phosphor-icons/components/ph-x';
+// import PhX from 'ember-phosphor-icons/components/ph-x';
+import X from '~icons/lucide/x';
 
 type Side = 'top' | 'bottom' | 'left' | 'right';
 
@@ -204,7 +205,7 @@ export class SheetContent extends Component<SheetContentSignature> {
             class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary"
             {{on "click" (fn @setOpen false)}}
           >
-            <PhX @size={{16}} />
+            <X class="size-4" />
             <span class="sr-only">Close</span>
           </button>
           {{yield}}

@@ -1,7 +1,8 @@
 /* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
 import { cn } from '@/lib/utils';
-import PhMinus from 'ember-phosphor-icons/components/ph-minus';
+// import PhMinus from 'ember-phosphor-icons/components/ph-minus';
+import Minus from '~icons/lucide/minus';
 
 // Note: This is a placeholder for the InputOTP component
 // Full implementation would require the input-otp library or custom implementation
@@ -90,7 +91,7 @@ interface InputOTPSeparatorSignature {
 export class InputOTPSeparator extends Component<InputOTPSeparatorSignature> {
   <template>
     <div role="separator" ...attributes>
-      <PhMinus @size={{16}} />
+      <Minus class="size-4" />
     </div>
   </template>
 }

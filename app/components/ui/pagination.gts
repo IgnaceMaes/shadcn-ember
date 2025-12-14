@@ -1,9 +1,12 @@
 /* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
 import { cn } from '@/lib/utils';
-import PhCaretLeft from 'ember-phosphor-icons/components/ph-caret-left';
-import PhCaretRight from 'ember-phosphor-icons/components/ph-caret-right';
-import PhDotsThree from 'ember-phosphor-icons/components/ph-dots-three';
+// import PhCaretLeft from 'ember-phosphor-icons/components/ph-caret-left';
+// import PhCaretRight from 'ember-phosphor-icons/components/ph-caret-right';
+// import PhDotsThree from 'ember-phosphor-icons/components/ph-dots-three';
+import ChevronLeft from '~icons/lucide/chevron-left';
+import ChevronRight from '~icons/lucide/chevron-right';
+import MoreHorizontal from '~icons/lucide/more-horizontal';
 import { buttonVariants } from './button.gts';
 
 // Pagination Root Component
@@ -118,7 +121,7 @@ export class PaginationPrevious extends Component<PaginationPreviousSignature> {
       class={{cn "gap-1 pl-2.5" @class}}
       ...attributes
     >
-      <PhCaretLeft @size={{16}} />
+      <ChevronLeft class="size-4" />
       <span>Previous</span>
     </PaginationLink>
   </template>
@@ -144,7 +147,7 @@ export class PaginationNext extends Component<PaginationNextSignature> {
       ...attributes
     >
       <span>Next</span>
-      <PhCaretRight @size={{16}} />
+      <ChevronRight class="size-4" />
     </PaginationLink>
   </template>
 }
@@ -167,7 +170,7 @@ export class PaginationEllipsis extends Component<PaginationEllipsisSignature> {
       class={{cn "flex h-9 w-9 items-center justify-center" @class}}
       ...attributes
     >
-      <PhDotsThree @size={{16}} />
+      <MoreHorizontal class="size-4" />
       <span class="sr-only">More pages</span>
     </span>
   </template>

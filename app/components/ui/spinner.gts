@@ -1,6 +1,8 @@
 import Component from '@glimmer/component';
-import PhSpinner from 'ember-phosphor-icons/components/ph-spinner';
+// import PhSpinner from 'ember-phosphor-icons/components/ph-spinner';
+import Loader2 from '~icons/lucide/loader-2';
 import { cn } from '@/lib/utils';
+import { concat } from '@ember/helper';
 
 interface SpinnerSignature {
   Element: HTMLOrSVGElement;
@@ -12,11 +14,10 @@ interface SpinnerSignature {
 
 export class Spinner extends Component<SpinnerSignature> {
   <template>
-    <PhSpinner
-      @size={{if @size @size 16}}
+    <Loader2
       role="status"
       aria-label="Loading"
-      class={{cn "animate-spin" @class}}
+      class={{cn "animate-spin" (if @size (concat "size-" @size) "size-4") @class}}
       ...attributes
     />
   </template>

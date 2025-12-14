@@ -3,9 +3,12 @@ import { tracked } from '@glimmer/tracking';
 import Component from '@glimmer/component';
 import { on } from '@ember/modifier';
 import { hash } from '@ember/helper';
-import PhCaretDown from 'ember-phosphor-icons/components/ph-caret-down';
-import PhCaretUp from 'ember-phosphor-icons/components/ph-caret-up';
-import PhCheck from 'ember-phosphor-icons/components/ph-check';
+// import PhCaretDown from 'ember-phosphor-icons/components/ph-caret-down';
+// import PhCaretUp from 'ember-phosphor-icons/components/ph-caret-up';
+// import PhCheck from 'ember-phosphor-icons/components/ph-check';
+import ChevronDown from '~icons/lucide/chevron-down';
+import ChevronUp from '~icons/lucide/chevron-up';
+import Check from '~icons/lucide/check';
 import { cn } from '@/lib/utils';
 
 // Select Root Component
@@ -100,7 +103,7 @@ export class SelectTrigger extends Component<SelectTriggerSignature> {
       ...attributes
     >
       {{yield}}
-      <PhCaretDown @size={{16}} class="opacity-50" />
+      <ChevronDown class="size-4 opacity-50" />
     </button>
   </template>
 }
@@ -246,7 +249,7 @@ export class SelectItem extends Component<SelectItemSignature> {
     >
       {{#if this.isSelected}}
         <span class="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
-          <PhCheck @size={{16}} />
+          <Check class="size-4" />
         </span>
       {{/if}}
       {{yield}}
@@ -282,7 +285,7 @@ export class SelectScrollUpButton extends Component<SelectScrollUpButtonSignatur
       class={{cn "flex cursor-default items-center justify-center py-1" @class}}
       ...attributes
     >
-      <PhCaretUp @size={{16}} />
+      <ChevronUp class="size-4" />
     </div>
   </template>
 }
@@ -301,7 +304,7 @@ export class SelectScrollDownButton extends Component<SelectScrollDownButtonSign
       class={{cn "flex cursor-default items-center justify-center py-1" @class}}
       ...attributes
     >
-      <PhCaretDown @size={{16}} />
+      <ChevronDown class="size-4" />
     </div>
   </template>
 }

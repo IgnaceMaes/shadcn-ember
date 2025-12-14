@@ -167,16 +167,26 @@ import {
   PaginationNext,
   PaginationEllipsis,
 } from '@/components/ui/pagination';
-import PhHeart from 'ember-phosphor-icons/components/ph-heart';
-import PhTextB from 'ember-phosphor-icons/components/ph-text-b';
-import PhTextItalic from 'ember-phosphor-icons/components/ph-text-italic';
-import PhTextUnderline from 'ember-phosphor-icons/components/ph-text-underline';
-import PhInfo from 'ember-phosphor-icons/components/ph-info';
-import PhWarning from 'ember-phosphor-icons/components/ph-warning';
-import PhPlus from 'ember-phosphor-icons/components/ph-plus';
-import PhTrash from 'ember-phosphor-icons/components/ph-trash';
-import PhMinus from 'ember-phosphor-icons/components/ph-minus';
-import PhX from 'ember-phosphor-icons/components/ph-x';
+// import PhHeart from 'ember-phosphor-icons/components/ph-heart';
+// import PhTextB from 'ember-phosphor-icons/components/ph-text-b';
+// import PhTextItalic from 'ember-phosphor-icons/components/ph-text-italic';
+// import PhTextUnderline from 'ember-phosphor-icons/components/ph-text-underline';
+// import PhInfo from 'ember-phosphor-icons/components/ph-info';
+// import PhWarning from 'ember-phosphor-icons/components/ph-warning';
+// import PhPlus from 'ember-phosphor-icons/components/ph-plus';
+// import PhTrash from 'ember-phosphor-icons/components/ph-trash';
+// import PhMinus from 'ember-phosphor-icons/components/ph-minus';
+// import PhX from 'ember-phosphor-icons/components/ph-x';
+import Heart from '~icons/lucide/heart';
+import Bold from '~icons/lucide/bold';
+import Italic from '~icons/lucide/italic';
+import Underline from '~icons/lucide/underline';
+import Info from '~icons/lucide/info';
+import TriangleAlert from '~icons/lucide/triangle-alert';
+import Plus from '~icons/lucide/plus';
+import Trash2 from '~icons/lucide/trash-2';
+import Minus from '~icons/lucide/minus';
+import X from '~icons/lucide/x';
 
 class UiExamples extends Component {
   @tracked selectValue = 'apple';
@@ -516,7 +526,7 @@ class UiExamples extends Component {
           <div class="space-y-2">
             <h3 class="text-xl font-medium">Default Alert</h3>
             <Alert>
-              <PhInfo @size={{16}} class="h-4 w-4" />
+              <Info class="h-4 w-4" />
               <AlertTitle>Heads up!</AlertTitle>
               <AlertDescription>
                 You can add components to your app using the cli.
@@ -527,7 +537,7 @@ class UiExamples extends Component {
           <div class="space-y-2">
             <h3 class="text-xl font-medium">Destructive Alert</h3>
             <Alert @variant="destructive">
-              <PhWarning @size={{16}} class="h-4 w-4" />
+              <TriangleAlert class="h-4 w-4" />
               <AlertTitle>Error</AlertTitle>
               <AlertDescription>
                 Your session has expired. Please log in again.
@@ -549,7 +559,7 @@ class UiExamples extends Component {
           <div class="space-y-2">
             <h3 class="text-xl font-medium">Alert with Custom Class</h3>
             <Alert @class="border-blue-500">
-              <PhInfo @size={{16}} class="h-4 w-4" />
+              <Info class="h-4 w-4" />
               <AlertTitle>Pro Tip</AlertTitle>
               <AlertDescription>
                 You can use custom classes to style your alerts according to
@@ -1272,15 +1282,15 @@ class UiExamples extends Component {
         <h3 class="text-xl font-medium">With Icons</h3>
         <div class="flex flex-wrap gap-4">
           <Button @variant="default">
-            <PhPlus @size={{16}} />
+            <Plus class="size-4" />
             Add Item
           </Button>
           <Button @variant="destructive">
-            <PhTrash @size={{16}} />
+            <Trash2 class="size-4" />
             Delete
           </Button>
           <Button @variant="outline" @size="icon">
-            <PhInfo @size={{16}} />
+            <Info class="size-4" />
           </Button>
         </div>
       </section>
@@ -1402,13 +1412,13 @@ class UiExamples extends Component {
         <div class="flex flex-wrap gap-4">
           <ButtonGroup>
             <Button @variant="outline" @size="icon">
-              <PhPlus @size={{16}} />
+              <Plus class="size-4" />
             </Button>
             <Button @variant="outline" @size="icon">
-              <PhMinus @size={{16}} />
+              <Minus class="size-4" />
             </Button>
             <Button @variant="outline" @size="icon">
-              <PhX @size={{16}} />
+              <X class="size-4" />
             </Button>
           </ButtonGroup>
         </div>
@@ -1568,7 +1578,7 @@ class UiExamples extends Component {
         <Empty>
           <EmptyHeader>
             <EmptyMedia @variant="icon">
-              <PhHeart @size={{24}} />
+              <Heart class="size-6" />
             </EmptyMedia>
             <EmptyTitle>No favorites yet</EmptyTitle>
             <EmptyDescription>
@@ -1653,13 +1663,13 @@ class UiExamples extends Component {
             @pressed={{this.togglePressed}}
             @onPressedChange={{fn (mut this.togglePressed)}}
           >
-            <PhTextB @size={{16}} />
+            <Bold class="size-4" />
           </Toggle>
           <Toggle>
-            <PhTextItalic @size={{16}} />
+            <Italic class="size-4" />
           </Toggle>
           <Toggle>
-            <PhTextUnderline @size={{16}} />
+            <Underline class="size-4" />
           </Toggle>
         </div>
       </section>

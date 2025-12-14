@@ -4,9 +4,12 @@ import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { cn } from '@/lib/utils';
-import PhCheck from 'ember-phosphor-icons/components/ph-check';
-import PhCaretRight from 'ember-phosphor-icons/components/ph-caret-right';
-import PhCircle from 'ember-phosphor-icons/components/ph-circle';
+// import PhCheck from 'ember-phosphor-icons/components/ph-check';
+// import PhCaretRight from 'ember-phosphor-icons/components/ph-caret-right';
+// import PhCircle from 'ember-phosphor-icons/components/ph-circle';
+import Check from '~icons/lucide/check';
+import ChevronRight from '~icons/lucide/chevron-right';
+import Circle from '~icons/lucide/circle';
 import onClickOutside from 'ember-click-outside/modifiers/on-click-outside';
 
 // ContextMenu Root Component
@@ -203,7 +206,7 @@ export class ContextMenuSubTrigger extends Component<ContextMenuSubTriggerSignat
       ...attributes
     >
       {{yield}}
-      <PhCaretRight @size={{16}} class="ml-auto" />
+      <ChevronRight class="size-4 ml-auto" />
     </div>
   </template>
 }
@@ -334,7 +337,7 @@ export class ContextMenuCheckboxItem extends Component<ContextMenuCheckboxItemSi
     >
       <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
         {{#if @checked}}
-          <PhCheck @size={{16}} />
+          <Check class="size-4" />
         {{/if}}
       </span>
       {{yield}}
@@ -378,7 +381,7 @@ export class ContextMenuRadioItem extends Component<ContextMenuRadioItemSignatur
     >
       <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
         {{#if this.checked}}
-          <PhCircle @size={{16}} @weight="fill" class="fill-current" />
+          <Circle class="size-4 fill-current" />
         {{/if}}
       </span>
       {{yield}}

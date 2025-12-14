@@ -1,7 +1,8 @@
 /* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
 import { cn } from '@/lib/utils';
-import PhX from 'ember-phosphor-icons/components/ph-x';
+// import PhX from 'ember-phosphor-icons/components/ph-x';
+import X from '~icons/lucide/x';
 
 type Variant = 'default' | 'destructive';
 
@@ -129,7 +130,7 @@ export class ToastClose extends Component<ToastCloseSignature> {
       }}
       ...attributes
     >
-      <PhX @size={{16}} />
+      <X class="size-4" />
     </button>
   </template>
 }

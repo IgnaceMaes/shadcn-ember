@@ -1,7 +1,8 @@
 /* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
 import { cn } from '@/lib/utils';
-import PhMagnifyingGlass from 'ember-phosphor-icons/components/ph-magnifying-glass';
+// import PhMagnifyingGlass from 'ember-phosphor-icons/components/ph-magnifying-glass';
+import Search from '~icons/lucide/search';
 
 // Note: This is a simplified version of the Command component
 // Full implementation would require a command palette library
@@ -65,7 +66,7 @@ interface CommandInputSignature {
 export class CommandInput extends Component<CommandInputSignature> {
   <template>
     <div class="flex items-center border-b px-3">
-      <PhMagnifyingGlass @size={{16}} class="mr-2 shrink-0 opacity-50" />
+      <Search class="mr-2 size-4 shrink-0 opacity-50" />
       <input
         type="text"
         class={{cn

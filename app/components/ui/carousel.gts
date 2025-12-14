@@ -1,8 +1,10 @@
 /* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
 import { cn } from '@/lib/utils';
-import PhCaretLeft from 'ember-phosphor-icons/components/ph-caret-left';
-import PhCaretRight from 'ember-phosphor-icons/components/ph-caret-right';
+// import PhCaretLeft from 'ember-phosphor-icons/components/ph-caret-left';
+// import PhCaretRight from 'ember-phosphor-icons/components/ph-caret-right';
+import ChevronLeft from '~icons/lucide/chevron-left';
+import ChevronRight from '~icons/lucide/chevron-right';
 import Button from './button.gts';
 
 // Note: This is a simplified placeholder for the Carousel component
@@ -87,7 +89,7 @@ export class CarouselPrevious extends Component<CarouselPreviousSignature> {
       class={{cn "absolute h-8 w-8 rounded-full left-4 top-1/2 -translate-y-1/2" @class}}
       ...attributes
     >
-      <PhCaretLeft @size={{16}} />
+      <ChevronLeft class="size-4" />
       <span class="sr-only">Previous slide</span>
     </Button>
   </template>
@@ -112,7 +114,7 @@ export class CarouselNext extends Component<CarouselNextSignature> {
       class={{cn "absolute h-8 w-8 rounded-full right-4 top-1/2 -translate-y-1/2" @class}}
       ...attributes
     >
-      <PhCaretRight @size={{16}} />
+      <ChevronRight class="size-4" />
       <span class="sr-only">Next slide</span>
     </Button>
   </template>

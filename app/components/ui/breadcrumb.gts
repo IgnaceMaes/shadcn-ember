@@ -1,7 +1,9 @@
 /* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
-import PhCaretRight from 'ember-phosphor-icons/components/ph-caret-right';
-import PhDotsThree from 'ember-phosphor-icons/components/ph-dots-three';
+// import PhCaretRight from 'ember-phosphor-icons/components/ph-caret-right';
+// import PhDotsThree from 'ember-phosphor-icons/components/ph-dots-three';
+import ChevronRight from '~icons/lucide/chevron-right';
+import MoreHorizontal from '~icons/lucide/more-horizontal';
 import { cn } from '@/lib/utils';
 
 interface BreadcrumbSignature {
@@ -138,7 +140,7 @@ export class BreadcrumbSeparator extends Component<BreadcrumbSeparatorSignature>
       {{#if (has-block)}}
         {{yield}}
       {{else}}
-        <PhCaretRight @size={{14}} />
+        <ChevronRight class="size-3.5" />
       {{/if}}
     </li>
   </template>
@@ -159,7 +161,7 @@ export class BreadcrumbEllipsis extends Component<BreadcrumbEllipsisSignature> {
       class={{cn "flex h-9 w-9 items-center justify-center" @class}}
       ...attributes
     >
-      <PhDotsThree @size={{16}} />
+      <MoreHorizontal class="size-4" />
       <span class="sr-only">More</span>
     </span>
   </template>

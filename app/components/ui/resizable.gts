@@ -1,7 +1,8 @@
 /* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
 import { cn } from '@/lib/utils';
-import PhDotsThreeVertical from 'ember-phosphor-icons/components/ph-dots-three-vertical';
+// import PhDotsThreeVertical from 'ember-phosphor-icons/components/ph-dots-three-vertical';
+import GripVertical from '~icons/lucide/grip-vertical';
 
 // Note: This is a simplified version of the Resizable component
 // Full implementation would require react-resizable-panels or similar
@@ -85,7 +86,7 @@ export class ResizableHandle extends Component<ResizableHandleSignature> {
     >
       {{#if @withHandle}}
         <div class="z-10 flex h-4 w-3 items-center justify-center rounded-sm border bg-border">
-          <PhDotsThreeVertical @size={{10}} />
+          <GripVertical class="size-2.5" />
         </div>
       {{/if}}
     </div>

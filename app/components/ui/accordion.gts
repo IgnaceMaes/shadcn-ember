@@ -2,7 +2,8 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
-import PhCaretDown from 'ember-phosphor-icons/components/ph-caret-down';
+// import PhCaretDown from 'ember-phosphor-icons/components/ph-caret-down';
+import ChevronDown from '~icons/lucide/chevron-down';
 import { cn } from '@/lib/utils';
 
 interface AccordionSignature {
@@ -120,9 +121,8 @@ export class AccordionTrigger extends Component<AccordionTriggerSignature> {
         ...attributes
       >
         {{yield}}
-        <PhCaretDown
-          @size={{16}}
-          class="shrink-0 text-muted-foreground transition-transform duration-200"
+        <ChevronDown
+          class="size-4 shrink-0 text-muted-foreground transition-transform duration-200"
         />
       </button>
     </h3>
