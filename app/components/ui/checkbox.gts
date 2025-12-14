@@ -2,7 +2,8 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { cn } from '@/lib/utils';
-import PhCheck from 'ember-phosphor-icons/components/ph-check';
+// import PhCheck from 'ember-phosphor-icons/components/ph-check';
+import Check from '~icons/lucide/check';
 
 interface CheckboxSignature {
   Element: HTMLButtonElement;
@@ -23,7 +24,7 @@ export default class Checkbox extends Component<CheckboxSignature> {
 
   get rootClasses() {
     return cn(
-      'grid place-content-center peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
+      'peer border-input dark:bg-input/30 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground dark:data-[state=checked]:bg-primary data-[state=checked]:border-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive size-4 shrink-0 rounded-[4px] border shadow-xs transition-shadow outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50',
       this.isChecked ? 'bg-primary text-primary-foreground' : '',
       this.args.class
     );
@@ -62,7 +63,7 @@ export default class Checkbox extends Component<CheckboxSignature> {
       {{#if this.isChecked}}
         <span data-state="checked" class={{this.indicatorClasses}} aria-hidden="true">
           {{!-- template-lint-disable require-presentational-children --}}
-          <PhCheck @size={{16}} />
+          <Check class="size-3.5" />
         </span>
       {{/if}}
     </button>
