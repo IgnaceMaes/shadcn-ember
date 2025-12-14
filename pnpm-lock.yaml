@@ -17,9 +17,6 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      lucide-react:
-        specifier: ^0.561.0
-        version: 0.561.0(react@16.14.0)
       tailwind-merge:
         specifier: ^3.4.0
         version: 3.4.0
@@ -159,6 +156,9 @@ importers:
       ember-cli-deprecation-workflow:
         specifier: ^3.4.0
         version: 3.4.0(ember-source@6.9.0(@glimmer/component@2.0.0)(rsvp@4.8.5))
+      ember-click-outside:
+        specifier: ^6.1.1
+        version: 6.1.1(@babel/core@7.28.5)
       ember-data:
         specifier: ~5.6.0
         version: 5.6.0(@ember/test-helpers@5.4.1(@babel/core@7.28.5)(@glint/template@1.7.3))(@ember/test-waiters@4.1.1(@glint/template@1.7.3))(@glint/template@1.7.3)(qunit@2.24.3)
@@ -171,6 +171,9 @@ importers:
       ember-page-title:
         specifier: ^9.0.3
         version: 9.0.3
+      ember-phosphor-icons:
+        specifier: ^1.0.2
+        version: 1.0.2(@babel/core@7.28.5)
       ember-qunit:
         specifier: ^9.0.4
         version: 9.0.4(@ember/test-helpers@5.4.1(@babel/core@7.28.5)(@glint/template@1.7.3))(@glint/template@1.7.3)(qunit@2.24.3)
@@ -183,6 +186,9 @@ importers:
       ember-template-lint:
         specifier: ^7.9.3
         version: 7.9.3
+      ember-truth-helpers:
+        specifier: ^5.0.0
+        version: 5.0.0
       eslint:
         specifier: ^9.39.1
         version: 9.39.2(jiti@2.6.1)
@@ -2955,6 +2961,9 @@ packages:
     resolution: {integrity: sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==}
     engines: {node: '>=0.10'}
 
+  decorator-transforms@1.2.1:
+    resolution: {integrity: sha512-UUtmyfdlHvYoX3VSG1w5rbvBQ2r5TX1JsE4hmKU9snleFymadA3VACjl6SRfi9YgBCSjBbfQvR1bs9PRW9yBKw==}
+
   decorator-transforms@2.3.0:
     resolution: {integrity: sha512-jo8c1ss9yFPudHuYYcrJ9jpkDZIoi+lOGvt+Uyp9B+dz32i50icRMx9Bfa8hEt7TnX1FyKWKkjV+cUdT/ep2kA==}
 
@@ -3124,6 +3133,9 @@ packages:
     engines: {node: '>= 20.11'}
     hasBin: true
 
+  ember-click-outside@6.1.1:
+    resolution: {integrity: sha512-1SOW92/k5vm+QiLBdkiSxkxSEzvA1vWdVVAI5RLV9JFztA5cSEKB2m2+10Gvw90ItxekY92JVXXTXIPUcPBqYg==}
+
   ember-data@5.6.0:
     resolution: {integrity: sha512-nFFHhAD06C6DM2iD/UQFe+XKPEh27ALudZVZ6CipCAn598i8gfnm5k09ZZiW/YYpU0+4DAqtf91LwZN2e+O3vw==}
     peerDependencies:
@@ -3159,6 +3171,9 @@ packages:
     resolution: {integrity: sha512-fedRHUsvq8tIZgOii8jTrfAyeq+la/9H5eAzhNNwEyzo7nDMmqK2SxsyBUGXprd8fOacsPabLlzlucMi/4mUpA==}
     engines: {node: 16.* || >= 18}
 
+  ember-phosphor-icons@1.0.2:
+    resolution: {integrity: sha512-N3naRavKUoA35Vmvt/USLMRhP5zY1GP05ZWpDrgOyRwM8D2PLUgGPMdK4yyFXOGE7hyHPlZ4aUlExht3ZTwbfQ==}
+
   ember-qunit@9.0.4:
     resolution: {integrity: sha512-rv6gKvrdXdPBTdSZC5co82eIcDWWVR7RjafU/c+5TTz290oXhIHPoVuZbcO2F5RiAqkTW0jKzwkCP8y+2tCjFw==}
     peerDependencies:
@@ -3190,6 +3205,9 @@ packages:
   ember-tracked-storage-polyfill@1.0.0:
     resolution: {integrity: sha512-eL7lZat68E6P/D7b9UoTB5bB5Oh/0aju0Z7PCMi3aTwhaydRaxloE7TGrTRYU+NdJuyNVZXeGyxFxn2frvd3TA==}
     engines: {node: 12.* || >= 14}
+
+  ember-truth-helpers@5.0.0:
+    resolution: {integrity: sha512-PnQd6D6hvlNC3k6gBu0SC2cvfXX6wH6W0nToomIIoxqyrD5cllk0zBh/j/1H0KsczVCWeuF9PWj5xJgL4jQAGg==}
 
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -4631,11 +4649,6 @@ packages:
 
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
-
-  lucide-react@0.561.0:
-    resolution: {integrity: sha512-Y59gMY38tl4/i0qewcqohPdEbieBy7SovpBL9IFebhc2mDd8x4PZSOsiFRkpPcOq6bj1r/mjH/Rk73gSlIJP2A==}
-    peerDependencies:
-      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   magic-string@0.25.9:
     resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==}
@@ -9710,6 +9723,13 @@ snapshots:
 
   decode-uri-component@0.2.2: {}
 
+  decorator-transforms@1.2.1(@babel/core@7.28.5):
+    dependencies:
+      '@babel/plugin-syntax-decorators': 7.27.1(@babel/core@7.28.5)
+      babel-import-util: 2.1.1
+    transitivePeerDependencies:
+      - '@babel/core'
+
   decorator-transforms@2.3.0(@babel/core@7.28.5):
     dependencies:
       '@babel/plugin-syntax-decorators': 7.27.1(@babel/core@7.28.5)
@@ -10140,6 +10160,14 @@ snapshots:
       - walrus
       - whiskers
 
+  ember-click-outside@6.1.1(@babel/core@7.28.5):
+    dependencies:
+      '@embroider/addon-shim': 1.10.2
+      ember-modifier: 4.2.2(@babel/core@7.28.5)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - supports-color
+
   ember-data@5.6.0(@ember/test-helpers@5.4.1(@babel/core@7.28.5)(@glint/template@1.7.3))(@ember/test-waiters@4.1.1(@glint/template@1.7.3))(@glint/template@1.7.3)(qunit@2.24.3):
     dependencies:
       '@ember-data/adapter': 5.6.0(@glint/template@1.7.3)
@@ -10207,6 +10235,14 @@ snapshots:
       '@embroider/addon-shim': 1.10.2
       '@simple-dom/document': 1.4.0
     transitivePeerDependencies:
+      - supports-color
+
+  ember-phosphor-icons@1.0.2(@babel/core@7.28.5):
+    dependencies:
+      '@embroider/addon-shim': 1.10.2
+      decorator-transforms: 1.2.1(@babel/core@7.28.5)
+    transitivePeerDependencies:
+      - '@babel/core'
       - supports-color
 
   ember-qunit@9.0.4(@ember/test-helpers@5.4.1(@babel/core@7.28.5)(@glint/template@1.7.3))(@glint/template@1.7.3)(qunit@2.24.3):
@@ -10292,6 +10328,12 @@ snapshots:
     dependencies:
       ember-cli-babel: 7.26.11
       ember-cli-htmlbars: 5.7.2
+    transitivePeerDependencies:
+      - supports-color
+
+  ember-truth-helpers@5.0.0:
+    dependencies:
+      '@embroider/addon-shim': 1.10.2
     transitivePeerDependencies:
       - supports-color
 
@@ -12037,6 +12079,7 @@ snapshots:
   loose-envify@1.4.0:
     dependencies:
       js-tokens: 4.0.0
+    optional: true
 
   lower-case@2.0.2:
     dependencies:
@@ -12047,10 +12090,6 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
-
-  lucide-react@0.561.0(react@16.14.0):
-    dependencies:
-      react: 16.14.0
 
   magic-string@0.25.9:
     dependencies:
@@ -12638,6 +12677,7 @@ snapshots:
       loose-envify: 1.4.0
       object-assign: 4.1.1
       react-is: 16.13.1
+    optional: true
 
   proper-lockfile@4.1.2:
     dependencies:
@@ -12705,13 +12745,15 @@ snapshots:
       iconv-lite: 0.4.24
       unpipe: 1.0.0
 
-  react-is@16.13.1: {}
+  react-is@16.13.1:
+    optional: true
 
   react@16.14.0:
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
       prop-types: 15.8.1
+    optional: true
 
   readable-stream@1.0.34:
     dependencies:
