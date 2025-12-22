@@ -1,4 +1,3 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
 import { cn } from '@/lib/utils';
 
