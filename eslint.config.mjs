@@ -87,6 +87,9 @@ export default ts.config(
     plugins: {
       qunit,
     },
+    rules: {
+      'ember/no-empty-glimmer-component-classes': 'off',
+    },
   },
   /**
    * CJS node files
