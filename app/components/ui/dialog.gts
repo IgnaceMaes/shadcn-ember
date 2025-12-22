@@ -30,9 +30,7 @@ export class Dialog extends Component<DialogSignature> {
     this.args.onOpenChange?.(open);
   };
 
-  <template>
-    {{yield this.open this.setOpen}}
-  </template>
+  <template>{{yield this.open this.setOpen}}</template>
 }
 
 // Dialog Trigger Component
@@ -275,10 +273,7 @@ interface DialogTitleSignature {
 export class DialogTitle extends Component<DialogTitleSignature> {
   <template>
     <h2
-      class={{cn
-        "text-lg font-semibold leading-none tracking-tight"
-        @class
-      }}
+      class={{cn "text-lg font-semibold leading-none tracking-tight" @class}}
       ...attributes
     >
       {{yield}}

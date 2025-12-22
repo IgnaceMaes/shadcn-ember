@@ -40,11 +40,7 @@ export class RadioGroup extends Component<RadioGroupSignature> {
   };
 
   <template>
-    <div
-      class={{cn "grid gap-2" @class}}
-      role="radiogroup"
-      ...attributes
-    >
+    <div class={{cn "grid gap-2" @class}} role="radiogroup" ...attributes>
       {{yield (hash value=this.value setValue=this.setValue)}}
     </div>
   </template>

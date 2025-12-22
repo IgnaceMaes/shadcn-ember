@@ -15,9 +15,7 @@ interface FormSignature {
 }
 
 export class Form extends Component<FormSignature> {
-  <template>
-    {{yield}}
-  </template>
+  <template>{{yield}}</template>
 }
 
 // FormField Component
@@ -31,9 +29,7 @@ interface FormFieldSignature {
 }
 
 export class FormField extends Component<FormFieldSignature> {
-  <template>
-    {{yield}}
-  </template>
+  <template>{{yield}}</template>
 }
 
 // FormItem Component
@@ -82,9 +78,7 @@ interface FormControlSignature {
 }
 
 export class FormControl extends Component<FormControlSignature> {
-  <template>
-    {{yield}}
-  </template>
+  <template>{{yield}}</template>
 }
 
 // FormDescription Component
@@ -119,7 +113,10 @@ interface FormMessageSignature {
 
 export class FormMessage extends Component<FormMessageSignature> {
   <template>
-    <p class={{cn "text-[0.8rem] font-medium text-destructive" @class}} ...attributes>
+    <p
+      class={{cn "text-[0.8rem] font-medium text-destructive" @class}}
+      ...attributes
+    >
       {{yield}}
     </p>
   </template>

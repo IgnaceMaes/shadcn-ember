@@ -114,10 +114,7 @@ interface NavigationMenuContentSignature {
 export class NavigationMenuContent extends Component<NavigationMenuContentSignature> {
   <template>
     <div
-      class={{cn
-        "left-0 top-0 w-full md:absolute md:w-auto"
-        @class
-      }}
+      class={{cn "left-0 top-0 w-full md:absolute md:w-auto" @class}}
       ...attributes
     >
       {{yield}}

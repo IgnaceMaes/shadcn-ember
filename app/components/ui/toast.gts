@@ -6,12 +6,17 @@ import X from '~icons/lucide/x';
 
 type Variant = 'default' | 'destructive';
 
-function toastVariants(variant: Variant = 'default', className?: string): string {
-  const baseClasses = 'group pointer-events-auto relative flex w-full items-center justify-between space-x-2 overflow-hidden rounded-md border p-4 pr-6 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full';
+function toastVariants(
+  variant: Variant = 'default',
+  className?: string
+): string {
+  const baseClasses =
+    'group pointer-events-auto relative flex w-full items-center justify-between space-x-2 overflow-hidden rounded-md border p-4 pr-6 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full';
 
   const variantClasses: Record<Variant, string> = {
     default: 'border bg-background text-foreground',
-    destructive: 'destructive group border-destructive bg-destructive text-destructive-foreground',
+    destructive:
+      'destructive group border-destructive bg-destructive text-destructive-foreground',
   };
 
   return cn(baseClasses, variantClasses[variant], className);
@@ -28,9 +33,7 @@ interface ToastProviderSignature {
 }
 
 export class ToastProvider extends Component<ToastProviderSignature> {
-  <template>
-    {{yield}}
-  </template>
+  <template>{{yield}}</template>
 }
 
 // ToastViewport Component
@@ -148,7 +151,10 @@ interface ToastTitleSignature {
 
 export class ToastTitle extends Component<ToastTitleSignature> {
   <template>
-    <div class={{cn "text-sm font-semibold [&+div]:text-xs" @class}} ...attributes>
+    <div
+      class={{cn "text-sm font-semibold [&+div]:text-xs" @class}}
+      ...attributes
+    >
       {{yield}}
     </div>
   </template>

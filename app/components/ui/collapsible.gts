@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 
@@ -27,9 +28,7 @@ export class Collapsible extends Component<CollapsibleSignature> {
     }
   };
 
-  <template>
-    {{yield this.open this.setOpen}}
-  </template>
+  <template>{{yield this.open this.setOpen}}</template>
 }
 
 interface CollapsibleTriggerSignature {
@@ -81,18 +80,14 @@ interface CollapsibleContentSignature {
   };
 }
 
-export class CollapsibleContent extends Component<CollapsibleContentSignature> {
-  <template>
-    {{#if @open}}
-      <div
-        data-state={{if @open "open" "closed"}}
-        class={{@class}}
-        ...attributes
-      >
-        {{yield}}
-      </div>
-    {{/if}}
-  </template>
-}
+const CollapsibleContent: TOC<CollapsibleContentSignature> = <template>
+  {{#if @open}}
+    <div data-state={{if @open "open" "closed"}} class={{@class}} ...attributes>
+      {{yield}}
+    </div>
+  {{/if}}
+</template>;
+
+export { CollapsibleContent };
 
 export { Collapsible as default };

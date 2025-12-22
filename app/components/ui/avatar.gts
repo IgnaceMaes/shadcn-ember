@@ -18,7 +18,10 @@ interface AvatarSignature {
 export class Avatar extends Component<AvatarSignature> {
   <template>
     <div
-      class={{cn "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full" @class}}
+      class={{cn
+        "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"
+        @class
+      }}
       ...attributes
     >
       {{yield}}
@@ -32,7 +35,9 @@ interface AvatarImageSignature {
     src: string;
     alt?: string;
     class?: string;
-    onLoadingStatusChange?: (status: 'idle' | 'loading' | 'loaded' | 'error') => void;
+    onLoadingStatusChange?: (
+      status: 'idle' | 'loading' | 'loaded' | 'error'
+    ) => void;
   };
 }
 

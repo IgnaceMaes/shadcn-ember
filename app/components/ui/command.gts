@@ -165,7 +165,11 @@ interface CommandSeparatorSignature {
 
 export class CommandSeparator extends Component<CommandSeparatorSignature> {
   <template>
-    <div class={{cn "-mx-1 h-px bg-border" @class}} role="separator" ...attributes></div>
+    <div
+      class={{cn "-mx-1 h-px bg-border" @class}}
+      role="separator"
+      ...attributes
+    ></div>
   </template>
 }
 
@@ -211,7 +215,10 @@ interface CommandShortcutSignature {
 export class CommandShortcut extends Component<CommandShortcutSignature> {
   <template>
     <span
-      class={{cn "ml-auto text-xs tracking-widest text-muted-foreground" @class}}
+      class={{cn
+        "ml-auto text-xs tracking-widest text-muted-foreground"
+        @class
+      }}
       ...attributes
     >
       {{yield}}

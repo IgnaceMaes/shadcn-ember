@@ -17,9 +17,7 @@ interface TooltipProviderSignature {
 }
 
 export class TooltipProvider extends Component<TooltipProviderSignature> {
-  <template>
-    {{yield}}
-  </template>
+  <template>{{yield}}</template>
 }
 
 // Tooltip Root Component

@@ -1,4 +1,4 @@
-import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 // import PhSpinner from 'ember-phosphor-icons/components/ph-spinner';
 import Loader2 from '~icons/lucide/loader-2';
 import { cn } from '@/lib/utils';
@@ -12,15 +12,18 @@ interface SpinnerSignature {
   };
 }
 
-export class Spinner extends Component<SpinnerSignature> {
-  <template>
-    <Loader2
-      role="status"
-      aria-label="Loading"
-      class={{cn "animate-spin" (if @size (concat "size-" @size) "size-4") @class}}
-      ...attributes
-    />
-  </template>
-}
+const Spinner: TOC<SpinnerSignature> = <template>
+  <Loader2
+    role="status"
+    aria-label="Loading"
+    class={{cn
+      "animate-spin"
+      (if @size (concat "size-" @size) "size-4")
+      @class
+    }}
+    ...attributes
+  />
+</template>;
 
 export default Spinner;
+export { Spinner };

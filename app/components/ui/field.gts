@@ -108,8 +108,12 @@ interface FieldSignature {
   };
 }
 
-function fieldVariants(orientation: Orientation = 'vertical', className?: string): string {
-  const baseClasses = 'group/field data-[invalid=true]:text-destructive flex w-full gap-3';
+function fieldVariants(
+  orientation: Orientation = 'vertical',
+  className?: string
+): string {
+  const baseClasses =
+    'group/field data-[invalid=true]:text-destructive flex w-full gap-3';
 
   const orientationClasses: Record<Orientation, string> = {
     vertical: 'flex-col [&>*]:w-full [&>.sr-only]:w-auto',
@@ -199,7 +203,12 @@ export class FieldLabel extends Component<FieldLabelSignature> {
   }
 
   <template>
-    <Label data-slot="field-label" @class={{this.classes}} @for={{@for}} ...attributes>
+    <Label
+      data-slot="field-label"
+      @class={{this.classes}}
+      @for={{@for}}
+      ...attributes
+    >
       {{yield}}
     </Label>
   </template>
@@ -333,12 +342,16 @@ export class FieldError extends Component<FieldErrorSignature> {
 
   get singleError() {
     const errors = this.args.errors;
-    return errors?.length === 1 && errors[0]?.message ? errors[0].message : null;
+    return errors?.length === 1 && errors[0]?.message
+      ? errors[0].message
+      : null;
   }
 
   get multipleErrors() {
     const errors = this.args.errors;
-    return errors && errors.length > 1 ? errors.filter(e => e?.message) : null;
+    return errors && errors.length > 1
+      ? errors.filter((e) => e?.message)
+      : null;
   }
 
   get classes() {
@@ -347,15 +360,30 @@ export class FieldError extends Component<FieldErrorSignature> {
 
   <template>
     {{#if (has-block)}}
-      <div role="alert" data-slot="field-error" class={{this.classes}} ...attributes>
+      <div
+        role="alert"
+        data-slot="field-error"
+        class={{this.classes}}
+        ...attributes
+      >
         {{yield}}
       </div>
     {{else if this.singleError}}
-      <div role="alert" data-slot="field-error" class={{this.classes}} ...attributes>
+      <div
+        role="alert"
+        data-slot="field-error"
+        class={{this.classes}}
+        ...attributes
+      >
         {{this.singleError}}
       </div>
     {{else if this.multipleErrors}}
-      <div role="alert" data-slot="field-error" class={{this.classes}} ...attributes>
+      <div
+        role="alert"
+        data-slot="field-error"
+        class={{this.classes}}
+        ...attributes
+      >
         <ul class="ml-4 flex list-disc flex-col gap-1">
           {{#each this.multipleErrors as |error|}}
             <li>{{error.message}}</li>

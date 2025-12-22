@@ -35,9 +35,7 @@ export class AlertDialog extends Component<AlertDialogSignature> {
     this.args.onOpenChange?.(open);
   };
 
-  <template>
-    {{yield this.open this.setOpen}}
-  </template>
+  <template>{{yield this.open this.setOpen}}</template>
 }
 
 // AlertDialogTrigger Component
@@ -82,9 +80,7 @@ interface AlertDialogPortalSignature {
 }
 
 export class AlertDialogPortal extends Component<AlertDialogPortalSignature> {
-  <template>
-    {{yield}}
-  </template>
+  <template>{{yield}}</template>
 }
 
 // AlertDialogOverlay Component
@@ -162,10 +158,7 @@ interface AlertDialogHeaderSignature {
 export class AlertDialogHeader extends Component<AlertDialogHeaderSignature> {
   <template>
     <div
-      class={{cn
-        "flex flex-col space-y-2 text-center sm:text-left"
-        @class
-      }}
+      class={{cn "flex flex-col space-y-2 text-center sm:text-left" @class}}
       ...attributes
     >
       {{yield}}
@@ -285,7 +278,10 @@ export class AlertDialogCancel extends Component<AlertDialogCancelSignature> {
   <template>
     <button
       type="button"
-      class={{cn "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 mt-2 sm:mt-0" @class}}
+      class={{cn
+        "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 mt-2 sm:mt-0"
+        @class
+      }}
       {{on "click" this.handleClick}}
       ...attributes
     >

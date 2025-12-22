@@ -11,13 +11,16 @@ import X from '~icons/lucide/x';
 type Side = 'top' | 'bottom' | 'left' | 'right';
 
 function sheetVariants(side: Side = 'right', className?: string): string {
-  const baseClasses = 'fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500 data-[state=open]:animate-in data-[state=closed]:animate-out';
+  const baseClasses =
+    'fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500 data-[state=open]:animate-in data-[state=closed]:animate-out';
 
   const sideClasses: Record<Side, string> = {
     top: 'inset-x-0 top-0 border-b data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top',
-    bottom: 'inset-x-0 bottom-0 border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom',
+    bottom:
+      'inset-x-0 bottom-0 border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom',
     left: 'inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm',
-    right: 'inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm',
+    right:
+      'inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm',
   };
 
   return cn(baseClasses, sideClasses[side], className);
@@ -52,9 +55,7 @@ export class Sheet extends Component<SheetSignature> {
     this.args.onOpenChange?.(open);
   };
 
-  <template>
-    {{yield this.open this.setOpen}}
-  </template>
+  <template>{{yield this.open this.setOpen}}</template>
 }
 
 // SheetTrigger Component
@@ -133,9 +134,7 @@ interface SheetPortalSignature {
 }
 
 export class SheetPortal extends Component<SheetPortalSignature> {
-  <template>
-    {{yield}}
-  </template>
+  <template>{{yield}}</template>
 }
 
 // SheetOverlay Component
@@ -229,10 +228,7 @@ interface SheetHeaderSignature {
 export class SheetHeader extends Component<SheetHeaderSignature> {
   <template>
     <div
-      class={{cn
-        "flex flex-col space-y-2 text-center sm:text-left"
-        @class
-      }}
+      class={{cn "flex flex-col space-y-2 text-center sm:text-left" @class}}
       ...attributes
     >
       {{yield}}
@@ -278,7 +274,10 @@ interface SheetTitleSignature {
 
 export class SheetTitle extends Component<SheetTitleSignature> {
   <template>
-    <h2 class={{cn "text-lg font-semibold text-foreground" @class}} ...attributes>
+    <h2
+      class={{cn "text-lg font-semibold text-foreground" @class}}
+      ...attributes
+    >
       {{yield}}
     </h2>
   </template>

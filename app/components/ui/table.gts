@@ -174,7 +174,10 @@ interface TableCaptionSignature {
 
 export class TableCaption extends Component<TableCaptionSignature> {
   <template>
-    <caption class={{cn "mt-4 text-sm text-muted-foreground" @class}} ...attributes>
+    <caption
+      class={{cn "mt-4 text-sm text-muted-foreground" @class}}
+      ...attributes
+    >
       {{yield}}
     </caption>
   </template>

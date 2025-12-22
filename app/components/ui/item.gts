@@ -9,8 +9,13 @@ import Separator from './separator.gts';
 type Variant = 'default' | 'outline' | 'muted';
 type Size = 'default' | 'sm';
 
-function itemVariants(variant: Variant = 'default', size: Size = 'default', className?: string): string {
-  const baseClasses = 'group/item flex flex-wrap items-center rounded-md border border-transparent text-sm outline-none transition-colors duration-100';
+function itemVariants(
+  variant: Variant = 'default',
+  size: Size = 'default',
+  className?: string
+): string {
+  const baseClasses =
+    'group/item flex flex-wrap items-center rounded-md border border-transparent text-sm outline-none transition-colors duration-100';
 
   const variantClasses: Record<Variant, string> = {
     default: 'bg-transparent',

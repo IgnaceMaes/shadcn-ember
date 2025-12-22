@@ -277,9 +277,7 @@ export class MenubarSub extends Component<MenubarSubSignature> {
     this.args.onOpenChange?.(open);
   };
 
-  <template>
-    {{yield this.open this.setOpen}}
-  </template>
+  <template>{{yield this.open this.setOpen}}</template>
 }
 
 // MenubarSubTrigger Component
@@ -323,7 +321,13 @@ interface MenubarSubContentSignature {
 export class MenubarSubContent extends Component<MenubarSubContentSignature> {
   <template>
     {{#if @isOpen}}
-      <div class={{cn "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg" @class}} ...attributes>
+      <div
+        class={{cn
+          "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg"
+          @class
+        }}
+        ...attributes
+      >
         {{yield}}
       </div>
     {{/if}}
@@ -346,12 +350,17 @@ interface MenubarCheckboxItemSignature {
 export class MenubarCheckboxItem extends Component<MenubarCheckboxItemSignature> {
   <template>
     <div
-      class={{cn "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground" @class}}
+      class={{cn
+        "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground"
+        @class
+      }}
       role="menuitemcheckbox"
       aria-checked={{@checked}}
       ...attributes
     >
-      <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+      <span
+        class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"
+      >
         {{#if @checked}}
           <Check class="size-4" />
         {{/if}}
@@ -377,12 +386,17 @@ interface MenubarRadioItemSignature {
 export class MenubarRadioItem extends Component<MenubarRadioItemSignature> {
   <template>
     <div
-      class={{cn "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground" @class}}
+      class={{cn
+        "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground"
+        @class
+      }}
       role="menuitemradio"
       aria-checked={{@checked}}
       ...attributes
     >
-      <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+      <span
+        class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"
+      >
         {{#if @checked}}
           <Circle class="size-2 fill-current" />
         {{/if}}
@@ -406,7 +420,10 @@ interface MenubarLabelSignature {
 
 export class MenubarLabel extends Component<MenubarLabelSignature> {
   <template>
-    <div class={{cn "px-2 py-1.5 text-sm font-semibold" (if @inset "pl-8") @class}} ...attributes>
+    <div
+      class={{cn "px-2 py-1.5 text-sm font-semibold" (if @inset "pl-8") @class}}
+      ...attributes
+    >
       {{yield}}
     </div>
   </template>
@@ -425,7 +442,11 @@ interface MenubarSeparatorSignature {
 
 export class MenubarSeparator extends Component<MenubarSeparatorSignature> {
   <template>
-    <div class={{cn "-mx-1 my-1 h-px bg-border" @class}} role="separator" ...attributes></div>
+    <div
+      class={{cn "-mx-1 my-1 h-px bg-border" @class}}
+      role="separator"
+      ...attributes
+    ></div>
   </template>
 }
 
@@ -442,7 +463,13 @@ interface MenubarShortcutSignature {
 
 export class MenubarShortcut extends Component<MenubarShortcutSignature> {
   <template>
-    <span class={{cn "ml-auto text-xs tracking-widest text-muted-foreground" @class}} ...attributes>
+    <span
+      class={{cn
+        "ml-auto text-xs tracking-widest text-muted-foreground"
+        @class
+      }}
+      ...attributes
+    >
       {{yield}}
     </span>
   </template>

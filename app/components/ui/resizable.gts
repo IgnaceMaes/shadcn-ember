@@ -26,11 +26,7 @@ export class ResizablePanelGroup extends Component<ResizablePanelGroupSignature>
 
   <template>
     <div
-      class={{cn
-        "flex h-full w-full"
-        this.directionClass
-        @class
-      }}
+      class={{cn "flex h-full w-full" this.directionClass @class}}
       data-panel-group-direction={{@direction}}
       ...attributes
     >
@@ -85,7 +81,9 @@ export class ResizableHandle extends Component<ResizableHandleSignature> {
       ...attributes
     >
       {{#if @withHandle}}
-        <div class="z-10 flex h-4 w-3 items-center justify-center rounded-sm border bg-border">
+        <div
+          class="z-10 flex h-4 w-3 items-center justify-center rounded-sm border bg-border"
+        >
           <GripVertical class="size-2.5" />
         </div>
       {{/if}}

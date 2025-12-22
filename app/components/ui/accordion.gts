@@ -15,12 +15,16 @@ interface AccordionSignature {
     disabled?: boolean;
   };
   Blocks: {
-    default: [value: string | string[], setValue: (value: string | string[]) => void];
+    default: [
+      value: string | string[],
+      setValue: (value: string | string[]) => void,
+    ];
   };
 }
 
 export class Accordion extends Component<AccordionSignature> {
-  @tracked internalValue: string | string[] = this.args.value ?? (this.args.type === 'multiple' ? [] : '');
+  @tracked internalValue: string | string[] =
+    this.args.value ?? (this.args.type === 'multiple' ? [] : '');
 
   get value() {
     return this.args.value ?? this.internalValue;

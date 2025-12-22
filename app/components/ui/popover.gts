@@ -63,7 +63,12 @@ export class PopoverTrigger extends Component<PopoverTriggerSignature> {
 
   <template>
     {{#if @asChild}}
-      <span role="button" tabindex="0" {{on "click" this.handleClick}} {{on "keydown" this.handleClick}}>
+      <span
+        role="button"
+        tabindex="0"
+        {{on "click" this.handleClick}}
+        {{on "keydown" this.handleClick}}
+      >
         {{yield}}
       </span>
     {{else}}

@@ -38,9 +38,7 @@ export class HoverCard extends Component<HoverCardSignature> {
     this.args.onOpenChange?.(open);
   };
 
-  <template>
-    {{yield this.open this.setOpen}}
-  </template>
+  <template>{{yield this.open this.setOpen}}</template>
 }
 
 // HoverCardTrigger Component

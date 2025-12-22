@@ -61,8 +61,12 @@ export default class Checkbox extends Component<CheckboxSignature> {
       ...attributes
     >
       {{#if this.isChecked}}
-        <span data-state="checked" class={{this.indicatorClasses}} aria-hidden="true">
-          {{!-- template-lint-disable require-presentational-children --}}
+        <span
+          data-state="checked"
+          class={{this.indicatorClasses}}
+          aria-hidden="true"
+        >
+          {{! template-lint-disable require-presentational-children }}
           <Check class="size-3.5" />
         </span>
       {{/if}}

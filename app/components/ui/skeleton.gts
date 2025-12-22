@@ -1,4 +1,4 @@
-import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
 
 interface SkeletonSignature {
@@ -11,12 +11,14 @@ interface SkeletonSignature {
   };
 }
 
-export class Skeleton extends Component<SkeletonSignature> {
-  <template>
-    <div class={{cn "animate-pulse rounded-md bg-primary/10" @class}} ...attributes>
-      {{yield}}
-    </div>
-  </template>
-}
+const Skeleton: TOC<SkeletonSignature> = <template>
+  <div
+    class={{cn "animate-pulse rounded-md bg-primary/10" @class}}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 export default Skeleton;
+export { Skeleton };

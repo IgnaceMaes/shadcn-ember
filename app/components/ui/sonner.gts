@@ -9,7 +9,13 @@ interface ToasterSignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
-    position?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
+    position?:
+      | 'top-left'
+      | 'top-center'
+      | 'top-right'
+      | 'bottom-left'
+      | 'bottom-center'
+      | 'bottom-right';
   };
   Blocks: {
     default: [];

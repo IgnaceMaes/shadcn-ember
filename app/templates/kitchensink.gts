@@ -81,7 +81,7 @@ import {
   EmptyDescription,
   EmptyMedia,
 } from '@/components/ui/empty';
-import { Kbd, KbdGroup } from '@/components/ui/kbd';
+import Kbd, { KbdGroup } from '@/components/ui/kbd';
 import { Progress } from '@/components/ui/progress';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Spinner } from '@/components/ui/spinner';

@@ -15,7 +15,10 @@ interface SeparatorSignature {
   };
 }
 
-function separatorVariants(orientation: Orientation = 'horizontal', className?: string): string {
+function separatorVariants(
+  orientation: Orientation = 'horizontal',
+  className?: string
+): string {
   const baseClasses = 'shrink-0 bg-border';
   const orientationClasses: Record<Orientation, string> = {
     horizontal: 'h-[1px] w-full',
@@ -27,11 +30,14 @@ function separatorVariants(orientation: Orientation = 'horizontal', className?: 
 
 export default class Separator extends Component<SeparatorSignature> {
   get classes() {
-    return separatorVariants(this.args.orientation ?? 'horizontal', this.args.class);
+    return separatorVariants(
+      this.args.orientation ?? 'horizontal',
+      this.args.class
+    );
   }
 
   get role() {
-    return this.args.decorative ?? true ? 'none' : 'separator';
+    return (this.args.decorative ?? true) ? 'none' : 'separator';
   }
 
   get orientation() {

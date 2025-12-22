@@ -30,7 +30,10 @@ export class Progress extends Component<ProgressSignature> {
       aria-valuemin="0"
       aria-valuemax={{if @max @max 100}}
       aria-valuenow={{@value}}
-      class={{cn "relative h-2 w-full overflow-hidden rounded-full bg-primary/20" @class}}
+      class={{cn
+        "relative h-2 w-full overflow-hidden rounded-full bg-primary/20"
+        @class
+      }}
       ...attributes
     >
       <div

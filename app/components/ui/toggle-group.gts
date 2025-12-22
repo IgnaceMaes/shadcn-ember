@@ -25,6 +25,7 @@ interface ToggleGroupSignature {
   Blocks: {
     default: [
       {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         Item: any;
       },
     ];
@@ -36,7 +37,8 @@ export class ToggleGroup extends Component<ToggleGroupSignature> {
 
   constructor(owner: Owner, args: ToggleGroupSignature['Args']) {
     super(owner, args);
-    const defaultVal = args.defaultValue ?? (args.type === 'multiple' ? [] : '');
+    const defaultVal =
+      args.defaultValue ?? (args.type === 'multiple' ? [] : '');
     this.internalValue = args.value ?? defaultVal;
   }
 

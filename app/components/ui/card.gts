@@ -15,7 +15,10 @@ interface CardSignature {
 export class Card extends Component<CardSignature> {
   <template>
     <div
-      class={{cn "rounded-xl border bg-card text-card-foreground shadow" @class}}
+      class={{cn
+        "rounded-xl border bg-card text-card-foreground shadow"
+        @class
+      }}
       ...attributes
     >
       {{yield}}
@@ -53,7 +56,10 @@ interface CardTitleSignature {
 
 export class CardTitle extends Component<CardTitleSignature> {
   <template>
-    <div class={{cn "font-semibold leading-none tracking-tight" @class}} ...attributes>
+    <div
+      class={{cn "font-semibold leading-none tracking-tight" @class}}
+      ...attributes
+    >
       {{yield}}
     </div>
   </template>

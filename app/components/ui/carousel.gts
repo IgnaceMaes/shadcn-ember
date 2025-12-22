@@ -86,7 +86,10 @@ export class CarouselPrevious extends Component<CarouselPreviousSignature> {
     <Button
       @variant="outline"
       @size="icon"
-      class={{cn "absolute h-8 w-8 rounded-full left-4 top-1/2 -translate-y-1/2" @class}}
+      class={{cn
+        "absolute h-8 w-8 rounded-full left-4 top-1/2 -translate-y-1/2"
+        @class
+      }}
       ...attributes
     >
       <ChevronLeft class="size-4" />
@@ -111,7 +114,10 @@ export class CarouselNext extends Component<CarouselNextSignature> {
     <Button
       @variant="outline"
       @size="icon"
-      class={{cn "absolute h-8 w-8 rounded-full right-4 top-1/2 -translate-y-1/2" @class}}
+      class={{cn
+        "absolute h-8 w-8 rounded-full right-4 top-1/2 -translate-y-1/2"
+        @class
+      }}
       ...attributes
     >
       <ChevronRight class="size-4" />

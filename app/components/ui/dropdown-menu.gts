@@ -41,9 +41,7 @@ export class DropdownMenu extends Component<DropdownMenuSignature> {
     this.args.onOpenChange?.(open);
   };
 
-  <template>
-    {{yield this.open this.setOpen}}
-  </template>
+  <template>{{yield this.open this.setOpen}}</template>
 }
 
 // DropdownMenuTrigger Component
@@ -69,7 +67,12 @@ export class DropdownMenuTrigger extends Component<DropdownMenuTriggerSignature>
   <template>
     {{#if @asChild}}
       <span class="relative inline-block">
-        <span role="button" tabindex="0" {{on "click" this.handleClick}} {{on "keydown" this.handleClick}}>
+        <span
+          role="button"
+          tabindex="0"
+          {{on "click" this.handleClick}}
+          {{on "keydown" this.handleClick}}
+        >
           {{yield}}
         </span>
       </span>
@@ -149,9 +152,7 @@ export class DropdownMenuSub extends Component<DropdownMenuSubSignature> {
     this.args.onOpenChange?.(open);
   };
 
-  <template>
-    {{yield this.open this.setOpen}}
-  </template>
+  <template>{{yield this.open this.setOpen}}</template>
 }
 
 // DropdownMenuRadioGroup Component
@@ -344,7 +345,9 @@ export class DropdownMenuCheckboxItem extends Component<DropdownMenuCheckboxItem
       {{on "click" this.handleClick}}
       ...attributes
     >
-      <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+      <span
+        class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"
+      >
         {{#if @checked}}
           <Check class="size-4" />
         {{/if}}
@@ -388,7 +391,9 @@ export class DropdownMenuRadioItem extends Component<DropdownMenuRadioItemSignat
       {{on "click" this.handleClick}}
       ...attributes
     >
-      <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+      <span
+        class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"
+      >
         {{#if this.checked}}
           <Circle class="size-2 fill-current" />
         {{/if}}
@@ -413,11 +418,7 @@ interface DropdownMenuLabelSignature {
 export class DropdownMenuLabel extends Component<DropdownMenuLabelSignature> {
   <template>
     <div
-      class={{cn
-        "px-2 py-1.5 text-sm font-semibold"
-        (if @inset "pl-8")
-        @class
-      }}
+      class={{cn "px-2 py-1.5 text-sm font-semibold" (if @inset "pl-8") @class}}
       ...attributes
     >
       {{yield}}
@@ -438,7 +439,11 @@ interface DropdownMenuSeparatorSignature {
 
 export class DropdownMenuSeparator extends Component<DropdownMenuSeparatorSignature> {
   <template>
-    <div class={{cn "-mx-1 my-1 h-px bg-muted" @class}} role="separator" ...attributes></div>
+    <div
+      class={{cn "-mx-1 my-1 h-px bg-muted" @class}}
+      role="separator"
+      ...attributes
+    ></div>
   </template>
 }
 
@@ -455,7 +460,10 @@ interface DropdownMenuShortcutSignature {
 
 export class DropdownMenuShortcut extends Component<DropdownMenuShortcutSignature> {
   <template>
-    <span class={{cn "ml-auto text-xs tracking-widest opacity-60" @class}} ...attributes>
+    <span
+      class={{cn "ml-auto text-xs tracking-widest opacity-60" @class}}
+      ...attributes
+    >
       {{yield}}
     </span>
   </template>

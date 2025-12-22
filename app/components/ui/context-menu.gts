@@ -141,9 +141,7 @@ export class ContextMenuSub extends Component<ContextMenuSubSignature> {
     this.args.onOpenChange?.(open);
   };
 
-  <template>
-    {{yield this.open this.setOpen}}
-  </template>
+  <template>{{yield this.open this.setOpen}}</template>
 }
 
 // ContextMenuRadioGroup Component
@@ -335,7 +333,9 @@ export class ContextMenuCheckboxItem extends Component<ContextMenuCheckboxItemSi
       {{on "click" this.handleClick}}
       ...attributes
     >
-      <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+      <span
+        class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"
+      >
         {{#if @checked}}
           <Check class="size-4" />
         {{/if}}
@@ -379,7 +379,9 @@ export class ContextMenuRadioItem extends Component<ContextMenuRadioItemSignatur
       {{on "click" this.handleClick}}
       ...attributes
     >
-      <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+      <span
+        class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"
+      >
         {{#if this.checked}}
           <Circle class="size-4 fill-current" />
         {{/if}}
@@ -429,7 +431,11 @@ interface ContextMenuSeparatorSignature {
 
 export class ContextMenuSeparator extends Component<ContextMenuSeparatorSignature> {
   <template>
-    <div class={{cn "-mx-1 my-1 h-px bg-muted" @class}} role="separator" ...attributes></div>
+    <div
+      class={{cn "-mx-1 my-1 h-px bg-muted" @class}}
+      role="separator"
+      ...attributes
+    ></div>
   </template>
 }
 
@@ -446,7 +452,13 @@ interface ContextMenuShortcutSignature {
 
 export class ContextMenuShortcut extends Component<ContextMenuShortcutSignature> {
   <template>
-    <span class={{cn "ml-auto text-xs tracking-widest text-muted-foreground" @class}} ...attributes>
+    <span
+      class={{cn
+        "ml-auto text-xs tracking-widest text-muted-foreground"
+        @class
+      }}
+      ...attributes
+    >
       {{yield}}
     </span>
   </template>

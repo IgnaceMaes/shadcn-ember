@@ -16,8 +16,11 @@ interface TabsSignature {
   Blocks: {
     default: [
       {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         List: any;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         Trigger: any;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         Content: any;
       },
     ];
@@ -45,7 +48,13 @@ class Tabs extends Component<TabsSignature> {
   <template>
     <div class={{cn "w-full" @class}} ...attributes>
       {{yield
-        (hash List=(component TabsList) Trigger=(component TabsTrigger currentTabValue=this.value setValue=this.setValue) Content=(component TabsContent currentTabValue=this.value))
+        (hash
+          List=(component TabsList)
+          Trigger=(component
+            TabsTrigger currentTabValue=this.value setValue=this.setValue
+          )
+          Content=(component TabsContent currentTabValue=this.value)
+        )
       }}
     </div>
   </template>

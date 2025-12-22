@@ -23,10 +23,7 @@ interface InputOTPSignature {
 
 export class InputOTP extends Component<InputOTPSignature> {
   <template>
-    <div
-      class={{cn "flex items-center gap-2" @class}}
-      ...attributes
-    >
+    <div class={{cn "flex items-center gap-2" @class}} ...attributes>
       {{yield}}
     </div>
   </template>

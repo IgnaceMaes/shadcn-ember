@@ -10,6 +10,7 @@ interface ChartContainerSignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     config?: Record<string, any>;
   };
   Blocks: {
@@ -87,7 +88,10 @@ interface ChartLegendSignature {
 
 export class ChartLegend extends Component<ChartLegendSignature> {
   <template>
-    <div class={{cn "flex items-center justify-center gap-4" @class}} ...attributes>
+    <div
+      class={{cn "flex items-center justify-center gap-4" @class}}
+      ...attributes
+    >
       {{yield}}
     </div>
   </template>

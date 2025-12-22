@@ -201,10 +201,7 @@ interface SelectLabelSignature {
 
 export class SelectLabel extends Component<SelectLabelSignature> {
   <template>
-    <div
-      class={{cn "px-2 py-1.5 text-sm font-semibold" @class}}
-      ...attributes
-    >
+    <div class={{cn "px-2 py-1.5 text-sm font-semibold" @class}} ...attributes>
       {{yield}}
     </div>
   </template>
@@ -248,7 +245,9 @@ export class SelectItem extends Component<SelectItemSignature> {
       ...attributes
     >
       {{#if this.isSelected}}
-        <span class="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
+        <span
+          class="absolute right-2 flex h-3.5 w-3.5 items-center justify-center"
+        >
           <Check class="size-4" />
         </span>
       {{/if}}
