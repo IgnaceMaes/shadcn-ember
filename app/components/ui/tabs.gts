@@ -16,9 +16,9 @@ interface TabsSignature {
   Blocks: {
     default: [
       {
-        List: typeof TabsList;
-        Trigger: typeof TabsTrigger;
-        Content: typeof TabsContent;
+        List: any;
+        Trigger: any;
+        Content: any;
       },
     ];
   };

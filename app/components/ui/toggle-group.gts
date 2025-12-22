@@ -25,7 +25,7 @@ interface ToggleGroupSignature {
   Blocks: {
     default: [
       {
-        Item: typeof ToggleGroupItem;
+        Item: any;
       },
     ];
   };

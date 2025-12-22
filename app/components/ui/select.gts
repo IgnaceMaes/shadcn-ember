@@ -2,7 +2,7 @@
 import { tracked } from '@glimmer/tracking';
 import Component from '@glimmer/component';
 import { on } from '@ember/modifier';
-import { hash } from '@ember/helper';
+import { hash, fn } from '@ember/helper';
 // import PhCaretDown from 'ember-phosphor-icons/components/ph-caret-down';
 // import PhCaretUp from 'ember-phosphor-icons/components/ph-caret-up';
 // import PhCheck from 'ember-phosphor-icons/components/ph-check';
@@ -99,7 +99,7 @@ export class SelectTrigger extends Component<SelectTriggerSignature> {
         @class
       }}
       disabled={{@disabled}}
-      {{on "click" @toggle}}
+      {{on "click" (if @toggle @toggle (fn))}}
       ...attributes
     >
       {{yield}}
