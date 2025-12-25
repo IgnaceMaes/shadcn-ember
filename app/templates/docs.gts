@@ -26,6 +26,9 @@ import {
             <DocSidebarLink @route="docs.components.alert">
               Alert
             </DocSidebarLink>
+            <DocSidebarLink @route="docs.components.aspect-ratio">
+              Aspect Ratio
+            </DocSidebarLink>
             <DocSidebarLink @route="docs.components.checkbox">
               Checkbox
             </DocSidebarLink>

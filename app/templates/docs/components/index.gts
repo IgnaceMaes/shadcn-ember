@@ -31,7 +31,7 @@ const components = [
     name: 'Aspect Ratio',
     route: 'docs.components.aspect-ratio',
     isNew: false,
-    hasPage: false,
+    hasPage: true,
   },
   {
     name: 'Avatar',

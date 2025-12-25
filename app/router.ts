@@ -13,6 +13,7 @@ Router.map(function () {
     this.route('components', function () {
       this.route('accordion');
       this.route('alert');
+      this.route('aspect-ratio');
       this.route('checkbox');
     });
   });
