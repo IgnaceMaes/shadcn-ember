@@ -3,9 +3,11 @@ import {
   DocHeader,
   DocContent,
   ComponentPreview,
+  ComponentInstallation,
   CodeBlockThemed,
 } from '@/components/docs';
 import CheckboxDemo from '@/components/docs/examples/checkbox-demo';
+import CheckboxComponent from '@/components/ui/checkbox';
 
 <template>
   <DocPage as |page|>
@@ -18,7 +20,7 @@ import CheckboxDemo from '@/components/docs/examples/checkbox-demo';
       <ComponentPreview @component={{CheckboxDemo}} />
 
       <page.Heading>Installation</page.Heading>
-      <CodeBlockThemed @language="bash" @code="pnpm dlx shadcn@latest add checkbox" />
+      <ComponentInstallation @name="checkbox" @component={{CheckboxComponent}} />
 
       <page.Heading>Usage</page.Heading>
       <CodeBlockThemed @language="gts" @code="import Checkbox from '@/components/ui/checkbox';" />

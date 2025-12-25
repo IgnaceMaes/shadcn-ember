@@ -26,4 +26,5 @@ export { default as ComponentDocPage } from './component-doc-page';
 export { default as ComponentDocHeader } from './component-doc-header';
 export { default as ComponentDocSection } from './component-doc-section';
 export { default as ComponentPreview } from './component-preview';
+export { default as ComponentInstallation } from './component-installation';
 export { default as CodeBlockThemed } from './code-block-themed';
