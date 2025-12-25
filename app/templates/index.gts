@@ -137,10 +137,10 @@ const state = new HomepageState();
 
       {{! Component Examples }}
       <section class="container-wrapper section-soft flex-1 pb-6">
-        <div class="theme-container container flex flex-1 flex-col items-center">
+        <div class="container mx-auto px-4">
           {{! Masonry layout - manually balanced columns }}
           <div
-            class="theme-container mx-auto max-w-7xl grid gap-8 py-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-6 2xl:gap-8"
+            class="mx-auto max-w-7xl grid gap-8 py-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-6 2xl:gap-8"
           >
 
             {{! Column 1 }}
