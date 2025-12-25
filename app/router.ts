@@ -11,6 +11,7 @@ Router.map(function () {
   this.route('kitchensink');
   this.route('docs', function () {
     this.route('components', function () {
+      this.route('alert');
       this.route('checkbox');
     });
   });

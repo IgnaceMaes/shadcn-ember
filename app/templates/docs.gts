@@ -20,6 +20,9 @@ import {
             </DocSidebarLink>
           </DocSidebarGroup>
           <DocSidebarGroup @title="Components">
+            <DocSidebarLink @route="docs.components.alert">
+              Alert
+            </DocSidebarLink>
             <DocSidebarLink @route="docs.components.checkbox">
               Checkbox
             </DocSidebarLink>
