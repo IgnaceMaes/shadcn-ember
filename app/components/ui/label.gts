@@ -15,13 +15,13 @@ interface LabelSignature {
 export default class Label extends Component<LabelSignature> {
   get classes() {
     return cn(
-      'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
+      'flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50',
       this.args.class
     );
   }
 
   <template>
-    <label class={{this.classes}} for={{@for}} ...attributes>
+    <label class={{this.classes}} data-slot="label" for={{@for}} ...attributes>
       {{yield}}
     </label>
   </template>
