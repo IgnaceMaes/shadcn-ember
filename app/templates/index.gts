@@ -234,7 +234,7 @@ const state = new HomepageState();
                       <AvatarFallback>IB</AvatarFallback>
                     </Avatar>
                     <div class="flex-1">
-                      <p class="text-sm font-medium">Ignace Buekes</p>
+                      <p class="text-sm font-medium">Ignace Maes</p>
                       <p class="text-sm text-muted-foreground">Owner</p>
                     </div>
                     <Badge @variant="secondary">Admin</Badge>

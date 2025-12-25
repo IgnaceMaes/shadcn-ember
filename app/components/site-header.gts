@@ -1,5 +1,5 @@
 import { LinkTo } from '@ember/routing';
-import Blocks from '~icons/lucide/blocks';
+import PhNotches from 'ember-phosphor-icons/components/ph-notches';
 import Github from '~icons/lucide/github';
 import Button from '@/components/ui/button';
 import ThemeToggle from '@/components/theme-toggle';
@@ -13,10 +13,7 @@ import ThemeToggle from '@/components/theme-toggle';
     >
       <div class="mr-4 flex">
         <a href="/" class="mr-4 flex items-center gap-2 lg:mr-6">
-          <Blocks class="h-6 w-6" />
-          <span class="hidden font-bold sm:inline-block">
-            shadcn-ember
-          </span>
+          <PhNotches class="size-5" @weight="bold" />
         </a>
         <nav class="flex items-center gap-4 text-sm xl:gap-6">
           <LinkTo
@@ -31,14 +28,6 @@ import ThemeToggle from '@/components/theme-toggle';
           >
             Components
           </LinkTo>
-          <a
-            href="https://github.com/IgnaceMaes/shadcn-ember"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="hidden transition-colors hover:text-foreground/80 text-foreground/60 lg:block"
-          >
-            GitHub
-          </a>
         </nav>
       </div>
       <div class="flex flex-1 items-center justify-end gap-2">
