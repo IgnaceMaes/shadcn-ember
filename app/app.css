@@ -240,6 +240,16 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 
+  /* defaults */
+  --surface: #161616;
+  --surface-foreground: #a1a1a1;
+  --code: var(--surface);
+  --code-foreground: var(--surface-foreground);
+  --code-highlight: #262626;
+  --code-number: #a4a4a4;
+  --selection: #e5e5e5;
+  --selection-foreground: #171717;
+
   /* Ember Shiki - Dark mode copy button styles */
   --ember-shiki-copy-background-color: transparent;
   --ember-shiki-copy-border-color: transparent;
