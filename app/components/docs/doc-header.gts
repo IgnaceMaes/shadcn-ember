@@ -15,8 +15,9 @@ interface DocHeaderSignature {
 
 export default class DocHeader extends Component<DocHeaderSignature> {
   <template>
-    <div class={{cn "flex items-start justify-between" @class}} ...attributes>
-      <div class="space-y-2">
+    <div class={{cn "flex flex-col gap-2" @class}} ...attributes>
+      <div class="flex items-start justify-between">
+        <div class="space-y-2">
         <h1
           class="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl"
         >
@@ -29,8 +30,9 @@ export default class DocHeader extends Component<DocHeaderSignature> {
             {{@description}}
           </p>
         {{/if}}
+        </div>
+        {{yield}}
       </div>
-      {{yield}}
     </div>
   </template>
 }

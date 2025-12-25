@@ -10,14 +10,10 @@ import checkboxDemoCode from '@/components/docs/examples/checkbox-demo.gts?raw';
 
 <template>
   <DocPage as |page|>
-    <div class="flex flex-col gap-2">
-      <div class="flex flex-col gap-2">
-        <DocHeader
-          @title="Checkbox"
-          @description="A control that allows the user to toggle between checked and not checked."
-        />
-      </div>
-    </div>
+    <DocHeader
+      @title="Checkbox"
+      @description="A control that allows the user to toggle between checked and not checked."
+    />
 
     <DocContent>
       <ComponentPreview
