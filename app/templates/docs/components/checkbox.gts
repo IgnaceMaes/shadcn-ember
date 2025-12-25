@@ -4,7 +4,7 @@ import {
   DocPage,
   DocHeader,
   DocContent,
-  ComponentDocSection,
+  DocHeading,
   ComponentPreview,
   CodeBlockThemed,
 } from '@/components/docs';
@@ -21,29 +21,27 @@ const usageExample = `<Checkbox />`;
 class CheckboxDocs extends Component {
   <template>
     <DocPage>
-      <DocHeader
-        @title="Checkbox"
-        @description="A control that allows the user to toggle between checked and not checked."
-      />
+      <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2">
+          <DocHeader
+            @title="Checkbox"
+            @description="A control that allows the user to toggle between checked and not checked."
+          />
+        </div>
+      </div>
 
       <DocContent>
-        <section>
-          <ComponentPreview
-            @component={{CheckboxDemo}}
-            @code={{checkboxDemoCode}}
-          />
-        </section>
+        <ComponentPreview
+          @component={{CheckboxDemo}}
+          @code={{checkboxDemoCode}}
+        />
 
-        <div class="space-y-8 pt-8">
-          <ComponentDocSection @title="Installation">
-            <CodeBlockThemed @language="bash" @code={{installationCode}} />
-          </ComponentDocSection>
+        <DocHeading @id="installation">Installation</DocHeading>
+        <CodeBlockThemed @language="bash" @code={{installationCode}} />
 
-          <ComponentDocSection @title="Usage">
-            <CodeBlockThemed @language="gts" @code={{usageCode}} />
-            <CodeBlockThemed @language="gts" @code={{usageExample}} />
-          </ComponentDocSection>
-        </div>
+        <DocHeading @id="usage">Usage</DocHeading>
+        <CodeBlockThemed @language="gts" @code={{usageCode}} />
+        <CodeBlockThemed @language="gts" @code={{usageExample}} />
       </DocContent>
     </DocPage>
   </template>
