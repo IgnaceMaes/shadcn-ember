@@ -1,10 +1,13 @@
 /* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
-import ComponentDocPage from '@/components/docs/component-doc-page';
-import ComponentDocHeader from '@/components/docs/component-doc-header';
-import ComponentDocSection from '@/components/docs/component-doc-section';
-import ComponentPreview from '@/components/docs/component-preview';
-import CodeBlockThemed from '@/components/docs/code-block-themed';
+import {
+  DocPage,
+  DocHeader,
+  DocContent,
+  ComponentDocSection,
+  ComponentPreview,
+  CodeBlockThemed,
+} from '@/components/docs';
 import CheckboxDemo from '@/components/docs/examples/checkbox-demo';
 
 // Code snippet for documentation
@@ -59,32 +62,31 @@ const usageExample = `<Checkbox />`;
 // Main Documentation Component
 class CheckboxDocs extends Component {
   <template>
-    <ComponentDocPage>
-      <ComponentDocHeader
+    <DocPage>
+      <DocHeader
         @title="Checkbox"
         @description="A control that allows the user to toggle between checked and not checked."
       />
 
-      {{! Preview Section }}
-      <div class="space-y-8 pb-12 pt-8">
+      <DocContent>
         <section>
           <ComponentPreview @code={{demoCode}}>
             <CheckboxDemo />
           </ComponentPreview>
         </section>
 
-        {{! Installation }}
-        <ComponentDocSection @title="Installation">
-          <CodeBlockThemed @language="bash" @code={{installationCode}} />
-        </ComponentDocSection>
+        <div class="space-y-8 pt-8">
+          <ComponentDocSection @title="Installation">
+            <CodeBlockThemed @language="bash" @code={{installationCode}} />
+          </ComponentDocSection>
 
-        {{! Usage }}
-        <ComponentDocSection @title="Usage">
-          <CodeBlockThemed @language="gts" @code={{usageCode}} />
-          <CodeBlockThemed @language="gts" @code={{usageExample}} />
-        </ComponentDocSection>
-      </div>
-    </ComponentDocPage>
+          <ComponentDocSection @title="Usage">
+            <CodeBlockThemed @language="gts" @code={{usageCode}} />
+            <CodeBlockThemed @language="gts" @code={{usageExample}} />
+          </ComponentDocSection>
+        </div>
+      </DocContent>
+    </DocPage>
   </template>
 }
 
