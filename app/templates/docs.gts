@@ -1,4 +1,3 @@
-import { LinkTo } from '@ember/routing';
 import {
   DocLayout,
   DocSidebar,

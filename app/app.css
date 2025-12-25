@@ -82,6 +82,11 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 
+  /* Layout variables */
+  --header-height: 3.5rem;
+  --footer-height: 3.5rem;
+  --top-spacing: 1rem;
+
   /* defaults or so */
   --color-black: #000;
   --color-white: #fff;

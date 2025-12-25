@@ -11,7 +11,7 @@ import {
 } from '@/components/docs';
 
 <template>
-  <DocPage>
+  <DocPage as |page|>
     <DocHeader
       @title="Introduction"
       @description="Build your own component library with beautiful, accessible components."
@@ -57,7 +57,7 @@ import {
           Open code for LLMs to read, understand, and improve.</DocListItem>
       </DocList>
 
-      <DocHeading id="open-code">Open Code</DocHeading>
+      <page.Heading @id="open-code">Open Code</page.Heading>
 
       <DocParagraph>
         shadcn-ember hands you the actual component code. You have full control
@@ -81,7 +81,7 @@ import {
           shadcn-ember, you simply edit the button code directly.</DocEmphasis>
       </DocParagraph>
 
-      <DocHeading id="composition">Composition</DocHeading>
+      <page.Heading @id="composition">Composition</page.Heading>
 
       <DocParagraph>
         Every component in shadcn-ember shares a common, composable interface.
@@ -96,7 +96,7 @@ import {
           new component. Even for third-party ones.</DocEmphasis>
       </DocParagraph>
 
-      <DocHeading id="distribution">Distribution</DocHeading>
+      <page.Heading @id="distribution">Distribution</page.Heading>
 
       <DocParagraph>
         shadcn-ember is also a code distribution system. It defines a schema for
@@ -118,7 +118,7 @@ import {
           existing schema.</DocEmphasis>
       </DocParagraph>
 
-      <DocHeading id="beautiful-defaults">Beautiful Defaults</DocHeading>
+      <page.Heading @id="beautiful-defaults">Beautiful Defaults</page.Heading>
 
       <DocParagraph>
         shadcn-ember comes with a large collection of components that have
@@ -137,7 +137,7 @@ import {
           the defaults.</DocListItem>
       </DocList>
 
-      <DocHeading id="ai-ready">AI-Ready</DocHeading>
+      <page.Heading @id="ai-ready">AI-Ready</page.Heading>
 
       <DocParagraph>
         The design of shadcn-ember makes it easy for AI tools to work with your

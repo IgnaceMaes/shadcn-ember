@@ -4,7 +4,6 @@ import {
   DocPage,
   DocHeader,
   DocContent,
-  DocHeading,
   ComponentPreview,
   CodeBlockThemed,
 } from '@/components/docs';
@@ -20,7 +19,7 @@ const usageExample = `<Checkbox />`;
 // Main Documentation Component
 class CheckboxDocs extends Component {
   <template>
-    <DocPage>
+    <DocPage as |page|>
       <div class="flex flex-col gap-2">
         <div class="flex flex-col gap-2">
           <DocHeader
@@ -36,10 +35,10 @@ class CheckboxDocs extends Component {
           @code={{checkboxDemoCode}}
         />
 
-        <DocHeading @id="installation">Installation</DocHeading>
+        <page.Heading @id="installation">Installation</page.Heading>
         <CodeBlockThemed @language="bash" @code={{installationCode}} />
 
-        <DocHeading @id="usage">Usage</DocHeading>
+        <page.Heading @id="usage">Usage</page.Heading>
         <CodeBlockThemed @language="gts" @code={{usageCode}} />
         <CodeBlockThemed @language="gts" @code={{usageExample}} />
       </DocContent>

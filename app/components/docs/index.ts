@@ -7,6 +7,7 @@ export { default as DocHeaderNav } from './doc-header-nav';
 export { default as DocSidebar } from './doc-sidebar';
 export { default as DocSidebarGroup } from './doc-sidebar-group';
 export { default as DocSidebarLink } from './doc-sidebar-link';
+export { default as DocToc } from './doc-toc';
 
 // Page Components
 export { default as DocPage } from './doc-page';

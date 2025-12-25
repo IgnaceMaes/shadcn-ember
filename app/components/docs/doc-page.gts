@@ -1,5 +1,18 @@
+/* eslint-disable ember/no-runloop */
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { modifier } from 'ember-modifier';
+import { scheduleOnce } from '@ember/runloop';
 import { cn } from '@/lib/utils';
+import DocToc from './doc-toc';
+import DocHeading from './doc-heading';
+import { hash } from '@ember/helper';
+
+export interface TocItem {
+  id: string;
+  title: string;
+  depth: number;
+}
 
 interface DocPageSignature {
   Element: HTMLDivElement;
@@ -7,20 +20,80 @@ interface DocPageSignature {
     class?: string;
   };
   Blocks: {
-    default: [];
+    default: [
+      {
+        Heading: typeof RegisteredHeading;
+      },
+    ];
   };
 }
 
-export default class DocPage extends Component<DocPageSignature> {
+class RegisteredHeading extends Component<{
+  Args: { id: string; class?: string; registerHeading?: any; unregisterHeading?: any };
+  Blocks: { default: [] };
+}> {
+  registerHeading = modifier((element: HTMLHeadingElement) => {
+    if (this.args.registerHeading && this.args.id) {
+      const title = element.textContent?.trim() || '';
+      this.args.registerHeading(this.args.id, title, 2);
+    }
+
+    return () => {
+      if (this.args.unregisterHeading && this.args.id) {
+        this.args.unregisterHeading(this.args.id);
+      }
+    };
+  });
+
   <template>
-    <div
-      class={{cn
-        "mx-auto flex w-full max-w-2xl min-w-0 flex-1 flex-col gap-8 px-4 py-6 text-neutral-800 md:px-0 lg:py-8 dark:text-neutral-300"
-        @class
-      }}
-      ...attributes
-    >
+    <DocHeading @id={{@id}} @class={{@class}} {{this.registerHeading}}>
       {{yield}}
+    </DocHeading>
+  </template>
+}
+
+export default class DocPage extends Component<DocPageSignature> {
+  @tracked tocItems: TocItem[] = [];
+
+  registerHeading = (id: string, title: string, depth: number) => {
+    scheduleOnce('afterRender', () => {
+      const exists = this.tocItems.find((item) => item.id === id);
+      if (!exists) {
+        this.tocItems = [...this.tocItems, { id, title, depth }];
+      }
+    });
+  };
+
+  unregisterHeading = (id: string) => {
+    scheduleOnce('afterRender', () => {
+      this.tocItems = this.tocItems.filter((item) => item.id !== id);
+    });
+  };
+
+  <template>
+    <div class="flex items-stretch text-[1.05rem] sm:text-[15px] xl:w-full">
+      <div class="flex min-w-0 flex-1 flex-col">
+        <div
+          class={{cn
+            "mx-auto flex w-full max-w-2xl min-w-0 flex-1 flex-col gap-8 px-4 py-6 text-neutral-800 md:px-0 lg:py-8 dark:text-neutral-300"
+            @class
+          }}
+          ...attributes
+        >
+          {{yield
+            (hash
+              Heading=(component
+                RegisteredHeading
+                registerHeading=this.registerHeading
+                unregisterHeading=this.unregisterHeading
+              )
+            )
+          }}
+        </div>
+      </div>
+      {{#if this.tocItems}}
+        <DocToc @items={{this.tocItems}} />
+      {{/if}}
     </div>
   </template>
 }
