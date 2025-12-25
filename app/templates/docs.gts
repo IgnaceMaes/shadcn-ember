@@ -13,10 +13,15 @@ import {
         <DocSidebar>
           <DocSidebarGroup @title="Sections" @listClass="gap-1">
             <DocSidebarLink @route="docs">
-              Get Started
+              Introduction
             </DocSidebarLink>
             <DocSidebarLink @route="docs.components">
               Components
+            </DocSidebarLink>
+          </DocSidebarGroup>
+          <DocSidebarGroup @title="Get Started" @listClass="gap-1">
+            <DocSidebarLink @route="docs.installation">
+              Installation
             </DocSidebarLink>
           </DocSidebarGroup>
           <DocSidebarGroup @title="Components">

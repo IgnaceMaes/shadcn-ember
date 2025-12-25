@@ -116,19 +116,13 @@ const state = new HomepageState();
               <LinkTo @route="docs">
                 <Button>
                   Get Started
-                  <MoveRight class="ml-2 h-4 w-4" />
                 </Button>
               </LinkTo>
-              <a
-                href="https://github.com/IgnaceMaes/shadcn-ember"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button @variant="outline">
-                  <Github class="mr-2 h-4 w-4" />
-                  GitHub
+              <LinkTo @route="docs.components.index">
+                <Button @variant="ghost">
+                  View Components
                 </Button>
-              </a>
+              </LinkTo>
             </div>
           </div>
         </div>
