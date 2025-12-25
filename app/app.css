@@ -5,6 +5,7 @@
 
 @theme {
   --font-sans: 'Geist', sans-serif;
+  --font-mono: 'Geist Mono', monospace;
 }
 
 @theme inline {
@@ -286,6 +287,7 @@ button[class*='copy']:hover {
 pre.shiki {
   --ember-shiki-line-height: 1.8;
   --ember-shiki-line-number-color: var(--code-number);
+  --ember-shiki-font: var(--font-mono);
 
   background-color: transparent !important;
 }

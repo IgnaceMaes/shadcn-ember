@@ -198,7 +198,7 @@ export default class ComponentInstallation extends Component<ComponentInstallati
             style="--shiki-dark: #e1e4e8; --shiki-light: #1f2328; --shiki-dark-bg: #24292e; --shiki-light-bg: var(--surface); background-color: var(--surface);"
           >
             <div class="border-border/50 flex items-center gap-2 border-b px-3 py-3">
-              <span class="text-muted-foreground">
+              <span class="text-muted-foreground font-mono text-sm">
                 {{this.componentPath}}
               </span>
             </div>
