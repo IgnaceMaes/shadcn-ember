@@ -264,3 +264,7 @@ button[class*='copy'] {
 button[class*='copy']:hover {
   opacity: 1 !important;
 }
+
+html {
+  scroll-behavior: smooth;
+}
