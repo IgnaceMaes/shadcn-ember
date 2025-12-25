@@ -195,7 +195,7 @@
   --color-code-number: var(--code-number);
 
   /* docs specific */
-  --surface: lab(97.68% -.0000298023 .0000119209);
+  --surface: lab(97.68% -0.0000298023 0.0000119209);
   --code-highlight: lab(95.36% 0 0);
   --code-number: lab(48.96% 0 0);
   --selection: lab(2.75381% 0 0);

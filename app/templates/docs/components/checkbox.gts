@@ -20,10 +20,16 @@ import CheckboxComponent from '@/components/ui/checkbox';
       <ComponentPreview @component={{CheckboxDemo}} />
 
       <page.Heading>Installation</page.Heading>
-      <ComponentInstallation @name="checkbox" @component={{CheckboxComponent}} />
+      <ComponentInstallation
+        @name="checkbox"
+        @component={{CheckboxComponent}}
+      />
 
       <page.Heading>Usage</page.Heading>
-      <CodeBlockThemed @language="gts" @code="import Checkbox from '@/components/ui/checkbox';" />
+      <CodeBlockThemed
+        @language="gts"
+        @code="import Checkbox from '@/components/ui/checkbox';"
+      />
       <CodeBlockThemed @language="hbs" @code="<Checkbox />" />
     </DocContent>
   </DocPage>

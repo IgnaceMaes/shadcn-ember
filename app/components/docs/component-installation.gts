@@ -58,7 +58,9 @@ export default class ComponentInstallation extends Component<ComponentInstallati
       // Try to find by name
       for (const path in uiComponents) {
         if (path.includes(`/${this.args.name}.gts`)) {
-          return (uiRawSources[path] as string) ?? '// Component source not found';
+          return (
+            (uiRawSources[path] as string) ?? '// Component source not found'
+          );
         }
       }
       return '// Component source not found';
@@ -68,7 +70,9 @@ export default class ComponentInstallation extends Component<ComponentInstallati
     for (const path in uiComponents) {
       const module = uiComponents[path];
       if (module?.default === this.args.component) {
-        return (uiRawSources[path] as string) ?? '// Component source not found';
+        return (
+          (uiRawSources[path] as string) ?? '// Component source not found'
+        );
       }
     }
     return '// Component source not found';
@@ -99,7 +103,9 @@ export default class ComponentInstallation extends Component<ComponentInstallati
           style="--shiki-dark: #e1e4e8; --shiki-light: #1f2328; --shiki-dark-bg: #24292e; --shiki-light-bg: var(--surface); background-color: var(--surface);"
         >
           <Tabs @defaultValue="pnpm" as |pkgTabs|>
-            <div class="border-border/50 flex items-center gap-2 border-b px-3 py-1">
+            <div
+              class="border-border/50 flex items-center gap-2 border-b px-3 py-1"
+            >
               <div
                 class="bg-foreground flex size-4 items-center justify-center rounded-[1px] opacity-70"
               >
@@ -194,10 +200,12 @@ export default class ComponentInstallation extends Component<ComponentInstallati
             Copy and paste the following code into your project.
           </p>
           <div
-            class="relative overflow-hidden rounded-lg border [&_pre]:max-h-100 [&_pre]:m-0! [&_pre]:rounded-none!"
+            class="relative overflow-hidden rounded-lg [&_pre]:max-h-100 [&_pre]:m-0! [&_pre]:rounded-none!"
             style="--shiki-dark: #e1e4e8; --shiki-light: #1f2328; --shiki-dark-bg: #24292e; --shiki-light-bg: var(--surface); background-color: var(--surface);"
           >
-            <div class="border-border/50 flex items-center gap-2 border-b px-3 py-3">
+            <div
+              class="border-border/50 flex items-center gap-2 border-b px-3 py-3"
+            >
               <span class="text-muted-foreground font-mono text-sm">
                 {{this.componentPath}}
               </span>

@@ -18,18 +18,18 @@ export default class DocHeader extends Component<DocHeaderSignature> {
     <div class={{cn "flex flex-col gap-2" @class}} ...attributes>
       <div class="flex items-start justify-between">
         <div class="space-y-2">
-        <h1
-          class="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl"
-        >
-          {{@title}}
-        </h1>
-        {{#if @description}}
-          <p
-            class="text-muted-foreground text-[1.05rem] text-balance sm:text-base"
+          <h1
+            class="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl"
           >
-            {{@description}}
-          </p>
-        {{/if}}
+            {{@title}}
+          </h1>
+          {{#if @description}}
+            <p
+              class="text-muted-foreground text-[1.05rem] text-balance sm:text-base"
+            >
+              {{@description}}
+            </p>
+          {{/if}}
         </div>
         {{yield}}
       </div>
