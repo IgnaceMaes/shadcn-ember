@@ -1,8 +1,6 @@
 import { LinkTo } from '@ember/routing';
-import ThemeToggle from '@/components/theme-toggle';
 import {
   DocLayout,
-  DocHeaderNav,
   DocSidebar,
   DocSidebarGroup,
   DocSidebarLink,
@@ -10,30 +8,6 @@ import {
 
 <template>
   <div class="min-h-screen bg-background">
-    <DocHeaderNav>
-      <:logo>
-        <LinkTo @route="docs" class="mr-6 flex items-center space-x-2">
-          <span class="font-bold">shadcn-ember</span>
-        </LinkTo>
-      </:logo>
-      <:nav>
-        <LinkTo
-          @route="docs.components.checkbox"
-          class="transition-colors hover:text-foreground/80 text-foreground"
-        >
-          Documentation
-        </LinkTo>
-        <LinkTo
-          @route="kitchensink"
-          class="transition-colors hover:text-foreground/80 text-foreground/60"
-        >
-          Kitchen Sink
-        </LinkTo>
-      </:nav>
-      <:actions>
-        <ThemeToggle @size="sm" />
-      </:actions>
-    </DocHeaderNav>
 
     <DocLayout>
       <:sidebar>

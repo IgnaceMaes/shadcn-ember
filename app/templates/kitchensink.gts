@@ -167,16 +167,6 @@ import {
   PaginationNext,
   PaginationEllipsis,
 } from '@/components/ui/pagination';
-// import PhHeart from 'ember-phosphor-icons/components/ph-heart';
-// import PhTextB from 'ember-phosphor-icons/components/ph-text-b';
-// import PhTextItalic from 'ember-phosphor-icons/components/ph-text-italic';
-// import PhTextUnderline from 'ember-phosphor-icons/components/ph-text-underline';
-// import PhInfo from 'ember-phosphor-icons/components/ph-info';
-// import PhWarning from 'ember-phosphor-icons/components/ph-warning';
-// import PhPlus from 'ember-phosphor-icons/components/ph-plus';
-// import PhTrash from 'ember-phosphor-icons/components/ph-trash';
-// import PhMinus from 'ember-phosphor-icons/components/ph-minus';
-// import PhX from 'ember-phosphor-icons/components/ph-x';
 import Heart from '~icons/lucide/heart';
 import Bold from '~icons/lucide/bold';
 import Italic from '~icons/lucide/italic';

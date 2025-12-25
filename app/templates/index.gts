@@ -10,7 +10,6 @@ import ChevronRight from '~icons/lucide/chevron-right';
 import Check from '~icons/lucide/check';
 import Copy from '~icons/lucide/copy';
 import TerminalIcon from '~icons/lucide/terminal';
-import Blocks from '~icons/lucide/blocks';
 import Settings2 from '~icons/lucide/settings-2';
 import User from '~icons/lucide/user';
 import UserPlus from '~icons/lucide/user-plus';
@@ -46,7 +45,6 @@ import {
   SelectItem,
   SelectLabel,
 } from '@/components/ui/select';
-import ThemeToggle from '@/components/theme-toggle';
 
 // State management class for the homepage
 class HomepageState {
@@ -95,64 +93,9 @@ const state = new HomepageState();
 
 <template>
   <div class="min-h-screen bg-background">
-    {{! Header }}
-    <header
-      class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
-    >
-      <div
-        class="container flex h-14 max-w-screen-2xl items-center px-4 mx-auto"
-      >
-        <div class="mr-4 flex">
-          <a href="/" class="mr-4 flex items-center gap-2 lg:mr-6">
-            <Blocks class="h-6 w-6" />
-            <span class="hidden font-bold sm:inline-block">
-              shadcn-ember
-            </span>
-          </a>
-          <nav class="flex items-center gap-4 text-sm xl:gap-6">
-            <LinkTo
-              @route="docs"
-              class="transition-colors hover:text-foreground/80 text-foreground/60"
-            >
-              Docs
-            </LinkTo>
-            <LinkTo
-              @route="docs.components"
-              class="transition-colors hover:text-foreground/80 text-foreground/60"
-            >
-              Components
-            </LinkTo>
-            <a
-              href="https://github.com/IgnaceMaes/shadcn-ember"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="hidden transition-colors hover:text-foreground/80 text-foreground/60 lg:block"
-            >
-              GitHub
-            </a>
-          </nav>
-        </div>
-        <div class="flex flex-1 items-center justify-end gap-2">
-          <div class="flex items-center gap-2">
-            <a
-              href="https://github.com/IgnaceMaes/shadcn-ember"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button @variant="ghost" @size="icon">
-                <Github class="h-4 w-4" />
-                <span class="sr-only">GitHub</span>
-              </Button>
-            </a>
-            <ThemeToggle @variant="outline" />
-          </div>
-        </div>
-      </div>
-    </header>
-
     <main>
       {{! Hero Section }}
-      <section class="relative overflow-hidden py-20 md:py-32">
+      <section class="relative">
         <div class="container relative px-4 mx-auto">
           <div
             class="container flex flex-col items-center gap-2 py-8 text-center md:py-16 lg:py-20 xl:gap-4"
@@ -194,10 +137,10 @@ const state = new HomepageState();
 
       {{! Component Examples }}
       <section class="container-wrapper section-soft flex-1 pb-6">
-        <div class="theme-container container flex flex-1 flex-col">
+        <div class="theme-container container flex flex-1 flex-col items-center">
           {{! Masonry layout - manually balanced columns }}
           <div
-            class="theme-container mx-auto grid gap-8 py-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-6 2xl:gap-8"
+            class="theme-container mx-auto max-w-7xl grid gap-8 py-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-6 2xl:gap-8"
           >
 
             {{! Column 1 }}
