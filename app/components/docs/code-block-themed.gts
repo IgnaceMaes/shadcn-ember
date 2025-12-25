@@ -19,11 +19,16 @@ export default class CodeBlockThemed extends Component<CodeBlockThemedSignature>
   }
 
   <template>
-    <CodeBlock
-      @language={{@language}}
-      @code={{@code}}
-      @showLineNumbers={{this.showLineNumbers}}
-      @theme={{this.theme.codeBlockTheme}}
-    />
+    <div
+      class="relative overflow-hidden rounded-lg [&_pre]:m-0! [&_pre]:rounded-none! mt-4"
+      style="--shiki-dark: #e1e4e8; --shiki-light: #1f2328; --shiki-dark-bg: #24292e; --shiki-light-bg: var(--surface); background-color: var(--surface);"
+    >
+      <CodeBlock
+        @language={{@language}}
+        @code={{@code}}
+        @showLineNumbers={{this.showLineNumbers}}
+        @theme={{this.theme.codeBlockTheme}}
+      />
+    </div>
   </template>
 }

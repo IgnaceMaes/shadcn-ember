@@ -63,13 +63,14 @@ export default class ComponentPreview extends Component<ComponentPreviewSignatur
       <div data-slot="code" class="border-t">
         <div
           class="relative [&_pre]:max-h-[400px] [&_pre]:!m-0 [&_pre]:!rounded-none"
+          style="--shiki-dark: #e1e4e8; --shiki-light: #1f2328; --shiki-dark-bg: #24292e; --shiki-light-bg: var(--surface); background-color: var(--surface);"
         >
           <CodeBlock
             @language="gts"
             @code={{this.code}}
             @showLineNumbers={{this.showLineNumbers}}
             @theme={{this.theme.codeBlockTheme}}
-            style="--ember-shiki-padding-x: 1rem; --ember-shiki-padding-y: 0.875rem; --ember-shiki-border-radius: 0; --ember-shiki-background-color: transparent; --ember-shiki-line-height: 1.6; --ember-shiki-font-size: 0.875rem; background-color: transparent; --shiki-light-bg: #fff; --shiki-dark-bg: #0d1117;"
+            style="--ember-shiki-padding-x: 1rem; --ember-shiki-padding-y: 0.875rem; --ember-shiki-border-radius: 0; --ember-shiki-background-color: transparent; --ember-shiki-line-height: 1.6; --ember-shiki-font-size: 0.875rem;"
           />
         </div>
       </div>
