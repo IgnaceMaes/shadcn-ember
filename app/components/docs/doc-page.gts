@@ -14,6 +14,15 @@ export interface TocItem {
   depth: number;
 }
 
+function toKebabCase(text: string): string {
+  return text
+    .trim()
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+}
+
 interface DocPageSignature {
   Element: HTMLDivElement;
   Args: {
@@ -29,18 +38,25 @@ interface DocPageSignature {
 }
 
 class RegisteredHeading extends Component<{
-  Args: { id: string; class?: string; registerHeading?: any; unregisterHeading?: any };
+  Args: { id?: string; class?: string; registerHeading?: any; unregisterHeading?: any };
   Blocks: { default: [] };
 }> {
   registerHeading = modifier((element: HTMLHeadingElement) => {
-    if (this.args.registerHeading && this.args.id) {
-      const title = element.textContent?.trim() || '';
-      this.args.registerHeading(this.args.id, title, 2);
+    const title = element.textContent?.trim() || '';
+    const id = this.args.id || toKebabCase(title);
+
+    // Set the id on the element if it wasn't explicitly provided
+    if (!this.args.id) {
+      element.id = id;
+    }
+
+    if (this.args.registerHeading) {
+      this.args.registerHeading(id, title, 2);
     }
 
     return () => {
-      if (this.args.unregisterHeading && this.args.id) {
-        this.args.unregisterHeading(this.args.id);
+      if (this.args.unregisterHeading) {
+        this.args.unregisterHeading(id);
       }
     };
   });

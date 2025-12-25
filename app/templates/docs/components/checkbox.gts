@@ -35,10 +35,10 @@ class CheckboxDocs extends Component {
           @code={{checkboxDemoCode}}
         />
 
-        <page.Heading @id="installation">Installation</page.Heading>
+        <page.Heading>Installation</page.Heading>
         <CodeBlockThemed @language="bash" @code={{installationCode}} />
 
-        <page.Heading @id="usage">Usage</page.Heading>
+        <page.Heading>Usage</page.Heading>
         <CodeBlockThemed @language="gts" @code={{usageCode}} />
         <CodeBlockThemed @language="gts" @code={{usageExample}} />
       </DocContent>
