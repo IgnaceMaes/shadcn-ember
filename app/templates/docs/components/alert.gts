@@ -33,7 +33,7 @@ const usageCode = `<Alert @variant="default">
         @language="gts"
         @code="import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';"
       />
-      <CodeBlockThemed @language="gts" @code={{usageCode}} />
+      <CodeBlockThemed @language="hbs" @code={{usageCode}} />
     </DocContent>
   </DocPage>
 </template>
