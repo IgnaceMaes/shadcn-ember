@@ -45,6 +45,7 @@ import {
   SelectItem,
   SelectLabel,
 } from '@/components/ui/select';
+import FieldDemo from '@/components/docs/examples/field-demo';
 
 // State management class for the homepage
 class HomepageState {
@@ -140,11 +141,14 @@ const state = new HomepageState();
         <div class="container mx-auto px-4">
           {{! Masonry layout - manually balanced columns }}
           <div
-            class="mx-auto max-w-7xl grid gap-8 py-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-6 2xl:gap-8"
+            class="theme-container mx-auto grid gap-8 py-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-6 2xl:gap-8"
           >
 
             {{! Column 1 }}
             <div class="flex flex-col gap-6 *:[div]:w-full *:[div]:max-w-full">
+              {{! Field Demo }}
+              <FieldDemo />
+
               {{! Input with Label }}
               <Card>
                 <CardHeader>
