@@ -2,20 +2,20 @@ import { LinkTo } from '@ember/routing';
 import PhNotches from 'ember-phosphor-icons/components/ph-notches';
 import Github from '~icons/lucide/github';
 import Button from '@/components/ui/button';
+import Separator from '@/components/ui/separator';
 import ThemeToggle from '@/components/theme-toggle';
 
 <template>
-  <header
-    class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
-  >
-    <div
-      class="container flex h-14 max-w-screen-2xl items-center px-4 mx-auto"
-    >
-      <div class="mr-4 flex">
-        <a href="/" class="mr-4 flex items-center gap-2 lg:mr-6">
-          <PhNotches class="size-5" @weight="bold" />
-        </a>
-        <nav class="flex items-center gap-4 text-sm xl:gap-6">
+  <header class="bg-background sticky top-0 z-50 w-full">
+    <div class="container-wrapper px-6">
+      <div class="flex h-14 items-center">
+        <Button @variant="ghost" @size="icon" class="size-8">
+          <LinkTo @route="index">
+            <PhNotches class="size-5" @weight="bold" />
+            <span class="sr-only">shadcn-ember</span>
+          </LinkTo>
+        </Button>
+        <nav class="hidden lg:flex items-center gap-4 text-sm ml-4">
           <LinkTo
             @route="docs"
             class="transition-colors hover:text-foreground/80 text-foreground/60"
@@ -29,9 +29,8 @@ import ThemeToggle from '@/components/theme-toggle';
             Components
           </LinkTo>
         </nav>
-      </div>
-      <div class="flex flex-1 items-center justify-end gap-2">
-        <div class="flex items-center gap-2">
+        <div class="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
+          <Separator @orientation="vertical" class="ml-2 hidden lg:block" />
           <a
             href="https://github.com/IgnaceMaes/shadcn-ember"
             target="_blank"
@@ -42,7 +41,8 @@ import ThemeToggle from '@/components/theme-toggle';
               <span class="sr-only">GitHub</span>
             </Button>
           </a>
-          <ThemeToggle @variant="outline" />
+          <Separator @orientation="vertical" />
+          <ThemeToggle />
         </div>
       </div>
     </div>
