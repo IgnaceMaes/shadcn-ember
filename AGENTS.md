@@ -16,6 +16,7 @@ Use modern Ember (Polaris edition) conventions:
 - Use Lucide icons via imports e.g. `import Check from '~icons/lucide/check';` (all icons are available)
 - Make sure all helpers/modifiers/components are imported via `import X from '...'` at the top of the gts file (no global usage)
 - Do not install new Ember dependencies without approval. Keep it vanilla Ember as much as possible.
+- Create template-only components where possible (no backing class if no local state or methods are needed)
 
 ## General
 

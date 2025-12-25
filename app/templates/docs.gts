@@ -12,9 +12,12 @@ import {
     <DocLayout>
       <:sidebar>
         <DocSidebar>
-          <DocSidebarGroup @title="Getting Started">
+          <DocSidebarGroup @title="Sections">
             <DocSidebarLink @route="docs">
-              Introduction
+              Get Started
+            </DocSidebarLink>
+            <DocSidebarLink @route="docs.components">
+              Components
             </DocSidebarLink>
           </DocSidebarGroup>
           <DocSidebarGroup @title="Components">
