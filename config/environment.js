@@ -27,6 +27,8 @@ module.exports = function (environment) {
         'javascript',
         'tsx',
         'bash',
+        'css',
+        'json',
       ],
       defaultThemes: ['github-dark', 'github-light'],
     },
