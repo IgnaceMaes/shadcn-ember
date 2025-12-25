@@ -2,7 +2,6 @@ import {
   DocPage,
   DocHeader,
   DocContent,
-  DocHeading,
   DocParagraph,
   DocList,
   DocListItem,

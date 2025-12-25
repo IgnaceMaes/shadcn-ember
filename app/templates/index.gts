@@ -5,16 +5,10 @@ import { LinkTo } from '@ember/routing';
 // Icons
 import Github from '~icons/lucide/github';
 import MoveRight from '~icons/lucide/move-right';
-import Bell from '~icons/lucide/bell';
 import ChevronRight from '~icons/lucide/chevron-right';
 import Check from '~icons/lucide/check';
 import Copy from '~icons/lucide/copy';
-import TerminalIcon from '~icons/lucide/terminal';
-import Settings2 from '~icons/lucide/settings-2';
-import User from '~icons/lucide/user';
 import UserPlus from '~icons/lucide/user-plus';
-import Mail from '~icons/lucide/mail';
-import LogOut from '~icons/lucide/log-out';
 
 // UI Components
 import Button from '@/components/ui/button';
