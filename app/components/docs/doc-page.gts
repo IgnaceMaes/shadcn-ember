@@ -77,7 +77,11 @@ export default class DocPage extends Component<DocPageSignature> {
           ...attributes
         >
           {{yield
-            (hash Heading=(component RegisteredHeading onRegister=this.handleRegister))
+            (hash
+              Heading=(component
+                RegisteredHeading onRegister=this.handleRegister
+              )
+            )
           }}
         </div>
       </div>

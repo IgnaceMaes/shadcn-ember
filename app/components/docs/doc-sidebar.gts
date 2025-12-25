@@ -20,7 +20,9 @@ export default class DocSidebar extends Component<DocSidebarSignature> {
       }}
       ...attributes
     >
-      <div class="no-scrollbar overflow-x-hidden px-2">
+      <div
+        class="flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden no-scrollbar overflow-x-hidden px-2"
+      >
         <div
           class="from-background via-background/80 to-background/50 sticky -top-1 z-10 h-8 shrink-0 bg-gradient-to-b blur-xs"
         />

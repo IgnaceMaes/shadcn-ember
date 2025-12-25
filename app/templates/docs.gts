@@ -11,7 +11,7 @@ import {
     <DocLayout>
       <:sidebar>
         <DocSidebar>
-          <DocSidebarGroup @title="Sections">
+          <DocSidebarGroup @title="Sections" @listClass="gap-1">
             <DocSidebarLink @route="docs">
               Get Started
             </DocSidebarLink>
