@@ -3,9 +3,11 @@ import {
   DocHeader,
   DocContent,
   ComponentPreview,
+  ComponentInstallation,
   CodeBlockThemed,
 } from '@/components/docs';
 import AlertDemo from '@/components/docs/examples/alert-demo';
+import AlertComponent from '@/components/ui/alert';
 
 const usageCode = `<Alert @variant="default">
   <Terminal />
@@ -26,7 +28,7 @@ const usageCode = `<Alert @variant="default">
       <ComponentPreview @component={{AlertDemo}} />
 
       <page.Heading>Installation</page.Heading>
-      <CodeBlockThemed @language="bash" @code="pnpm dlx shadcn@latest add alert" />
+      <ComponentInstallation @name="alert" @component={{AlertComponent}} />
 
       <page.Heading>Usage</page.Heading>
       <CodeBlockThemed

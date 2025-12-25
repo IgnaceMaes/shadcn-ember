@@ -95,7 +95,8 @@ export default class ComponentInstallation extends Component<ComponentInstallati
 
       <tabs.Content @value="cli" @class="flex-1 outline-none relative mt-2">
         <div
-          class="overflow-hidden rounded-lg border [&_pre]:max-h-none [&_pre]:m-0! [&_pre]:rounded-none!"
+          class="overflow-hidden rounded-lg [&_pre]:max-h-none [&_pre]:m-0! [&_pre]:rounded-none!"
+          style="--shiki-dark: #e1e4e8; --shiki-light: #1f2328; --shiki-dark-bg: #24292e; --shiki-light-bg: var(--surface); background-color: var(--surface);"
         >
           <Tabs @defaultValue="pnpm" as |pkgTabs|>
             <div class="border-border/50 flex items-center gap-2 border-b px-3 py-1">
@@ -194,6 +195,7 @@ export default class ComponentInstallation extends Component<ComponentInstallati
           </p>
           <div
             class="relative overflow-hidden rounded-lg border [&_pre]:max-h-100 [&_pre]:m-0! [&_pre]:rounded-none!"
+            style="--shiki-dark: #e1e4e8; --shiki-light: #1f2328; --shiki-dark-bg: #24292e; --shiki-light-bg: var(--surface); background-color: var(--surface);"
           >
             <div class="border-border/50 flex items-center gap-2 border-b px-3 py-3">
               <span class="text-muted-foreground">

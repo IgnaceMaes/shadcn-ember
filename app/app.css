@@ -193,6 +193,13 @@
   --color-code-highlight: var(--code-highlight);
   --color-code-number: var(--code-number);
 
+  /* docs specific */
+  --surface: lab(97.68% -.0000298023 .0000119209);
+  --code-highlight: lab(95.36% 0 0);
+  --code-number: lab(48.96% 0 0);
+  --selection: lab(2.75381% 0 0);
+  --selection-foreground: lab(100% 0 0);
+
   /* Ember Shiki - Copy button styles */
   --ember-shiki-copy-background-color: transparent;
   --ember-shiki-copy-border-color: transparent;
@@ -263,6 +270,11 @@ button[class*='copy'] {
 [data-copy-button]:hover,
 button[class*='copy']:hover {
   opacity: 1 !important;
+}
+
+/* Override Shiki's inline background-color on pre elements */
+pre.shiki {
+  background-color: transparent !important;
 }
 
 html {
