@@ -4,10 +4,20 @@ import { CodeBlock } from 'ember-shiki';
 import type ThemeService from '@/services/theme';
 import type { ComponentLike } from '@glint/template';
 
+// Load all example components and their raw source code
+const components = import.meta.glob<{ default: ComponentLike }>(
+  './examples/*.gts',
+  { eager: true }
+);
+const rawSources = import.meta.glob('./examples/*.gts', {
+  query: '?raw',
+  eager: true,
+  import: 'default',
+});
+
 interface ComponentPreviewSignature {
   Args: {
     component: ComponentLike;
-    code: string;
     showLineNumbers?: boolean;
     align?: 'start' | 'center' | 'end';
   };
@@ -25,6 +35,17 @@ export default class ComponentPreview extends Component<ComponentPreviewSignatur
 
   get align() {
     return this.args.align ?? 'center';
+  }
+
+  get code(): string {
+    // Find the matching source code for the component
+    for (const path in components) {
+      const module = components[path];
+      if (module?.default === this.args.component) {
+        return rawSources[path] ?? '// Component source not found';
+      }
+    }
+    return '// Component source not found';
   }
 
   <template>
@@ -45,7 +66,7 @@ export default class ComponentPreview extends Component<ComponentPreviewSignatur
         >
           <CodeBlock
             @language="gts"
-            @code={{@code}}
+            @code={{this.code}}
             @showLineNumbers={{this.showLineNumbers}}
             @theme={{this.theme.codeBlockTheme}}
             style="--ember-shiki-padding-x: 1rem; --ember-shiki-padding-y: 0.875rem; --ember-shiki-border-radius: 0; --ember-shiki-background-color: transparent; --ember-shiki-line-height: 1.6; --ember-shiki-font-size: 0.875rem; background-color: transparent; --shiki-light-bg: #fff; --shiki-dark-bg: #0d1117;"

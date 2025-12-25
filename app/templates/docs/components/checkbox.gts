@@ -6,7 +6,6 @@ import {
   CodeBlockThemed,
 } from '@/components/docs';
 import CheckboxDemo from '@/components/docs/examples/checkbox-demo';
-import checkboxDemoCode from '@/components/docs/examples/checkbox-demo.gts?raw';
 
 <template>
   <DocPage as |page|>
@@ -16,10 +15,7 @@ import checkboxDemoCode from '@/components/docs/examples/checkbox-demo.gts?raw';
     />
 
     <DocContent>
-      <ComponentPreview
-        @component={{CheckboxDemo}}
-        @code={{checkboxDemoCode}}
-      />
+      <ComponentPreview @component={{CheckboxDemo}} />
 
       <page.Heading>Installation</page.Heading>
       <CodeBlockThemed @language="bash" @code="pnpm dlx shadcn@latest add checkbox" />
