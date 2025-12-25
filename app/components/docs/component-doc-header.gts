@@ -28,7 +28,9 @@ export default class ComponentDocHeader extends Component<ComponentDocHeaderSign
 
       {{! Title }}
       <div class="space-y-2">
-        <h1 class="scroll-m-20 text-4xl font-bold tracking-tight">{{@title}}</h1>
+        <h1
+          class="scroll-m-20 text-4xl font-bold tracking-tight"
+        >{{@title}}</h1>
         <p class="text-lg text-muted-foreground">
           {{@description}}
         </p>

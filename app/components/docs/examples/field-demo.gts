@@ -121,7 +121,10 @@ const state = new FieldDemoState();
                   Month
                 </FieldLabel>
                 <Select @onValueChange={{state.selectMonth}} as |select|>
-                  <SelectTrigger @toggle={{select.toggle}} id="checkout-exp-month">
+                  <SelectTrigger
+                    @toggle={{select.toggle}}
+                    id="checkout-exp-month"
+                  >
                     <SelectValue @placeholder="MM">
                       {{#if state.expMonth}}
                         {{state.expMonth}}
@@ -129,18 +132,54 @@ const state = new FieldDemoState();
                     </SelectValue>
                   </SelectTrigger>
                   <SelectContent @isOpen={{select.isOpen}}>
-                    <SelectItem @value="01" @onSelect={{select.selectValue}}>01</SelectItem>
-                    <SelectItem @value="02" @onSelect={{select.selectValue}}>02</SelectItem>
-                    <SelectItem @value="03" @onSelect={{select.selectValue}}>03</SelectItem>
-                    <SelectItem @value="04" @onSelect={{select.selectValue}}>04</SelectItem>
-                    <SelectItem @value="05" @onSelect={{select.selectValue}}>05</SelectItem>
-                    <SelectItem @value="06" @onSelect={{select.selectValue}}>06</SelectItem>
-                    <SelectItem @value="07" @onSelect={{select.selectValue}}>07</SelectItem>
-                    <SelectItem @value="08" @onSelect={{select.selectValue}}>08</SelectItem>
-                    <SelectItem @value="09" @onSelect={{select.selectValue}}>09</SelectItem>
-                    <SelectItem @value="10" @onSelect={{select.selectValue}}>10</SelectItem>
-                    <SelectItem @value="11" @onSelect={{select.selectValue}}>11</SelectItem>
-                    <SelectItem @value="12" @onSelect={{select.selectValue}}>12</SelectItem>
+                    <SelectItem
+                      @value="01"
+                      @onSelect={{select.selectValue}}
+                    >01</SelectItem>
+                    <SelectItem
+                      @value="02"
+                      @onSelect={{select.selectValue}}
+                    >02</SelectItem>
+                    <SelectItem
+                      @value="03"
+                      @onSelect={{select.selectValue}}
+                    >03</SelectItem>
+                    <SelectItem
+                      @value="04"
+                      @onSelect={{select.selectValue}}
+                    >04</SelectItem>
+                    <SelectItem
+                      @value="05"
+                      @onSelect={{select.selectValue}}
+                    >05</SelectItem>
+                    <SelectItem
+                      @value="06"
+                      @onSelect={{select.selectValue}}
+                    >06</SelectItem>
+                    <SelectItem
+                      @value="07"
+                      @onSelect={{select.selectValue}}
+                    >07</SelectItem>
+                    <SelectItem
+                      @value="08"
+                      @onSelect={{select.selectValue}}
+                    >08</SelectItem>
+                    <SelectItem
+                      @value="09"
+                      @onSelect={{select.selectValue}}
+                    >09</SelectItem>
+                    <SelectItem
+                      @value="10"
+                      @onSelect={{select.selectValue}}
+                    >10</SelectItem>
+                    <SelectItem
+                      @value="11"
+                      @onSelect={{select.selectValue}}
+                    >11</SelectItem>
+                    <SelectItem
+                      @value="12"
+                      @onSelect={{select.selectValue}}
+                    >12</SelectItem>
                   </SelectContent>
                 </Select>
               </Field>
@@ -149,7 +188,10 @@ const state = new FieldDemoState();
                   Year
                 </FieldLabel>
                 <Select @onValueChange={{state.selectYear}} as |select|>
-                  <SelectTrigger @toggle={{select.toggle}} id="checkout-exp-year">
+                  <SelectTrigger
+                    @toggle={{select.toggle}}
+                    id="checkout-exp-year"
+                  >
                     <SelectValue @placeholder="YYYY">
                       {{#if state.expYear}}
                         {{state.expYear}}
@@ -157,12 +199,30 @@ const state = new FieldDemoState();
                     </SelectValue>
                   </SelectTrigger>
                   <SelectContent @isOpen={{select.isOpen}}>
-                    <SelectItem @value="2024" @onSelect={{select.selectValue}}>2024</SelectItem>
-                    <SelectItem @value="2025" @onSelect={{select.selectValue}}>2025</SelectItem>
-                    <SelectItem @value="2026" @onSelect={{select.selectValue}}>2026</SelectItem>
-                    <SelectItem @value="2027" @onSelect={{select.selectValue}}>2027</SelectItem>
-                    <SelectItem @value="2028" @onSelect={{select.selectValue}}>2028</SelectItem>
-                    <SelectItem @value="2029" @onSelect={{select.selectValue}}>2029</SelectItem>
+                    <SelectItem
+                      @value="2024"
+                      @onSelect={{select.selectValue}}
+                    >2024</SelectItem>
+                    <SelectItem
+                      @value="2025"
+                      @onSelect={{select.selectValue}}
+                    >2025</SelectItem>
+                    <SelectItem
+                      @value="2026"
+                      @onSelect={{select.selectValue}}
+                    >2026</SelectItem>
+                    <SelectItem
+                      @value="2027"
+                      @onSelect={{select.selectValue}}
+                    >2027</SelectItem>
+                    <SelectItem
+                      @value="2028"
+                      @onSelect={{select.selectValue}}
+                    >2028</SelectItem>
+                    <SelectItem
+                      @value="2029"
+                      @onSelect={{select.selectValue}}
+                    >2029</SelectItem>
                   </SelectContent>
                 </Select>
               </Field>
@@ -182,10 +242,7 @@ const state = new FieldDemoState();
                 @checked={{state.sameAsShipping}}
                 @onCheckedChange={{state.toggleSameAsShipping}}
               />
-              <FieldLabel
-                @for="checkout-same-as-shipping"
-                @class="font-normal"
-              >
+              <FieldLabel @for="checkout-same-as-shipping" @class="font-normal">
                 Same as shipping address
               </FieldLabel>
             </Field>

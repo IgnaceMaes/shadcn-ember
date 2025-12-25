@@ -16,13 +16,18 @@ export default class ThemeService extends Service {
 
   private initializeTheme() {
     // Check localStorage first
-    const storedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    const storedTheme = localStorage.getItem('theme') as
+      | 'light'
+      | 'dark'
+      | null;
 
     if (storedTheme) {
       this.currentTheme = storedTheme;
     } else {
       // Check system preference
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const prefersDark = window.matchMedia(
+        '(prefers-color-scheme: dark)'
+      ).matches;
       this.currentTheme = prefersDark ? 'dark' : 'light';
     }
 

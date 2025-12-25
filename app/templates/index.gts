@@ -111,8 +111,12 @@ const state = new HomepageState();
             >
               The Foundation for your Design System
             </h1>
-            <p class="text-foreground max-w-3xl text-base text-balance sm:text-lg">
-              A set of beautifully designed components that you can customize, extend, and build on. Start here then make it your own. Open Source. Open Code.
+            <p
+              class="text-foreground max-w-3xl text-base text-balance sm:text-lg"
+            >
+              A set of beautifully designed components that you can customize,
+              extend, and build on. Start here then make it your own. Open
+              Source. Open Code.
             </p>
             <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
               <LinkTo @route="docs">

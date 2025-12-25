@@ -21,9 +21,13 @@ export default class DocSidebar extends Component<DocSidebarSignature> {
       ...attributes
     >
       <div class="no-scrollbar overflow-x-hidden px-2">
-        <div class="from-background via-background/80 to-background/50 sticky -top-1 z-10 h-8 shrink-0 bg-gradient-to-b blur-xs" />
+        <div
+          class="from-background via-background/80 to-background/50 sticky -top-1 z-10 h-8 shrink-0 bg-gradient-to-b blur-xs"
+        />
         {{yield}}
-        <div class="from-background via-background/80 to-background/50 sticky -bottom-1 z-10 h-16 shrink-0 bg-gradient-to-t blur-xs" />
+        <div
+          class="from-background via-background/80 to-background/50 sticky -bottom-1 z-10 h-16 shrink-0 bg-gradient-to-t blur-xs"
+        />
       </div>
     </aside>
   </template>

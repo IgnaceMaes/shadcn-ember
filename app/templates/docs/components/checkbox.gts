@@ -28,7 +28,10 @@ class CheckboxDocs extends Component {
 
       <DocContent>
         <section>
-          <ComponentPreview @component={{CheckboxDemo}} @code={{checkboxDemoCode}} />
+          <ComponentPreview
+            @component={{CheckboxDemo}}
+            @code={{checkboxDemoCode}}
+          />
         </section>
 
         <div class="space-y-8 pt-8">

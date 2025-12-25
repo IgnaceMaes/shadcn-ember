@@ -28,7 +28,9 @@ export default class ComponentPreview extends Component<ComponentPreviewSignatur
   }
 
   <template>
-    <div class="group relative mt-4 mb-12 flex flex-col rounded-lg border overflow-hidden">
+    <div
+      class="group relative mt-4 mb-12 flex flex-col rounded-lg border overflow-hidden"
+    >
       <div data-slot="preview">
         <div
           data-align={{this.align}}
@@ -37,11 +39,10 @@ export default class ComponentPreview extends Component<ComponentPreviewSignatur
           <@component />
         </div>
       </div>
-      <div
-        data-slot="code"
-        class="border-t"
-      >
-        <div class="relative [&_pre]:max-h-[400px] [&_pre]:!m-0 [&_pre]:!rounded-none">
+      <div data-slot="code" class="border-t">
+        <div
+          class="relative [&_pre]:max-h-[400px] [&_pre]:!m-0 [&_pre]:!rounded-none"
+        >
           <CodeBlock
             @language="gts"
             @code={{@code}}

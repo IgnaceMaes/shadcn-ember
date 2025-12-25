@@ -71,7 +71,7 @@ export class Slider extends Component<SliderSignature> {
       >
         <div
           class="absolute h-full bg-primary"
-          style="width: {{this.percentage}}%"
+          style="width: {{this.percentage}}"
         ></div>
       </div>
       <input
@@ -79,7 +79,7 @@ export class Slider extends Component<SliderSignature> {
         min={{this.min}}
         max={{this.max}}
         step={{this.step}}
-        value={{this.value.[0]}}
+        value={{get this.value "0"}}
         disabled={{@disabled}}
         class="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
         {{on "input" this.handleInput}}

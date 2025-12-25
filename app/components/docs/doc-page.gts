@@ -13,10 +13,7 @@ interface DocPageSignature {
 
 export default class DocPage extends Component<DocPageSignature> {
   <template>
-    <div
-      class={{cn "mx-auto w-full min-w-0 max-w-4xl" @class}}
-      ...attributes
-    >
+    <div class={{cn "mx-auto w-full min-w-0 max-w-4xl" @class}} ...attributes>
       {{yield}}
     </div>
   </template>
