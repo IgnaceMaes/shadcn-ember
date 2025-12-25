@@ -17,6 +17,7 @@ Use modern Ember (Polaris edition) conventions:
 - Make sure all helpers/modifiers/components are imported via `import X from '...'` at the top of the gts file (no global usage)
 - Do not install new Ember dependencies without approval. Keep it vanilla Ember as much as possible.
 - Create template-only components where possible (no backing class if no local state or methods are needed)
+- Closely follow the shadcn-ember component signatures. Even when there are splattibutes available for e.g. `class`, make sure to use the explicit `@class` argument when available so the classes are merged correctly.
 
 ## General
 

@@ -2,15 +2,17 @@ import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import { CodeBlock } from 'ember-shiki';
 import type ThemeService from '@/services/theme';
+import type { ComponentLike } from '@glint/template';
 
 interface ComponentPreviewSignature {
   Args: {
+    component: ComponentLike;
     code: string;
     showLineNumbers?: boolean;
     align?: 'start' | 'center' | 'end';
   };
   Blocks: {
-    default: [];
+    default?: [];
   };
 }
 
@@ -32,7 +34,7 @@ export default class ComponentPreview extends Component<ComponentPreviewSignatur
           data-align={{this.align}}
           class="preview flex w-full justify-center data-[align=center]:items-center data-[align=end]:items-end data-[align=start]:items-start h-[450px] p-10"
         >
-          {{yield}}
+          <@component />
         </div>
       </div>
       <div
