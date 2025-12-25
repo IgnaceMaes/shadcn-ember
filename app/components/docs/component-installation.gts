@@ -189,14 +189,14 @@ export default class ComponentInstallation extends Component<ComponentInstallati
 
       <tabs.Content @value="manual" @class="flex-1 outline-none relative mt-2">
         <div class="space-y-4">
-          <p class="text-sm text-muted-foreground">
+          <p class="text-muted-foreground">
             Copy and paste the following code into your project.
           </p>
           <div
             class="relative overflow-hidden rounded-lg border [&_pre]:max-h-100 [&_pre]:m-0! [&_pre]:rounded-none!"
           >
             <div class="border-border/50 flex items-center gap-2 border-b px-3 py-3">
-              <span class="text-xs text-muted-foreground">
+              <span class="text-muted-foreground">
                 {{this.componentPath}}
               </span>
             </div>
@@ -208,7 +208,7 @@ export default class ComponentInstallation extends Component<ComponentInstallati
               style="--ember-shiki-padding-x: 1rem; --ember-shiki-padding-y: 0.875rem; --ember-shiki-border-radius: 0; --ember-shiki-background-color: transparent; --ember-shiki-line-height: 1.6; --ember-shiki-font-size: 0.875rem;"
             />
           </div>
-          <p class="text-xs text-muted-foreground">
+          <p class="text-muted-foreground">
             Update the import paths to match your project setup.
           </p>
         </div>

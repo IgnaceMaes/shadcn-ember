@@ -2,7 +2,6 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { cn } from '@/lib/utils';
-// import PhCheck from 'ember-phosphor-icons/components/ph-check';
 import Check from '~icons/lucide/check';
 
 interface CheckboxSignature {
