@@ -2,17 +2,11 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { modifier } from 'ember-modifier';
-import { scheduleOnce } from '@ember/runloop';
+import { next } from '@ember/runloop';
 import { cn } from '@/lib/utils';
-import DocToc from './doc-toc';
+import DocToc, { type TocItem } from './doc-toc';
 import DocHeading from './doc-heading';
 import { hash } from '@ember/helper';
-
-export interface TocItem {
-  id: string;
-  title: string;
-  depth: number;
-}
 
 function toKebabCase(text: string): string {
   return text
@@ -38,27 +32,20 @@ interface DocPageSignature {
 }
 
 class RegisteredHeading extends Component<{
-  Args: { id?: string; class?: string; registerHeading?: any; unregisterHeading?: any };
+  Args: { id?: string; class?: string; onRegister?: (item: TocItem) => void };
   Blocks: { default: [] };
 }> {
   registerHeading = modifier((element: HTMLHeadingElement) => {
     const title = element.textContent?.trim() || '';
     const id = this.args.id || toKebabCase(title);
 
-    // Set the id on the element if it wasn't explicitly provided
     if (!this.args.id) {
       element.id = id;
     }
 
-    if (this.args.registerHeading) {
-      this.args.registerHeading(id, title, 2);
-    }
+    this.args.onRegister?.({ id, title, depth: 2 });
 
-    return () => {
-      if (this.args.unregisterHeading) {
-        this.args.unregisterHeading(id);
-      }
-    };
+    return () => {};
   });
 
   <template>
@@ -71,18 +58,11 @@ class RegisteredHeading extends Component<{
 export default class DocPage extends Component<DocPageSignature> {
   @tracked tocItems: TocItem[] = [];
 
-  registerHeading = (id: string, title: string, depth: number) => {
-    scheduleOnce('afterRender', () => {
-      const exists = this.tocItems.find((item) => item.id === id);
-      if (!exists) {
-        this.tocItems = [...this.tocItems, { id, title, depth }];
+  handleRegister = (item: TocItem) => {
+    next(() => {
+      if (!this.tocItems.find((existing) => existing.id === item.id)) {
+        this.tocItems = [...this.tocItems, item];
       }
-    });
-  };
-
-  unregisterHeading = (id: string) => {
-    scheduleOnce('afterRender', () => {
-      this.tocItems = this.tocItems.filter((item) => item.id !== id);
     });
   };
 
@@ -97,17 +77,11 @@ export default class DocPage extends Component<DocPageSignature> {
           ...attributes
         >
           {{yield
-            (hash
-              Heading=(component
-                RegisteredHeading
-                registerHeading=this.registerHeading
-                unregisterHeading=this.unregisterHeading
-              )
-            )
+            (hash Heading=(component RegisteredHeading onRegister=this.handleRegister))
           }}
         </div>
       </div>
-      {{#if this.tocItems}}
+      {{#if this.tocItems.length}}
         <DocToc @items={{this.tocItems}} />
       {{/if}}
     </div>
