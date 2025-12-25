@@ -18,11 +18,12 @@ export default class DocSidebarLink extends Component<DocSidebarLinkSignature> {
     <LinkTo
       @route={{@route}}
       class={{cn
-        "group flex w-full items-center rounded-md border border-transparent px-2 py-1 hover:underline text-muted-foreground"
+        "relative h-[30px] w-fit overflow-visible border border-transparent text-[0.8rem] font-medium after:absolute after:inset-x-0 after:-inset-y-1 after:z-0 after:rounded-md flex items-center rounded-md px-2 text-foreground/70 hover:text-foreground [&.active]:bg-accent [&.active]:border-accent [&.active]:text-foreground"
         @class
       }}
       ...attributes
     >
+      <span class="absolute inset-0 flex bg-transparent" />
       {{yield}}
     </LinkTo>
   </template>

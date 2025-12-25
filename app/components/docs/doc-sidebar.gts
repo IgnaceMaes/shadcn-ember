@@ -15,13 +15,15 @@ export default class DocSidebar extends Component<DocSidebarSignature> {
   <template>
     <aside
       class={{cn
-        "fixed top-14 z-30 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 overflow-y-auto border-r py-6 pr-2 md:sticky md:block lg:py-8"
+        "sticky top-[calc(var(--header-height)+1px)] z-30 hidden h-[calc(100svh-var(--footer-height)-4rem)] overscroll-none bg-transparent lg:flex"
         @class
       }}
       ...attributes
     >
-      <div class="space-y-4">
+      <div class="no-scrollbar overflow-x-hidden px-2">
+        <div class="from-background via-background/80 to-background/50 sticky -top-1 z-10 h-8 shrink-0 bg-gradient-to-b blur-xs" />
         {{yield}}
+        <div class="from-background via-background/80 to-background/50 sticky -bottom-1 z-10 h-16 shrink-0 bg-gradient-to-t blur-xs" />
       </div>
     </aside>
   </template>
