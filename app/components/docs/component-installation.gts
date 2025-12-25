@@ -211,7 +211,7 @@ export default class ComponentInstallation extends Component<ComponentInstallati
               </span>
             </div>
             <CodeBlock
-              @language="typescript"
+              @language="gts"
               @code={{this.rawSourceCode}}
               @showLineNumbers={{true}}
               @theme={{this.theme.codeBlockTheme}}
