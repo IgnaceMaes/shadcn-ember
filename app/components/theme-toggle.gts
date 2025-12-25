@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import type ThemeService from '@/services/theme';
 import Toggle from '@/components/ui/toggle';
 import Moon from '~icons/lucide/moon';
