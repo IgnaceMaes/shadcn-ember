@@ -284,6 +284,9 @@ button[class*='copy']:hover {
 
 /* Override Shiki's inline background-color on pre elements */
 pre.shiki {
+  --ember-shiki-line-height: 1.8;
+  --ember-shiki-line-number-color: var(--code-number);
+
   background-color: transparent !important;
 }
 
