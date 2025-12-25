@@ -3,6 +3,7 @@ import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { cn } from '@/lib/utils';
+import { get } from '@ember/helper';
 
 // Slider Root Component
 interface SliderSignature {
