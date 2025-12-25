@@ -7,16 +7,11 @@ interface CodeBlockThemedSignature {
   Args: {
     language: string;
     code: string;
-    showLineNumbers?: boolean;
   };
 }
 
 export default class CodeBlockThemed extends Component<CodeBlockThemedSignature> {
   @service declare theme: ThemeService;
-
-  get showLineNumbers() {
-    return this.args.showLineNumbers ?? false;
-  }
 
   <template>
     <div
@@ -26,7 +21,7 @@ export default class CodeBlockThemed extends Component<CodeBlockThemedSignature>
       <CodeBlock
         @language={{@language}}
         @code={{@code}}
-        @showLineNumbers={{this.showLineNumbers}}
+        @showLineNumbers={{true}}
         @theme={{this.theme.codeBlockTheme}}
       />
     </div>
