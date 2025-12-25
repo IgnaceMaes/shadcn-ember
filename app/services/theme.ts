@@ -5,6 +5,10 @@ import { action } from '@ember/object';
 export default class ThemeService extends Service {
   @tracked currentTheme: 'light' | 'dark' = 'light';
 
+  get codeBlockTheme() {
+    return this.currentTheme === 'dark' ? 'github-dark' : 'github-light';
+  }
+
   constructor(properties?: object) {
     super(properties);
     this.initializeTheme();

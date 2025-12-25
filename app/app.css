@@ -81,6 +81,12 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Ember Shiki - Copy button styles */
+  --ember-shiki-copy-background-color: transparent;
+  --ember-shiki-copy-border-color: transparent;
+  --ember-shiki-icon-copy: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(113,113,122,1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>');
+  --ember-shiki-icon-copied: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(113,113,122,1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>');
 }
 
 .dark {
@@ -115,6 +121,12 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  /* Ember Shiki - Dark mode copy button styles */
+  --ember-shiki-copy-background-color: transparent;
+  --ember-shiki-copy-border-color: transparent;
+  --ember-shiki-icon-copy: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(161,161,170,1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>');
+  --ember-shiki-icon-copied: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(161,161,170,1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>');
 }
 
 @layer base {
@@ -125,4 +137,19 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Ember Shiki copy button overrides */
+[data-copy-button],
+button[class*="copy"] {
+  border: transparent !important;
+  padding: 0.5rem !important;
+  opacity: 0.7 !important;
+  transition: opacity 0.2s !important;
+  background-size: 14px !important;
+}
+
+[data-copy-button]:hover,
+button[class*="copy"]:hover {
+  opacity: 1 !important;
 }

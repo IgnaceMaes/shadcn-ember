@@ -9,4 +9,9 @@ export default class Router extends EmberRouter {
 Router.map(function () {
   // Add route declarations here
   this.route('kitchensink');
+  this.route('docs', function () {
+    this.route('components', function () {
+      this.route('checkbox');
+    });
+  });
 });

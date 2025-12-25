@@ -83,6 +83,7 @@
     "ember-phosphor-icons": "^1.0.2",
     "ember-qunit": "^9.0.4",
     "ember-resolver": "^13.1.1",
+    "ember-shiki": "^0.3.0",
     "ember-source": "~6.9.0",
     "ember-template-lint": "^7.9.3",
     "ember-truth-helpers": "^5.0.0",

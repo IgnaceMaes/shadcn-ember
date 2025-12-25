@@ -18,6 +18,18 @@ module.exports = function (environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
+
+    'ember-shiki': {
+      defaultLanguages: [
+        'gjs',
+        'gts',
+        'typescript',
+        'javascript',
+        'tsx',
+        'bash',
+      ],
+      defaultThemes: ['github-dark', 'github-light'],
+    },
   };
 
   if (environment === 'development') {
