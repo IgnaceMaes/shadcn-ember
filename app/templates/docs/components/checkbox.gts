@@ -24,7 +24,7 @@ import CheckboxComponent from '@/components/ui/checkbox';
 
       <page.Heading>Usage</page.Heading>
       <CodeBlockThemed @language="gts" @code="import Checkbox from '@/components/ui/checkbox';" />
-      <CodeBlockThemed @language="gts" @code="<Checkbox />" />
+      <CodeBlockThemed @language="hbs" @code="<Checkbox />" />
     </DocContent>
   </DocPage>
 </template>
