@@ -1,5 +1,3 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
-import Component from '@glimmer/component';
 import {
   DocPage,
   DocHeader,
@@ -10,40 +8,29 @@ import {
 import CheckboxDemo from '@/components/docs/examples/checkbox-demo';
 import checkboxDemoCode from '@/components/docs/examples/checkbox-demo.gts?raw';
 
-const installationCode = `pnpm dlx shadcn@latest add checkbox`;
-
-const usageCode = `import Checkbox from '@/components/ui/checkbox';`;
-
-const usageExample = `<Checkbox />`;
-
-// Main Documentation Component
-class CheckboxDocs extends Component {
-  <template>
-    <DocPage as |page|>
+<template>
+  <DocPage as |page|>
+    <div class="flex flex-col gap-2">
       <div class="flex flex-col gap-2">
-        <div class="flex flex-col gap-2">
-          <DocHeader
-            @title="Checkbox"
-            @description="A control that allows the user to toggle between checked and not checked."
-          />
-        </div>
-      </div>
-
-      <DocContent>
-        <ComponentPreview
-          @component={{CheckboxDemo}}
-          @code={{checkboxDemoCode}}
+        <DocHeader
+          @title="Checkbox"
+          @description="A control that allows the user to toggle between checked and not checked."
         />
+      </div>
+    </div>
 
-        <page.Heading>Installation</page.Heading>
-        <CodeBlockThemed @language="bash" @code={{installationCode}} />
+    <DocContent>
+      <ComponentPreview
+        @component={{CheckboxDemo}}
+        @code={{checkboxDemoCode}}
+      />
 
-        <page.Heading>Usage</page.Heading>
-        <CodeBlockThemed @language="gts" @code={{usageCode}} />
-        <CodeBlockThemed @language="gts" @code={{usageExample}} />
-      </DocContent>
-    </DocPage>
-  </template>
-}
+      <page.Heading>Installation</page.Heading>
+      <CodeBlockThemed @language="bash" @code="pnpm dlx shadcn@latest add checkbox" />
 
-export default CheckboxDocs;
+      <page.Heading>Usage</page.Heading>
+      <CodeBlockThemed @language="gts" @code="import Checkbox from '@/components/ui/checkbox';" />
+      <CodeBlockThemed @language="gts" @code="<Checkbox />" />
+    </DocContent>
+  </DocPage>
+</template>
