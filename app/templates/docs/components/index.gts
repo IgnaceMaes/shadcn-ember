@@ -4,6 +4,7 @@ import {
   DocHeader,
   DocContent,
   DocParagraph,
+  DocLink,
 } from '@/components/docs';
 import Separator from '@/components/ui/separator';
 
@@ -344,7 +345,7 @@ const components = [
 
       <DocParagraph>
         Can't find what you need? Check back soon as we're actively adding more
-        components to match the shadcn/ui library.
+        components to match the <DocLink @href="https://ui.shadcn.com/docs/components">shadcn/ui library</DocLink>.
       </DocParagraph>
     </DocContent>
   </DocPage>
