@@ -24,7 +24,8 @@ export default class DocsMarkdownPage extends Component<Signature> {
     // If we're on the catch-all route, use the URL path instead of route name
     if (route === 'docs.catch-all') {
       // Get the URL path, e.g., "/docs/installation" -> "installation"
-      const url = this.router.currentURL;
+      // Strip hash fragment before processing (e.g., "#pick-your-framework")
+      const url = this.router.currentURL.split('#')[0];
       path = url.replace(/^\/docs\/?/, '');
       if (!path) {
         path = 'index';
