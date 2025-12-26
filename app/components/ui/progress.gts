@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import { htmlSafe } from '@ember/template';
 import { cn } from '@/lib/utils';
 
 interface ProgressSignature {
@@ -21,7 +22,7 @@ export class Progress extends Component<ProgressSignature> {
   }
 
   get indicatorStyle() {
-    return `transform: translateX(-${100 - this.progressValue}%)`;
+    return htmlSafe(`transform: translateX(-${100 - this.progressValue}%)`);
   }
 
   <template>

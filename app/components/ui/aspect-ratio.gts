@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import { htmlSafe } from '@ember/template';
 import { cn } from '@/lib/utils';
 
 interface AspectRatioSignature {
@@ -15,7 +16,7 @@ interface AspectRatioSignature {
 export class AspectRatio extends Component<AspectRatioSignature> {
   get style() {
     const ratio = this.args.ratio ?? 1;
-    return `padding-bottom: ${(1 / ratio) * 100}%`;
+    return htmlSafe(`padding-bottom: ${(1 / ratio) * 100}%`);
   }
 
   <template>

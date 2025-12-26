@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
+import { htmlSafe } from '@ember/template';
 import { cn } from '@/lib/utils';
 
 // Slider Root Component
@@ -51,6 +52,14 @@ export class Slider extends Component<SliderSignature> {
     return ((val - this.min) / (this.max - this.min)) * 100;
   }
 
+  get widthStyle() {
+    return htmlSafe(`width: ${this.percentage}%`);
+  }
+
+  get thumbStyle() {
+    return htmlSafe(`left: ${this.percentage}%; transform: translateX(-50%)`);
+  }
+
   get currentValue() {
     return this.value[0] ?? 0;
   }
@@ -73,10 +82,9 @@ export class Slider extends Component<SliderSignature> {
       <div
         class="relative h-1.5 w-full grow overflow-hidden rounded-full bg-primary/20"
       >
-        {{! template-lint-disable no-inline-styles style-concatenation }}
         <div
           class="absolute h-full bg-primary"
-          style="width: {{this.percentage}}"
+          style={{this.widthStyle}}
         ></div>
       </div>
       {{! template-lint-disable require-input-label }}
@@ -90,10 +98,9 @@ export class Slider extends Component<SliderSignature> {
         class="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
         {{on "input" this.handleInput}}
       />
-      {{! template-lint-disable no-inline-styles style-concatenation }}
       <div
         class="block h-4 w-4 rounded-full border border-primary/50 bg-background shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 absolute"
-        style="left: {{this.percentage}}%; transform: translateX(-50%)"
+        style={{this.thumbStyle}}
       ></div>
     </div>
   </template>
