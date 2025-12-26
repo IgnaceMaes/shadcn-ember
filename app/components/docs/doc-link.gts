@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import { LinkTo } from '@ember/routing';
 import { cn } from '@/lib/utils';
 
 interface DocLinkSignature {
@@ -13,15 +14,36 @@ interface DocLinkSignature {
 }
 
 export default class DocLink extends Component<DocLinkSignature> {
+  get isInternalRoute(): boolean {
+    return this.args.href.startsWith('/');
+  }
+
+  get routeName(): string {
+    // Convert path to route name
+    // e.g., "/docs/installation/manual" -> "docs.installation.manual"
+    const path = this.args.href.slice(1); // Remove leading /
+    return path.replace(/\//g, '.');
+  }
+
   <template>
-    <a
-      href={{@href}}
-      class={{cn "font-medium underline underline-offset-4" @class}}
-      target="_blank"
-      rel="noopener noreferrer"
-      ...attributes
-    >
-      {{yield}}
-    </a>
+    {{#if this.isInternalRoute}}
+      <LinkTo
+        @route={{this.routeName}}
+        class={{cn "font-medium underline underline-offset-4" @class}}
+        ...attributes
+      >
+        {{yield}}
+      </LinkTo>
+    {{else}}
+      <a
+        href={{@href}}
+        class={{cn "font-medium underline underline-offset-4" @class}}
+        rel="noopener noreferrer"
+        target="_blank"
+        ...attributes
+      >
+        {{yield}}
+      </a>
+    {{/if}}
   </template>
 }

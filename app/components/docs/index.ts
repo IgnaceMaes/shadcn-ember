@@ -23,6 +23,10 @@ export { default as DocEmphasis } from './doc-emphasis';
 export { default as DocCode } from './doc-code';
 export { default as DocLink } from './doc-link';
 
+// Markdown Renderer
+export { default as MarkdownRenderer } from './markdown-renderer';
+export { default as DocsMarkdownPage } from './markdown-page';
+
 // Component Documentation (existing)
 export { default as ComponentDocPage } from './component-doc-page';
 export { default as ComponentDocHeader } from './component-doc-header';
