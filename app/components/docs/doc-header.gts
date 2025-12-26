@@ -27,6 +27,9 @@ export default class DocHeader extends Component<DocHeaderSignature> {
   get adjacentPages(): AdjacentPages {
     const currentRoute = this.router.currentRouteName;
     const currentPath = this.router.currentRoute?.params?.['path'];
+    if (!currentRoute) {
+      return { prev: undefined, next: undefined };
+    }
     return getAdjacentPages(currentRoute, currentPath as string | undefined);
   }
 
