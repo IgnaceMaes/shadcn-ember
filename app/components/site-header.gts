@@ -34,7 +34,7 @@ import ThemeToggle from '@/components/theme-toggle';
           </DocLinkTo>
         </nav>
         <div class="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
-          <Separator @orientation="vertical" class="ml-2 hidden lg:block" />
+          <Separator @orientation="vertical" class="h-4 ml-2 hidden lg:block" />
           <Button
             @variant="ghost"
             @size="sm"
@@ -58,7 +58,7 @@ import ThemeToggle from '@/components/theme-toggle';
               </span>
             </a>
           </Button>
-          <Separator @orientation="vertical" />
+          <Separator @orientation="vertical" @class="h-4" />
           <Tooltip as |isOpen setOpen|>
             <TooltipTrigger @setOpen={{setOpen}} @asChild={{true}}>
               <ThemeToggle />
