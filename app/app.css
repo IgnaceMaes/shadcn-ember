@@ -246,7 +246,7 @@
   --surface-foreground: #a1a1a1;
   --code: var(--surface);
   --code-foreground: var(--surface-foreground);
-  --code-highlight: #262626;
+  --code-highlight: lab(15.32% 0 0);
   --code-number: #a4a4a4;
   --selection: #e5e5e5;
   --selection-foreground: #171717;
@@ -294,4 +294,9 @@ pre.shiki {
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Override ember-shiki line highlight */
+.line.line--highlight-neutral {
+  background-color: var(--code-highlight);
 }
