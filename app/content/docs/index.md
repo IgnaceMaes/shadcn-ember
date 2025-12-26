@@ -3,6 +3,8 @@ title: Introduction
 description: shadcn/ui is a set of beautifully-designed, accessible components and a code distribution platform. Works with your favorite frameworks and AI models. Open Source. Open Code.
 ---
 
+An unofficial, community-led [Ember](https://emberjs.com) port of [shadcn/ui](https://ui.shadcn.com). We are not affiliated with [shadcn](https://x.com/shadcn), but we did get his blessing before creating an Ember version of his work. This project was born out of the need for a similar project for the Ember ecosystem.
+
 **This is not a component library. It is how you build your component library.**
 
 You know how most traditional component libraries work: you install a package from NPM, import the components, and use them in your app.
