@@ -4,6 +4,7 @@ import DocLinkTo from '@/components/docs/doc-link-to';
 
 // Icons
 import ChevronRight from '~icons/lucide/chevron-right';
+import ArrowRight from '~icons/lucide/arrow-right';
 import Check from '~icons/lucide/check';
 import Copy from '~icons/lucide/copy';
 import UserPlus from '~icons/lucide/user-plus';
@@ -94,11 +95,17 @@ const state = new HomepageState();
             class="container flex flex-col items-center gap-2 py-8 text-center md:py-16 lg:py-20 xl:gap-4"
           >
             <DocLinkTo @route="docs.changelog">
-              <Badge @variant="secondary" class="rounded-full px-4 py-1.5">
-                <span class="mr-2">🎉</span>
+              <Button
+                @variant="ghost"
+                @class="rounded-full border border-transparent px-2 py-0.5 h-auto text-xs font-medium gap-1 hover:bg-secondary/90 bg-transparent [&>svg]:size-3"
+              >
+                <span
+                  class="flex size-2 rounded-full bg-[#E04E39]"
+                  title="New"
+                ></span>
                 shadcn/ui for Ember.js
-                <ChevronRight class="ml-1 h-3.5 w-3.5" />
-              </Badge>
+                <ArrowRight />
+              </Button>
             </DocLinkTo>
             <h1
               class="text-primary leading-tighter text-4xl font-semibold tracking-tight text-balance lg:leading-[1.1] lg:font-semibold xl:text-5xl xl:tracking-tight max-w-4xl"
