@@ -63,8 +63,14 @@ import ThemeToggle from '@/components/theme-toggle';
             <TooltipTrigger @setOpen={{setOpen}} @asChild={{true}}>
               <ThemeToggle />
             </TooltipTrigger>
-            <TooltipContent @isOpen={{isOpen}} @class="top-full mt-2 bottom-auto mb-0 whitespace-nowrap">
-              Toggle theme <Kbd @class="bg-background/20 text-background dark:bg-background/10">D</Kbd>
+            <TooltipContent
+              @isOpen={{isOpen}}
+              @class="top-full mt-2 bottom-auto mb-0 whitespace-nowrap"
+            >
+              Toggle theme
+              <Kbd
+                @class="bg-background/20 text-background dark:bg-background/10"
+              >D</Kbd>
             </TooltipContent>
           </Tooltip>
         </div>
