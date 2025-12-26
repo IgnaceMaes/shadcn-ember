@@ -26,6 +26,9 @@ import {
             <DocSidebarLink @route="docs.installation">
               Installation
             </DocSidebarLink>
+            <DocSidebarLink @route="docs.cli">
+              CLI
+            </DocSidebarLink>
             <DocSidebarLink @route="docs.figma">
               Figma
             </DocSidebarLink>
