@@ -4,6 +4,13 @@ import config from 'shadcn-ember/config/environment';
 export default class Router extends EmberRouter {
   location = config.locationType;
   rootURL = config.rootURL;
+
+  constructor(...args: ConstructorParameters<typeof EmberRouter>) {
+    super(...args);
+    this.on('routeDidChange', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 }
 
 Router.map(function () {
