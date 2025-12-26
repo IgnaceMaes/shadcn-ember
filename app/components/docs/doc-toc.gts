@@ -41,7 +41,9 @@ const DocToc: TOC<DocTocSignature> = <template>
       <div
         class="bg-muted group relative flex flex-col gap-2 rounded-lg p-6 text-sm"
       >
-        <div class="text-balance text-base font-semibold leading-tight group-hover:underline">
+        <div
+          class="text-balance text-base font-semibold leading-tight group-hover:underline"
+        >
           Help build shadcn-ember
         </div>
         <div class="text-muted-foreground">
