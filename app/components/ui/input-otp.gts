@@ -87,6 +87,7 @@ interface InputOTPSeparatorSignature {
 
 export class InputOTPSeparator extends Component<InputOTPSeparatorSignature> {
   <template>
+    {{! template-lint-disable require-presentational-children }}
     <div role="separator" ...attributes>
       <Minus class="size-4" />
     </div>

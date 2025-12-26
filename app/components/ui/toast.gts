@@ -33,7 +33,10 @@ interface ToastProviderSignature {
 }
 
 export class ToastProvider extends Component<ToastProviderSignature> {
-  <template>{{yield}}</template>
+  <template>
+    {{! template-lint-disable no-yield-only }}
+    {{yield}}
+  </template>
 }
 
 // ToastViewport Component

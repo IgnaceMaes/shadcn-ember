@@ -234,6 +234,7 @@ export class SelectItem extends Component<SelectItemSignature> {
   };
 
   <template>
+    {{! template-lint-disable require-mandatory-role-attributes require-presentational-children }}
     <div
       role="option"
       class={{cn

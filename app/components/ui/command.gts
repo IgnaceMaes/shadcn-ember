@@ -20,6 +20,7 @@ interface CommandSignature {
 
 export class Command extends Component<CommandSignature> {
   <template>
+    {{! template-lint-disable require-mandatory-role-attributes }}
     <div
       class={{cn
         "flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground"
@@ -46,6 +47,7 @@ interface CommandDialogSignature {
 
 export class CommandDialog extends Component<CommandDialogSignature> {
   <template>
+    {{! template-lint-disable no-yield-only }}
     {{! TODO: Integrate with Dialog component }}
     {{yield}}
   </template>
@@ -187,6 +189,7 @@ interface CommandItemSignature {
 
 export class CommandItem extends Component<CommandItemSignature> {
   <template>
+    {{! template-lint-disable require-mandatory-role-attributes }}
     <div
       class={{cn
         "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"

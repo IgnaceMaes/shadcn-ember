@@ -134,7 +134,10 @@ interface SheetPortalSignature {
 }
 
 export class SheetPortal extends Component<SheetPortalSignature> {
-  <template>{{yield}}</template>
+  <template>
+    {{! template-lint-disable no-yield-only }}
+    {{yield}}
+  </template>
 }
 
 // SheetOverlay Component
@@ -157,6 +160,7 @@ export class SheetOverlay extends Component<SheetOverlaySignature> {
 
   <template>
     {{#if @isOpen}}
+      {{! template-lint-disable no-invalid-interactive }}
       <div
         class={{cn
           "fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"

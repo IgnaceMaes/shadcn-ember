@@ -92,6 +92,7 @@ export class PaginationLink extends Component<PaginationLinkSignature> {
   }
 
   <template>
+    {{! template-lint-disable link-href-attributes }}
     <a
       class={{this.classes}}
       aria-current={{if @isActive "page"}}

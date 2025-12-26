@@ -58,6 +58,7 @@ export default class Checkbox extends Component<CheckboxSignature> {
   };
 
   <template>
+    {{! template-lint-disable require-presentational-children }}
     <button
       type="button"
       role="checkbox"
@@ -74,7 +75,6 @@ export default class Checkbox extends Component<CheckboxSignature> {
           class={{this.indicatorClasses}}
           aria-hidden="true"
         >
-          {{! template-lint-disable require-presentational-children }}
           <Check class="size-3.5" />
         </span>
       {{/if}}

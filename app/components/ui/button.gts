@@ -66,7 +66,7 @@ export default class Button extends Component<ButtonSignature> {
 
   <template>
     {{#if @asChild}}
-      {{yield to="default"}}
+      {{yield}}
     {{else}}
       <button
         class={{this.classes}}

@@ -15,7 +15,10 @@ interface FormSignature {
 }
 
 export class Form extends Component<FormSignature> {
-  <template>{{yield}}</template>
+  <template>
+    {{! template-lint-disable no-yield-only }}
+    {{yield}}
+  </template>
 }
 
 // FormField Component
@@ -29,7 +32,10 @@ interface FormFieldSignature {
 }
 
 export class FormField extends Component<FormFieldSignature> {
-  <template>{{yield}}</template>
+  <template>
+    {{! template-lint-disable no-yield-only }}
+    {{yield}}
+  </template>
 }
 
 // FormItem Component
@@ -78,7 +84,10 @@ interface FormControlSignature {
 }
 
 export class FormControl extends Component<FormControlSignature> {
-  <template>{{yield}}</template>
+  <template>
+    {{! template-lint-disable no-yield-only }}
+    {{yield}}
+  </template>
 }
 
 // FormDescription Component

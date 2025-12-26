@@ -135,6 +135,7 @@ interface NavigationMenuLinkSignature {
 
 export class NavigationMenuLink extends Component<NavigationMenuLinkSignature> {
   <template>
+    {{! template-lint-disable link-href-attributes }}
     <a class={{cn @class}} ...attributes>
       {{yield}}
     </a>

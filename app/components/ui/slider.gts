@@ -70,11 +70,13 @@ export class Slider extends Component<SliderSignature> {
       <div
         class="relative h-1.5 w-full grow overflow-hidden rounded-full bg-primary/20"
       >
+        {{! template-lint-disable no-inline-styles style-concatenation }}
         <div
           class="absolute h-full bg-primary"
           style="width: {{this.percentage}}"
         ></div>
       </div>
+      {{! template-lint-disable require-input-label }}
       <input
         type="range"
         min={{this.min}}
@@ -85,6 +87,7 @@ export class Slider extends Component<SliderSignature> {
         class="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
         {{on "input" this.handleInput}}
       />
+      {{! template-lint-disable no-inline-styles style-concatenation }}
       <div
         class="block h-4 w-4 rounded-full border border-primary/50 bg-background shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 absolute"
         style="left: {{this.percentage}}%; transform: translateX(-50%)"

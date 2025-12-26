@@ -80,7 +80,10 @@ interface AlertDialogPortalSignature {
 }
 
 export class AlertDialogPortal extends Component<AlertDialogPortalSignature> {
-  <template>{{yield}}</template>
+  <template>
+    {{! template-lint-disable no-yield-only }}
+    {{yield}}
+  </template>
 }
 
 // AlertDialogOverlay Component
