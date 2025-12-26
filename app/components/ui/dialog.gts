@@ -4,7 +4,6 @@ import { tracked } from '@glimmer/tracking';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { cn } from '@/lib/utils';
-// import PhX from 'ember-phosphor-icons/components/ph-x';
 import X from '~icons/lucide/x';
 
 // Dialog Root Component

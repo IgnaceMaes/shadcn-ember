@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
-// import PhDotsThreeVertical from 'ember-phosphor-icons/components/ph-dots-three-vertical';
 import GripVertical from '~icons/lucide/grip-vertical';
 
 // Note: This is a simplified version of the Resizable component

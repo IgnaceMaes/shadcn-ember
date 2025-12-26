@@ -1,6 +1,5 @@
 import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
-// import PhMagnifyingGlass from 'ember-phosphor-icons/components/ph-magnifying-glass';
 import Search from '~icons/lucide/search';
 
 // Note: This is a simplified version of the Command component

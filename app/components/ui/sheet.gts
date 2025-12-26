@@ -5,7 +5,6 @@ import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { fn } from '@ember/helper';
 import { cn } from '@/lib/utils';
-// import PhX from 'ember-phosphor-icons/components/ph-x';
 import X from '~icons/lucide/x';
 
 type Side = 'top' | 'bottom' | 'left' | 'right';

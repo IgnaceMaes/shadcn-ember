@@ -1,7 +1,5 @@
 import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
-// import PhCaretLeft from 'ember-phosphor-icons/components/ph-caret-left';
-// import PhCaretRight from 'ember-phosphor-icons/components/ph-caret-right';
 import ChevronLeft from '~icons/lucide/chevron-left';
 import ChevronRight from '~icons/lucide/chevron-right';
 import Button from './button.gts';

@@ -1,6 +1,5 @@
 import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
-// import PhMinus from 'ember-phosphor-icons/components/ph-minus';
 import Minus from '~icons/lucide/minus';
 
 // Note: This is a placeholder for the InputOTP component

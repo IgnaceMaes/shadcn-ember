@@ -2,7 +2,6 @@ import Component from '@glimmer/component';
 import type { TOC } from '@ember/component/template-only';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
-// import PhCaretDown from 'ember-phosphor-icons/components/ph-caret-down';
 import ChevronDown from '~icons/lucide/chevron-down';
 import { cn } from '@/lib/utils';
 
