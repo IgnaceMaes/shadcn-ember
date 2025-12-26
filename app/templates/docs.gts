@@ -26,6 +26,9 @@ import {
             <DocSidebarLink @route="docs.installation">
               Installation
             </DocSidebarLink>
+            <DocSidebarLink @route="docs.figma">
+              Figma
+            </DocSidebarLink>
           </DocSidebarGroup>
           <DocSidebarGroup @title="Components">
             <DocSidebarLink @route="docs.components.accordion">
