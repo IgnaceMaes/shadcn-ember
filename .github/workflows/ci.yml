@@ -19,15 +19,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
-          cache: npm
+          node-version: 24
+          cache: pnpm
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install
       - name: Lint
-        run: npm run lint
+        run: pnpm run lint
 
   test:
     name: "Test"
@@ -36,12 +40,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
-          cache: npm
+          node-version: 24
+          cache: pnpm
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install
       - name: Run Tests
-        run: npm test
+        run: pnpm test
