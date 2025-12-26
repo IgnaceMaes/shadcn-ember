@@ -61,6 +61,7 @@ export default class ComponentPreviewRender extends Component<ComponentPreviewSi
         </div>
       </div>
       <div data-slot="code" class="border-t">
+        {{!-- template-lint-disable no-inline-styles --}}
         <div
           class="relative [&_pre]:max-h-[400px] [&_pre]:!m-0 [&_pre]:!rounded-none"
           style="--shiki-dark: #e1e4e8; --shiki-light: #1f2328; --shiki-dark-bg: #24292e; --shiki-light-bg: var(--surface); background-color: var(--surface);"

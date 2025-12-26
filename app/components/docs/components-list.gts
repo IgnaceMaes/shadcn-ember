@@ -1,4 +1,3 @@
-import Component from '@glimmer/component';
 import DocLinkTo from './doc-link-to';
 
 // Component list with "new" badges for recent additions and hasPage flag

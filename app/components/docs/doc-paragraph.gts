@@ -1,4 +1,4 @@
-import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
 
 interface DocParagraphSignature {
@@ -11,13 +11,13 @@ interface DocParagraphSignature {
   };
 }
 
-export default class DocParagraph extends Component<DocParagraphSignature> {
-  <template>
-    <p
-      class={{cn "leading-relaxed [&:not(:first-child)]:mt-6" @class}}
-      ...attributes
-    >
-      {{yield}}
-    </p>
-  </template>
-}
+const DocParagraph: TOC<DocParagraphSignature> = <template>
+  <p
+    class={{cn "leading-relaxed [&:not(:first-child)]:mt-6" @class}}
+    ...attributes
+  >
+    {{yield}}
+  </p>
+</template>;
+
+export default DocParagraph;

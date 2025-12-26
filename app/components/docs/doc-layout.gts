@@ -1,4 +1,4 @@
-import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
 
 interface DocLayoutSignature {
@@ -12,22 +12,22 @@ interface DocLayoutSignature {
   };
 }
 
-export default class DocLayout extends Component<DocLayoutSignature> {
-  <template>
-    <div class="flex-1 px-2">
-      <div
-        class={{cn
-          "flex-1 md:grid md:grid-cols-[220px_1fr] md:gap-6 lg:grid-cols-[240px_1fr] lg:gap-10"
-          @class
-        }}
-        ...attributes
-      >
-        {{yield to="sidebar"}}
+const DocLayout: TOC<DocLayoutSignature> = <template>
+  <div class="flex-1 px-2">
+    <div
+      class={{cn
+        "flex-1 md:grid md:grid-cols-[220px_1fr] md:gap-6 lg:grid-cols-[240px_1fr] lg:gap-10"
+        @class
+      }}
+      ...attributes
+    >
+      {{yield to="sidebar"}}
 
-        <main class="relative py-6 lg:gap-10 lg:py-8">
-          {{yield}}
-        </main>
-      </div>
+      <main class="relative py-6 lg:gap-10 lg:py-8">
+        {{yield}}
+      </main>
     </div>
-  </template>
-}
+  </div>
+</template>;
+
+export default DocLayout;

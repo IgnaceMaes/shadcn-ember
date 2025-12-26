@@ -1,4 +1,4 @@
-import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
 
 interface DocEmphasisSignature {
@@ -11,10 +11,10 @@ interface DocEmphasisSignature {
   };
 }
 
-export default class DocEmphasis extends Component<DocEmphasisSignature> {
-  <template>
-    <em class={{cn "text-muted-foreground" @class}} ...attributes>
-      {{yield}}
-    </em>
-  </template>
-}
+const DocEmphasis: TOC<DocEmphasisSignature> = <template>
+  <em class={{cn "text-muted-foreground" @class}} ...attributes>
+    {{yield}}
+  </em>
+</template>;
+
+export default DocEmphasis;

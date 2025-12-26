@@ -1,4 +1,4 @@
-import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 
 interface ComponentDocPageSignature {
   Blocks: {
@@ -6,10 +6,10 @@ interface ComponentDocPageSignature {
   };
 }
 
-export default class ComponentDocPage extends Component<ComponentDocPageSignature> {
-  <template>
-    <div class="mx-auto w-full min-w-0 max-w-4xl">
-      {{yield}}
-    </div>
-  </template>
-}
+const ComponentDocPage: TOC<ComponentDocPageSignature> = <template>
+  <div class="mx-auto w-full min-w-0 max-w-4xl">
+    {{yield}}
+  </div>
+</template>;
+
+export default ComponentDocPage;

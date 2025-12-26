@@ -1,4 +1,4 @@
-import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
 
 interface DocListSignature {
@@ -11,13 +11,11 @@ interface DocListSignature {
   };
 }
 
-export class DocList extends Component<DocListSignature> {
-  <template>
-    <ul class={{cn "my-6 ml-6 list-disc" @class}} ...attributes>
-      {{yield}}
-    </ul>
-  </template>
-}
+export const DocList: TOC<DocListSignature> = <template>
+  <ul class={{cn "my-6 ml-6 list-disc" @class}} ...attributes>
+    {{yield}}
+  </ul>
+</template>;
 
 interface DocListItemSignature {
   Element: HTMLLIElement;
@@ -29,10 +27,8 @@ interface DocListItemSignature {
   };
 }
 
-export class DocListItem extends Component<DocListItemSignature> {
-  <template>
-    <li class={{cn "mt-2" @class}} ...attributes>
-      {{yield}}
-    </li>
-  </template>
-}
+export const DocListItem: TOC<DocListItemSignature> = <template>
+  <li class={{cn "mt-2" @class}} ...attributes>
+    {{yield}}
+  </li>
+</template>;

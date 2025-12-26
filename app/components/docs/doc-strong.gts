@@ -1,4 +1,4 @@
-import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
 
 interface DocStrongSignature {
@@ -11,10 +11,10 @@ interface DocStrongSignature {
   };
 }
 
-export default class DocStrong extends Component<DocStrongSignature> {
-  <template>
-    <strong class={{cn "font-medium" @class}} ...attributes>
-      {{yield}}
-    </strong>
-  </template>
-}
+const DocStrong: TOC<DocStrongSignature> = <template>
+  <strong class={{cn "font-medium" @class}} ...attributes>
+    {{yield}}
+  </strong>
+</template>;
+
+export default DocStrong;

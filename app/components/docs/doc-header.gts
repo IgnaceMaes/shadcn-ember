@@ -1,4 +1,4 @@
-import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
 import DocHeaderCopy from './doc-header-copy';
 
@@ -15,27 +15,27 @@ interface DocHeaderSignature {
   };
 }
 
-export default class DocHeader extends Component<DocHeaderSignature> {
-  <template>
-    <div class={{cn "flex flex-col gap-2" @class}} ...attributes>
-      <div class="flex items-start justify-between">
-        <div class="space-y-2">
-          <h1
-            class="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl"
+const DocHeader: TOC<DocHeaderSignature> = <template>
+  <div class={{cn "flex flex-col gap-2" @class}} ...attributes>
+    <div class="flex items-start justify-between">
+      <div class="space-y-2">
+        <h1
+          class="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl"
+        >
+          {{@title}}
+        </h1>
+        {{#if @description}}
+          <p
+            class="text-muted-foreground text-[1.05rem] text-balance sm:text-base"
           >
-            {{@title}}
-          </h1>
-          {{#if @description}}
-            <p
-              class="text-muted-foreground text-[1.05rem] text-balance sm:text-base"
-            >
-              {{@description}}
-            </p>
-          {{/if}}
-        </div>
-        <DocHeaderCopy @markdown={{@markdown}} />
-        {{yield}}
+            {{@description}}
+          </p>
+        {{/if}}
       </div>
+      <DocHeaderCopy @markdown={{@markdown}} />
+      {{yield}}
     </div>
-  </template>
-}
+  </div>
+</template>;
+
+export default DocHeader;
