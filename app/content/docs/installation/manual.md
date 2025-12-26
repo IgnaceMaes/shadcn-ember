@@ -1,81 +1,44 @@
-import {
-  DocPage,
-  DocHeader,
-  DocContent,
-  DocParagraph,
-  DocStrong,
-  DocCode,
-  DocLink,
-} from '@/components/docs';
-import CodeBlockThemed from '@/components/docs/code-block-themed';
+---
+title: Manual Installation
+description: Add dependencies to your project manually.
+---
 
-<template>
-  <DocPage as |page|>
-    <DocHeader
-      @title="Manual Installation"
-      @description="Add dependencies to your project manually."
-    />
+## Add Tailwind CSS
 
-    <DocContent>
-      <page.Heading>Add Tailwind CSS</page.Heading>
+Components are styled using Tailwind CSS. You need to install Tailwind CSS in your project.
 
-      <DocParagraph>
-        Components are styled using Tailwind CSS. You need to install Tailwind
-        CSS in your project.
-      </DocParagraph>
+[Follow the Tailwind CSS installation instructions to get started.](https://tailwindcss.com/docs/installation)
 
-      <DocParagraph>
-        <DocLink @href="https://tailwindcss.com/docs/installation">Follow the Tailwind CSS installation instructions to get started.</DocLink>
-      </DocParagraph>
+## Add dependencies
 
-      <page.Heading>Add dependencies</page.Heading>
+Add the following dependencies to your project:
 
-      <DocParagraph>
-        Add the following dependencies to your project:
-      </DocParagraph>
+```bash
+npm install class-variance-authority clsx tailwind-merge
+```
 
-      <CodeBlockThemed
-        @language="bash"
-        @code="npm install class-variance-authority clsx tailwind-merge"
-      />
+## Configure path aliases
 
-      <page.Heading>Configure path aliases</page.Heading>
+Configure the path aliases in your `tsconfig.json` file.
 
-      <DocParagraph>
-        Configure the path aliases in your
-        <DocCode>tsconfig.json</DocCode>
-        file.
-      </DocParagraph>
-
-      <CodeBlockThemed
-        @language="json"
-        @code='{
+```json {3-6} title="tsconfig.json" showLineNumbers
+{
   "compilerOptions": {
     "paths": {
       "@/*": ["./app/*"]
     }
   }
-}'
-      />
+}
+```
 
-      <DocParagraph>
-        The
-        <DocCode>@</DocCode>
-        alias is a preference. You can use other aliases if you want.
-      </DocParagraph>
+The `@` alias is a preference. You can use other aliases if you want.
 
-      <page.Heading>Configure styles</page.Heading>
+## Configure styles
 
-      <DocParagraph>
-        Add the following to your
-        <DocCode>app/app.css</DocCode>
-        file. You can learn more about using CSS variables for theming in the
-        theming section.
-      </DocParagraph>
+Add the following to your `app/app.css` file. You can learn more about using CSS variables for theming in the theming section.
 
-      <CodeBlockThemed
-        @language="css"
-        @code='@import "tailwindcss";
+```css
+@import 'tailwindcss';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -172,42 +135,32 @@ import CodeBlockThemed from '@/components/docs/code-block-themed';
   body {
     @apply bg-background text-foreground;
   }
-}'
-      />
+}
+```
 
-      <page.Heading>Add a cn helper</page.Heading>
+## Add a cn helper
 
-      <CodeBlockThemed
-        @language="typescript"
-        @code="import { clsx, type ClassValue } from 'clsx';
+```typescript showLineNumbers title="app/lib/utils.ts"
+import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
-}"
-      />
+}
+```
 
-      <page.Heading>Configure icons</page.Heading>
+## Configure icons
 
-      <DocParagraph>
-        Ember uses
-        <DocCode>unplugin-icons</DocCode>
-        for icon support. Install the dependencies:
-      </DocParagraph>
+Ember uses `unplugin-icons` for icon support. Install the dependencies:
 
-      <CodeBlockThemed
-        @language="bash"
-        @code="npm install --save-dev unplugin-icons @iconify-json/lucide"
-      />
+```bash
+npm install --save-dev unplugin-icons @iconify-json/lucide
+```
 
-      <DocParagraph>
-        Add the plugin to your
-        <DocCode>vite.config.mjs</DocCode>:
-      </DocParagraph>
+Add the plugin to your `vite.config.mjs`:
 
-      <CodeBlockThemed
-        @language="javascript"
-        @code="import Icons from 'unplugin-icons/vite';
+```javascript {5-7} title="vite.config.mjs" showLineNumbers
+import Icons from 'unplugin-icons/vite';
 
 export default defineConfig({
   plugins: [
@@ -216,29 +169,21 @@ export default defineConfig({
       compiler: 'glimmer',
     }),
   ],
-});"
-      />
+});
+```
 
-      <DocParagraph>
-        Import icons like this:
-      </DocParagraph>
+Import icons like this:
 
-      <CodeBlockThemed
-        @language="typescript"
-        @code="import Check from '~icons/lucide/check';"
-      />
+```typescript
+import Check from '~icons/lucide/check';
+```
 
-      <page.Heading>Create a components.json file</page.Heading>
+## Create a components.json file
 
-      <DocParagraph>
-        Create a
-        <DocCode>components.json</DocCode>
-        file in the root of your project.
-      </DocParagraph>
+Create a `components.json` file in the root of your project.
 
-      <CodeBlockThemed
-        @language="json"
-        @code='{
+```json title="components.json" showLineNumbers
+{
   "$schema": "https://ui.shadcn.com/schema.json",
   "style": "new-york",
   "typescript": true,
@@ -256,14 +201,9 @@ export default defineConfig({
     "lib": "@/lib"
   },
   "iconLibrary": "lucide"
-}'
-      />
+}
+```
 
-      <page.Heading>That's it</page.Heading>
+## That's it
 
-      <DocParagraph>
-        You can now start adding components to your project.
-      </DocParagraph>
-    </DocContent>
-  </DocPage>
-</template>
+You can now start adding components to your project.

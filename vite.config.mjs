@@ -22,4 +22,5 @@ export default defineConfig({
       '@': path.resolve(__dirname, './app'),
     },
   },
+  assetsInclude: ['**/*.md'],
 });

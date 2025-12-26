@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import { cn } from '@/lib/utils';
+import DocHeaderCopy from './doc-header-copy';
 
 interface DocHeaderSignature {
   Element: HTMLDivElement;
@@ -7,6 +8,7 @@ interface DocHeaderSignature {
     title: string;
     description?: string;
     class?: string;
+    markdown?: string;
   };
   Blocks: {
     default?: [];
@@ -31,6 +33,7 @@ export default class DocHeader extends Component<DocHeaderSignature> {
             </p>
           {{/if}}
         </div>
+        <DocHeaderCopy @markdown={{@markdown}} />
         {{yield}}
       </div>
     </div>

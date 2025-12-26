@@ -1,6 +1,6 @@
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
-import { LinkTo } from '@ember/routing';
+import DocLinkTo from '@/components/docs/doc-link-to';
 
 // Icons
 import Github from '~icons/lucide/github';
@@ -95,11 +95,13 @@ const state = new HomepageState();
           <div
             class="container flex flex-col items-center gap-2 py-8 text-center md:py-16 lg:py-20 xl:gap-4"
           >
-            <Badge @variant="secondary" class="rounded-full px-4 py-1.5">
-              <span class="mr-2">🎉</span>
-              shadcn/ui for Ember.js
-              <ChevronRight class="ml-1 h-3.5 w-3.5" />
-            </Badge>
+            <DocLinkTo @route="docs.changelog">
+              <Badge @variant="secondary" class="rounded-full px-4 py-1.5">
+                <span class="mr-2">🎉</span>
+                shadcn/ui for Ember.js
+                <ChevronRight class="ml-1 h-3.5 w-3.5" />
+              </Badge>
+            </DocLinkTo>
             <h1
               class="text-primary leading-tighter text-4xl font-semibold tracking-tight text-balance lg:leading-[1.1] lg:font-semibold xl:text-5xl xl:tracking-tight max-w-4xl"
             >
@@ -113,16 +115,16 @@ const state = new HomepageState();
               Source. Open Code.
             </p>
             <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
-              <LinkTo @route="docs">
+              <DocLinkTo @route="docs">
                 <Button>
                   Get Started
                 </Button>
-              </LinkTo>
-              <LinkTo @route="docs.components.index">
+              </DocLinkTo>
+              <DocLinkTo @route="docs.components">
                 <Button @variant="ghost">
                   View Components
                 </Button>
-              </LinkTo>
+              </DocLinkTo>
             </div>
           </div>
         </div>
