@@ -116,6 +116,9 @@ interface ProcessedNode {
   isNpmCommand?: boolean;
   componentName?: string;
   componentInstance?: ComponentLike;
+  title?: string;
+  showLineNumbers?: boolean;
+  highlightLines?: number[];
 }
 
 export default class MarkdownRenderer extends Component<Signature> {
@@ -190,12 +193,16 @@ export default class MarkdownRenderer extends Component<Signature> {
         };
       case 'code': {
         const codeNode = node as Code;
+        const metaInfo = this.parseCodeMeta(codeNode.meta);
         return {
           type: 'code',
           language: codeNode.lang || 'text',
           content: codeNode.value,
           meta: codeNode.meta || undefined,
           isNpmCommand: this.isNpmCommand(codeNode),
+          title: metaInfo.title,
+          showLineNumbers: metaInfo.showLineNumbers,
+          highlightLines: metaInfo.highlightLines,
         };
       }
       case 'html': {
@@ -277,6 +284,69 @@ export default class MarkdownRenderer extends Component<Signature> {
     return trimmedCode.startsWith('npm ') || trimmedCode.startsWith('npx ');
   }
 
+  // Parse code block meta string for title, showLineNumbers, and line highlights
+  private parseCodeMeta(meta: string | null | undefined): {
+    title?: string;
+    showLineNumbers: boolean;
+    highlightLines?: number[];
+  } {
+    if (!meta) {
+      return { showLineNumbers: false };
+    }
+
+    const result: {
+      title?: string;
+      showLineNumbers: boolean;
+      highlightLines?: number[];
+    } = { showLineNumbers: false };
+
+    // Check for showLineNumbers flag
+    if (meta.includes('showLineNumbers')) {
+      result.showLineNumbers = true;
+    }
+
+    // Extract title="..." or title='...'
+    const titleMatch = meta.match(/title=["']([^"']+)["']/);
+    if (titleMatch?.[1]) {
+      result.title = titleMatch[1];
+    }
+
+    // Extract line highlights like {3-6} or {1,3,5-7}
+    const highlightMatch = meta.match(/\{([0-9,-]+)\}/);
+    if (highlightMatch?.[1]) {
+      const ranges = highlightMatch[1].split(',');
+      const lines: number[] = [];
+
+      for (const range of ranges) {
+        if (range.includes('-')) {
+          const parts = range.split('-');
+          const startStr = parts[0];
+          const endStr = parts[1];
+          if (startStr && endStr) {
+            const start = parseInt(startStr, 10);
+            const end = parseInt(endStr, 10);
+            if (!isNaN(start) && !isNaN(end)) {
+              for (let i = start; i <= end; i++) {
+                lines.push(i);
+              }
+            }
+          }
+        } else {
+          const line = parseInt(range, 10);
+          if (!isNaN(line)) {
+            lines.push(line);
+          }
+        }
+      }
+
+      if (lines.length > 0) {
+        result.highlightLines = lines;
+      }
+    }
+
+    return result;
+  }
+
   // Helper to extract text from nodes recursively
   private getHeadingText = (children: ProcessedNode[] | undefined): string => {
     if (!children) return '';
@@ -318,6 +388,9 @@ export default class MarkdownRenderer extends Component<Signature> {
               <CodeBlockThemed
                 @language={{if node.language node.language "text"}}
                 @code={{if node.content node.content ""}}
+                @title={{node.title}}
+                @showLineNumbers={{node.showLineNumbers}}
+                @highlightLines={{node.highlightLines}}
               />
             {{/if}}
           {{/if}}

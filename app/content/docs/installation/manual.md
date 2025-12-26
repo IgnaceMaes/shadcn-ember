@@ -21,7 +21,7 @@ npm install class-variance-authority clsx tailwind-merge
 
 Configure the path aliases in your `tsconfig.json` file.
 
-```json
+```json {3-6} title="tsconfig.json" showLineNumbers
 {
   "compilerOptions": {
     "paths": {
@@ -140,7 +140,7 @@ Add the following to your `app/app.css` file. You can learn more about using CSS
 
 ## Add a cn helper
 
-```typescript
+```typescript showLineNumbers title="app/lib/utils.ts"
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -159,7 +159,7 @@ npm install --save-dev unplugin-icons @iconify-json/lucide
 
 Add the plugin to your `vite.config.mjs`:
 
-```javascript
+```javascript {5-7} title="vite.config.mjs" showLineNumbers
 import Icons from 'unplugin-icons/vite';
 
 export default defineConfig({
@@ -182,7 +182,7 @@ import Check from '~icons/lucide/check';
 
 Create a `components.json` file in the root of your project.
 
-```json
+```json title="components.json" showLineNumbers
 {
   "$schema": "https://ui.shadcn.com/schema.json",
   "style": "new-york",
