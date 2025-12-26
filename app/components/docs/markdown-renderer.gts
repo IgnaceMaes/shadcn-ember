@@ -1,5 +1,7 @@
 import Component from '@glimmer/component';
+import { concat } from '@ember/helper';
 import { eq } from 'ember-truth-helpers';
+import { pageTitle } from 'ember-page-title';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkGfm from 'remark-gfm';
@@ -418,6 +420,10 @@ export default class MarkdownRenderer extends Component<Signature> {
   }
 
   <template>
+    {{#if this.frontmatter.title}}
+      {{pageTitle (concat this.frontmatter.title " - shadcn-ember")}}
+    {{/if}}
+
     <DocPage @tocItems={{this.tocItems}} as |page|>
       <DocHeader
         @title={{if this.frontmatter.title this.frontmatter.title ""}}
