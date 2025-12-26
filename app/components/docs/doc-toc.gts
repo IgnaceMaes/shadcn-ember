@@ -1,4 +1,5 @@
 import type { TOC } from '@ember/component/template-only';
+import Button from '@/components/ui/button';
 
 export interface TocItem {
   id: string;
@@ -35,6 +36,32 @@ const DocToc: TOC<DocTocSignature> = <template>
         {{/each}}
       </div>
       <div class="h-12"></div>
+    </div>
+    <div class="flex flex-1 flex-col gap-12 px-6">
+      <div
+        class="bg-muted group relative flex flex-col gap-2 rounded-lg p-6 text-sm"
+      >
+        <div class="text-balance text-base font-semibold leading-tight group-hover:underline">
+          Help build shadcn-ember
+        </div>
+        <div class="text-muted-foreground">
+          shadcn-ember is open source and community-driven.
+        </div>
+        <div class="text-muted-foreground">
+          Contribute components, fix bugs, or improve documentation on GitHub.
+        </div>
+        <Button @class="mt-2 w-fit">
+          Contribute on GitHub
+        </Button>
+        <a
+          href="https://github.com/IgnaceMaes/shadcn-ember"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="absolute inset-0"
+        >
+          <span class="sr-only">Contribute on GitHub</span>
+        </a>
+      </div>
     </div>
   </div>
 </template>;
