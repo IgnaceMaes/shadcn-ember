@@ -1,7 +1,6 @@
 ---
 title: Avatar
 description: An image element with a fallback for representing the user.
-order: 110
 ---
 
 <ComponentPreview name="avatar-demo" />

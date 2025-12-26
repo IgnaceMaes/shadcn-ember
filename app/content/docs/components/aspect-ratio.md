@@ -1,7 +1,6 @@
 ---
 title: Aspect Ratio
 description: Displays content within a desired ratio.
-order: 102
 ---
 
 <ComponentPreview name="aspect-ratio-demo" />
