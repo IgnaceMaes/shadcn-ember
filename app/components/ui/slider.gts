@@ -82,10 +82,7 @@ export class Slider extends Component<SliderSignature> {
       <div
         class="relative h-1.5 w-full grow overflow-hidden rounded-full bg-primary/20"
       >
-        <div
-          class="absolute h-full bg-primary"
-          style={{this.widthStyle}}
-        ></div>
+        <div class="absolute h-full bg-primary" style={{this.widthStyle}}></div>
       </div>
       {{! template-lint-disable require-input-label }}
       <input

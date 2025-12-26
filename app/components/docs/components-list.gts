@@ -1,293 +1,347 @@
 import DocLinkTo from './doc-link-to';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
-// Component list with "new" badges for recent additions and hasPage flag
-const components = [
+// Import all markdown files to see which components have pages
+const markdownFiles = import.meta.glob<string>(
+  '/app/content/docs/components/*.md',
+  {
+    query: '?raw',
+    eager: true,
+    import: 'default',
+  }
+);
+
+interface ComponentItem {
+  name: string;
+  route: string;
+  isNew: boolean;
+  hasPage: boolean;
+}
+
+// Check if a component has a markdown page
+function hasMarkdownPage(componentFileName: string): boolean {
+  const markdownPath = `/app/content/docs/components/${componentFileName}.md`;
+  return markdownPath in markdownFiles;
+}
+
+// Component list from shadcn/ui - this is the complete list of components to work towards
+// hasPage is dynamically determined based on the presence of a markdown file
+const components: ComponentItem[] = [
   {
     name: 'Accordion',
     route: 'docs.components.accordion',
     isNew: false,
-    hasPage: true,
+    hasPage: hasMarkdownPage('accordion'),
   },
   {
     name: 'Alert Dialog',
     route: 'docs.components.alert-dialog',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('alert-dialog'),
   },
   {
     name: 'Alert',
     route: 'docs.components.alert',
     isNew: false,
-    hasPage: true,
+    hasPage: hasMarkdownPage('alert'),
   },
   {
     name: 'Aspect Ratio',
     route: 'docs.components.aspect-ratio',
     isNew: false,
-    hasPage: true,
+    hasPage: hasMarkdownPage('aspect-ratio'),
   },
   {
     name: 'Avatar',
     route: 'docs.components.avatar',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('avatar'),
   },
   {
     name: 'Badge',
     route: 'docs.components.badge',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('badge'),
   },
   {
     name: 'Breadcrumb',
     route: 'docs.components.breadcrumb',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('breadcrumb'),
   },
   {
     name: 'Button Group',
     route: 'docs.components.button-group',
     isNew: true,
-    hasPage: false,
+    hasPage: hasMarkdownPage('button-group'),
   },
   {
     name: 'Button',
     route: 'docs.components.button',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('button'),
   },
   {
     name: 'Calendar',
     route: 'docs.components.calendar',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('calendar'),
   },
-  { name: 'Card', route: 'docs.components.card', isNew: false, hasPage: false },
+  {
+    name: 'Card',
+    route: 'docs.components.card',
+    isNew: false,
+    hasPage: hasMarkdownPage('card'),
+  },
   {
     name: 'Carousel',
     route: 'docs.components.carousel',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('carousel'),
   },
   {
     name: 'Chart',
     route: 'docs.components.chart',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('chart'),
   },
   {
     name: 'Checkbox',
     route: 'docs.components.checkbox',
     isNew: false,
-    hasPage: true,
+    hasPage: hasMarkdownPage('checkbox'),
   },
   {
     name: 'Collapsible',
     route: 'docs.components.collapsible',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('collapsible'),
   },
   {
     name: 'Command',
     route: 'docs.components.command',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('command'),
   },
   {
     name: 'Context Menu',
     route: 'docs.components.context-menu',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('context-menu'),
   },
   {
     name: 'Dialog',
     route: 'docs.components.dialog',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('dialog'),
   },
   {
     name: 'Dropdown Menu',
     route: 'docs.components.dropdown-menu',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('dropdown-menu'),
   },
   {
     name: 'Empty',
     route: 'docs.components.empty',
     isNew: true,
-    hasPage: false,
+    hasPage: hasMarkdownPage('empty'),
   },
   {
     name: 'Field',
     route: 'docs.components.field',
     isNew: true,
-    hasPage: false,
+    hasPage: hasMarkdownPage('field'),
   },
-  { name: 'Form', route: 'docs.components.form', isNew: false, hasPage: false },
+  {
+    name: 'Form',
+    route: 'docs.components.form',
+    isNew: false,
+    hasPage: hasMarkdownPage('form'),
+  },
   {
     name: 'Hover Card',
     route: 'docs.components.hover-card',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('hover-card'),
   },
   {
     name: 'Input Group',
     route: 'docs.components.input-group',
     isNew: true,
-    hasPage: false,
+    hasPage: hasMarkdownPage('input-group'),
   },
   {
     name: 'Input OTP',
     route: 'docs.components.input-otp',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('input-otp'),
   },
   {
     name: 'Input',
     route: 'docs.components.input',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('input'),
   },
-  { name: 'Item', route: 'docs.components.item', isNew: true, hasPage: false },
-  { name: 'Kbd', route: 'docs.components.kbd', isNew: true, hasPage: false },
+  {
+    name: 'Item',
+    route: 'docs.components.item',
+    isNew: true,
+    hasPage: hasMarkdownPage('item'),
+  },
+  {
+    name: 'Kbd',
+    route: 'docs.components.kbd',
+    isNew: true,
+    hasPage: hasMarkdownPage('kbd'),
+  },
   {
     name: 'Label',
     route: 'docs.components.label',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('label'),
   },
   {
     name: 'Menubar',
     route: 'docs.components.menubar',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('menubar'),
   },
   {
     name: 'Navigation Menu',
     route: 'docs.components.navigation-menu',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('navigation-menu'),
   },
   {
     name: 'Pagination',
     route: 'docs.components.pagination',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('pagination'),
   },
   {
     name: 'Popover',
     route: 'docs.components.popover',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('popover'),
   },
   {
     name: 'Progress',
     route: 'docs.components.progress',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('progress'),
   },
   {
     name: 'Radio Group',
     route: 'docs.components.radio-group',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('radio-group'),
   },
   {
     name: 'Resizable',
     route: 'docs.components.resizable',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('resizable'),
   },
   {
     name: 'Scroll Area',
     route: 'docs.components.scroll-area',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('scroll-area'),
   },
   {
     name: 'Select',
     route: 'docs.components.select',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('select'),
   },
   {
     name: 'Separator',
     route: 'docs.components.separator',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('separator'),
   },
   {
     name: 'Sheet',
     route: 'docs.components.sheet',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('sheet'),
   },
   {
     name: 'Skeleton',
     route: 'docs.components.skeleton',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('skeleton'),
   },
   {
     name: 'Slider',
     route: 'docs.components.slider',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('slider'),
   },
   {
     name: 'Sonner',
     route: 'docs.components.sonner',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('sonner'),
   },
   {
     name: 'Spinner',
     route: 'docs.components.spinner',
     isNew: true,
-    hasPage: false,
+    hasPage: hasMarkdownPage('spinner'),
   },
   {
     name: 'Switch',
     route: 'docs.components.switch',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('switch'),
   },
   {
     name: 'Table',
     route: 'docs.components.table',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('table'),
   },
-  { name: 'Tabs', route: 'docs.components.tabs', isNew: false, hasPage: false },
+  {
+    name: 'Tabs',
+    route: 'docs.components.tabs',
+    isNew: false,
+    hasPage: hasMarkdownPage('tabs'),
+  },
   {
     name: 'Textarea',
     route: 'docs.components.textarea',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('textarea'),
   },
   {
     name: 'Toast',
     route: 'docs.components.toast',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('toast'),
   },
   {
     name: 'Toggle Group',
     route: 'docs.components.toggle-group',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('toggle-group'),
   },
   {
     name: 'Toggle',
     route: 'docs.components.toggle',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('toggle'),
   },
   {
     name: 'Tooltip',
     route: 'docs.components.tooltip',
     isNew: false,
-    hasPage: false,
+    hasPage: hasMarkdownPage('tooltip'),
   },
 ];
 
@@ -310,17 +364,27 @@ const components = [
           {{/if}}
         </DocLinkTo>
       {{else}}
-        <span
-          class="inline-flex items-center gap-2 text-lg font-medium text-muted-foreground md:text-base"
-        >
-          {{c.name}}
-          {{#if c.isNew}}
+        <Tooltip as |open setOpen|>
+          <TooltipTrigger @asChild={{true}} @setOpen={{setOpen}}>
             <span
-              class="flex size-2 rounded-full bg-blue-500"
-              title="New"
-            ></span>
+              class="inline-flex items-center gap-2 text-lg font-medium text-muted-foreground md:text-base cursor-help"
+            >
+              {{c.name}}
+              {{#if c.isNew}}
+                <span
+                  class="flex size-2 rounded-full bg-blue-500"
+                  title="New"
+                ></span>
+              {{/if}}
+            </span>
+          </TooltipTrigger>
+          {{#if open}}
+            <TooltipContent>
+              <p>This component is not yet documented.</p>
+              <p class="text-xs mt-1">Contributions are welcome!</p>
+            </TooltipContent>
           {{/if}}
-        </span>
+        </Tooltip>
       {{/if}}
     {{/each}}
   </div>
