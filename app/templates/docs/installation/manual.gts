@@ -4,6 +4,8 @@ import {
   DocContent,
   DocParagraph,
   DocStrong,
+  DocCode,
+  DocLink,
 } from '@/components/docs';
 import CodeBlockThemed from '@/components/docs/code-block-themed';
 
@@ -23,7 +25,7 @@ import CodeBlockThemed from '@/components/docs/code-block-themed';
       </DocParagraph>
 
       <DocParagraph>
-        Follow the <a class="font-medium underline underline-offset-4" href="https://tailwindcss.com/docs/installation" target="_blank" rel="noopener noreferrer">Tailwind CSS installation instructions</a> to get started.
+        <DocLink @href="https://tailwindcss.com/docs/installation">Follow the Tailwind CSS installation instructions to get started.</DocLink>
       </DocParagraph>
 
       <page.Heading>Add dependencies</page.Heading>
@@ -41,7 +43,7 @@ import CodeBlockThemed from '@/components/docs/code-block-themed';
 
       <DocParagraph>
         Configure the path aliases in your
-        <DocStrong>tsconfig.json</DocStrong>
+        <DocCode>tsconfig.json</DocCode>
         file.
       </DocParagraph>
 
@@ -58,7 +60,7 @@ import CodeBlockThemed from '@/components/docs/code-block-themed';
 
       <DocParagraph>
         The
-        <DocStrong>@</DocStrong>
+        <DocCode>@</DocCode>
         alias is a preference. You can use other aliases if you want.
       </DocParagraph>
 
@@ -66,7 +68,7 @@ import CodeBlockThemed from '@/components/docs/code-block-themed';
 
       <DocParagraph>
         Add the following to your
-        <DocStrong>app/app.css</DocStrong>
+        <DocCode>app/app.css</DocCode>
         file. You can learn more about using CSS variables for theming in the
         theming section.
       </DocParagraph>
@@ -189,7 +191,7 @@ export function cn(...inputs: ClassValue[]) {
 
       <DocParagraph>
         Ember uses
-        <DocStrong>unplugin-icons</DocStrong>
+        <DocCode>unplugin-icons</DocCode>
         for icon support. Install the dependencies:
       </DocParagraph>
 
@@ -200,7 +202,7 @@ export function cn(...inputs: ClassValue[]) {
 
       <DocParagraph>
         Add the plugin to your
-        <DocStrong>vite.config.mjs</DocStrong>:
+        <DocCode>vite.config.mjs</DocCode>:
       </DocParagraph>
 
       <CodeBlockThemed
@@ -230,7 +232,7 @@ export default defineConfig({
 
       <DocParagraph>
         Create a
-        <DocStrong>components.json</DocStrong>
+        <DocCode>components.json</DocCode>
         file in the root of your project.
       </DocParagraph>
 

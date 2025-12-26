@@ -20,6 +20,8 @@ export { default as DocParagraph } from './doc-paragraph';
 export { DocList, DocListItem } from './doc-list';
 export { default as DocStrong } from './doc-strong';
 export { default as DocEmphasis } from './doc-emphasis';
+export { default as DocCode } from './doc-code';
+export { default as DocLink } from './doc-link';
 
 // Component Documentation (existing)
 export { default as ComponentDocPage } from './component-doc-page';
