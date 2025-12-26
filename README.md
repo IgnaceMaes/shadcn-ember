@@ -7,7 +7,10 @@
 
 [shadcn-ember](https://shadcn-ember.com/) is an unofficial community-led [Ember](https://emberjs.com) port of [shadcn/ui](https://ui.shadcn.com/).
 
-> **Note** <br> **We are not affiliated with shadcn, but we did get his blessing prior to creating this project** <br> This is a project born out of the need for a similar project for the Ember ecosystem.
+> [!NOTE]
+> **We are not affiliated with shadcn, but we did get his blessing prior to creating this project.**
+>
+> This is a project born out of the need for a similar project for the Ember ecosystem.
 
 Accessible and customizable components that you can copy and paste into your apps. Free. Open Source. **Use this to build your own component library**.
 
