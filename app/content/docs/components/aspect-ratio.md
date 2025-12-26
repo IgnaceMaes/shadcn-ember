@@ -3,7 +3,7 @@ title: Aspect Ratio
 description: Displays content within a desired ratio.
 ---
 
-<ComponentPreviewMd name="aspect-ratio-demo" />
+<ComponentPreview name="aspect-ratio-demo" />
 
 ## Installation
 

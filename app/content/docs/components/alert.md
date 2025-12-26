@@ -3,7 +3,7 @@ title: Alert
 description: Displays a callout for user attention.
 ---
 
-<ComponentPreviewMd name="alert-demo" />
+<ComponentPreview name="alert-demo" />
 
 ## Installation
 

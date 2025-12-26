@@ -30,7 +30,7 @@ export { default as DocsMarkdownPage } from './markdown-page';
 export { default as ComponentsList } from './components-list';
 
 // Markdown Components (for use within markdown)
-export { default as ComponentPreviewMd } from './component-preview-md';
+export { default as ComponentPreview } from './component-preview.gts';
 export { default as CodeTabs } from './code-tabs';
 export { default as Steps } from './steps';
 export { default as Step } from './step';
@@ -40,7 +40,7 @@ export { default as ComponentSource } from './component-source';
 export { default as ComponentDocPage } from './component-doc-page';
 export { default as ComponentDocHeader } from './component-doc-header';
 export { default as ComponentDocSection } from './component-doc-section';
-export { default as ComponentPreview } from './component-preview';
+export { default as ComponentPreviewRender } from './component-preview-render.gts';
 export { default as ComponentInstallation } from './component-installation';
 export { default as CodeBlockThemed } from './code-block-themed';
 export { default as PackageManagerCommand } from './package-manager-command';
