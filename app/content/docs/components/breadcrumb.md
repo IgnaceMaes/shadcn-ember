@@ -3,7 +3,7 @@ title: Breadcrumb
 description: Displays the path to the current resource using a hierarchy of links.
 ---
 
-<ComponentPreview name="breadcrumb-demo" align="start" />
+<ComponentPreview name="breadcrumb-demo" />
 
 ## Installation
 
@@ -60,7 +60,7 @@ import {
 
 Use a custom component as children for `<BreadcrumbSeparator />` to create a custom separator.
 
-<ComponentPreview name="breadcrumb-separator" align="start" />
+<ComponentPreview name="breadcrumb-separator" />
 
 ```gts showLineNumbers {1,12}
 import SlashIcon from '~icons/lucide/slash';
@@ -90,7 +90,7 @@ import SlashIcon from '~icons/lucide/slash';
 
 You can compose `<BreadcrumbItem />` with a `<DropdownMenu />` to create a dropdown in the breadcrumb.
 
-<ComponentPreview name="breadcrumb-dropdown" align="start" />
+<ComponentPreview name="breadcrumb-dropdown" />
 
 ```gts showLineNumbers {1-6,11-22}
 import {
@@ -124,7 +124,7 @@ import {
 
 We provide a `<BreadcrumbEllipsis />` component to show a collapsed state when the breadcrumb is too long.
 
-<ComponentPreview name="breadcrumb-ellipsis" align="start" />
+<ComponentPreview name="breadcrumb-ellipsis" />
 
 ```gts showLineNumbers {1,10}
 import { BreadcrumbEllipsis } from '@/components/ui/breadcrumb';
@@ -150,7 +150,7 @@ import { BreadcrumbEllipsis } from '@/components/ui/breadcrumb';
 
 To use a custom link component from your routing library, you can use the `@asChild` prop on `<BreadcrumbLink />`.
 
-<ComponentPreview name="breadcrumb-link" align="start" />
+<ComponentPreview name="breadcrumb-link" />
 
 ```gts showLineNumbers {1,9-11}
 import { LinkTo } from '@ember/routing';
@@ -179,4 +179,4 @@ Here's an example of a responsive breadcrumb that composes `<BreadcrumbItem />` 
 
 It displays a dropdown on desktop and a drawer on mobile.
 
-<ComponentPreview name="breadcrumb-responsive" align="start" />
+<ComponentPreview name="breadcrumb-responsive" />
