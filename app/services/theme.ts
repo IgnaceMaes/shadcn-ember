@@ -1,4 +1,5 @@
 import Service from '@ember/service';
+import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 
@@ -9,8 +10,8 @@ export default class ThemeService extends Service {
     return this.currentTheme === 'dark' ? 'github-dark' : 'github-light';
   }
 
-  constructor(properties?: object) {
-    super(properties);
+  constructor(owner: Owner) {
+    super(owner);
     this.initializeTheme();
   }
 

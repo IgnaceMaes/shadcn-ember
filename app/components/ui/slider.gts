@@ -3,7 +3,6 @@ import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { cn } from '@/lib/utils';
-import { get } from '@ember/helper';
 
 // Slider Root Component
 interface SliderSignature {
@@ -52,6 +51,10 @@ export class Slider extends Component<SliderSignature> {
     return ((val - this.min) / (this.max - this.min)) * 100;
   }
 
+  get currentValue() {
+    return this.value[0] ?? 0;
+  }
+
   handleInput = (event: Event) => {
     const target = event.target as HTMLInputElement;
     const newValue = [parseFloat(target.value)];
@@ -82,7 +85,7 @@ export class Slider extends Component<SliderSignature> {
         min={{this.min}}
         max={{this.max}}
         step={{this.step}}
-        value={{get this.value "0"}}
+        value={{this.currentValue}}
         disabled={{@disabled}}
         class="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
         {{on "input" this.handleInput}}

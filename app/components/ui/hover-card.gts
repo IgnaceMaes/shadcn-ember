@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
@@ -90,10 +91,8 @@ export class HoverCardTrigger extends Component<HoverCardTriggerSignature> {
 interface HoverCardContentSignature {
   Element: HTMLDivElement;
   Args: {
+    isOpen: boolean;
     class?: string;
-    align?: 'start' | 'center' | 'end';
-    sideOffset?: number;
-    isOpen?: boolean;
   };
   Blocks: {
     default: [];

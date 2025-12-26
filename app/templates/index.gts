@@ -310,7 +310,7 @@ const state = new HomepageState();
                 <CardContent>
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                      <Avatar @size="sm">
+                      <Avatar>
                         <AvatarFallback>EC</AvatarFallback>
                       </Avatar>
                       <div>

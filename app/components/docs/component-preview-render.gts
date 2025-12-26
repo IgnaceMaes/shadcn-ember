@@ -9,7 +9,7 @@ const components = import.meta.glob<{ default: ComponentLike }>(
   './examples/*.gts',
   { eager: true }
 );
-const rawSources = import.meta.glob('./examples/*.gts', {
+const rawSources = import.meta.glob<string>('./examples/*.gts', {
   query: '?raw',
   eager: true,
   import: 'default',

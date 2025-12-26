@@ -60,7 +60,7 @@ export default class DocSidebarLink extends Component<DocSidebarLinkSignature> {
           />
           {{yield}}
         </a>
-      {{else}}
+      {{else if @route}}
         <DocLinkTo
           @route={{@route}}
           class={{cn

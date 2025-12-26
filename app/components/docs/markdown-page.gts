@@ -9,7 +9,7 @@ interface Signature {
 }
 
 // Use Vite's import.meta.glob to import all markdown files
-const markdownFiles = import.meta.glob<{ default: string }>(
+const markdownFiles = import.meta.glob<string>(
   '/app/content/docs/**/*.md',
   { query: '?raw', eager: true, import: 'default' }
 );
@@ -26,8 +26,8 @@ export default class DocsMarkdownPage extends Component<Signature> {
     if (route === 'docs.catch-all') {
       // Get the URL path, e.g., "/docs/installation" -> "installation"
       // Strip hash fragment before processing (e.g., "#pick-your-framework")
-      const url = this.router.currentURL.split('#')[0];
-      path = url.replace(/^\/docs\/?/, '');
+      const url = this.router.currentURL?.split('#')[0];
+      path = url?.replace(/^\/docs\/?/, '') ?? '';
       if (!path) {
         path = 'index';
       }
@@ -35,7 +35,7 @@ export default class DocsMarkdownPage extends Component<Signature> {
       // Convert route name to file path
       // e.g., "docs.index" -> "index"
       // e.g., "docs.installation.manual" -> "installation/manual"
-      path = route.replace(/^docs\.?/, '');
+      path = route?.replace(/^docs\.?/, '') ?? '';
       if (!path) {
         path = 'index';
       }
