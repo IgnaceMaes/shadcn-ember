@@ -27,9 +27,7 @@ const DocHeader: TOC<DocHeaderSignature> = <template>
       {{yield}}
     </div>
     {{#if @description}}
-      <p
-        class="text-muted-foreground text-[1.05rem] text-balance sm:text-base"
-      >
+      <p class="text-muted-foreground text-[1.05rem] text-balance sm:text-base">
         {{@description}}
       </p>
     {{/if}}
