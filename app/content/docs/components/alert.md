@@ -1,6 +1,7 @@
 ---
 title: Alert
 description: Displays a callout for user attention.
+order: 101
 ---
 
 <ComponentPreview name="alert-demo" />

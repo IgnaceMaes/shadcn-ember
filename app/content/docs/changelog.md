@@ -1,6 +1,7 @@
 ---
 title: Changelog
 description: Latest updates and announcements.
+order: 10
 ---
 
 ## December 2025 - Initial release

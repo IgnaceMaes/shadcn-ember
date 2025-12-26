@@ -1,6 +1,7 @@
 ---
 title: Checkbox
 description: A control that allows the user to toggle between checked and not checked.
+order: 103
 ---
 
 <ComponentPreview name="checkbox-demo" />

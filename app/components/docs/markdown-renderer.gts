@@ -25,6 +25,7 @@ import DynamicMarkdownComponent from './dynamic-markdown-component';
 import * as DocsComponents from './index';
 import type { ComponentLike } from '@glint/template';
 import type { TocItem } from './doc-toc';
+import { parseFrontmatter, type Frontmatter } from '@/lib/frontmatter';
 
 // Type definitions for markdown AST nodes
 interface MdastNode {
@@ -98,18 +99,6 @@ interface Html extends MdastNode {
   value: string;
 }
 
-interface Frontmatter {
-  title?: string;
-  description?: string;
-  [key: string]: unknown;
-}
-
-interface Signature {
-  Args: {
-    markdown: string;
-  };
-}
-
 interface ProcessedNode {
   type: string;
   content?: string;
@@ -127,36 +116,15 @@ interface ProcessedNode {
   highlightLines?: number[];
 }
 
+interface Signature {
+  Args: {
+    markdown: string;
+  };
+}
+
 export default class MarkdownRenderer extends Component<Signature> {
-  private parseFrontmatter(): { frontmatter: Frontmatter; content: string } {
-    const markdown = this.args.markdown.trim();
-    const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
-    const match = markdown.match(frontmatterRegex);
-
-    if (!match) {
-      return { frontmatter: {}, content: markdown };
-    }
-
-    const [, frontmatterText, content] = match;
-    const frontmatter: Frontmatter = {};
-
-    // Parse simple YAML frontmatter (key: value pairs)
-    if (frontmatterText) {
-      frontmatterText.split('\n').forEach((line) => {
-        const colonIndex = line.indexOf(':');
-        if (colonIndex > -1) {
-          const key = line.slice(0, colonIndex).trim();
-          const value = line.slice(colonIndex + 1).trim();
-          frontmatter[key] = value;
-        }
-      });
-    }
-
-    return { frontmatter, content: content || '' };
-  }
-
   get parsed() {
-    return this.parseFrontmatter();
+    return parseFrontmatter(this.args.markdown);
   }
 
   get frontmatter(): Frontmatter {

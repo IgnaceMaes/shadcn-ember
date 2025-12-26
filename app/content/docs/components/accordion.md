@@ -1,6 +1,7 @@
 ---
 title: Accordion
 description: A vertically stacked set of interactive headings that each reveal a section of content.
+order: 100
 ---
 
 <ComponentPreview name="accordion-demo" align="start" />

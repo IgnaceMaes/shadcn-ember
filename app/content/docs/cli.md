@@ -1,6 +1,7 @@
 ---
 title: CLI
 description: Use the CLI to add components to your project.
+order: 21
 ---
 
 ## No CLI Yet

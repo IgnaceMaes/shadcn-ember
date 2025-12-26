@@ -1,6 +1,7 @@
 ---
 title: Figma
 description: Every component recreated in Figma. With customizable props, typography and icons.
+order: 22
 ---
 
 <Callout>

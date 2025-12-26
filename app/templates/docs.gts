@@ -4,6 +4,7 @@ import {
   DocSidebarGroup,
   DocSidebarLink,
 } from '@/components/docs';
+import { docsSidebar } from '@/lib/docs-navigation';
 
 <template>
   <div class="min-h-screen bg-background">
@@ -11,45 +12,21 @@ import {
     <DocLayout>
       <:sidebar>
         <DocSidebar>
-          <DocSidebarGroup @title="Sections" @listClass="gap-1">
-            <DocSidebarLink @route="docs">
-              Get Started
-            </DocSidebarLink>
-            <DocSidebarLink @route="docs.components">
-              Components
-            </DocSidebarLink>
-            <DocSidebarLink @route="docs.changelog">
-              Changelog
-            </DocSidebarLink>
-          </DocSidebarGroup>
-          <DocSidebarGroup @title="Get Started" @listClass="gap-1">
-            <DocSidebarLink @route="docs.installation">
-              Installation
-            </DocSidebarLink>
-            <DocSidebarLink @route="docs.cli">
-              CLI
-            </DocSidebarLink>
-            <DocSidebarLink @route="docs.figma">
-              Figma
-            </DocSidebarLink>
-            <DocSidebarLink @href="/llms.txt">
-              llms.txt
-            </DocSidebarLink>
-          </DocSidebarGroup>
-          <DocSidebarGroup @title="Components">
-            <DocSidebarLink @route="docs.components.accordion">
-              Accordion
-            </DocSidebarLink>
-            <DocSidebarLink @route="docs.components.alert">
-              Alert
-            </DocSidebarLink>
-            <DocSidebarLink @route="docs.components.aspect-ratio">
-              Aspect Ratio
-            </DocSidebarLink>
-            <DocSidebarLink @route="docs.components.checkbox">
-              Checkbox
-            </DocSidebarLink>
-          </DocSidebarGroup>
+          {{#each docsSidebar as |section|}}
+            <DocSidebarGroup @title={{section.title}} @listClass="gap-1">
+              {{#each section.items as |item|}}
+                {{#if item.href}}
+                  <DocSidebarLink @href={{item.href}}>
+                    {{item.title}}
+                  </DocSidebarLink>
+                {{else}}
+                  <DocSidebarLink @route={{item.route}}>
+                    {{item.title}}
+                  </DocSidebarLink>
+                {{/if}}
+              {{/each}}
+            </DocSidebarGroup>
+          {{/each}}
         </DocSidebar>
       </:sidebar>
       <:default>
