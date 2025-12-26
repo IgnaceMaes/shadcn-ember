@@ -1,5 +1,5 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
@@ -79,12 +79,10 @@ interface AlertDialogPortalSignature {
   };
 }
 
-export class AlertDialogPortal extends Component<AlertDialogPortalSignature> {
-  <template>
-    {{! template-lint-disable no-yield-only }}
-    {{yield}}
-  </template>
-}
+export const AlertDialogPortal: TOC<AlertDialogPortalSignature> = <template>
+  {{! template-lint-disable no-yield-only }}
+  {{yield}}
+</template>;
 
 // AlertDialogOverlay Component
 interface AlertDialogOverlaySignature {
@@ -98,20 +96,18 @@ interface AlertDialogOverlaySignature {
   };
 }
 
-export class AlertDialogOverlay extends Component<AlertDialogOverlaySignature> {
-  <template>
-    {{#if @isOpen}}
-      <div
-        class={{cn
-          "fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
-          @class
-        }}
-        data-state={{if @isOpen "open" "closed"}}
-        ...attributes
-      ></div>
-    {{/if}}
-  </template>
-}
+export const AlertDialogOverlay: TOC<AlertDialogOverlaySignature> = <template>
+  {{#if @isOpen}}
+    <div
+      class={{cn
+        "fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
+        @class
+      }}
+      data-state={{if @isOpen "open" "closed"}}
+      ...attributes
+    ></div>
+  {{/if}}
+</template>;
 
 // AlertDialogContent Component
 interface AlertDialogContentSignature {
@@ -126,26 +122,24 @@ interface AlertDialogContentSignature {
   };
 }
 
-export class AlertDialogContent extends Component<AlertDialogContentSignature> {
-  <template>
-    {{#if @isOpen}}
-      <AlertDialogPortal>
-        <AlertDialogOverlay @isOpen={{@isOpen}} />
-        <div
-          class={{cn
-            "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg"
-            @class
-          }}
-          data-state={{if @isOpen "open" "closed"}}
-          role="alertdialog"
-          ...attributes
-        >
-          {{yield}}
-        </div>
-      </AlertDialogPortal>
-    {{/if}}
-  </template>
-}
+export const AlertDialogContent: TOC<AlertDialogContentSignature> = <template>
+  {{#if @isOpen}}
+    <AlertDialogPortal>
+      <AlertDialogOverlay @isOpen={{@isOpen}} />
+      <div
+        class={{cn
+          "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg"
+          @class
+        }}
+        data-state={{if @isOpen "open" "closed"}}
+        role="alertdialog"
+        ...attributes
+      >
+        {{yield}}
+      </div>
+    </AlertDialogPortal>
+  {{/if}}
+</template>;
 
 // AlertDialogHeader Component
 interface AlertDialogHeaderSignature {
@@ -158,16 +152,14 @@ interface AlertDialogHeaderSignature {
   };
 }
 
-export class AlertDialogHeader extends Component<AlertDialogHeaderSignature> {
-  <template>
-    <div
-      class={{cn "flex flex-col space-y-2 text-center sm:text-left" @class}}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const AlertDialogHeader: TOC<AlertDialogHeaderSignature> = <template>
+  <div
+    class={{cn "flex flex-col space-y-2 text-center sm:text-left" @class}}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 // AlertDialogFooter Component
 interface AlertDialogFooterSignature {
@@ -180,19 +172,17 @@ interface AlertDialogFooterSignature {
   };
 }
 
-export class AlertDialogFooter extends Component<AlertDialogFooterSignature> {
-  <template>
-    <div
-      class={{cn
-        "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2"
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const AlertDialogFooter: TOC<AlertDialogFooterSignature> = <template>
+  <div
+    class={{cn
+      "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2"
+      @class
+    }}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 // AlertDialogTitle Component
 interface AlertDialogTitleSignature {
@@ -205,13 +195,11 @@ interface AlertDialogTitleSignature {
   };
 }
 
-export class AlertDialogTitle extends Component<AlertDialogTitleSignature> {
-  <template>
-    <h2 class={{cn "text-lg font-semibold" @class}} ...attributes>
-      {{yield}}
-    </h2>
-  </template>
-}
+export const AlertDialogTitle: TOC<AlertDialogTitleSignature> = <template>
+  <h2 class={{cn "text-lg font-semibold" @class}} ...attributes>
+    {{yield}}
+  </h2>
+</template>;
 
 // AlertDialogDescription Component
 interface AlertDialogDescriptionSignature {
@@ -224,13 +212,12 @@ interface AlertDialogDescriptionSignature {
   };
 }
 
-export class AlertDialogDescription extends Component<AlertDialogDescriptionSignature> {
+export const AlertDialogDescription: TOC<AlertDialogDescriptionSignature> =
   <template>
     <p class={{cn "text-sm text-muted-foreground" @class}} ...attributes>
       {{yield}}
     </p>
-  </template>
-}
+  </template>;
 
 // AlertDialogAction Component
 interface AlertDialogActionSignature {

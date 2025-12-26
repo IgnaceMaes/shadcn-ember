@@ -1,5 +1,4 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
-import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
 import Label from './label.gts';
 
@@ -14,12 +13,10 @@ interface FormSignature {
   };
 }
 
-export class Form extends Component<FormSignature> {
-  <template>
-    {{! template-lint-disable no-yield-only }}
-    {{yield}}
-  </template>
-}
+export const Form: TOC<FormSignature> = <template>
+  {{! template-lint-disable no-yield-only }}
+  {{yield}}
+</template>;
 
 // FormField Component
 interface FormFieldSignature {
@@ -31,12 +28,10 @@ interface FormFieldSignature {
   };
 }
 
-export class FormField extends Component<FormFieldSignature> {
-  <template>
-    {{! template-lint-disable no-yield-only }}
-    {{yield}}
-  </template>
-}
+export const FormField: TOC<FormFieldSignature> = <template>
+  {{! template-lint-disable no-yield-only }}
+  {{yield}}
+</template>;
 
 // FormItem Component
 interface FormItemSignature {
@@ -49,13 +44,11 @@ interface FormItemSignature {
   };
 }
 
-export class FormItem extends Component<FormItemSignature> {
-  <template>
-    <div class={{cn "space-y-2" @class}} ...attributes>
-      {{yield}}
-    </div>
-  </template>
-}
+export const FormItem: TOC<FormItemSignature> = <template>
+  <div class={{cn "space-y-2" @class}} ...attributes>
+    {{yield}}
+  </div>
+</template>;
 
 // FormLabel Component
 interface FormLabelSignature {
@@ -68,13 +61,11 @@ interface FormLabelSignature {
   };
 }
 
-export class FormLabel extends Component<FormLabelSignature> {
-  <template>
-    <Label class={{cn @class}} ...attributes>
-      {{yield}}
-    </Label>
-  </template>
-}
+export const FormLabel: TOC<FormLabelSignature> = <template>
+  <Label class={{cn @class}} ...attributes>
+    {{yield}}
+  </Label>
+</template>;
 
 // FormControl Component
 interface FormControlSignature {
@@ -83,12 +74,10 @@ interface FormControlSignature {
   };
 }
 
-export class FormControl extends Component<FormControlSignature> {
-  <template>
-    {{! template-lint-disable no-yield-only }}
-    {{yield}}
-  </template>
-}
+export const FormControl: TOC<FormControlSignature> = <template>
+  {{! template-lint-disable no-yield-only }}
+  {{yield}}
+</template>;
 
 // FormDescription Component
 interface FormDescriptionSignature {
@@ -101,13 +90,11 @@ interface FormDescriptionSignature {
   };
 }
 
-export class FormDescription extends Component<FormDescriptionSignature> {
-  <template>
-    <p class={{cn "text-[0.8rem] text-muted-foreground" @class}} ...attributes>
-      {{yield}}
-    </p>
-  </template>
-}
+export const FormDescription: TOC<FormDescriptionSignature> = <template>
+  <p class={{cn "text-[0.8rem] text-muted-foreground" @class}} ...attributes>
+    {{yield}}
+  </p>
+</template>;
 
 // FormMessage Component
 interface FormMessageSignature {
@@ -120,15 +107,13 @@ interface FormMessageSignature {
   };
 }
 
-export class FormMessage extends Component<FormMessageSignature> {
-  <template>
-    <p
-      class={{cn "text-[0.8rem] font-medium text-destructive" @class}}
-      ...attributes
-    >
-      {{yield}}
-    </p>
-  </template>
-}
+export const FormMessage: TOC<FormMessageSignature> = <template>
+  <p
+    class={{cn "text-[0.8rem] font-medium text-destructive" @class}}
+    ...attributes
+  >
+    {{yield}}
+  </p>
+</template>;
 
 export default Form;

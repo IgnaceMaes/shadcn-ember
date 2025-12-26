@@ -1,5 +1,5 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 // import PhCaretDown from 'ember-phosphor-icons/components/ph-caret-down';
@@ -144,18 +144,16 @@ interface AccordionContentSignature {
   };
 }
 
-export class AccordionContent extends Component<AccordionContentSignature> {
-  <template>
-    {{#if @isOpen}}
-      <div
-        class="overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
-        data-state={{if @isOpen "open" "closed"}}
-        ...attributes
-      >
-        <div class={{cn "pb-4 pt-0" @class}}>
-          {{yield}}
-        </div>
+export const AccordionContent: TOC<AccordionContentSignature> = <template>
+  {{#if @isOpen}}
+    <div
+      class="overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+      data-state={{if @isOpen "open" "closed"}}
+      ...attributes
+    >
+      <div class={{cn "pb-4 pt-0" @class}}>
+        {{yield}}
       </div>
-    {{/if}}
-  </template>
-}
+    </div>
+  {{/if}}
+</template>;

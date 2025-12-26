@@ -1,6 +1,6 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
 import { tracked } from '@glimmer/tracking';
 import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { on } from '@ember/modifier';
 import { hash, fn } from '@ember/helper';
 // import PhCaretDown from 'ember-phosphor-icons/components/ph-caret-down';
@@ -90,23 +90,21 @@ interface SelectTriggerSignature {
   };
 }
 
-export class SelectTrigger extends Component<SelectTriggerSignature> {
-  <template>
-    <button
-      type="button"
-      class={{cn
-        "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1"
-        @class
-      }}
-      disabled={{@disabled}}
-      {{on "click" (if @toggle @toggle (fn))}}
-      ...attributes
-    >
-      {{yield}}
-      <ChevronDown class="size-4 opacity-50" />
-    </button>
-  </template>
-}
+export const SelectTrigger: TOC<SelectTriggerSignature> = <template>
+  <button
+    type="button"
+    class={{cn
+      "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1"
+      @class
+    }}
+    disabled={{@disabled}}
+    {{on "click" (if @toggle @toggle (fn))}}
+    ...attributes
+  >
+    {{yield}}
+    <ChevronDown class="size-4 opacity-50" />
+  </button>
+</template>;
 
 // SelectValue Component
 interface SelectValueSignature {
@@ -119,17 +117,15 @@ interface SelectValueSignature {
   };
 }
 
-export class SelectValue extends Component<SelectValueSignature> {
-  <template>
-    <span class="block truncate" ...attributes>
-      {{#if (has-block)}}
-        {{yield}}
-      {{else}}
-        {{@placeholder}}
-      {{/if}}
-    </span>
-  </template>
-}
+export const SelectValue: TOC<SelectValueSignature> = <template>
+  <span class="block truncate" ...attributes>
+    {{#if (has-block)}}
+      {{yield}}
+    {{else}}
+      {{@placeholder}}
+    {{/if}}
+  </span>
+</template>;
 
 // SelectContent Component
 interface SelectContentSignature {
@@ -180,13 +176,11 @@ interface SelectGroupSignature {
   };
 }
 
-export class SelectGroup extends Component<SelectGroupSignature> {
-  <template>
-    <div class={{cn "py-1" @class}} ...attributes>
-      {{yield}}
-    </div>
-  </template>
-}
+export const SelectGroup: TOC<SelectGroupSignature> = <template>
+  <div class={{cn "py-1" @class}} ...attributes>
+    {{yield}}
+  </div>
+</template>;
 
 // SelectLabel Component
 interface SelectLabelSignature {
@@ -199,13 +193,11 @@ interface SelectLabelSignature {
   };
 }
 
-export class SelectLabel extends Component<SelectLabelSignature> {
-  <template>
-    <div class={{cn "px-2 py-1.5 text-sm font-semibold" @class}} ...attributes>
-      {{yield}}
-    </div>
-  </template>
-}
+export const SelectLabel: TOC<SelectLabelSignature> = <template>
+  <div class={{cn "px-2 py-1.5 text-sm font-semibold" @class}} ...attributes>
+    {{yield}}
+  </div>
+</template>;
 
 // SelectItem Component
 interface SelectItemSignature {
@@ -265,11 +257,9 @@ interface SelectSeparatorSignature {
   };
 }
 
-export class SelectSeparator extends Component<SelectSeparatorSignature> {
-  <template>
-    <div class={{cn "-mx-1 my-1 h-px bg-muted" @class}} ...attributes></div>
-  </template>
-}
+export const SelectSeparator: TOC<SelectSeparatorSignature> = <template>
+  <div class={{cn "-mx-1 my-1 h-px bg-muted" @class}} ...attributes></div>
+</template>;
 
 // SelectScrollUpButton Component
 interface SelectScrollUpButtonSignature {
@@ -279,7 +269,7 @@ interface SelectScrollUpButtonSignature {
   };
 }
 
-export class SelectScrollUpButton extends Component<SelectScrollUpButtonSignature> {
+export const SelectScrollUpButton: TOC<SelectScrollUpButtonSignature> =
   <template>
     <div
       class={{cn "flex cursor-default items-center justify-center py-1" @class}}
@@ -287,8 +277,7 @@ export class SelectScrollUpButton extends Component<SelectScrollUpButtonSignatur
     >
       <ChevronUp class="size-4" />
     </div>
-  </template>
-}
+  </template>;
 
 // SelectScrollDownButton Component
 interface SelectScrollDownButtonSignature {
@@ -298,7 +287,7 @@ interface SelectScrollDownButtonSignature {
   };
 }
 
-export class SelectScrollDownButton extends Component<SelectScrollDownButtonSignature> {
+export const SelectScrollDownButton: TOC<SelectScrollDownButtonSignature> =
   <template>
     <div
       class={{cn "flex cursor-default items-center justify-center py-1" @class}}
@@ -306,5 +295,4 @@ export class SelectScrollDownButton extends Component<SelectScrollDownButtonSign
     >
       <ChevronDown class="size-4" />
     </div>
-  </template>
-}
+  </template>;

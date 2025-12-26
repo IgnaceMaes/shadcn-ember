@@ -1,5 +1,4 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
-import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 
 interface Signature {
   Blocks: {
@@ -8,13 +7,8 @@ interface Signature {
   Element: HTMLDivElement;
 }
 
-export default class Steps extends Component<Signature> {
-  <template>
-    <div
-      class="mb-4 ml-4 mt-6 border-l pl-6 [counter-reset:step]"
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export default <template>
+  <div class="mb-4 ml-4 mt-6 border-l pl-6 [counter-reset:step]" ...attributes>
+    {{yield}}
+  </div>
+</template> satisfies TOC<Signature>;

@@ -1,5 +1,4 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
-import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
 
 // Note: This is a placeholder/simplified version of the NavigationMenu component
@@ -16,19 +15,17 @@ interface NavigationMenuSignature {
   };
 }
 
-export class NavigationMenu extends Component<NavigationMenuSignature> {
-  <template>
-    <nav
-      class={{cn
-        "relative z-10 flex max-w-max flex-1 items-center justify-center"
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-    </nav>
-  </template>
-}
+export const NavigationMenu: TOC<NavigationMenuSignature> = <template>
+  <nav
+    class={{cn
+      "relative z-10 flex max-w-max flex-1 items-center justify-center"
+      @class
+    }}
+    ...attributes
+  >
+    {{yield}}
+  </nav>
+</template>;
 
 // NavigationMenuList Component
 interface NavigationMenuListSignature {
@@ -41,19 +38,17 @@ interface NavigationMenuListSignature {
   };
 }
 
-export class NavigationMenuList extends Component<NavigationMenuListSignature> {
-  <template>
-    <ul
-      class={{cn
-        "group flex flex-1 list-none items-center justify-center space-x-1"
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-    </ul>
-  </template>
-}
+export const NavigationMenuList: TOC<NavigationMenuListSignature> = <template>
+  <ul
+    class={{cn
+      "group flex flex-1 list-none items-center justify-center space-x-1"
+      @class
+    }}
+    ...attributes
+  >
+    {{yield}}
+  </ul>
+</template>;
 
 // NavigationMenuItem Component
 interface NavigationMenuItemSignature {
@@ -66,13 +61,11 @@ interface NavigationMenuItemSignature {
   };
 }
 
-export class NavigationMenuItem extends Component<NavigationMenuItemSignature> {
-  <template>
-    <li class={{cn @class}} ...attributes>
-      {{yield}}
-    </li>
-  </template>
-}
+export const NavigationMenuItem: TOC<NavigationMenuItemSignature> = <template>
+  <li class={{cn @class}} ...attributes>
+    {{yield}}
+  </li>
+</template>;
 
 // NavigationMenuTrigger Component
 interface NavigationMenuTriggerSignature {
@@ -85,7 +78,7 @@ interface NavigationMenuTriggerSignature {
   };
 }
 
-export class NavigationMenuTrigger extends Component<NavigationMenuTriggerSignature> {
+export const NavigationMenuTrigger: TOC<NavigationMenuTriggerSignature> =
   <template>
     <button
       type="button"
@@ -97,8 +90,7 @@ export class NavigationMenuTrigger extends Component<NavigationMenuTriggerSignat
     >
       {{yield}}
     </button>
-  </template>
-}
+  </template>;
 
 // NavigationMenuContent Component
 interface NavigationMenuContentSignature {
@@ -111,7 +103,7 @@ interface NavigationMenuContentSignature {
   };
 }
 
-export class NavigationMenuContent extends Component<NavigationMenuContentSignature> {
+export const NavigationMenuContent: TOC<NavigationMenuContentSignature> =
   <template>
     <div
       class={{cn "left-0 top-0 w-full md:absolute md:w-auto" @class}}
@@ -119,8 +111,7 @@ export class NavigationMenuContent extends Component<NavigationMenuContentSignat
     >
       {{yield}}
     </div>
-  </template>
-}
+  </template>;
 
 // NavigationMenuLink Component
 interface NavigationMenuLinkSignature {
@@ -133,14 +124,12 @@ interface NavigationMenuLinkSignature {
   };
 }
 
-export class NavigationMenuLink extends Component<NavigationMenuLinkSignature> {
-  <template>
-    {{! template-lint-disable link-href-attributes }}
-    <a class={{cn @class}} ...attributes>
-      {{yield}}
-    </a>
-  </template>
-}
+export const NavigationMenuLink: TOC<NavigationMenuLinkSignature> = <template>
+  {{! template-lint-disable link-href-attributes }}
+  <a class={{cn @class}} ...attributes>
+    {{yield}}
+  </a>
+</template>;
 
 // NavigationMenuViewport Component
 interface NavigationMenuViewportSignature {
@@ -153,7 +142,7 @@ interface NavigationMenuViewportSignature {
   };
 }
 
-export class NavigationMenuViewport extends Component<NavigationMenuViewportSignature> {
+export const NavigationMenuViewport: TOC<NavigationMenuViewportSignature> =
   <template>
     <div class="absolute left-0 top-full flex justify-center">
       <div
@@ -166,8 +155,7 @@ export class NavigationMenuViewport extends Component<NavigationMenuViewportSign
         {{yield}}
       </div>
     </div>
-  </template>
-}
+  </template>;
 
 // NavigationMenuIndicator Component
 interface NavigationMenuIndicatorSignature {
@@ -180,12 +168,11 @@ interface NavigationMenuIndicatorSignature {
   };
 }
 
-export class NavigationMenuIndicator extends Component<NavigationMenuIndicatorSignature> {
+export const NavigationMenuIndicator: TOC<NavigationMenuIndicatorSignature> =
   <template>
     <div class={{cn @class}} ...attributes>
       {{yield}}
     </div>
-  </template>
-}
+  </template>;
 
 export default NavigationMenu;

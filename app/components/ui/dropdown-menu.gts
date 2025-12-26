@@ -1,4 +1,3 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
 import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
@@ -100,13 +99,11 @@ interface DropdownMenuGroupSignature {
   };
 }
 
-export class DropdownMenuGroup extends Component<DropdownMenuGroupSignature> {
-  <template>
-    <div role="group" class={{cn @class}} ...attributes>
-      {{yield}}
-    </div>
-  </template>
-}
+export const DropdownMenuGroup: TOC<DropdownMenuGroupSignature> = <template>
+  <div role="group" class={{cn @class}} ...attributes>
+    {{yield}}
+  </div>
+</template>;
 
 // DropdownMenuPortal Component
 interface DropdownMenuPortalSignature {
@@ -115,13 +112,11 @@ interface DropdownMenuPortalSignature {
   };
 }
 
-export class DropdownMenuPortal extends Component<DropdownMenuPortalSignature> {
-  <template>
-    <div data-portal>
-      {{yield}}
-    </div>
-  </template>
-}
+export const DropdownMenuPortal: TOC<DropdownMenuPortalSignature> = <template>
+  <div data-portal>
+    {{yield}}
+  </div>
+</template>;
 
 // DropdownMenuSub Component
 interface DropdownMenuSubSignature {
@@ -204,7 +199,7 @@ interface DropdownMenuSubTriggerSignature {
   };
 }
 
-export class DropdownMenuSubTrigger extends Component<DropdownMenuSubTriggerSignature> {
+export const DropdownMenuSubTrigger: TOC<DropdownMenuSubTriggerSignature> =
   <template>
     <div
       class={{cn
@@ -217,8 +212,7 @@ export class DropdownMenuSubTrigger extends Component<DropdownMenuSubTriggerSign
       {{yield}}
       <ChevronRight class="size-4 ml-auto" />
     </div>
-  </template>
-}
+  </template>;
 
 // DropdownMenuSubContent Component
 interface DropdownMenuSubContentSignature {
@@ -232,7 +226,7 @@ interface DropdownMenuSubContentSignature {
   };
 }
 
-export class DropdownMenuSubContent extends Component<DropdownMenuSubContentSignature> {
+export const DropdownMenuSubContent: TOC<DropdownMenuSubContentSignature> =
   <template>
     {{#if @isOpen}}
       <div
@@ -246,8 +240,7 @@ export class DropdownMenuSubContent extends Component<DropdownMenuSubContentSign
         {{yield}}
       </div>
     {{/if}}
-  </template>
-}
+  </template>;
 
 // DropdownMenuContent Component
 interface DropdownMenuContentSignature {
@@ -299,22 +292,20 @@ interface DropdownMenuItemSignature {
   };
 }
 
-export class DropdownMenuItem extends Component<DropdownMenuItemSignature> {
-  <template>
-    <div
-      class={{cn
-        "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&>svg]:size-4 [&>svg]:shrink-0"
-        (if @inset "pl-8")
-        @class
-      }}
-      role="menuitem"
-      data-disabled={{@disabled}}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const DropdownMenuItem: TOC<DropdownMenuItemSignature> = <template>
+  <div
+    class={{cn
+      "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&>svg]:size-4 [&>svg]:shrink-0"
+      (if @inset "pl-8")
+      @class
+    }}
+    role="menuitem"
+    data-disabled={{@disabled}}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 // DropdownMenuCheckboxItem Component
 interface DropdownMenuCheckboxItemSignature {
@@ -417,16 +408,14 @@ interface DropdownMenuLabelSignature {
   };
 }
 
-export class DropdownMenuLabel extends Component<DropdownMenuLabelSignature> {
-  <template>
-    <div
-      class={{cn "px-2 py-1.5 text-sm font-semibold" (if @inset "pl-8") @class}}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const DropdownMenuLabel: TOC<DropdownMenuLabelSignature> = <template>
+  <div
+    class={{cn "px-2 py-1.5 text-sm font-semibold" (if @inset "pl-8") @class}}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 // DropdownMenuSeparator Component
 interface DropdownMenuSeparatorSignature {
@@ -439,15 +428,14 @@ interface DropdownMenuSeparatorSignature {
   };
 }
 
-export class DropdownMenuSeparator extends Component<DropdownMenuSeparatorSignature> {
+export const DropdownMenuSeparator: TOC<DropdownMenuSeparatorSignature> =
   <template>
     <div
       class={{cn "-mx-1 my-1 h-px bg-muted" @class}}
       role="separator"
       ...attributes
     ></div>
-  </template>
-}
+  </template>;
 
 // DropdownMenuShortcut Component
 interface DropdownMenuShortcutSignature {
@@ -460,7 +448,7 @@ interface DropdownMenuShortcutSignature {
   };
 }
 
-export class DropdownMenuShortcut extends Component<DropdownMenuShortcutSignature> {
+export const DropdownMenuShortcut: TOC<DropdownMenuShortcutSignature> =
   <template>
     <span
       class={{cn "ml-auto text-xs tracking-widest opacity-60" @class}}
@@ -468,7 +456,6 @@ export class DropdownMenuShortcut extends Component<DropdownMenuShortcutSignatur
     >
       {{yield}}
     </span>
-  </template>
-}
+  </template>;
 
 export default DropdownMenu;

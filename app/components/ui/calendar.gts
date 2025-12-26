@@ -1,5 +1,4 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
-import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
 
 // Note: This is a placeholder for the Calendar component
@@ -20,20 +19,15 @@ interface CalendarSignature {
   };
 }
 
-export class Calendar extends Component<CalendarSignature> {
-  <template>
-    <div
-      class={{cn "bg-background p-3 rounded-md border" @class}}
-      ...attributes
-    >
-      <div class="text-center text-sm text-muted-foreground">
-        {{! TODO: Implement calendar component }}
-        {{! This requires a date picker library or custom implementation }}
-        Calendar Component Placeholder
-      </div>
-      {{yield}}
+export const Calendar: TOC<CalendarSignature> = <template>
+  <div class={{cn "bg-background p-3 rounded-md border" @class}} ...attributes>
+    <div class="text-center text-sm text-muted-foreground">
+      {{! TODO: Implement calendar component }}
+      {{! This requires a date picker library or custom implementation }}
+      Calendar Component Placeholder
     </div>
-  </template>
-}
+    {{yield}}
+  </div>
+</template>;
 
 export default Calendar;

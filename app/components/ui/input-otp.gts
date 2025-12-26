@@ -1,5 +1,4 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
-import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
 // import PhMinus from 'ember-phosphor-icons/components/ph-minus';
 import Minus from '~icons/lucide/minus';
@@ -21,13 +20,11 @@ interface InputOTPSignature {
   };
 }
 
-export class InputOTP extends Component<InputOTPSignature> {
-  <template>
-    <div class={{cn "flex items-center gap-2" @class}} ...attributes>
-      {{yield}}
-    </div>
-  </template>
-}
+export const InputOTP: TOC<InputOTPSignature> = <template>
+  <div class={{cn "flex items-center gap-2" @class}} ...attributes>
+    {{yield}}
+  </div>
+</template>;
 
 // InputOTPGroup Component
 interface InputOTPGroupSignature {
@@ -40,13 +37,11 @@ interface InputOTPGroupSignature {
   };
 }
 
-export class InputOTPGroup extends Component<InputOTPGroupSignature> {
-  <template>
-    <div class={{cn "flex items-center" @class}} ...attributes>
-      {{yield}}
-    </div>
-  </template>
-}
+export const InputOTPGroup: TOC<InputOTPGroupSignature> = <template>
+  <div class={{cn "flex items-center" @class}} ...attributes>
+    {{yield}}
+  </div>
+</template>;
 
 // InputOTPSlot Component
 interface InputOTPSlotSignature {
@@ -60,19 +55,17 @@ interface InputOTPSlotSignature {
   };
 }
 
-export class InputOTPSlot extends Component<InputOTPSlotSignature> {
-  <template>
-    <div
-      class={{cn
-        "relative flex h-9 w-9 items-center justify-center border-y border-r border-input text-sm shadow-sm transition-all first:rounded-l-md first:border-l last:rounded-r-md"
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const InputOTPSlot: TOC<InputOTPSlotSignature> = <template>
+  <div
+    class={{cn
+      "relative flex h-9 w-9 items-center justify-center border-y border-r border-input text-sm shadow-sm transition-all first:rounded-l-md first:border-l last:rounded-r-md"
+      @class
+    }}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 // InputOTPSeparator Component
 interface InputOTPSeparatorSignature {
@@ -85,13 +78,11 @@ interface InputOTPSeparatorSignature {
   };
 }
 
-export class InputOTPSeparator extends Component<InputOTPSeparatorSignature> {
-  <template>
-    {{! template-lint-disable require-presentational-children }}
-    <div role="separator" ...attributes>
-      <Minus class="size-4" />
-    </div>
-  </template>
-}
+export const InputOTPSeparator: TOC<InputOTPSeparatorSignature> = <template>
+  {{! template-lint-disable require-presentational-children }}
+  <div role="separator" ...attributes>
+    <Minus class="size-4" />
+  </div>
+</template>;
 
 export default InputOTP;

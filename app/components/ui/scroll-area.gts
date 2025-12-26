@@ -1,5 +1,5 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
 
 // ScrollArea Root Component
@@ -13,16 +13,14 @@ interface ScrollAreaSignature {
   };
 }
 
-export class ScrollArea extends Component<ScrollAreaSignature> {
-  <template>
-    <div class={{cn "relative overflow-hidden" @class}} ...attributes>
-      <div class="h-full w-full rounded-[inherit] overflow-auto">
-        {{yield}}
-      </div>
-      <ScrollBar />
+export const ScrollArea: TOC<ScrollAreaSignature> = <template>
+  <div class={{cn "relative overflow-hidden" @class}} ...attributes>
+    <div class="h-full w-full rounded-[inherit] overflow-auto">
+      {{yield}}
     </div>
-  </template>
-}
+    <ScrollBar />
+  </div>
+</template>;
 
 // ScrollBar Component
 interface ScrollBarSignature {

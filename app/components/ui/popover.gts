@@ -1,5 +1,5 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
@@ -95,13 +95,11 @@ interface PopoverAnchorSignature {
   };
 }
 
-export class PopoverAnchor extends Component<PopoverAnchorSignature> {
-  <template>
-    <div class={{cn @class}} ...attributes>
-      {{yield}}
-    </div>
-  </template>
-}
+export const PopoverAnchor: TOC<PopoverAnchorSignature> = <template>
+  <div class={{cn @class}} ...attributes>
+    {{yield}}
+  </div>
+</template>;
 
 // PopoverContent Component
 interface PopoverContentSignature {

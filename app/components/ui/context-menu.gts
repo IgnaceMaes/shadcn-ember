@@ -1,5 +1,5 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
@@ -89,13 +89,11 @@ interface ContextMenuGroupSignature {
   };
 }
 
-export class ContextMenuGroup extends Component<ContextMenuGroupSignature> {
-  <template>
-    <div role="group" class={{cn @class}} ...attributes>
-      {{yield}}
-    </div>
-  </template>
-}
+export const ContextMenuGroup: TOC<ContextMenuGroupSignature> = <template>
+  <div role="group" class={{cn @class}} ...attributes>
+    {{yield}}
+  </div>
+</template>;
 
 // ContextMenuPortal Component
 interface ContextMenuPortalSignature {
@@ -104,13 +102,11 @@ interface ContextMenuPortalSignature {
   };
 }
 
-export class ContextMenuPortal extends Component<ContextMenuPortalSignature> {
-  <template>
-    <div data-portal>
-      {{yield}}
-    </div>
-  </template>
-}
+export const ContextMenuPortal: TOC<ContextMenuPortalSignature> = <template>
+  <div data-portal>
+    {{yield}}
+  </div>
+</template>;
 
 // ContextMenuSub Component
 interface ContextMenuSubSignature {
@@ -193,7 +189,7 @@ interface ContextMenuSubTriggerSignature {
   };
 }
 
-export class ContextMenuSubTrigger extends Component<ContextMenuSubTriggerSignature> {
+export const ContextMenuSubTrigger: TOC<ContextMenuSubTriggerSignature> =
   <template>
     <div
       class={{cn
@@ -206,8 +202,7 @@ export class ContextMenuSubTrigger extends Component<ContextMenuSubTriggerSignat
       {{yield}}
       <ChevronRight class="size-4 ml-auto" />
     </div>
-  </template>
-}
+  </template>;
 
 // ContextMenuSubContent Component
 interface ContextMenuSubContentSignature {
@@ -221,7 +216,7 @@ interface ContextMenuSubContentSignature {
   };
 }
 
-export class ContextMenuSubContent extends Component<ContextMenuSubContentSignature> {
+export const ContextMenuSubContent: TOC<ContextMenuSubContentSignature> =
   <template>
     {{#if @isOpen}}
       <div
@@ -235,8 +230,7 @@ export class ContextMenuSubContent extends Component<ContextMenuSubContentSignat
         {{yield}}
       </div>
     {{/if}}
-  </template>
-}
+  </template>;
 
 // ContextMenuContent Component
 interface ContextMenuContentSignature {
@@ -287,22 +281,20 @@ interface ContextMenuItemSignature {
   };
 }
 
-export class ContextMenuItem extends Component<ContextMenuItemSignature> {
-  <template>
-    <div
-      class={{cn
-        "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
-        (if @inset "pl-8")
-        @class
-      }}
-      role="menuitem"
-      data-disabled={{@disabled}}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const ContextMenuItem: TOC<ContextMenuItemSignature> = <template>
+  <div
+    class={{cn
+      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+      (if @inset "pl-8")
+      @class
+    }}
+    role="menuitem"
+    data-disabled={{@disabled}}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 // ContextMenuCheckboxItem Component
 interface ContextMenuCheckboxItemSignature {
@@ -405,20 +397,18 @@ interface ContextMenuLabelSignature {
   };
 }
 
-export class ContextMenuLabel extends Component<ContextMenuLabelSignature> {
-  <template>
-    <div
-      class={{cn
-        "px-2 py-1.5 text-sm font-semibold text-foreground"
-        (if @inset "pl-8")
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const ContextMenuLabel: TOC<ContextMenuLabelSignature> = <template>
+  <div
+    class={{cn
+      "px-2 py-1.5 text-sm font-semibold text-foreground"
+      (if @inset "pl-8")
+      @class
+    }}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 // ContextMenuSeparator Component
 interface ContextMenuSeparatorSignature {
@@ -431,15 +421,14 @@ interface ContextMenuSeparatorSignature {
   };
 }
 
-export class ContextMenuSeparator extends Component<ContextMenuSeparatorSignature> {
+export const ContextMenuSeparator: TOC<ContextMenuSeparatorSignature> =
   <template>
     <div
       class={{cn "-mx-1 my-1 h-px bg-muted" @class}}
       role="separator"
       ...attributes
     ></div>
-  </template>
-}
+  </template>;
 
 // ContextMenuShortcut Component
 interface ContextMenuShortcutSignature {
@@ -452,18 +441,13 @@ interface ContextMenuShortcutSignature {
   };
 }
 
-export class ContextMenuShortcut extends Component<ContextMenuShortcutSignature> {
-  <template>
-    <span
-      class={{cn
-        "ml-auto text-xs tracking-widest text-muted-foreground"
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-    </span>
-  </template>
-}
+export const ContextMenuShortcut: TOC<ContextMenuShortcutSignature> = <template>
+  <span
+    class={{cn "ml-auto text-xs tracking-widest text-muted-foreground" @class}}
+    ...attributes
+  >
+    {{yield}}
+  </span>
+</template>;
 
 export default ContextMenu;

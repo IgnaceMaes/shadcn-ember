@@ -1,4 +1,3 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
 import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
@@ -101,21 +100,19 @@ interface HoverCardContentSignature {
   };
 }
 
-export class HoverCardContent extends Component<HoverCardContentSignature> {
-  <template>
-    {{#if @isOpen}}
-      <div
-        class={{cn
-          "absolute z-50 w-64 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
-          @class
-        }}
-        data-state={{if @isOpen "open" "closed"}}
-        ...attributes
-      >
-        {{yield}}
-      </div>
-    {{/if}}
-  </template>
-}
+export const HoverCardContent: TOC<HoverCardContentSignature> = <template>
+  {{#if @isOpen}}
+    <div
+      class={{cn
+        "absolute z-50 w-64 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
+        @class
+      }}
+      data-state={{if @isOpen "open" "closed"}}
+      ...attributes
+    >
+      {{yield}}
+    </div>
+  {{/if}}
+</template>;
 
 export default HoverCard;

@@ -1,5 +1,5 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { tracked } from '@glimmer/tracking';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
@@ -76,13 +76,11 @@ interface DialogPortalSignature {
   };
 }
 
-export class DialogPortal extends Component<DialogPortalSignature> {
-  <template>
-    <div>
-      {{yield}}
-    </div>
-  </template>
-}
+export const DialogPortal: TOC<DialogPortalSignature> = <template>
+  <div>
+    {{yield}}
+  </div>
+</template>;
 
 // Dialog Overlay Component
 interface DialogOverlaySignature {
@@ -223,16 +221,14 @@ interface DialogHeaderSignature {
   };
 }
 
-export class DialogHeader extends Component<DialogHeaderSignature> {
-  <template>
-    <div
-      class={{cn "flex flex-col space-y-1.5 text-center sm:text-left" @class}}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const DialogHeader: TOC<DialogHeaderSignature> = <template>
+  <div
+    class={{cn "flex flex-col space-y-1.5 text-center sm:text-left" @class}}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 // Dialog Footer Component
 interface DialogFooterSignature {
@@ -245,19 +241,17 @@ interface DialogFooterSignature {
   };
 }
 
-export class DialogFooter extends Component<DialogFooterSignature> {
-  <template>
-    <div
-      class={{cn
-        "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2"
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const DialogFooter: TOC<DialogFooterSignature> = <template>
+  <div
+    class={{cn
+      "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2"
+      @class
+    }}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 // Dialog Title Component
 interface DialogTitleSignature {
@@ -270,16 +264,14 @@ interface DialogTitleSignature {
   };
 }
 
-export class DialogTitle extends Component<DialogTitleSignature> {
-  <template>
-    <h2
-      class={{cn "text-lg font-semibold leading-none tracking-tight" @class}}
-      ...attributes
-    >
-      {{yield}}
-    </h2>
-  </template>
-}
+export const DialogTitle: TOC<DialogTitleSignature> = <template>
+  <h2
+    class={{cn "text-lg font-semibold leading-none tracking-tight" @class}}
+    ...attributes
+  >
+    {{yield}}
+  </h2>
+</template>;
 
 // Dialog Description Component
 interface DialogDescriptionSignature {
@@ -292,12 +284,10 @@ interface DialogDescriptionSignature {
   };
 }
 
-export class DialogDescription extends Component<DialogDescriptionSignature> {
-  <template>
-    <p class={{cn "text-sm text-muted-foreground" @class}} ...attributes>
-      {{yield}}
-    </p>
-  </template>
-}
+export const DialogDescription: TOC<DialogDescriptionSignature> = <template>
+  <p class={{cn "text-sm text-muted-foreground" @class}} ...attributes>
+    {{yield}}
+  </p>
+</template>;
 
 export default Dialog;

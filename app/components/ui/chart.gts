@@ -1,5 +1,4 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
-import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
 
 // Note: This is a placeholder for the Chart component
@@ -18,18 +17,16 @@ interface ChartContainerSignature {
   };
 }
 
-export class ChartContainer extends Component<ChartContainerSignature> {
-  <template>
-    <div class={{cn "w-full" @class}} ...attributes>
-      <div class="w-full h-full text-center text-sm text-muted-foreground p-4">
-        {{! TODO: Implement chart component }}
-        {{! This requires a charting library like recharts or similar }}
-        Chart Component Placeholder
-      </div>
-      {{yield}}
+export const ChartContainer: TOC<ChartContainerSignature> = <template>
+  <div class={{cn "w-full" @class}} ...attributes>
+    <div class="w-full h-full text-center text-sm text-muted-foreground p-4">
+      {{! TODO: Implement chart component }}
+      {{! This requires a charting library like recharts or similar }}
+      Chart Component Placeholder
     </div>
-  </template>
-}
+    {{yield}}
+  </div>
+</template>;
 
 // ChartTooltip Component
 interface ChartTooltipSignature {
@@ -42,19 +39,17 @@ interface ChartTooltipSignature {
   };
 }
 
-export class ChartTooltip extends Component<ChartTooltipSignature> {
-  <template>
-    <div
-      class={{cn
-        "rounded-md border bg-popover px-3 py-1.5 text-xs text-popover-foreground shadow-md"
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const ChartTooltip: TOC<ChartTooltipSignature> = <template>
+  <div
+    class={{cn
+      "rounded-md border bg-popover px-3 py-1.5 text-xs text-popover-foreground shadow-md"
+      @class
+    }}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 // ChartTooltipContent Component
 interface ChartTooltipContentSignature {
@@ -67,13 +62,11 @@ interface ChartTooltipContentSignature {
   };
 }
 
-export class ChartTooltipContent extends Component<ChartTooltipContentSignature> {
-  <template>
-    <div class={{cn "space-y-1" @class}} ...attributes>
-      {{yield}}
-    </div>
-  </template>
-}
+export const ChartTooltipContent: TOC<ChartTooltipContentSignature> = <template>
+  <div class={{cn "space-y-1" @class}} ...attributes>
+    {{yield}}
+  </div>
+</template>;
 
 // ChartLegend Component
 interface ChartLegendSignature {
@@ -86,16 +79,14 @@ interface ChartLegendSignature {
   };
 }
 
-export class ChartLegend extends Component<ChartLegendSignature> {
-  <template>
-    <div
-      class={{cn "flex items-center justify-center gap-4" @class}}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const ChartLegend: TOC<ChartLegendSignature> = <template>
+  <div
+    class={{cn "flex items-center justify-center gap-4" @class}}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 // ChartLegendContent Component
 interface ChartLegendContentSignature {
@@ -108,12 +99,10 @@ interface ChartLegendContentSignature {
   };
 }
 
-export class ChartLegendContent extends Component<ChartLegendContentSignature> {
-  <template>
-    <div class={{cn "flex items-center gap-2" @class}} ...attributes>
-      {{yield}}
-    </div>
-  </template>
-}
+export const ChartLegendContent: TOC<ChartLegendContentSignature> = <template>
+  <div class={{cn "flex items-center gap-2" @class}} ...attributes>
+    {{yield}}
+  </div>
+</template>;
 
 export default ChartContainer;

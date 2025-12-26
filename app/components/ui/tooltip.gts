@@ -1,5 +1,5 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
@@ -16,12 +16,10 @@ interface TooltipProviderSignature {
   };
 }
 
-export class TooltipProvider extends Component<TooltipProviderSignature> {
-  <template>
-    {{! template-lint-disable no-yield-only }}
-    {{yield}}
-  </template>
-}
+export const TooltipProvider: TOC<TooltipProviderSignature> = <template>
+  {{! template-lint-disable no-yield-only }}
+  {{yield}}
+</template>;
 
 // Tooltip Root Component
 interface TooltipSignature {
@@ -128,21 +126,19 @@ interface TooltipContentSignature {
   };
 }
 
-export class TooltipContent extends Component<TooltipContentSignature> {
-  <template>
-    {{#if @isOpen}}
-      <div
-        class={{cn
-          "absolute z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 bottom-full left-1/2 -translate-x-1/2 mb-2"
-          @class
-        }}
-        role="tooltip"
-        ...attributes
-      >
-        {{yield}}
-      </div>
-    {{/if}}
-  </template>
-}
+export const TooltipContent: TOC<TooltipContentSignature> = <template>
+  {{#if @isOpen}}
+    <div
+      class={{cn
+        "absolute z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 bottom-full left-1/2 -translate-x-1/2 mb-2"
+        @class
+      }}
+      role="tooltip"
+      ...attributes
+    >
+      {{yield}}
+    </div>
+  {{/if}}
+</template>;
 
 export default Tooltip;

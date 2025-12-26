@@ -1,5 +1,5 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { eq } from 'ember-truth-helpers';
@@ -15,19 +15,17 @@ interface AvatarSignature {
   };
 }
 
-export class Avatar extends Component<AvatarSignature> {
-  <template>
-    <div
-      class={{cn
-        "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const Avatar: TOC<AvatarSignature> = <template>
+  <div
+    class={{cn
+      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"
+      @class
+    }}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 interface AvatarImageSignature {
   Element: HTMLImageElement;
@@ -79,18 +77,16 @@ interface AvatarFallbackSignature {
   };
 }
 
-export class AvatarFallback extends Component<AvatarFallbackSignature> {
-  <template>
-    <div
-      class={{cn
-        "flex h-full w-full items-center justify-center rounded-full bg-muted"
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const AvatarFallback: TOC<AvatarFallbackSignature> = <template>
+  <div
+    class={{cn
+      "flex h-full w-full items-center justify-center rounded-full bg-muted"
+      @class
+    }}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 export { Avatar as default };

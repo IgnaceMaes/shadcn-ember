@@ -1,5 +1,5 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { hash } from '@ember/helper';
@@ -70,20 +70,18 @@ interface TabsListSignature {
   Element: HTMLDivElement;
 }
 
-class TabsList extends Component<TabsListSignature> {
-  <template>
-    <div
-      class={{cn
-        "inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground"
-        @class
-      }}
-      role="tablist"
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+const TabsList: TOC<TabsListSignature> = <template>
+  <div
+    class={{cn
+      "inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground"
+      @class
+    }}
+    role="tablist"
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 interface TabsTriggerSignature {
   Args: {

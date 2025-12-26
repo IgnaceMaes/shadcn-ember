@@ -1,5 +1,5 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
@@ -133,12 +133,10 @@ interface SheetPortalSignature {
   };
 }
 
-export class SheetPortal extends Component<SheetPortalSignature> {
-  <template>
-    {{! template-lint-disable no-yield-only }}
-    {{yield}}
-  </template>
-}
+export const SheetPortal: TOC<SheetPortalSignature> = <template>
+  {{! template-lint-disable no-yield-only }}
+  {{yield}}
+</template>;
 
 // SheetOverlay Component
 interface SheetOverlaySignature {
@@ -229,16 +227,14 @@ interface SheetHeaderSignature {
   };
 }
 
-export class SheetHeader extends Component<SheetHeaderSignature> {
-  <template>
-    <div
-      class={{cn "flex flex-col space-y-2 text-center sm:text-left" @class}}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const SheetHeader: TOC<SheetHeaderSignature> = <template>
+  <div
+    class={{cn "flex flex-col space-y-2 text-center sm:text-left" @class}}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 // SheetFooter Component
 interface SheetFooterSignature {
@@ -251,19 +247,17 @@ interface SheetFooterSignature {
   };
 }
 
-export class SheetFooter extends Component<SheetFooterSignature> {
-  <template>
-    <div
-      class={{cn
-        "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2"
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const SheetFooter: TOC<SheetFooterSignature> = <template>
+  <div
+    class={{cn
+      "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2"
+      @class
+    }}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 // SheetTitle Component
 interface SheetTitleSignature {
@@ -276,16 +270,11 @@ interface SheetTitleSignature {
   };
 }
 
-export class SheetTitle extends Component<SheetTitleSignature> {
-  <template>
-    <h2
-      class={{cn "text-lg font-semibold text-foreground" @class}}
-      ...attributes
-    >
-      {{yield}}
-    </h2>
-  </template>
-}
+export const SheetTitle: TOC<SheetTitleSignature> = <template>
+  <h2 class={{cn "text-lg font-semibold text-foreground" @class}} ...attributes>
+    {{yield}}
+  </h2>
+</template>;
 
 // SheetDescription Component
 interface SheetDescriptionSignature {
@@ -298,12 +287,10 @@ interface SheetDescriptionSignature {
   };
 }
 
-export class SheetDescription extends Component<SheetDescriptionSignature> {
-  <template>
-    <p class={{cn "text-sm text-muted-foreground" @class}} ...attributes>
-      {{yield}}
-    </p>
-  </template>
-}
+export const SheetDescription: TOC<SheetDescriptionSignature> = <template>
+  <p class={{cn "text-sm text-muted-foreground" @class}} ...attributes>
+    {{yield}}
+  </p>
+</template>;
 
 export default Sheet;

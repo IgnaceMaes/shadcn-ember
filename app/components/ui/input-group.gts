@@ -1,5 +1,5 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
 
 // Note: This is a simplified placeholder for the InputGroup component
@@ -16,21 +16,19 @@ interface InputGroupSignature {
   };
 }
 
-export class InputGroup extends Component<InputGroupSignature> {
-  <template>
-    <div
-      data-slot="input-group"
-      role="group"
-      class={{cn
-        "group/input-group border-input shadow-xs relative flex w-full items-center rounded-md border outline-none transition-[color,box-shadow] h-9 has-focus:ring-ring has-focus:ring-1"
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const InputGroup: TOC<InputGroupSignature> = <template>
+  <div
+    data-slot="input-group"
+    role="group"
+    class={{cn
+      "group/input-group border-input shadow-xs relative flex w-full items-center rounded-md border outline-none transition-[color,box-shadow] h-9 has-focus:ring-ring has-focus:ring-1"
+      @class
+    }}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 // InputGroupAddon Component
 interface InputGroupAddonSignature {

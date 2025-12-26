@@ -1,5 +1,4 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
-import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
 // import PhCaretLeft from 'ember-phosphor-icons/components/ph-caret-left';
 // import PhCaretRight from 'ember-phosphor-icons/components/ph-caret-right';
@@ -22,13 +21,11 @@ interface CarouselSignature {
   };
 }
 
-export class Carousel extends Component<CarouselSignature> {
-  <template>
-    <div class={{cn "relative" @class}} ...attributes>
-      {{yield}}
-    </div>
-  </template>
-}
+export const Carousel: TOC<CarouselSignature> = <template>
+  <div class={{cn "relative" @class}} ...attributes>
+    {{yield}}
+  </div>
+</template>;
 
 // CarouselContent Component
 interface CarouselContentSignature {
@@ -41,15 +38,13 @@ interface CarouselContentSignature {
   };
 }
 
-export class CarouselContent extends Component<CarouselContentSignature> {
-  <template>
-    <div class="overflow-hidden">
-      <div class={{cn "flex" @class}} ...attributes>
-        {{yield}}
-      </div>
+export const CarouselContent: TOC<CarouselContentSignature> = <template>
+  <div class="overflow-hidden">
+    <div class={{cn "flex" @class}} ...attributes>
+      {{yield}}
     </div>
-  </template>
-}
+  </div>
+</template>;
 
 // CarouselItem Component
 interface CarouselItemSignature {
@@ -62,13 +57,11 @@ interface CarouselItemSignature {
   };
 }
 
-export class CarouselItem extends Component<CarouselItemSignature> {
-  <template>
-    <div class={{cn "min-w-0 shrink-0 grow-0 basis-full" @class}} ...attributes>
-      {{yield}}
-    </div>
-  </template>
-}
+export const CarouselItem: TOC<CarouselItemSignature> = <template>
+  <div class={{cn "min-w-0 shrink-0 grow-0 basis-full" @class}} ...attributes>
+    {{yield}}
+  </div>
+</template>;
 
 // CarouselPrevious Component
 interface CarouselPreviousSignature {
@@ -81,22 +74,20 @@ interface CarouselPreviousSignature {
   };
 }
 
-export class CarouselPrevious extends Component<CarouselPreviousSignature> {
-  <template>
-    <Button
-      @variant="outline"
-      @size="icon"
-      class={{cn
-        "absolute h-8 w-8 rounded-full left-4 top-1/2 -translate-y-1/2"
-        @class
-      }}
-      ...attributes
-    >
-      <ChevronLeft class="size-4" />
-      <span class="sr-only">Previous slide</span>
-    </Button>
-  </template>
-}
+export const CarouselPrevious: TOC<CarouselPreviousSignature> = <template>
+  <Button
+    @variant="outline"
+    @size="icon"
+    class={{cn
+      "absolute h-8 w-8 rounded-full left-4 top-1/2 -translate-y-1/2"
+      @class
+    }}
+    ...attributes
+  >
+    <ChevronLeft class="size-4" />
+    <span class="sr-only">Previous slide</span>
+  </Button>
+</template>;
 
 // CarouselNext Component
 interface CarouselNextSignature {
@@ -109,21 +100,19 @@ interface CarouselNextSignature {
   };
 }
 
-export class CarouselNext extends Component<CarouselNextSignature> {
-  <template>
-    <Button
-      @variant="outline"
-      @size="icon"
-      class={{cn
-        "absolute h-8 w-8 rounded-full right-4 top-1/2 -translate-y-1/2"
-        @class
-      }}
-      ...attributes
-    >
-      <ChevronRight class="size-4" />
-      <span class="sr-only">Next slide</span>
-    </Button>
-  </template>
-}
+export const CarouselNext: TOC<CarouselNextSignature> = <template>
+  <Button
+    @variant="outline"
+    @size="icon"
+    class={{cn
+      "absolute h-8 w-8 rounded-full right-4 top-1/2 -translate-y-1/2"
+      @class
+    }}
+    ...attributes
+  >
+    <ChevronRight class="size-4" />
+    <span class="sr-only">Next slide</span>
+  </Button>
+</template>;
 
 export default Carousel;

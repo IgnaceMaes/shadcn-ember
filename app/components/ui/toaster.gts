@@ -1,5 +1,4 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
-import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { ToastProvider, ToastViewport } from './toast.gts';
 
 interface ToasterSignature {
@@ -10,16 +9,11 @@ interface ToasterSignature {
   };
 }
 
-export class Toaster extends Component<ToasterSignature> {
-  // TODO: Wire up with toasts service when available
-  // @service declare toasts: ToastsService;
-
-  <template>
-    <ToastProvider>
-      {{! TODO: Wire up with toasts service to display toasts dynamically }}
-      <ToastViewport />
-    </ToastProvider>
-  </template>
-}
+export const Toaster: TOC<ToasterSignature> = <template>
+  <ToastProvider>
+    {{! TODO: Wire up with toasts service to display toasts dynamically }}
+    <ToastViewport />
+  </ToastProvider>
+</template>;
 
 export default Toaster;

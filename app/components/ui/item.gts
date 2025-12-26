@@ -1,5 +1,5 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
 import Separator from './separator.gts';
 
@@ -42,18 +42,16 @@ interface ItemGroupSignature {
   };
 }
 
-export class ItemGroup extends Component<ItemGroupSignature> {
-  <template>
-    <div
-      role="list"
-      data-slot="item-group"
-      class={{cn "group/item-group flex flex-col" @class}}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const ItemGroup: TOC<ItemGroupSignature> = <template>
+  <div
+    role="list"
+    data-slot="item-group"
+    class={{cn "group/item-group flex flex-col" @class}}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 // ItemSeparator Component
 interface ItemSeparatorSignature {
@@ -66,16 +64,14 @@ interface ItemSeparatorSignature {
   };
 }
 
-export class ItemSeparator extends Component<ItemSeparatorSignature> {
-  <template>
-    <Separator
-      data-slot="item-separator"
-      @orientation="horizontal"
-      class={{cn "my-0" @class}}
-      ...attributes
-    />
-  </template>
-}
+export const ItemSeparator: TOC<ItemSeparatorSignature> = <template>
+  <Separator
+    data-slot="item-separator"
+    @orientation="horizontal"
+    class={{cn "my-0" @class}}
+    ...attributes
+  />
+</template>;
 
 // Item Component
 interface ItemSignature {
@@ -117,13 +113,11 @@ interface ItemLabelSignature {
   };
 }
 
-export class ItemLabel extends Component<ItemLabelSignature> {
-  <template>
-    <div class={{cn "font-medium" @class}} ...attributes>
-      {{yield}}
-    </div>
-  </template>
-}
+export const ItemLabel: TOC<ItemLabelSignature> = <template>
+  <div class={{cn "font-medium" @class}} ...attributes>
+    {{yield}}
+  </div>
+</template>;
 
 // ItemDescription Component
 interface ItemDescriptionSignature {
@@ -136,13 +130,11 @@ interface ItemDescriptionSignature {
   };
 }
 
-export class ItemDescription extends Component<ItemDescriptionSignature> {
-  <template>
-    <div class={{cn "text-sm text-muted-foreground" @class}} ...attributes>
-      {{yield}}
-    </div>
-  </template>
-}
+export const ItemDescription: TOC<ItemDescriptionSignature> = <template>
+  <div class={{cn "text-sm text-muted-foreground" @class}} ...attributes>
+    {{yield}}
+  </div>
+</template>;
 
 export default Item;
 export { itemVariants };

@@ -1,7 +1,6 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
-// import PhX from 'ember-phosphor-icons/components/ph-x';
 import X from '~icons/lucide/x';
 
 type Variant = 'default' | 'destructive';
@@ -32,12 +31,10 @@ interface ToastProviderSignature {
   };
 }
 
-export class ToastProvider extends Component<ToastProviderSignature> {
-  <template>
-    {{! template-lint-disable no-yield-only }}
-    {{yield}}
-  </template>
-}
+export const ToastProvider: TOC<ToastProviderSignature> = <template>
+  {{! template-lint-disable no-yield-only }}
+  {{yield}}
+</template>;
 
 // ToastViewport Component
 interface ToastViewportSignature {
@@ -50,19 +47,17 @@ interface ToastViewportSignature {
   };
 }
 
-export class ToastViewport extends Component<ToastViewportSignature> {
-  <template>
-    <div
-      class={{cn
-        "fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]"
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const ToastViewport: TOC<ToastViewportSignature> = <template>
+  <div
+    class={{cn
+      "fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]"
+      @class
+    }}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 // Toast Root Component
 interface ToastSignature {
@@ -100,20 +95,18 @@ interface ToastActionSignature {
   };
 }
 
-export class ToastAction extends Component<ToastActionSignature> {
-  <template>
-    <button
-      type="button"
-      class={{cn
-        "inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium transition-colors hover:bg-secondary focus:outline-none focus:ring-1 focus:ring-ring disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-muted/40 group-[.destructive]:hover:border-destructive/30 group-[.destructive]:hover:bg-destructive group-[.destructive]:hover:text-destructive-foreground group-[.destructive]:focus:ring-destructive"
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-    </button>
-  </template>
-}
+export const ToastAction: TOC<ToastActionSignature> = <template>
+  <button
+    type="button"
+    class={{cn
+      "inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium transition-colors hover:bg-secondary focus:outline-none focus:ring-1 focus:ring-ring disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-muted/40 group-[.destructive]:hover:border-destructive/30 group-[.destructive]:hover:bg-destructive group-[.destructive]:hover:text-destructive-foreground group-[.destructive]:focus:ring-destructive"
+      @class
+    }}
+    ...attributes
+  >
+    {{yield}}
+  </button>
+</template>;
 
 // ToastClose Component
 interface ToastCloseSignature {
@@ -126,20 +119,18 @@ interface ToastCloseSignature {
   };
 }
 
-export class ToastClose extends Component<ToastCloseSignature> {
-  <template>
-    <button
-      type="button"
-      class={{cn
-        "absolute right-1 top-1 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-1 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600"
-        @class
-      }}
-      ...attributes
-    >
-      <X class="size-4" />
-    </button>
-  </template>
-}
+export const ToastClose: TOC<ToastCloseSignature> = <template>
+  <button
+    type="button"
+    class={{cn
+      "absolute right-1 top-1 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-1 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600"
+      @class
+    }}
+    ...attributes
+  >
+    <X class="size-4" />
+  </button>
+</template>;
 
 // ToastTitle Component
 interface ToastTitleSignature {
@@ -152,16 +143,14 @@ interface ToastTitleSignature {
   };
 }
 
-export class ToastTitle extends Component<ToastTitleSignature> {
-  <template>
-    <div
-      class={{cn "text-sm font-semibold [&+div]:text-xs" @class}}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const ToastTitle: TOC<ToastTitleSignature> = <template>
+  <div
+    class={{cn "text-sm font-semibold [&+div]:text-xs" @class}}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 // ToastDescription Component
 interface ToastDescriptionSignature {
@@ -174,13 +163,11 @@ interface ToastDescriptionSignature {
   };
 }
 
-export class ToastDescription extends Component<ToastDescriptionSignature> {
-  <template>
-    <div class={{cn "text-sm opacity-90" @class}} ...attributes>
-      {{yield}}
-    </div>
-  </template>
-}
+export const ToastDescription: TOC<ToastDescriptionSignature> = <template>
+  <div class={{cn "text-sm opacity-90" @class}} ...attributes>
+    {{yield}}
+  </div>
+</template>;
 
 export default Toast;
 export { toastVariants };

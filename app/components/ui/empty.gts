@@ -1,5 +1,5 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import { cva } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
@@ -13,20 +13,18 @@ interface EmptySignature {
   };
 }
 
-export class Empty extends Component<EmptySignature> {
-  <template>
-    <div
-      data-slot="empty"
-      class={{cn
-        "flex min-w-0 flex-1 flex-col items-center justify-center gap-6 text-balance rounded-lg border-dashed p-6 text-center md:p-12"
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const Empty: TOC<EmptySignature> = <template>
+  <div
+    data-slot="empty"
+    class={{cn
+      "flex min-w-0 flex-1 flex-col items-center justify-center gap-6 text-balance rounded-lg border-dashed p-6 text-center md:p-12"
+      @class
+    }}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 interface EmptyHeaderSignature {
   Element: HTMLDivElement;
@@ -38,20 +36,15 @@ interface EmptyHeaderSignature {
   };
 }
 
-export class EmptyHeader extends Component<EmptyHeaderSignature> {
-  <template>
-    <div
-      data-slot="empty-header"
-      class={{cn
-        "flex max-w-sm flex-col items-center gap-2 text-center"
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const EmptyHeader: TOC<EmptyHeaderSignature> = <template>
+  <div
+    data-slot="empty-header"
+    class={{cn "flex max-w-sm flex-col items-center gap-2 text-center" @class}}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 const emptyMediaVariants = cva(
   'mb-2 flex shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:shrink-0',
@@ -109,17 +102,15 @@ interface EmptyTitleSignature {
   };
 }
 
-export class EmptyTitle extends Component<EmptyTitleSignature> {
-  <template>
-    <div
-      data-slot="empty-title"
-      class={{cn "text-lg font-medium tracking-tight" @class}}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const EmptyTitle: TOC<EmptyTitleSignature> = <template>
+  <div
+    data-slot="empty-title"
+    class={{cn "text-lg font-medium tracking-tight" @class}}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 interface EmptyDescriptionSignature {
   Element: HTMLDivElement;
@@ -131,20 +122,18 @@ interface EmptyDescriptionSignature {
   };
 }
 
-export class EmptyDescription extends Component<EmptyDescriptionSignature> {
-  <template>
-    <div
-      data-slot="empty-description"
-      class={{cn
-        "text-muted-foreground [&>a:hover]:text-primary text-sm/relaxed [&>a]:underline [&>a]:underline-offset-4"
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const EmptyDescription: TOC<EmptyDescriptionSignature> = <template>
+  <div
+    data-slot="empty-description"
+    class={{cn
+      "text-muted-foreground [&>a:hover]:text-primary text-sm/relaxed [&>a]:underline [&>a]:underline-offset-4"
+      @class
+    }}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 interface EmptyContentSignature {
   Element: HTMLDivElement;
@@ -156,19 +145,17 @@ interface EmptyContentSignature {
   };
 }
 
-export class EmptyContent extends Component<EmptyContentSignature> {
-  <template>
-    <div
-      data-slot="empty-content"
-      class={{cn
-        "flex w-full min-w-0 max-w-sm flex-col items-center gap-4 text-balance text-sm"
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const EmptyContent: TOC<EmptyContentSignature> = <template>
+  <div
+    data-slot="empty-content"
+    class={{cn
+      "flex w-full min-w-0 max-w-sm flex-col items-center gap-4 text-balance text-sm"
+      @class
+    }}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 export { Empty as default };

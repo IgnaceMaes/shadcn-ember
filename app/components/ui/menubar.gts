@@ -1,5 +1,5 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
+import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
@@ -26,20 +26,18 @@ interface MenubarSignature {
   };
 }
 
-export class Menubar extends Component<MenubarSignature> {
-  <template>
-    <div
-      class={{cn
-        "flex h-9 items-center space-x-1 rounded-md border bg-background p-1 shadow-sm"
-        @class
-      }}
-      role="menubar"
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const Menubar: TOC<MenubarSignature> = <template>
+  <div
+    class={{cn
+      "flex h-9 items-center space-x-1 rounded-md border bg-background p-1 shadow-sm"
+      @class
+    }}
+    role="menubar"
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 // MenubarMenu Component
 interface MenubarMenuSignature {
@@ -160,22 +158,20 @@ interface MenubarItemSignature {
   };
 }
 
-export class MenubarItem extends Component<MenubarItemSignature> {
-  <template>
-    <div
-      class={{cn
-        "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
-        (if @inset "pl-8")
-        @class
-      }}
-      role="menuitem"
-      data-disabled={{@disabled}}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const MenubarItem: TOC<MenubarItemSignature> = <template>
+  <div
+    class={{cn
+      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+      (if @inset "pl-8")
+      @class
+    }}
+    role="menuitem"
+    data-disabled={{@disabled}}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 // MenubarGroup Component
 interface MenubarGroupSignature {
@@ -188,13 +184,11 @@ interface MenubarGroupSignature {
   };
 }
 
-export class MenubarGroup extends Component<MenubarGroupSignature> {
-  <template>
-    <div role="group" class={{cn @class}} ...attributes>
-      {{yield}}
-    </div>
-  </template>
-}
+export const MenubarGroup: TOC<MenubarGroupSignature> = <template>
+  <div role="group" class={{cn @class}} ...attributes>
+    {{yield}}
+  </div>
+</template>;
 
 // MenubarPortal Component
 interface MenubarPortalSignature {
@@ -203,13 +197,11 @@ interface MenubarPortalSignature {
   };
 }
 
-export class MenubarPortal extends Component<MenubarPortalSignature> {
-  <template>
-    <div data-portal>
-      {{yield}}
-    </div>
-  </template>
-}
+export const MenubarPortal: TOC<MenubarPortalSignature> = <template>
+  <div data-portal>
+    {{yield}}
+  </div>
+</template>;
 
 // MenubarRadioGroup Component
 interface MenubarRadioGroupSignature {
@@ -291,20 +283,18 @@ interface MenubarSubTriggerSignature {
   };
 }
 
-export class MenubarSubTrigger extends Component<MenubarSubTriggerSignature> {
-  <template>
-    <div
-      class={{cn
-        "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground"
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-      <ChevronRight class="size-4 ml-auto" />
-    </div>
-  </template>
-}
+export const MenubarSubTrigger: TOC<MenubarSubTriggerSignature> = <template>
+  <div
+    class={{cn
+      "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground"
+      @class
+    }}
+    ...attributes
+  >
+    {{yield}}
+    <ChevronRight class="size-4 ml-auto" />
+  </div>
+</template>;
 
 // MenubarSubContent Component
 interface MenubarSubContentSignature {
@@ -318,21 +308,19 @@ interface MenubarSubContentSignature {
   };
 }
 
-export class MenubarSubContent extends Component<MenubarSubContentSignature> {
-  <template>
-    {{#if @isOpen}}
-      <div
-        class={{cn
-          "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg"
-          @class
-        }}
-        ...attributes
-      >
-        {{yield}}
-      </div>
-    {{/if}}
-  </template>
-}
+export const MenubarSubContent: TOC<MenubarSubContentSignature> = <template>
+  {{#if @isOpen}}
+    <div
+      class={{cn
+        "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg"
+        @class
+      }}
+      ...attributes
+    >
+      {{yield}}
+    </div>
+  {{/if}}
+</template>;
 
 // MenubarCheckboxItem Component
 interface MenubarCheckboxItemSignature {
@@ -347,29 +335,25 @@ interface MenubarCheckboxItemSignature {
   };
 }
 
-export class MenubarCheckboxItem extends Component<MenubarCheckboxItemSignature> {
-  <template>
-    {{! template-lint-disable require-presentational-children }}
-    <div
-      class={{cn
-        "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground"
-        @class
-      }}
-      role="menuitemcheckbox"
-      aria-checked={{@checked}}
-      ...attributes
-    >
-      <span
-        class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"
-      >
-        {{#if @checked}}
-          <Check class="size-4" />
-        {{/if}}
-      </span>
-      {{yield}}
-    </div>
-  </template>
-}
+export const MenubarCheckboxItem: TOC<MenubarCheckboxItemSignature> = <template>
+  {{! template-lint-disable require-presentational-children }}
+  <div
+    class={{cn
+      "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground"
+      @class
+    }}
+    role="menuitemcheckbox"
+    aria-checked={{@checked}}
+    ...attributes
+  >
+    <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+      {{#if @checked}}
+        <Check class="size-4" />
+      {{/if}}
+    </span>
+    {{yield}}
+  </div>
+</template>;
 
 // MenubarRadioItem Component
 interface MenubarRadioItemSignature {
@@ -384,29 +368,25 @@ interface MenubarRadioItemSignature {
   };
 }
 
-export class MenubarRadioItem extends Component<MenubarRadioItemSignature> {
-  <template>
-    {{! template-lint-disable require-presentational-children }}
-    <div
-      class={{cn
-        "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground"
-        @class
-      }}
-      role="menuitemradio"
-      aria-checked={{@checked}}
-      ...attributes
-    >
-      <span
-        class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"
-      >
-        {{#if @checked}}
-          <Circle class="size-2 fill-current" />
-        {{/if}}
-      </span>
-      {{yield}}
-    </div>
-  </template>
-}
+export const MenubarRadioItem: TOC<MenubarRadioItemSignature> = <template>
+  {{! template-lint-disable require-presentational-children }}
+  <div
+    class={{cn
+      "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground"
+      @class
+    }}
+    role="menuitemradio"
+    aria-checked={{@checked}}
+    ...attributes
+  >
+    <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+      {{#if @checked}}
+        <Circle class="size-2 fill-current" />
+      {{/if}}
+    </span>
+    {{yield}}
+  </div>
+</template>;
 
 // MenubarLabel Component
 interface MenubarLabelSignature {
@@ -420,16 +400,14 @@ interface MenubarLabelSignature {
   };
 }
 
-export class MenubarLabel extends Component<MenubarLabelSignature> {
-  <template>
-    <div
-      class={{cn "px-2 py-1.5 text-sm font-semibold" (if @inset "pl-8") @class}}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>
-}
+export const MenubarLabel: TOC<MenubarLabelSignature> = <template>
+  <div
+    class={{cn "px-2 py-1.5 text-sm font-semibold" (if @inset "pl-8") @class}}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 // MenubarSeparator Component
 interface MenubarSeparatorSignature {
@@ -442,15 +420,13 @@ interface MenubarSeparatorSignature {
   };
 }
 
-export class MenubarSeparator extends Component<MenubarSeparatorSignature> {
-  <template>
-    <div
-      class={{cn "-mx-1 my-1 h-px bg-border" @class}}
-      role="separator"
-      ...attributes
-    ></div>
-  </template>
-}
+export const MenubarSeparator: TOC<MenubarSeparatorSignature> = <template>
+  <div
+    class={{cn "-mx-1 my-1 h-px bg-border" @class}}
+    role="separator"
+    ...attributes
+  ></div>
+</template>;
 
 // MenubarShortcut Component
 interface MenubarShortcutSignature {
@@ -463,18 +439,13 @@ interface MenubarShortcutSignature {
   };
 }
 
-export class MenubarShortcut extends Component<MenubarShortcutSignature> {
-  <template>
-    <span
-      class={{cn
-        "ml-auto text-xs tracking-widest text-muted-foreground"
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-    </span>
-  </template>
-}
+export const MenubarShortcut: TOC<MenubarShortcutSignature> = <template>
+  <span
+    class={{cn "ml-auto text-xs tracking-widest text-muted-foreground" @class}}
+    ...attributes
+  >
+    {{yield}}
+  </span>
+</template>;
 
 export default Menubar;
