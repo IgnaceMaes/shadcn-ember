@@ -10,6 +10,7 @@ import Check from '~icons/lucide/check';
 import ChevronRight from '~icons/lucide/chevron-right';
 import Circle from '~icons/lucide/circle';
 import onClickOutside from 'ember-click-outside/modifiers/on-click-outside';
+import type { TOC } from '@ember/component/template-only';
 
 // DropdownMenu Root Component
 interface DropdownMenuSignature {
