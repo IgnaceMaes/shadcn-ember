@@ -516,7 +516,7 @@ export default class MarkdownRenderer extends Component<Signature> {
               {{#let (this.getHeadingText node.children) as |title|}}
                 <h3
                   id={{this.toKebabCase title}}
-                  class="mt-8 scroll-m-20 text-xl font-semibold tracking-tight"
+                  class="font-heading mt-12 scroll-m-28 text-lg font-medium tracking-tight [&+p]:!mt-4 *:[code]:text-xl"
                 >
                   {{#each node.children as |inline|}}
                     {{#if (eq inline.type "text")}}{{inline.content}}{{/if}}
