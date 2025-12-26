@@ -1,6 +1,12 @@
 import Component from '@glimmer/component';
-import { concat } from '@ember/helper';
 import CodeBlockThemed from './code-block-themed';
+
+// Load all UI component source code
+const uiSources = import.meta.glob<string>('/app/components/ui/*.gts', {
+  query: '?raw',
+  eager: true,
+  import: 'default',
+});
 
 interface Signature {
   Args: {
@@ -10,11 +16,9 @@ interface Signature {
 }
 
 export default class ComponentSource extends Component<Signature> {
-  get sourceCode() {
-    // For now, we'll need to import the actual source file
-    // In the future, this could be done at build time
-    return `// Component source for ${this.args.name}
-// TODO: Implement component source loading`;
+  get sourceCode(): string {
+    const path = `/app/components/ui/${this.args.name}.gts`;
+    return uiSources[path] || `// Component source for ${this.args.name} not found`;
   }
 
   get defaultTitle() {
