@@ -18,6 +18,9 @@ import {
             <DocSidebarLink @route="docs.components">
               Components
             </DocSidebarLink>
+            <DocSidebarLink @route="docs.changelog">
+              Changelog
+            </DocSidebarLink>
           </DocSidebarGroup>
           <DocSidebarGroup @title="Get Started" @listClass="gap-1">
             <DocSidebarLink @route="docs.installation">

@@ -19,5 +19,6 @@ Router.map(function () {
       this.route('aspect-ratio');
       this.route('checkbox');
     });
+    this.route('changelog');
   });
 });
