@@ -35,7 +35,7 @@ This project is supported by the following beautiful people/organizations:
 <!-- automd:contributors license=MIT author="IgnaceMaes" -->
 
 Published under the [MIT](https://github.com/IgnaceMaes/shadcn-ember/blob/main/LICENSE) license.
-Built by [@IgnaceMaes](https://github.com/IgnaceMaes) and [community](https://github.com/IgnaceMaes/shadcn-ember/graphs/contributors) 💛
+Built by [@IgnaceMaes](https://github.com/IgnaceMaes) and [community](https://github.com/IgnaceMaes/shadcn-ember/graphs/contributors) 🧡
 <br><br>
 <a href="https://github.com/IgnaceMaes/shadcn-ember/graphs/contributors">
 <img src="https://contrib.rocks/image?repo=IgnaceMaes/shadcn-ember" />
