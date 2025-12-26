@@ -22,6 +22,7 @@ import Separator from '@/components/ui/separator';
 import CodeBlockThemed from './code-block-themed';
 import PackageManagerCommand from './package-manager-command';
 import DynamicMarkdownComponent from './dynamic-markdown-component';
+import DocTable from './doc-table';
 import * as DocsComponents from './index';
 import type { ComponentLike } from '@glint/template';
 import type { TocItem } from './doc-toc';
@@ -99,6 +100,22 @@ interface Html extends MdastNode {
   value: string;
 }
 
+interface Table extends MdastNode {
+  type: 'table';
+  children: TableRow[];
+  align?: ('left' | 'right' | 'center' | null)[];
+}
+
+interface TableRow extends MdastNode {
+  type: 'tableRow';
+  children: TableCell[];
+}
+
+interface TableCell extends MdastNode {
+  type: 'tableCell';
+  children: MdastNode[];
+}
+
 interface ProcessedNode {
   type: string;
   content?: string;
@@ -114,6 +131,7 @@ interface ProcessedNode {
   title?: string;
   showLineNumbers?: boolean;
   highlightLines?: number[];
+  align?: ('left' | 'right' | 'center' | null)[];
 }
 
 interface Signature {
@@ -237,6 +255,22 @@ export default class MarkdownRenderer extends Component<Signature> {
       case 'thematicBreak':
         return {
           type: 'thematicBreak',
+        };
+      case 'table':
+        return {
+          type: 'table',
+          children: this.processNodes((node as Table).children),
+          align: (node as Table).align,
+        };
+      case 'tableRow':
+        return {
+          type: 'tableRow',
+          children: this.processNodes((node as TableRow).children),
+        };
+      case 'tableCell':
+        return {
+          type: 'tableCell',
+          children: this.processInlineNodes((node as TableCell).children),
         };
       default:
         return null;
@@ -541,6 +575,10 @@ export default class MarkdownRenderer extends Component<Signature> {
                 {{/each}}
               {{/each}}
             </DocList>
+          {{/if}}
+          {{#if (eq node.type "table")}}
+            {{! @glint-ignore: node is ProcessedNode but matches TableNode shape }}
+            <DocTable @node={{node}} />
           {{/if}}
         {{/each}}
       </DocContent>
