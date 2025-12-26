@@ -27,6 +27,7 @@ export { default as DocLink } from './doc-link';
 // Markdown Renderer
 export { default as MarkdownRenderer } from './markdown-renderer';
 export { default as DocsMarkdownPage } from './markdown-page';
+export { default as ComponentsList } from './components-list';
 
 // Component Documentation (existing)
 export { default as ComponentDocPage } from './component-doc-page';

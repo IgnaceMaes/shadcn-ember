@@ -25,13 +25,13 @@ shadcn-ember hands you the actual component code. You have full control to custo
 - **Easy Customization:** Modify any part of a component to fit your design and functionality requirements.
 - **AI Integration:** Access to the code makes it straightforward for LLMs to read, understand, and even improve your components.
 
-*In a typical library, if you need to change a button's behavior, you have to override styles or wrap the component. With shadcn-ember, you simply edit the button code directly.*
+_In a typical library, if you need to change a button's behavior, you have to override styles or wrap the component. With shadcn-ember, you simply edit the button code directly._
 
 ## Composition
 
 Every component in shadcn-ember shares a common, composable interface. **If a component does not exist, we bring it in, make it composable, and adjust its style to match and work with the rest of the design system.**
 
-*A shared, composable interface means it's predictable for both your team and LLMs. You are not learning different APIs for every new component. Even for third-party ones.*
+_A shared, composable interface means it's predictable for both your team and LLMs. You are not learning different APIs for every new component. Even for third-party ones._
 
 ## Distribution
 
@@ -40,7 +40,7 @@ shadcn-ember is also a code distribution system. It defines a schema for compone
 - **Schema:** A flat-file structure that defines the components, their dependencies, and properties.
 - **CLI:** A command-line tool to distribute and install components across projects with cross-framework support.
 
-*You can use the schema to distribute your components to other projects or have AI generate completely new components based on existing schema.*
+_You can use the schema to distribute your components to other projects or have AI generate completely new components based on existing schema._
 
 ## Beautiful Defaults
 
@@ -54,4 +54,4 @@ shadcn-ember comes with a large collection of components that have carefully cho
 
 The design of shadcn-ember makes it easy for AI tools to work with your code. Its open code and consistent API allow AI models to read, understand, and even generate new components.
 
-*An AI model can learn how your components work and suggest improvements or even create new components that integrate with your existing design.*
+_An AI model can learn how your components work and suggest improvements or even create new components that integrate with your existing design._

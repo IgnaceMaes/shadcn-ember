@@ -1,5 +1,3 @@
 import { DocsMarkdownPage } from '@/components/docs';
 
-<template>
-  <DocsMarkdownPage />
-</template>
+<template><DocsMarkdownPage /></template>

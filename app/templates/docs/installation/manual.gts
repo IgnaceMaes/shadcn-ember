@@ -25,7 +25,8 @@ import CodeBlockThemed from '@/components/docs/code-block-themed';
       </DocParagraph>
 
       <DocParagraph>
-        <DocLink @href="https://tailwindcss.com/docs/installation">Follow the Tailwind CSS installation instructions to get started.</DocLink>
+        <DocLink @href="https://tailwindcss.com/docs/installation">Follow the
+          Tailwind CSS installation instructions to get started.</DocLink>
       </DocParagraph>
 
       <page.Heading>Add dependencies</page.Heading>

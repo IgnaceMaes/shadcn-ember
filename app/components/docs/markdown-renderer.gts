@@ -9,12 +9,13 @@ import {
   DocEmphasis,
   DocList,
   DocListItem,
-  DocHeading,
   DocHeader,
   DocPage,
   DocContent,
   DocLink,
 } from './index';
+import ComponentsList from './components-list';
+import Separator from '@/components/ui/separator';
 
 // Type definitions for markdown AST nodes
 interface MdastNode {
@@ -71,6 +72,11 @@ interface Text extends MdastNode {
   value: string;
 }
 
+interface Html extends MdastNode {
+  type: 'html';
+  value: string;
+}
+
 interface Frontmatter {
   title?: string;
   description?: string;
@@ -89,6 +95,7 @@ interface ProcessedNode {
   children?: ProcessedNode[];
   depth?: number;
   url?: string;
+  componentName?: string;
 }
 
 export default class MarkdownRenderer extends Component<Signature> {
@@ -161,6 +168,21 @@ export default class MarkdownRenderer extends Component<Signature> {
           type: 'listItem',
           children: this.processNodes((node as ListItem).children),
         };
+      case 'html': {
+        // Handle custom components embedded in markdown
+        const htmlValue = (node as Html).value;
+        if (htmlValue.includes('<ComponentsList')) {
+          return {
+            type: 'component',
+            componentName: 'ComponentsList',
+          };
+        }
+        return null;
+      }
+      case 'thematicBreak':
+        return {
+          type: 'thematicBreak',
+        };
       default:
         return null;
     }
@@ -200,7 +222,7 @@ export default class MarkdownRenderer extends Component<Signature> {
       .filter(Boolean) as ProcessedNode[];
   }
 
-// Helper to extract text from nodes recursively
+  // Helper to extract text from nodes recursively
   private getHeadingText = (children: ProcessedNode[] | undefined): string => {
     if (!children) return '';
 
@@ -224,6 +246,14 @@ export default class MarkdownRenderer extends Component<Signature> {
 
       <DocContent>
         {{#each this.processedContent as |node|}}
+          {{#if (eq node.type "component")}}
+            {{#if (eq node.componentName "ComponentsList")}}
+              <ComponentsList />
+            {{/if}}
+          {{/if}}
+          {{#if (eq node.type "thematicBreak")}}
+            <Separator @class="my-4 md:my-8" />
+          {{/if}}
           {{#if (eq node.type "paragraph")}}
             <DocParagraph>
               {{#each node.children as |inline|}}
@@ -279,21 +309,27 @@ export default class MarkdownRenderer extends Component<Signature> {
                         {{#if (eq inline.type "strong")}}
                           <DocStrong>
                             {{#each inline.children as |child|}}
-                              {{#if (eq child.type "text")}}{{child.content}}{{/if}}
+                              {{#if
+                                (eq child.type "text")
+                              }}{{child.content}}{{/if}}
                             {{/each}}
                           </DocStrong>
                         {{/if}}
                         {{#if (eq inline.type "emphasis")}}
                           <DocEmphasis>
                             {{#each inline.children as |child|}}
-                              {{#if (eq child.type "text")}}{{child.content}}{{/if}}
+                              {{#if
+                                (eq child.type "text")
+                              }}{{child.content}}{{/if}}
                             {{/each}}
                           </DocEmphasis>
                         {{/if}}
                         {{#if (eq inline.type "link")}}
                           <DocLink @href={{inline.url}}>
                             {{#each inline.children as |child|}}
-                              {{#if (eq child.type "text")}}{{child.content}}{{/if}}
+                              {{#if
+                                (eq child.type "text")
+                              }}{{child.content}}{{/if}}
                             {{/each}}
                           </DocLink>
                         {{/if}}

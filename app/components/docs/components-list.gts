@@ -1,12 +1,5 @@
-import { LinkTo } from '@ember/routing';
-import {
-  DocPage,
-  DocHeader,
-  DocContent,
-  DocParagraph,
-  DocLink,
-} from '@/components/docs';
-import Separator from '@/components/ui/separator';
+import Component from '@glimmer/component';
+import DocLinkTo from './doc-link-to';
 
 // Component list with "new" badges for recent additions and hasPage flag
 const components = [
@@ -300,53 +293,36 @@ const components = [
 ];
 
 <template>
-  <DocPage as |page|>
-    <DocHeader
-      @title="Components"
-      @description="Here you can find all the components available in the library. We are working on adding more components."
-    />
-    <page.Heading>Available Components</page.Heading>
-
-    <DocContent>
-      <div
-        class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-x-8 lg:gap-x-16 lg:gap-y-6 xl:gap-x-20"
-      >
-        {{#each components as |c|}}
-          {{#if c.hasPage}}
-            <LinkTo
-              @route={{c.route}}
-              class="inline-flex items-center gap-2 text-lg font-medium underline-offset-4 hover:underline md:text-base"
-            >
-              {{c.name}}
-              {{#if c.isNew}}
-                <span
-                  class="flex size-2 rounded-full bg-blue-500"
-                  title="New"
-                ></span>
-              {{/if}}
-            </LinkTo>
-          {{else}}
+  <div
+    class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-x-8 lg:gap-x-16 lg:gap-y-6 xl:gap-x-20"
+  >
+    {{#each components as |c|}}
+      {{#if c.hasPage}}
+        <DocLinkTo
+          @route={{c.route}}
+          class="inline-flex items-center gap-2 text-lg font-medium underline-offset-4 hover:underline md:text-base"
+        >
+          {{c.name}}
+          {{#if c.isNew}}
             <span
-              class="inline-flex items-center gap-2 text-lg font-medium text-muted-foreground md:text-base"
-            >
-              {{c.name}}
-              {{#if c.isNew}}
-                <span
-                  class="flex size-2 rounded-full bg-blue-500"
-                  title="New"
-                ></span>
-              {{/if}}
-            </span>
+              class="flex size-2 rounded-full bg-blue-500"
+              title="New"
+            ></span>
           {{/if}}
-        {{/each}}
-      </div>
-
-      <Separator @class="my-4 md:my-8" />
-
-      <DocParagraph>
-        Can't find what you need? Check back soon as we're actively adding more
-        components to match the <DocLink @href="https://ui.shadcn.com/docs/components">shadcn/ui library</DocLink>.
-      </DocParagraph>
-    </DocContent>
-  </DocPage>
+        </DocLinkTo>
+      {{else}}
+        <span
+          class="inline-flex items-center gap-2 text-lg font-medium text-muted-foreground md:text-base"
+        >
+          {{c.name}}
+          {{#if c.isNew}}
+            <span
+              class="flex size-2 rounded-full bg-blue-500"
+              title="New"
+            ></span>
+          {{/if}}
+        </span>
+      {{/if}}
+    {{/each}}
+  </div>
 </template>
