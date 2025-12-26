@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import DocToc, { type TocItem } from './doc-toc';
 import DocHeading from './doc-heading';
 import { hash } from '@ember/helper';
+import type { ComponentLike } from '@glint/template';
 
 function toKebabCase(text: string): string {
   return text
@@ -21,11 +22,12 @@ interface DocPageSignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
+    tocItems?: TocItem[];
   };
   Blocks: {
     default: [
       {
-        Heading: typeof RegisteredHeading;
+        Heading: ComponentLike;
       },
     ];
   };
@@ -58,6 +60,11 @@ class RegisteredHeading extends Component<{
 export default class DocPage extends Component<DocPageSignature> {
   @tracked tocItems: TocItem[] = [];
 
+  get allTocItems(): TocItem[] {
+    // Combine items from args (markdown) and tracked items (template headings)
+    return [...(this.args.tocItems || []), ...this.tocItems];
+  }
+
   handleRegister = (item: TocItem) => {
     next(() => {
       if (!this.tocItems.find((existing) => existing.id === item.id)) {
@@ -85,8 +92,8 @@ export default class DocPage extends Component<DocPageSignature> {
           }}
         </div>
       </div>
-      {{#if this.tocItems.length}}
-        <DocToc @items={{this.tocItems}} />
+      {{#if this.allTocItems.length}}
+        <DocToc @items={{this.allTocItems}} />
       {{/if}}
     </div>
   </template>

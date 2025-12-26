@@ -1,6 +1,5 @@
 import Component from '@glimmer/component';
 import { eq } from 'ember-truth-helpers';
-import { get } from '@ember/helper';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkGfm from 'remark-gfm';
@@ -19,8 +18,10 @@ import {
 import Separator from '@/components/ui/separator';
 import CodeBlockThemed from './code-block-themed';
 import PackageManagerCommand from './package-manager-command';
+import DynamicMarkdownComponent from './dynamic-markdown-component';
 import * as DocsComponents from './index';
 import type { ComponentLike } from '@glint/template';
+import type { TocItem } from './doc-toc';
 
 // Type definitions for markdown AST nodes
 interface MdastNode {
@@ -164,6 +165,33 @@ export default class MarkdownRenderer extends Component<Signature> {
 
     const ast = processor.parse(this.parsed.content) as Root;
     return this.processNodes(ast.children);
+  }
+
+  get tocItems(): TocItem[] {
+    return this.extractTocItems(this.processedContent);
+  }
+
+  private extractTocItems(nodes: ProcessedNode[]): TocItem[] {
+    const items: TocItem[] = [];
+
+    nodes.forEach((node) => {
+      if (node.type === 'heading' && (node.depth === 2 || node.depth === 3)) {
+        const title = this.getHeadingText(node.children);
+        const id = this.toKebabCase(title);
+        items.push({ id, title, depth: node.depth || 2 });
+      }
+    });
+
+    return items;
+  }
+
+  private toKebabCase(text: string): string {
+    return text
+      .trim()
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-');
   }
 
   private processNodes(nodes: MdastNode[]): ProcessedNode[] {
@@ -390,7 +418,7 @@ export default class MarkdownRenderer extends Component<Signature> {
   }
 
   <template>
-    <DocPage as |page|>
+    <DocPage @tocItems={{this.tocItems}} as |page|>
       <DocHeader
         @title={{if this.frontmatter.title this.frontmatter.title ""}}
         @description={{if
@@ -404,41 +432,10 @@ export default class MarkdownRenderer extends Component<Signature> {
         {{#each this.processedContent as |node|}}
           {{#if (eq node.type "component")}}
             {{#if node.componentInstance}}
-              {{#if (eq node.componentName "ComponentPreviewMd")}}
-                {{component
-                  node.componentInstance
-                  name=(get node.componentProps "name")
-                  className=(get node.componentProps "className")
-                  description=(get node.componentProps "description")
-                  align=(get node.componentProps "align")
-                }}
-              {{else if (eq node.componentName "ComponentSource")}}
-                {{component
-                  node.componentInstance
-                  name=(get node.componentProps "name")
-                  title=(get node.componentProps "title")
-                }}
-              {{else if (eq node.componentName "CodeTabs")}}
-                {{component node.componentInstance}}
-              {{else if (eq node.componentName "TabsList")}}
-                {{component node.componentInstance}}
-              {{else if (eq node.componentName "TabsTrigger")}}
-                {{component
-                  node.componentInstance
-                  value=(get node.componentProps "value")
-                }}
-              {{else if (eq node.componentName "TabsContent")}}
-                {{component
-                  node.componentInstance
-                  value=(get node.componentProps "value")
-                }}
-              {{else if (eq node.componentName "Steps")}}
-                {{component node.componentInstance}}
-              {{else if (eq node.componentName "Step")}}
-                {{component node.componentInstance}}
-              {{else}}
-                {{component node.componentInstance}}
-              {{/if}}
+              <DynamicMarkdownComponent
+                @component={{node.componentInstance}}
+                @props={{node.componentProps}}
+              />
             {{/if}}
           {{/if}}
           {{#if (eq node.type "thematicBreak")}}
@@ -504,18 +501,23 @@ export default class MarkdownRenderer extends Component<Signature> {
                 {{/each}}
               </page.Heading>
             {{else if (eq node.depth 3)}}
-              <h3 class="mt-8 scroll-m-20 text-xl font-semibold tracking-tight">
-                {{#each node.children as |inline|}}
-                  {{#if (eq inline.type "text")}}{{inline.content}}{{/if}}
-                  {{#if (eq inline.type "strong")}}
-                    <DocStrong>
-                      {{#each inline.children as |child|}}
-                        {{#if (eq child.type "text")}}{{child.content}}{{/if}}
-                      {{/each}}
-                    </DocStrong>
-                  {{/if}}
-                {{/each}}
-              </h3>
+              {{#let (this.getHeadingText node.children) as |title|}}
+                <h3
+                  id={{this.toKebabCase title}}
+                  class="mt-8 scroll-m-20 text-xl font-semibold tracking-tight"
+                >
+                  {{#each node.children as |inline|}}
+                    {{#if (eq inline.type "text")}}{{inline.content}}{{/if}}
+                    {{#if (eq inline.type "strong")}}
+                      <DocStrong>
+                        {{#each inline.children as |child|}}
+                          {{#if (eq child.type "text")}}{{child.content}}{{/if}}
+                        {{/each}}
+                      </DocStrong>
+                    {{/if}}
+                  {{/each}}
+                </h3>
+              {{/let}}
             {{/if}}
           {{/if}}
           {{#if (eq node.type "list")}}
