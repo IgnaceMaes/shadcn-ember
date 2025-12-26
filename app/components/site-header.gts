@@ -15,20 +15,20 @@ import ThemeToggle from '@/components/theme-toggle';
       <div class="flex h-14 items-center">
         <Button @variant="ghost" @size="icon" class="size-8">
           <DocLinkTo @route="index">
-            <PhNotches class="size-5" @weight="bold" />
+            <PhNotches @weight="bold" />
             <span class="sr-only">shadcn-ember</span>
           </DocLinkTo>
         </Button>
-        <nav class="hidden lg:flex items-center gap-4 text-sm ml-4">
+        <nav class="items-center gap-0 hidden lg:flex">
           <DocLinkTo
             @route="docs"
-            class="transition-colors hover:text-foreground/80 text-foreground/60"
+            class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 h-8 rounded-md gap-1.5 has-[>svg]:px-2.5 px-2.5 relative"
           >
             Docs
           </DocLinkTo>
           <DocLinkTo
             @route="docs.components"
-            class="transition-colors hover:text-foreground/80 text-foreground/60"
+            class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 h-8 rounded-md gap-1.5 has-[>svg]:px-2.5 px-2.5 relative"
           >
             Components
           </DocLinkTo>

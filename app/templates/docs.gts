@@ -13,7 +13,7 @@ import {
         <DocSidebar>
           <DocSidebarGroup @title="Sections" @listClass="gap-1">
             <DocSidebarLink @route="docs">
-              Introduction
+              Get Started
             </DocSidebarLink>
             <DocSidebarLink @route="docs.components">
               Components
