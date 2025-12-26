@@ -15,7 +15,7 @@ import {
             <DocSidebarLink @route="docs">
               Introduction
             </DocSidebarLink>
-            <DocSidebarLink @route="docs.components">
+            <DocSidebarLink @route="docs.components.index">
               Components
             </DocSidebarLink>
             <DocSidebarLink @route="docs.changelog">

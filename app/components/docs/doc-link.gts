@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import { LinkTo } from '@ember/routing';
+import DocLinkTo from './doc-link-to';
 import { cn } from '@/lib/utils';
 
 interface DocLinkSignature {
@@ -27,13 +27,13 @@ export default class DocLink extends Component<DocLinkSignature> {
 
   <template>
     {{#if this.isInternalRoute}}
-      <LinkTo
+      <DocLinkTo
         @route={{this.routeName}}
         class={{cn "font-medium underline underline-offset-4" @class}}
         ...attributes
       >
         {{yield}}
-      </LinkTo>
+      </DocLinkTo>
     {{else}}
       <a
         href={{@href}}

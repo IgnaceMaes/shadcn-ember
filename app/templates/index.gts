@@ -1,6 +1,6 @@
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
-import { LinkTo } from '@ember/routing';
+import DocLinkTo from '@/components/docs/doc-link-to';
 
 // Icons
 import Github from '~icons/lucide/github';
@@ -113,16 +113,16 @@ const state = new HomepageState();
               Source. Open Code.
             </p>
             <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
-              <LinkTo @route="docs">
+              <DocLinkTo @route="docs">
                 <Button>
                   Get Started
                 </Button>
-              </LinkTo>
-              <LinkTo @route="docs.components.index">
+              </DocLinkTo>
+              <DocLinkTo @route="docs.components.index">
                 <Button @variant="ghost">
                   View Components
                 </Button>
-              </LinkTo>
+              </DocLinkTo>
             </div>
           </div>
         </div>

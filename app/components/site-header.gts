@@ -1,4 +1,4 @@
-import { LinkTo } from '@ember/routing';
+import DocLinkTo from '@/components/docs/doc-link-to';
 import PhNotches from 'ember-phosphor-icons/components/ph-notches';
 import Github from '~icons/lucide/github';
 import Button from '@/components/ui/button';
@@ -10,24 +10,24 @@ import ThemeToggle from '@/components/theme-toggle';
     <div class="container-wrapper px-6">
       <div class="flex h-14 items-center">
         <Button @variant="ghost" @size="icon" class="size-8">
-          <LinkTo @route="index">
+          <DocLinkTo @route="index">
             <PhNotches class="size-5" @weight="bold" />
             <span class="sr-only">shadcn-ember</span>
-          </LinkTo>
+          </DocLinkTo>
         </Button>
         <nav class="hidden lg:flex items-center gap-4 text-sm ml-4">
-          <LinkTo
+          <DocLinkTo
             @route="docs"
             class="transition-colors hover:text-foreground/80 text-foreground/60"
           >
             Docs
-          </LinkTo>
-          <LinkTo
+          </DocLinkTo>
+          <DocLinkTo
             @route="docs.components"
             class="transition-colors hover:text-foreground/80 text-foreground/60"
           >
             Components
-          </LinkTo>
+          </DocLinkTo>
         </nav>
         <div class="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
           <Separator @orientation="vertical" class="ml-2 hidden lg:block" />
