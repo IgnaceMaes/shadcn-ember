@@ -8,6 +8,7 @@ import DocToc, { type TocItem } from './doc-toc';
 import DocHeading from './doc-heading';
 import { hash } from '@ember/helper';
 import type { ComponentLike } from '@glint/template';
+import type { TOC } from '@ember/component/template-only';
 
 function toKebabCase(text: string): string {
   return text
@@ -57,44 +58,23 @@ class RegisteredHeading extends Component<{
   </template>
 }
 
-export default class DocPage extends Component<DocPageSignature> {
-  @tracked tocItems: TocItem[] = [];
-
-  get allTocItems(): TocItem[] {
-    // Combine items from args (markdown) and tracked items (template headings)
-    return [...(this.args.tocItems || []), ...this.tocItems];
-  }
-
-  handleRegister = (item: TocItem) => {
-    next(() => {
-      if (!this.tocItems.find((existing) => existing.id === item.id)) {
-        this.tocItems = [...this.tocItems, item];
-      }
-    });
-  };
-
-  <template>
-    <div class="flex items-stretch text-[1.05rem] sm:text-[15px] xl:w-full">
-      <div class="flex min-w-0 flex-1 flex-col">
-        <div
-          class={{cn
-            "mx-auto flex w-full max-w-2xl min-w-0 flex-1 flex-col gap-8 px-4 py-6 text-neutral-800 md:px-0 lg:py-8 dark:text-neutral-300"
-            @class
-          }}
-          ...attributes
-        >
-          {{yield
-            (hash
-              Heading=(component
-                RegisteredHeading onRegister=this.handleRegister
-              )
-            )
-          }}
-        </div>
+const DocPage: TOC<DocPageSignature> = <template>
+  <div class="flex items-stretch text-[1.05rem] sm:text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+      <div
+        class={{cn
+          "mx-auto flex w-full max-w-2xl min-w-0 flex-1 flex-col gap-8 px-4 py-6 text-neutral-800 md:px-0 lg:py-8 dark:text-neutral-300"
+          @class
+        }}
+        ...attributes
+      >
+        {{yield (hash Heading=(component RegisteredHeading))}}
       </div>
-      {{#if this.allTocItems.length}}
-        <DocToc @items={{this.allTocItems}} />
-      {{/if}}
     </div>
-  </template>
-}
+    {{#if @tocItems}}
+      <DocToc @items={{@tocItems}} />
+    {{/if}}
+  </div>
+</template>;
+
+export default DocPage;
