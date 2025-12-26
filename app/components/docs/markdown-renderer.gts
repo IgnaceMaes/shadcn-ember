@@ -16,6 +16,7 @@ import {
   DocContent,
   DocLink,
   DocCode,
+  DocHeading,
 } from './index';
 import Separator from '@/components/ui/separator';
 import CodeBlockThemed from './code-block-themed';
@@ -424,7 +425,7 @@ export default class MarkdownRenderer extends Component<Signature> {
       {{pageTitle (concat this.frontmatter.title " - shadcn-ember")}}
     {{/if}}
 
-    <DocPage @tocItems={{this.tocItems}} as |page|>
+    <DocPage @tocItems={{this.tocItems}}>
       <DocHeader
         @title={{if this.frontmatter.title this.frontmatter.title ""}}
         @description={{if
@@ -495,18 +496,20 @@ export default class MarkdownRenderer extends Component<Signature> {
           {{/if}}
           {{#if (eq node.type "heading")}}
             {{#if (eq node.depth 2)}}
-              <page.Heading>
-                {{#each node.children as |inline|}}
-                  {{#if (eq inline.type "text")}}{{inline.content}}{{/if}}
-                  {{#if (eq inline.type "strong")}}
-                    <DocStrong>
-                      {{#each inline.children as |child|}}
-                        {{#if (eq child.type "text")}}{{child.content}}{{/if}}
-                      {{/each}}
-                    </DocStrong>
-                  {{/if}}
-                {{/each}}
-              </page.Heading>
+              {{#let (this.getHeadingText node.children) as |title|}}
+                <DocHeading @id={{this.toKebabCase title}}>
+                  {{#each node.children as |inline|}}
+                    {{#if (eq inline.type "text")}}{{inline.content}}{{/if}}
+                    {{#if (eq inline.type "strong")}}
+                      <DocStrong>
+                        {{#each inline.children as |child|}}
+                          {{#if (eq child.type "text")}}{{child.content}}{{/if}}
+                        {{/each}}
+                      </DocStrong>
+                    {{/if}}
+                  {{/each}}
+                </DocHeading>
+              {{/let}}
             {{else if (eq node.depth 3)}}
               {{#let (this.getHeadingText node.children) as |title|}}
                 <h3

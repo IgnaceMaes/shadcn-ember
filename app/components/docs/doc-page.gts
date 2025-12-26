@@ -1,23 +1,6 @@
-/* eslint-disable ember/no-runloop */
-import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
-import { modifier } from 'ember-modifier';
-import { next } from '@ember/runloop';
 import { cn } from '@/lib/utils';
 import DocToc, { type TocItem } from './doc-toc';
-import DocHeading from './doc-heading';
-import { hash } from '@ember/helper';
-import type { ComponentLike } from '@glint/template';
 import type { TOC } from '@ember/component/template-only';
-
-function toKebabCase(text: string): string {
-  return text
-    .trim()
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-');
-}
 
 interface DocPageSignature {
   Element: HTMLDivElement;
@@ -26,36 +9,8 @@ interface DocPageSignature {
     tocItems?: TocItem[];
   };
   Blocks: {
-    default: [
-      {
-        Heading: ComponentLike;
-      },
-    ];
+    default: [];
   };
-}
-
-class RegisteredHeading extends Component<{
-  Args: { id?: string; class?: string; onRegister?: (item: TocItem) => void };
-  Blocks: { default: [] };
-}> {
-  registerHeading = modifier((element: HTMLHeadingElement) => {
-    const title = element.textContent?.trim() || '';
-    const id = this.args.id || toKebabCase(title);
-
-    if (!this.args.id) {
-      element.id = id;
-    }
-
-    this.args.onRegister?.({ id, title, depth: 2 });
-
-    return () => {};
-  });
-
-  <template>
-    <DocHeading @id={{@id}} @class={{@class}} {{this.registerHeading}}>
-      {{yield}}
-    </DocHeading>
-  </template>
 }
 
 const DocPage: TOC<DocPageSignature> = <template>
@@ -68,7 +23,7 @@ const DocPage: TOC<DocPageSignature> = <template>
         }}
         ...attributes
       >
-        {{yield (hash Heading=(component RegisteredHeading))}}
+        {{yield}}
       </div>
     </div>
     {{#if @tocItems}}
