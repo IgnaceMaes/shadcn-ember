@@ -483,34 +483,5 @@ const state = new HomepageState();
         </div>
       </section>
     </main>
-
-    {{! Footer }}
-    <footer class="border-t py-6 md:py-0">
-      <div
-        class="container flex flex-col items-center justify-between gap-4 md:h-16 md:flex-row px-4 mx-auto"
-      >
-        <p
-          class="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left"
-        >
-          Built by
-          <a
-            href="https://github.com/IgnaceMaes"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="font-medium underline underline-offset-4"
-          >
-            Ignace Maes
-          </a>. The source code is available on
-          <a
-            href="https://github.com/IgnaceMaes/shadcn-ember"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="font-medium underline underline-offset-4"
-          >
-            GitHub
-          </a>.
-        </p>
-      </div>
-    </footer>
   </div>
 </template>
