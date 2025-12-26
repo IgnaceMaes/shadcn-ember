@@ -118,7 +118,7 @@ const state = new HomepageState();
                   Get Started
                 </Button>
               </DocLinkTo>
-              <DocLinkTo @route="docs.components.index">
+              <DocLinkTo @route="docs.components">
                 <Button @variant="ghost">
                   View Components
                 </Button>

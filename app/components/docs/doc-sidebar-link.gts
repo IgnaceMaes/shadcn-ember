@@ -20,10 +20,25 @@ export default class DocSidebarLink extends Component<DocSidebarLinkSignature> {
 
   get isActive() {
     const currentRoute = this.router.currentRouteName;
-    return (
+
+    // Direct route match
+    if (
       currentRoute === this.args.route ||
       currentRoute === `${this.args.route}.index`
-    );
+    ) {
+      return true;
+    }
+
+    // Check if we're on the catch-all route and compare the path
+    if (currentRoute === 'docs.catch-all') {
+      const currentPath = this.router.currentRoute?.params?.['path'];
+      const expectedPath = this.args.route
+        .replace(/^docs\./, '')
+        .replace(/\./g, '/');
+      return currentPath === expectedPath;
+    }
+
+    return false;
   }
 
   <template>
