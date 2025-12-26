@@ -14,8 +14,9 @@ import {
   DocContent,
   DocLink,
 } from './index';
-import ComponentsList from './components-list';
 import Separator from '@/components/ui/separator';
+import * as DocsComponents from './index';
+import type { ComponentLike } from '@glint/template';
 
 // Type definitions for markdown AST nodes
 interface MdastNode {
@@ -96,6 +97,7 @@ interface ProcessedNode {
   depth?: number;
   url?: string;
   componentName?: string;
+  componentInstance?: ComponentLike;
 }
 
 export default class MarkdownRenderer extends Component<Signature> {
@@ -171,11 +173,21 @@ export default class MarkdownRenderer extends Component<Signature> {
       case 'html': {
         // Handle custom components embedded in markdown
         const htmlValue = (node as Html).value;
-        if (htmlValue.includes('<ComponentsList')) {
-          return {
-            type: 'component',
-            componentName: 'ComponentsList',
-          };
+        // Match component tags that start with a capital letter
+        const componentMatch = htmlValue.match(/<([A-Z][a-zA-Z0-9]*)/);
+        if (componentMatch) {
+          const componentName = componentMatch[1];
+          // Look up the component from the imported DocsComponents
+          const componentInstance = (
+            DocsComponents as Record<string, unknown>
+          )[componentName] as unknown;
+          if (componentInstance) {
+            return {
+              type: 'component',
+              componentName,
+              componentInstance,
+            };
+          }
         }
         return null;
       }
@@ -247,8 +259,8 @@ export default class MarkdownRenderer extends Component<Signature> {
       <DocContent>
         {{#each this.processedContent as |node|}}
           {{#if (eq node.type "component")}}
-            {{#if (eq node.componentName "ComponentsList")}}
-              <ComponentsList />
+            {{#if node.componentInstance}}
+              {{component node.componentInstance}}
             {{/if}}
           {{/if}}
           {{#if (eq node.type "thematicBreak")}}
