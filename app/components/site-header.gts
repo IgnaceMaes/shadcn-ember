@@ -13,12 +13,12 @@ import ThemeToggle from '@/components/theme-toggle';
   <header class="bg-background sticky top-0 z-50 w-full">
     <div class="container-wrapper px-6">
       <div class="flex h-14 items-center">
-        <Button @variant="ghost" @size="icon" class="size-8">
-          <DocLinkTo @route="index">
+        <DocLinkTo @route="index">
+          <Button @variant="ghost" @size="icon" class="size-8">
             <PhNotches @weight="bold" class="text-[#E04E39]" />
             <span class="sr-only">shadcn-ember</span>
-          </DocLinkTo>
-        </Button>
+          </Button>
+        </DocLinkTo>
         <nav class="items-center gap-0 hidden lg:flex">
           <DocLinkTo
             @route="docs"
