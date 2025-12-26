@@ -29,6 +29,13 @@ export { default as MarkdownRenderer } from './markdown-renderer';
 export { default as DocsMarkdownPage } from './markdown-page';
 export { default as ComponentsList } from './components-list';
 
+// Markdown Components (for use within markdown)
+export { default as ComponentPreviewMd } from './component-preview-md';
+export { default as CodeTabs } from './code-tabs';
+export { default as Steps } from './steps';
+export { default as Step } from './step';
+export { default as ComponentSource } from './component-source';
+
 // Component Documentation (existing)
 export { default as ComponentDocPage } from './component-doc-page';
 export { default as ComponentDocHeader } from './component-doc-header';

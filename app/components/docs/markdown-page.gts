@@ -4,6 +4,7 @@ import RouterService from '@ember/routing/router-service';
 import { MarkdownRenderer } from '@/components/docs';
 
 interface Signature {
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   Args: {};
 }
 

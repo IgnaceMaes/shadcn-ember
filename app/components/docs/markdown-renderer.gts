@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import { eq } from 'ember-truth-helpers';
+import { get } from '@ember/helper';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkGfm from 'remark-gfm';
@@ -116,6 +117,7 @@ interface ProcessedNode {
   isNpmCommand?: boolean;
   componentName?: string;
   componentInstance?: ComponentLike;
+  componentProps?: Record<string, string>;
   title?: string;
   showLineNumbers?: boolean;
   highlightLines?: number[];
@@ -135,16 +137,18 @@ export default class MarkdownRenderer extends Component<Signature> {
     const frontmatter: Frontmatter = {};
 
     // Parse simple YAML frontmatter (key: value pairs)
-    frontmatterText.split('\n').forEach((line) => {
-      const colonIndex = line.indexOf(':');
-      if (colonIndex > -1) {
-        const key = line.slice(0, colonIndex).trim();
-        const value = line.slice(colonIndex + 1).trim();
-        frontmatter[key] = value;
-      }
-    });
+    if (frontmatterText) {
+      frontmatterText.split('\n').forEach((line) => {
+        const colonIndex = line.indexOf(':');
+        if (colonIndex > -1) {
+          const key = line.slice(0, colonIndex).trim();
+          const value = line.slice(colonIndex + 1).trim();
+          frontmatter[key] = value;
+        }
+      });
+    }
 
-    return { frontmatter, content };
+    return { frontmatter, content: content || '' };
   }
 
   get parsed() {
@@ -212,15 +216,20 @@ export default class MarkdownRenderer extends Component<Signature> {
         const componentMatch = htmlValue.match(/<([A-Z][a-zA-Z0-9]*)/);
         if (componentMatch) {
           const componentName = componentMatch[1];
+          if (!componentName) return null;
+
           // Look up the component from the imported DocsComponents
           const componentInstance = (DocsComponents as Record<string, unknown>)[
             componentName
-          ] as unknown;
+          ] as ComponentLike;
           if (componentInstance) {
+            // Parse component props from the HTML string
+            const props = this.parseComponentProps(htmlValue);
             return {
               type: 'component',
               componentName,
               componentInstance,
+              componentProps: props,
             };
           }
         }
@@ -362,18 +371,74 @@ export default class MarkdownRenderer extends Component<Signature> {
       .join('');
   };
 
+  // Parse component props from HTML string
+  private parseComponentProps(html: string): Record<string, string> {
+    const props: Record<string, string> = {};
+    // Match attributes like name="value" or name='value' or name={value}
+    const attrRegex = /(\w+)=(?:"([^"]*)"|'([^']*)'|\{([^}]*)\})/g;
+    let match;
+
+    while ((match = attrRegex.exec(html)) !== null) {
+      const key = match[1];
+      const value = match[2] || match[3] || match[4];
+      if (key && value !== undefined) {
+        props[key] = value;
+      }
+    }
+
+    return props;
+  }
+
   <template>
     <DocPage as |page|>
       <DocHeader
-        @title={{this.frontmatter.title}}
-        @description={{this.frontmatter.description}}
+        @title={{if this.frontmatter.title this.frontmatter.title ""}}
+        @description={{if
+          this.frontmatter.description
+          this.frontmatter.description
+          ""
+        }}
       />
 
       <DocContent>
         {{#each this.processedContent as |node|}}
           {{#if (eq node.type "component")}}
             {{#if node.componentInstance}}
-              {{component node.componentInstance}}
+              {{#if (eq node.componentName "ComponentPreviewMd")}}
+                {{component
+                  node.componentInstance
+                  name=(get node.componentProps "name")
+                  className=(get node.componentProps "className")
+                  description=(get node.componentProps "description")
+                  align=(get node.componentProps "align")
+                }}
+              {{else if (eq node.componentName "ComponentSource")}}
+                {{component
+                  node.componentInstance
+                  name=(get node.componentProps "name")
+                  title=(get node.componentProps "title")
+                }}
+              {{else if (eq node.componentName "CodeTabs")}}
+                {{component node.componentInstance}}
+              {{else if (eq node.componentName "TabsList")}}
+                {{component node.componentInstance}}
+              {{else if (eq node.componentName "TabsTrigger")}}
+                {{component
+                  node.componentInstance
+                  value=(get node.componentProps "value")
+                }}
+              {{else if (eq node.componentName "TabsContent")}}
+                {{component
+                  node.componentInstance
+                  value=(get node.componentProps "value")
+                }}
+              {{else if (eq node.componentName "Steps")}}
+                {{component node.componentInstance}}
+              {{else if (eq node.componentName "Step")}}
+                {{component node.componentInstance}}
+              {{else}}
+                {{component node.componentInstance}}
+              {{/if}}
             {{/if}}
           {{/if}}
           {{#if (eq node.type "thematicBreak")}}
@@ -415,7 +480,7 @@ export default class MarkdownRenderer extends Component<Signature> {
                   </DocEmphasis>
                 {{/if}}
                 {{#if (eq inline.type "link")}}
-                  <DocLink @href={{inline.url}}>
+                  <DocLink @href={{if inline.url inline.url ""}}>
                     {{#each inline.children as |child|}}
                       {{#if (eq child.type "text")}}{{child.content}}{{/if}}
                     {{/each}}
@@ -438,6 +503,19 @@ export default class MarkdownRenderer extends Component<Signature> {
                   {{/if}}
                 {{/each}}
               </page.Heading>
+            {{else if (eq node.depth 3)}}
+              <h3 class="mt-8 scroll-m-20 text-xl font-semibold tracking-tight">
+                {{#each node.children as |inline|}}
+                  {{#if (eq inline.type "text")}}{{inline.content}}{{/if}}
+                  {{#if (eq inline.type "strong")}}
+                    <DocStrong>
+                      {{#each inline.children as |child|}}
+                        {{#if (eq child.type "text")}}{{child.content}}{{/if}}
+                      {{/each}}
+                    </DocStrong>
+                  {{/if}}
+                {{/each}}
+              </h3>
             {{/if}}
           {{/if}}
           {{#if (eq node.type "list")}}
@@ -469,7 +547,7 @@ export default class MarkdownRenderer extends Component<Signature> {
                           </DocEmphasis>
                         {{/if}}
                         {{#if (eq inline.type "link")}}
-                          <DocLink @href={{inline.url}}>
+                          <DocLink @href={{if inline.url inline.url ""}}>
                             {{#each inline.children as |child|}}
                               {{#if
                                 (eq child.type "text")
