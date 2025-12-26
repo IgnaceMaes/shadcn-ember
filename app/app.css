@@ -1,3 +1,6 @@
+/* stylelint-disable selector-class-pattern */
+/* stylelint-disable number-max-precision */
+/* stylelint-disable custom-property-pattern */
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
