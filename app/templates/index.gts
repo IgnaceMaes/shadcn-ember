@@ -3,7 +3,6 @@ import { on } from '@ember/modifier';
 import DocLinkTo from '@/components/docs/doc-link-to';
 
 // Icons
-import ChevronRight from '~icons/lucide/chevron-right';
 import ArrowRight from '~icons/lucide/arrow-right';
 import Check from '~icons/lucide/check';
 import Copy from '~icons/lucide/copy';
