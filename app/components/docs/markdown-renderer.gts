@@ -13,8 +13,10 @@ import {
   DocPage,
   DocContent,
   DocLink,
+  DocCode,
 } from './index';
 import Separator from '@/components/ui/separator';
+import CodeBlockThemed from './code-block-themed';
 import * as DocsComponents from './index';
 import type { ComponentLike } from '@glint/template';
 
@@ -68,6 +70,18 @@ interface Link extends MdastNode {
   children: MdastNode[];
 }
 
+interface Code extends MdastNode {
+  type: 'code';
+  lang: string | null;
+  value: string;
+  meta?: string | null;
+}
+
+interface InlineCode extends MdastNode {
+  type: 'inlineCode';
+  value: string;
+}
+
 interface Text extends MdastNode {
   type: 'text';
   value: string;
@@ -96,6 +110,8 @@ interface ProcessedNode {
   children?: ProcessedNode[];
   depth?: number;
   url?: string;
+  language?: string;
+  meta?: string;
   componentName?: string;
   componentInstance?: ComponentLike;
 }
@@ -170,6 +186,15 @@ export default class MarkdownRenderer extends Component<Signature> {
           type: 'listItem',
           children: this.processNodes((node as ListItem).children),
         };
+      case 'code': {
+        const codeNode = node as Code;
+        return {
+          type: 'code',
+          language: codeNode.lang || 'text',
+          content: codeNode.value,
+          meta: codeNode.meta || undefined,
+        };
+      }
       case 'html': {
         // Handle custom components embedded in markdown
         const htmlValue = (node as Html).value;
@@ -178,9 +203,9 @@ export default class MarkdownRenderer extends Component<Signature> {
         if (componentMatch) {
           const componentName = componentMatch[1];
           // Look up the component from the imported DocsComponents
-          const componentInstance = (
-            DocsComponents as Record<string, unknown>
-          )[componentName] as unknown;
+          const componentInstance = (DocsComponents as Record<string, unknown>)[
+            componentName
+          ] as unknown;
           if (componentInstance) {
             return {
               type: 'component',
@@ -222,6 +247,11 @@ export default class MarkdownRenderer extends Component<Signature> {
         return {
           type: 'text',
           content: (node as Text).value,
+        };
+      case 'inlineCode':
+        return {
+          type: 'inlineCode',
+          content: (node as InlineCode).value,
         };
       default:
         return null;
@@ -266,10 +296,18 @@ export default class MarkdownRenderer extends Component<Signature> {
           {{#if (eq node.type "thematicBreak")}}
             <Separator @class="my-4 md:my-8" />
           {{/if}}
+          {{#if (eq node.type "code")}}
+            <CodeBlockThemed
+              @language={{if node.language node.language "text"}}
+              @code={{if node.content node.content ""}}
+            />
+          {{/if}}
           {{#if (eq node.type "paragraph")}}
             <DocParagraph>
               {{#each node.children as |inline|}}
                 {{#if (eq inline.type "text")}}{{inline.content}}{{/if}}
+                {{#if (eq inline.type "inlineCode")}}<DocCode
+                  >{{inline.content}}</DocCode>{{/if}}
                 {{#if (eq inline.type "strong")}}
                   <DocStrong>
                     {{#each inline.children as |child|}}
@@ -318,6 +356,8 @@ export default class MarkdownRenderer extends Component<Signature> {
                     <DocListItem>
                       {{#each para.children as |inline|}}
                         {{#if (eq inline.type "text")}}{{inline.content}}{{/if}}
+                        {{#if (eq inline.type "inlineCode")}}<DocCode
+                          >{{inline.content}}</DocCode>{{/if}}
                         {{#if (eq inline.type "strong")}}
                           <DocStrong>
                             {{#each inline.children as |child|}}
