@@ -15,9 +15,10 @@ export default {
       },
     },
     {
-      files: ['*.json'],
+      files: ['*.json', '*.json5', '*.jsonc'],
       options: {
         singleQuote: false,
+        trailingComma: 'none',
       },
     },
     {
@@ -31,6 +32,13 @@ export default {
       options: {
         templateSingleQuote: false,
         trailingComma: 'es5',
+      },
+    },
+    {
+      files: ['*.md'],
+      options: {
+        embeddedLanguageFormatting: 'off',
+        singleQuote: false,
       },
     },
   ],

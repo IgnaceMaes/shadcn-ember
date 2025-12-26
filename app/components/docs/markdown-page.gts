@@ -9,10 +9,11 @@ interface Signature {
 }
 
 // Use Vite's import.meta.glob to import all markdown files
-const markdownFiles = import.meta.glob<string>(
-  '/app/content/docs/**/*.md',
-  { query: '?raw', eager: true, import: 'default' }
-);
+const markdownFiles = import.meta.glob<string>('/app/content/docs/**/*.md', {
+  query: '?raw',
+  eager: true,
+  import: 'default',
+});
 
 export default class DocsMarkdownPage extends Component<Signature> {
   @service declare router: RouterService;
