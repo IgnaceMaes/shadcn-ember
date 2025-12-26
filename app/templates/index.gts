@@ -95,11 +95,13 @@ const state = new HomepageState();
           <div
             class="container flex flex-col items-center gap-2 py-8 text-center md:py-16 lg:py-20 xl:gap-4"
           >
-            <Badge @variant="secondary" class="rounded-full px-4 py-1.5">
-              <span class="mr-2">🎉</span>
-              shadcn/ui for Ember.js
-              <ChevronRight class="ml-1 h-3.5 w-3.5" />
-            </Badge>
+            <DocLinkTo @route="docs.changelog">
+              <Badge @variant="secondary" class="rounded-full px-4 py-1.5">
+                <span class="mr-2">🎉</span>
+                shadcn/ui for Ember.js
+                <ChevronRight class="ml-1 h-3.5 w-3.5" />
+              </Badge>
+            </DocLinkTo>
             <h1
               class="text-primary leading-tighter text-4xl font-semibold tracking-tight text-balance lg:leading-[1.1] lg:font-semibold xl:text-5xl xl:tracking-tight max-w-4xl"
             >
