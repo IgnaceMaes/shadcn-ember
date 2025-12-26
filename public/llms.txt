@@ -1,0 +1,100 @@
+# shadcn-ember
+
+> shadcn-ember is a collection of beautifully-designed, accessible components for Ember applications. It is built with TypeScript, Tailwind CSS, and Glimmer template tag components (gts files). This is an Ember port of shadcn/ui, following modern Ember (Polaris edition) conventions. Open Source. Open Code. AI-Ready.
+
+## Overview
+
+- [Introduction](https://shadcn-ember.com/docs): Core principles—Open Code, Composition, Distribution, Beautiful Defaults, and AI-Ready design.
+- [Installation](https://shadcn-ember.com/docs/installation): Install shadcn-ember in your Ember project.
+- [Components](https://shadcn-ember.com/docs/components): Browse all available components.
+- [Changelog](https://shadcn-ember.com/docs/changelog): Release notes and version history.
+- [Figma](https://shadcn-ember.com/docs/figma): Figma design resources from the shadcn/ui community.
+
+## Installation
+
+- [Manual Installation](https://shadcn-ember.com/docs/installation/manual): Manually install shadcn-ember components in your Ember application.
+
+## Components
+
+### Form & Input
+
+- [Form](https://shadcn-ember.com/docs/components/form): Building forms with validation.
+- [Field](https://shadcn-ember.com/docs/components/field): Field component for form inputs with labels and error messages.
+- [Button](https://shadcn-ember.com/docs/components/button): Button component with multiple variants.
+- [Button Group](https://shadcn-ember.com/docs/components/button-group): Group multiple buttons together.
+- [Input](https://shadcn-ember.com/docs/components/input): Text input component.
+- [Input Group](https://shadcn-ember.com/docs/components/input-group): Input component with prefix and suffix addons.
+- [Input OTP](https://shadcn-ember.com/docs/components/input-otp): One-time password input component.
+- [Textarea](https://shadcn-ember.com/docs/components/textarea): Multi-line text input component.
+- [Checkbox](https://shadcn-ember.com/docs/components/checkbox): Checkbox input component.
+- [Radio Group](https://shadcn-ember.com/docs/components/radio-group): Radio button group component.
+- [Select](https://shadcn-ember.com/docs/components/select): Select dropdown component.
+- [Switch](https://shadcn-ember.com/docs/components/switch): Toggle switch component.
+- [Slider](https://shadcn-ember.com/docs/components/slider): Slider input component.
+- [Calendar](https://shadcn-ember.com/docs/components/calendar): Calendar component for date selection.
+- [Label](https://shadcn-ember.com/docs/components/label): Form label component.
+
+### Layout & Navigation
+
+- [Accordion](https://shadcn-ember.com/docs/components/accordion): Collapsible accordion component.
+- [Breadcrumb](https://shadcn-ember.com/docs/components/breadcrumb): Breadcrumb navigation component.
+- [Navigation Menu](https://shadcn-ember.com/docs/components/navigation-menu): Accessible navigation menu with dropdowns.
+- [Tabs](https://shadcn-ember.com/docs/components/tabs): Tabbed interface component.
+- [Separator](https://shadcn-ember.com/docs/components/separator): Visual divider between content sections.
+- [Scroll Area](https://shadcn-ember.com/docs/components/scroll-area): Custom scrollable area with styled scrollbars.
+- [Resizable](https://shadcn-ember.com/docs/components/resizable): Resizable panel layout component.
+
+### Overlays & Dialogs
+
+- [Dialog](https://shadcn-ember.com/docs/components/dialog): Modal dialog component.
+- [Alert Dialog](https://shadcn-ember.com/docs/components/alert-dialog): Alert dialog for confirmation prompts.
+- [Sheet](https://shadcn-ember.com/docs/components/sheet): Slide-out panel component (drawer).
+- [Popover](https://shadcn-ember.com/docs/components/popover): Floating popover component.
+- [Tooltip](https://shadcn-ember.com/docs/components/tooltip): Tooltip component for additional context.
+- [Hover Card](https://shadcn-ember.com/docs/components/hover-card): Card that appears on hover.
+- [Context Menu](https://shadcn-ember.com/docs/components/context-menu): Right-click context menu.
+- [Dropdown Menu](https://shadcn-ember.com/docs/components/dropdown-menu): Dropdown menu component.
+- [Menubar](https://shadcn-ember.com/docs/components/menubar): Horizontal menubar component.
+- [Command](https://shadcn-ember.com/docs/components/command): Command palette component (cmdk).
+
+### Feedback & Status
+
+- [Alert](https://shadcn-ember.com/docs/components/alert): Alert component for messages and notifications.
+- [Toast](https://shadcn-ember.com/docs/components/toast): Toast notification component using Sonner.
+- [Progress](https://shadcn-ember.com/docs/components/progress): Progress bar component.
+- [Spinner](https://shadcn-ember.com/docs/components/spinner): Loading spinner component.
+- [Skeleton](https://shadcn-ember.com/docs/components/skeleton): Skeleton loading placeholder.
+- [Badge](https://shadcn-ember.com/docs/components/badge): Badge component for labels and status indicators.
+- [Empty](https://shadcn-ember.com/docs/components/empty): Empty state component for no data scenarios.
+
+### Display & Media
+
+- [Avatar](https://shadcn-ember.com/docs/components/avatar): Avatar component for user profiles.
+- [Card](https://shadcn-ember.com/docs/components/card): Card container component.
+- [Table](https://shadcn-ember.com/docs/components/table): Table component for displaying data.
+- [Chart](https://shadcn-ember.com/docs/components/chart): Chart components using Recharts.
+- [Carousel](https://shadcn-ember.com/docs/components/carousel): Carousel component using Embla Carousel.
+- [Aspect Ratio](https://shadcn-ember.com/docs/components/aspect-ratio): Container that maintains aspect ratio.
+- [Item](https://shadcn-ember.com/docs/components/item): Generic item component for lists and menus.
+- [Kbd](https://shadcn-ember.com/docs/components/kbd): Keyboard shortcut display component.
+
+### Misc
+
+- [Collapsible](https://shadcn-ember.com/docs/components/collapsible): Collapsible container component.
+- [Toggle](https://shadcn-ember.com/docs/components/toggle): Toggle button component.
+- [Toggle Group](https://shadcn-ember.com/docs/components/toggle-group): Group of toggle buttons.
+- [Pagination](https://shadcn-ember.com/docs/components/pagination): Pagination component for lists and tables.
+
+## Ember Conventions
+
+shadcn-ember follows modern Ember (Polaris edition) conventions:
+
+- Vite as build system
+- TypeScript for type safety
+- Template tag components (gts files) for components, route templates, and tests
+- Tailwind CSS for styling
+- `@tracked` and getters for reactivity (no classic Ember objects)
+- Arrow functions over `@action` within components
+- Lucide icons via imports (e.g., `import Check from '~icons/lucide/check'`)
+- All helpers/modifiers/components must be imported (no global usage)
+- Template-only components where possible

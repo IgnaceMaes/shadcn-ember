@@ -29,6 +29,9 @@ import {
             <DocSidebarLink @route="docs.figma">
               Figma
             </DocSidebarLink>
+            <DocSidebarLink @href="/llms.txt">
+              llms.txt
+            </DocSidebarLink>
           </DocSidebarGroup>
           <DocSidebarGroup @title="Components">
             <DocSidebarLink @route="docs.components.accordion">
