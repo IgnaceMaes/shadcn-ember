@@ -15,7 +15,12 @@ interface BreadcrumbSignature {
 }
 
 export const Breadcrumb: TOC<BreadcrumbSignature> = <template>
-  <nav aria-label="breadcrumb" data-slot="breadcrumb" class={{@class}} ...attributes>
+  <nav
+    aria-label="breadcrumb"
+    data-slot="breadcrumb"
+    class={{@class}}
+    ...attributes
+  >
     {{yield}}
   </nav>
 </template>;

@@ -32,7 +32,10 @@ import {
       <BreadcrumbSeparator class="hidden md:block" />
       <BreadcrumbItem class="hidden md:block">
         <BreadcrumbLink @asChild={{true}}>
-          <LinkTo @route="docs.catch-all" @model="components">Components</LinkTo>
+          <LinkTo
+            @route="docs.catch-all"
+            @model="components"
+          >Components</LinkTo>
         </BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbSeparator class="hidden md:block" />

@@ -40,7 +40,10 @@ import {
       <BreadcrumbSeparator />
       <BreadcrumbItem>
         <BreadcrumbLink @asChild={{true}}>
-          <LinkTo @route="docs.catch-all" @model="components">Components</LinkTo>
+          <LinkTo
+            @route="docs.catch-all"
+            @model="components"
+          >Components</LinkTo>
         </BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbSeparator />
