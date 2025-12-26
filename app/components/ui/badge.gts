@@ -4,31 +4,33 @@ import { cn } from '@/lib/utils';
 type Variant = 'default' | 'secondary' | 'destructive' | 'outline';
 
 interface BadgeSignature {
-  Element: HTMLDivElement;
+  Element: HTMLSpanElement;
   Args: {
     variant?: Variant;
     class?: string;
+    asChild?: boolean;
   };
   Blocks: {
-    default: [];
+    default: [string?];
   };
 }
 
-function badgeVariants(
+export function badgeVariants(
   variant: Variant = 'default',
   className?: string
 ): string {
   const baseClasses =
-    'inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2';
+    'inline-flex items-center justify-center rounded-full border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden';
 
   const variantClasses: Record<Variant, string> = {
     default:
-      'border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80',
+      'border-transparent bg-primary text-primary-foreground [a&]:hover:bg-primary/90',
     secondary:
-      'border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80',
+      'border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90',
     destructive:
-      'border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80',
-    outline: 'text-foreground',
+      'border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60',
+    outline:
+      'text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground',
   };
 
   return cn(baseClasses, variantClasses[variant], className);
@@ -40,8 +42,12 @@ export default class Badge extends Component<BadgeSignature> {
   }
 
   <template>
-    <div class={{this.classes}} ...attributes>
-      {{yield}}
-    </div>
+    {{#if @asChild}}
+      {{yield this.classes}}
+    {{else}}
+      <span data-slot="badge" class={{this.classes}} ...attributes>
+        {{yield}}
+      </span>
+    {{/if}}
   </template>
 }
