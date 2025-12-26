@@ -4,6 +4,7 @@
 // Layout Components
 export { default as DocLayout } from './doc-layout';
 export { default as DocHeaderNav } from './doc-header-nav';
+export { default as DocHeaderCopy } from './doc-header-copy';
 export { default as DocSidebar } from './doc-sidebar';
 export { default as DocSidebarGroup } from './doc-sidebar-group';
 export { default as DocSidebarLink } from './doc-sidebar-link';

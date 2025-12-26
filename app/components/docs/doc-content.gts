@@ -13,7 +13,11 @@ interface DocContentSignature {
 
 export default class DocContent extends Component<DocContentSignature> {
   <template>
-    <div class={{cn "w-full flex-1 pt-6" @class}} ...attributes>
+    <div
+      class={{cn "w-full flex-1 pt-6" @class}}
+      data-doc-content
+      ...attributes
+    >
       {{yield}}
     </div>
   </template>

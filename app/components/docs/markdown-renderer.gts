@@ -426,6 +426,7 @@ export default class MarkdownRenderer extends Component<Signature> {
           this.frontmatter.description
           ""
         }}
+        @markdown={{@markdown}}
       />
 
       <DocContent>

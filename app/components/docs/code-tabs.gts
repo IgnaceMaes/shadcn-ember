@@ -1,4 +1,3 @@
-/* eslint-disable ember/no-empty-glimmer-component-classes */
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { hash, fn } from '@ember/helper';
