@@ -15,7 +15,7 @@ import ThemeToggle from '@/components/theme-toggle';
       <div class="flex h-14 items-center">
         <Button @variant="ghost" @size="icon" class="size-8">
           <DocLinkTo @route="index">
-            <PhNotches @weight="bold" />
+            <PhNotches @weight="bold" class="text-[#E04E39]" />
             <span class="sr-only">shadcn-ember</span>
           </DocLinkTo>
         </Button>
