@@ -17,6 +17,7 @@ import {
 } from './index';
 import Separator from '@/components/ui/separator';
 import CodeBlockThemed from './code-block-themed';
+import PackageManagerCommand from './package-manager-command';
 import * as DocsComponents from './index';
 import type { ComponentLike } from '@glint/template';
 
@@ -112,6 +113,7 @@ interface ProcessedNode {
   url?: string;
   language?: string;
   meta?: string;
+  isNpmCommand?: boolean;
   componentName?: string;
   componentInstance?: ComponentLike;
 }
@@ -193,6 +195,7 @@ export default class MarkdownRenderer extends Component<Signature> {
           language: codeNode.lang || 'text',
           content: codeNode.value,
           meta: codeNode.meta || undefined,
+          isNpmCommand: this.isNpmCommand(codeNode),
         };
       }
       case 'html': {
@@ -264,6 +267,16 @@ export default class MarkdownRenderer extends Component<Signature> {
       .filter(Boolean) as ProcessedNode[];
   }
 
+  // Helper to check if code block is a bash command with npm/npx
+  private isNpmCommand(codeNode: Code): boolean {
+    if (!codeNode.lang || !['bash', 'sh', 'shell'].includes(codeNode.lang)) {
+      return false;
+    }
+
+    const trimmedCode = codeNode.value.trim();
+    return trimmedCode.startsWith('npm ') || trimmedCode.startsWith('npx ');
+  }
+
   // Helper to extract text from nodes recursively
   private getHeadingText = (children: ProcessedNode[] | undefined): string => {
     if (!children) return '';
@@ -297,10 +310,16 @@ export default class MarkdownRenderer extends Component<Signature> {
             <Separator @class="my-4 md:my-8" />
           {{/if}}
           {{#if (eq node.type "code")}}
-            <CodeBlockThemed
-              @language={{if node.language node.language "text"}}
-              @code={{if node.content node.content ""}}
-            />
+            {{#if node.isNpmCommand}}
+              <PackageManagerCommand
+                @command={{if node.content node.content ""}}
+              />
+            {{else}}
+              <CodeBlockThemed
+                @language={{if node.language node.language "text"}}
+                @code={{if node.content node.content ""}}
+              />
+            {{/if}}
           {{/if}}
           {{#if (eq node.type "paragraph")}}
             <DocParagraph>

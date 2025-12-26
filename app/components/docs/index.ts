@@ -36,3 +36,4 @@ export { default as ComponentDocSection } from './component-doc-section';
 export { default as ComponentPreview } from './component-preview';
 export { default as ComponentInstallation } from './component-installation';
 export { default as CodeBlockThemed } from './code-block-themed';
+export { default as PackageManagerCommand } from './package-manager-command';
