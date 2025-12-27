@@ -37,7 +37,7 @@ import { Button } from '@/components/ui/button';
               class="text-foreground max-w-3xl text-base text-balance sm:text-lg"
             >
               Clean, modern building blocks. Copy and paste into your apps.
-              Works with all React frameworks. Open Source. Free forever.
+              Works with all Ember frameworks. Open Source. Free forever.
             </p>
             <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
               <Button disabled={{true}}>
