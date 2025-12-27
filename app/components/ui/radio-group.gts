@@ -4,6 +4,7 @@ import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { hash } from '@ember/helper';
 import { cn } from '@/lib/utils';
+import Circle from '~icons/lucide/circle';
 
 // RadioGroup Root Component
 interface RadioGroupSignature {
@@ -40,7 +41,12 @@ class RadioGroup extends Component<RadioGroupSignature> {
   };
 
   <template>
-    <div class={{cn "grid gap-2" @class}} role="radiogroup" ...attributes>
+    <div
+      class={{cn "grid gap-3" @class}}
+      role="radiogroup"
+      data-slot="radio-group"
+      ...attributes
+    >
       {{yield (hash value=this.value setValue=this.setValue)}}
     </div>
   </template>
@@ -73,12 +79,14 @@ class RadioGroupItem extends Component<RadioGroupItemSignature> {
   };
 
   <template>
+    {{! template-lint-disable require-presentational-children }}
     <button
       type="button"
       role="radio"
       aria-checked={{this.checked}}
+      data-slot="radio-group-item"
       class={{cn
-        "aspect-square h-4 w-4 rounded-full border border-primary text-primary shadow focus:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+        "border-input text-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 aspect-square size-4 shrink-0 rounded-full border shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50"
         @class
       }}
       disabled={{@disabled}}
@@ -86,8 +94,13 @@ class RadioGroupItem extends Component<RadioGroupItemSignature> {
       ...attributes
     >
       {{#if this.checked}}
-        <span class="flex items-center justify-center">
-          <span class="h-2.5 w-2.5 rounded-full bg-current"></span>
+        <span
+          class="relative flex items-center justify-center"
+          data-slot="radio-group-indicator"
+        >
+          <Circle
+            class="fill-primary absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2"
+          />
         </span>
       {{/if}}
     </button>
