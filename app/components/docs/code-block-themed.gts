@@ -1,6 +1,7 @@
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import { CodeBlock } from 'ember-shiki';
+import CopyButton from '@/components/docs/copy-button';
 import type ThemeService from '@/services/theme';
 
 interface CodeBlockThemedSignature {
@@ -31,7 +32,7 @@ export default class CodeBlockThemed extends Component<CodeBlockThemedSignature>
     {{! template-lint-disable no-inline-styles }}
     <div
       class="relative overflow-hidden rounded-lg [&_pre]:m-0! [&_pre]:rounded-none! mt-4"
-      style="--shiki-dark: #e1e4e8; --shiki-light: #1f2328; --shiki-dark-bg: #24292e; --shiki-light-bg: var(--surface); background-color: var(--surface);"
+      style="--shiki-dark: #e1e4e8; --shiki-light: #1f2328; --shiki-dark-bg: #24292e; --shiki-light-bg: var(--surface); background-color: var(--surface); --ember-shiki-padding-y: 14px;"
     >
       {{#if @title}}
         <div
@@ -40,12 +41,14 @@ export default class CodeBlockThemed extends Component<CodeBlockThemedSignature>
           {{@title}}
         </div>
       {{/if}}
+      <CopyButton @value={{@code}} @class={{if @title "!top-1.5 !right-2"}} />
       <CodeBlock
         @language={{@language}}
         @code={{@code}}
         @showLineNumbers={{if @showLineNumbers @showLineNumbers false}}
         @lineHighlights={{this.lineHighlights}}
         @theme={{this.theme.codeBlockTheme}}
+        @showCopyButton={{false}}
       />
     </div>
   </template>
