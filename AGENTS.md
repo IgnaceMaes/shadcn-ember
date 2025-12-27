@@ -24,3 +24,21 @@ Use modern Ember (Polaris edition) conventions:
 - Do not write a summary at the end (e.g. in markdown file)
 - Lint fix via `pnpm lint:fix`
 - Format fix via `pnpm format`
+
+## Template tag strict imports
+
+```gts
+// Built-in helpers
+import { array } from '@ember/helper';
+import { concat } from '@ember/helper';
+import { fn } from '@ember/helper';
+import { get } from '@ember/helper';
+import { hash } from '@ember/helper';
+import { uniqueId } from '@ember/helper';
+
+// Built-in modifiers
+import { on } from '@ember/modifier';
+
+// Built-in components
+import { LinkTo } from '@ember/routing';
+```
