@@ -1,7 +1,9 @@
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
+import { tracked } from '@glimmer/tracking';
 import { CodeBlock } from 'ember-shiki';
 import { Tabs } from '@/components/ui/tabs';
+import CopyButton from '@/components/docs/copy-button';
 import Terminal from '~icons/lucide/terminal';
 import type ThemeService from '@/services/theme';
 
@@ -16,10 +18,27 @@ interface PackageManagerCommandSignature {
 
 export default class PackageManagerCommand extends Component<PackageManagerCommandSignature> {
   @service declare theme: ThemeService;
+  @tracked currentTab = 'pnpm';
 
-  /**
-   * Convert npm command to other package managers
-   */
+  handleTabChange = (value: string) => {
+    this.currentTab = value;
+  };
+
+  get currentCommand(): string {
+    switch (this.currentTab) {
+      case 'pnpm':
+        return this.pnpmCommand;
+      case 'npm':
+        return this.npmCommand;
+      case 'yarn':
+        return this.yarnCommand;
+      case 'bun':
+        return this.bunCommand;
+      default:
+        return this.pnpmCommand;
+    }
+  }
+
   private convertCommand(manager: 'pnpm' | 'npm' | 'yarn' | 'bun'): string {
     const cmd = this.args.command.trim();
 
@@ -91,10 +110,15 @@ export default class PackageManagerCommand extends Component<PackageManagerComma
   <template>
     {{! template-lint-disable no-inline-styles }}
     <div
-      class="overflow-hidden rounded-lg [&_pre]:max-h-none [&_pre]:m-0! [&_pre]:rounded-none!"
+      class="relative overflow-hidden rounded-lg [&_pre]:max-h-none [&_pre]:m-0! [&_pre]:rounded-none! mt-4"
       style="--shiki-dark: #e1e4e8; --shiki-light: #1f2328; --shiki-dark-bg: #24292e; --shiki-light-bg: var(--surface); background-color: var(--surface);"
     >
-      <Tabs @defaultValue="pnpm" as |pkgTabs|>
+      <CopyButton @value={{this.currentCommand}} @class="!top-1.5 !right-2" />
+      <Tabs
+        @defaultValue="pnpm"
+        @onValueChange={{this.handleTabChange}}
+        as |pkgTabs|
+      >
         <div
           class="border-border/50 flex items-center gap-2 border-b px-3 py-1"
         >
@@ -140,6 +164,7 @@ export default class PackageManagerCommand extends Component<PackageManagerComma
             <CodeBlock
               @language="bash"
               @code={{this.pnpmCommand}}
+              @showCopyButton={{false}}
               @showLineNumbers={{false}}
               @theme={{this.theme.codeBlockTheme}}
               style="--ember-shiki-padding-x: 0; --ember-shiki-padding-y: 0; --ember-shiki-border-radius: 0; --ember-shiki-background-color: transparent; --ember-shiki-line-height: 1.5; --ember-shiki-font-size: 0.875rem;"
@@ -152,6 +177,7 @@ export default class PackageManagerCommand extends Component<PackageManagerComma
             <CodeBlock
               @language="bash"
               @code={{this.npmCommand}}
+              @showCopyButton={{false}}
               @showLineNumbers={{false}}
               @theme={{this.theme.codeBlockTheme}}
               style="--ember-shiki-padding-x: 0; --ember-shiki-padding-y: 0; --ember-shiki-border-radius: 0; --ember-shiki-background-color: transparent; --ember-shiki-line-height: 1.5; --ember-shiki-font-size: 0.875rem;"
@@ -164,6 +190,7 @@ export default class PackageManagerCommand extends Component<PackageManagerComma
             <CodeBlock
               @language="bash"
               @code={{this.yarnCommand}}
+              @showCopyButton={{false}}
               @showLineNumbers={{false}}
               @theme={{this.theme.codeBlockTheme}}
               style="--ember-shiki-padding-x: 0; --ember-shiki-padding-y: 0; --ember-shiki-border-radius: 0; --ember-shiki-background-color: transparent; --ember-shiki-line-height: 1.5; --ember-shiki-font-size: 0.875rem;"
@@ -175,6 +202,7 @@ export default class PackageManagerCommand extends Component<PackageManagerComma
           >
             <CodeBlock
               @language="bash"
+              @showCopyButton={{false}}
               @code={{this.bunCommand}}
               @showLineNumbers={{false}}
               @theme={{this.theme.codeBlockTheme}}
