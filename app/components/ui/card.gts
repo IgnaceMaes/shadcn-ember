@@ -13,7 +13,11 @@ interface CardSignature {
 
 export const Card: TOC<CardSignature> = <template>
   <div
-    class={{cn "rounded-xl border bg-card text-card-foreground shadow" @class}}
+    data-slot="card"
+    class={{cn
+      "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm"
+      @class
+    }}
     ...attributes
   >
     {{yield}}
@@ -31,7 +35,14 @@ interface CardHeaderSignature {
 }
 
 export const CardHeader: TOC<CardHeaderSignature> = <template>
-  <div class={{cn "flex flex-col space-y-1.5 p-6" @class}} ...attributes>
+  <div
+    data-slot="card-header"
+    class={{cn
+      "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6"
+      @class
+    }}
+    ...attributes
+  >
     {{yield}}
   </div>
 </template>;
@@ -48,7 +59,8 @@ interface CardTitleSignature {
 
 export const CardTitle: TOC<CardTitleSignature> = <template>
   <div
-    class={{cn "font-semibold leading-none tracking-tight" @class}}
+    data-slot="card-title"
+    class={{cn "leading-none font-semibold" @class}}
     ...attributes
   >
     {{yield}}
@@ -66,7 +78,34 @@ interface CardDescriptionSignature {
 }
 
 export const CardDescription: TOC<CardDescriptionSignature> = <template>
-  <div class={{cn "text-sm text-muted-foreground" @class}} ...attributes>
+  <div
+    data-slot="card-description"
+    class={{cn "text-muted-foreground text-sm" @class}}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
+
+interface CardActionSignature {
+  Element: HTMLDivElement;
+  Args: {
+    class?: string;
+  };
+  Blocks: {
+    default: [];
+  };
+}
+
+export const CardAction: TOC<CardActionSignature> = <template>
+  <div
+    data-slot="card-action"
+    class={{cn
+      "col-start-2 row-span-2 row-start-1 self-start justify-self-end"
+      @class
+    }}
+    ...attributes
+  >
     {{yield}}
   </div>
 </template>;
@@ -82,7 +121,7 @@ interface CardContentSignature {
 }
 
 export const CardContent: TOC<CardContentSignature> = <template>
-  <div class={{cn "p-6 pt-0" @class}} ...attributes>
+  <div data-slot="card-content" class={{cn "px-6" @class}} ...attributes>
     {{yield}}
   </div>
 </template>;
@@ -98,7 +137,11 @@ interface CardFooterSignature {
 }
 
 export const CardFooter: TOC<CardFooterSignature> = <template>
-  <div class={{cn "flex items-center p-6 pt-0" @class}} ...attributes>
+  <div
+    data-slot="card-footer"
+    class={{cn "flex items-center px-6 [.border-t]:pt-6" @class}}
+    ...attributes
+  >
     {{yield}}
   </div>
 </template>;
