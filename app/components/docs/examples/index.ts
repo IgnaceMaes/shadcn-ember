@@ -19,4 +19,5 @@ export { default as ButtonSize } from './button-size';
 export { default as ButtonWithIcon } from './button-with-icon';
 export { default as CardDemo } from './card-demo';
 export { default as CheckboxDemo } from './checkbox-demo';
+export { default as CollapsibleDemo } from './collapsible-demo';
 export { default as FieldDemo } from './field-demo';

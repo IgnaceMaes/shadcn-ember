@@ -14,7 +14,7 @@ interface CollapsibleSignature {
   };
 }
 
-export class Collapsible extends Component<CollapsibleSignature> {
+class Collapsible extends Component<CollapsibleSignature> {
   @tracked isOpen = this.args.open ?? false;
 
   get open() {
@@ -49,7 +49,7 @@ interface CollapsibleTriggerSignature {
   };
 }
 
-export class CollapsibleTrigger extends Component<CollapsibleTriggerSignature> {
+class CollapsibleTrigger extends Component<CollapsibleTriggerSignature> {
   handleClick = () => {
     this.args.setOpen?.(!this.args.open);
   };
@@ -98,6 +98,6 @@ const CollapsibleContent: TOC<CollapsibleContentSignature> = <template>
   {{/if}}
 </template>;
 
-export { CollapsibleContent };
+export { Collapsible, CollapsibleTrigger, CollapsibleContent };
 
 export { Collapsible as default };
