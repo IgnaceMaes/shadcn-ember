@@ -15,15 +15,17 @@ interface DialogSignature {
     onOpenChange?: (open: boolean) => void;
   };
   Blocks: {
-    default: [{
-      Trigger: ComponentLike<DialogTriggerSignature>;
-      Content: ComponentLike<DialogContentSignature>;
-      Header: ComponentLike<DialogHeaderSignature>;
-      Footer: ComponentLike<DialogFooterSignature>;
-      Title: ComponentLike<DialogTitleSignature>;
-      Description: ComponentLike<DialogDescriptionSignature>;
-      Close: ComponentLike<DialogCloseSignature>;
-    }];
+    default: [
+      {
+        Trigger: ComponentLike<DialogTriggerSignature>;
+        Content: ComponentLike<DialogContentSignature>;
+        Header: ComponentLike<DialogHeaderSignature>;
+        Footer: ComponentLike<DialogFooterSignature>;
+        Title: ComponentLike<DialogTitleSignature>;
+        Description: ComponentLike<DialogDescriptionSignature>;
+        Close: ComponentLike<DialogCloseSignature>;
+      },
+    ];
   };
 }
 

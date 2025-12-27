@@ -1,11 +1,11 @@
 import DocLinkTo from '@/components/docs/doc-link-to';
 import PhNotches from 'ember-phosphor-icons/components/ph-notches';
 import { Button } from '@/components/ui/button';
-import { Dialog } from '@/components/ui/dialog';
-import { Kbd, KbdGroup } from '@/components/ui/kbd';
+import { Kbd } from '@/components/ui/kbd';
 import { Separator } from '@/components/ui/separator';
 import { Tooltip } from '@/components/ui/tooltip';
 import ThemeToggle from '@/components/theme-toggle';
+import CommandMenu from '@/components/command-menu';
 
 <template>
   <header class="bg-background sticky top-0 z-50 w-full">
@@ -33,24 +33,7 @@ import ThemeToggle from '@/components/theme-toggle';
         </nav>
         <div class="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
           <div class="hidden w-full flex-1 md:flex md:w-auto md:flex-none">
-            <Dialog as |d|>
-              <d.Trigger @asChild={{true}}>
-                <Button
-                  @variant="outline"
-                  @size="sm"
-                  class="relative h-8 w-full justify-start pl-3 font-normal shadow-none sm:pr-12 md:w-48 lg:w-56 xl:w-64 text-foreground dark:bg-card hover:bg-muted/50"
-                >
-                  <span class="hidden lg:inline-flex">Search documentation...</span>
-                  <span class="inline-flex lg:hidden">Search...</span>
-                  <div class="absolute end-1.5 top-1.5 hidden gap-1 sm:flex">
-                    <KbdGroup>
-                      <Kbd>⌘</Kbd>
-                      <Kbd>K</Kbd>
-                    </KbdGroup>
-                  </div>
-                </Button>
-              </d.Trigger>
-            </Dialog>
+            <CommandMenu />
           </div>
           <Separator @orientation="vertical" class="ml-2 h-4 hidden lg:block" />
           <Button
