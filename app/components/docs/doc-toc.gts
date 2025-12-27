@@ -23,7 +23,9 @@ const DocToc: TOC<DocTocSignature> = <template>
     <div class="no-scrollbar overflow-y-auto px-8">
       {{#if @items.length}}
         <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
-          <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs">
+          <p
+            class="text-muted-foreground bg-background sticky top-0 h-6 text-xs"
+          >
             On This Page
           </p>
           {{#each @items as |item|}}

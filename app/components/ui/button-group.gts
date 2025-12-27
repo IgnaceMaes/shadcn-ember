@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import { cn } from '@/lib/utils';
+import Separator from '@/components/ui/separator';
 
 type Orientation = 'horizontal' | 'vertical';
 
@@ -41,7 +42,7 @@ function buttonGroupVariants(
   className?: string
 ): string {
   const baseClasses =
-    "flex w-fit items-stretch has-[>[data-slot=button-group]]:gap-2 [&>*]:focus-visible:relative [&>*]:focus-visible:z-10 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-md [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1";
+    "flex w-fit items-stretch [&>*]:focus-visible:z-10 [&>*]:focus-visible:relative [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-md has-[>[data-slot=button-group]]:gap-2";
 
   const orientationClasses: Record<Orientation, string> = {
     horizontal:
@@ -77,7 +78,7 @@ export class ButtonGroup extends Component<ButtonGroupSignature> {
 export class ButtonGroupText extends Component<ButtonGroupTextSignature> {
   get classes() {
     return cn(
-      "bg-muted shadow-xs flex items-center gap-2 rounded-md border px-4 text-sm font-medium [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none",
+      "bg-muted flex items-center gap-2 rounded-md border px-4 text-sm font-medium shadow-xs [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4",
       this.args.class
     );
   }
@@ -96,21 +97,16 @@ export class ButtonGroupText extends Component<ButtonGroupTextSignature> {
 export class ButtonGroupSeparator extends Component<ButtonGroupSeparatorSignature> {
   get classes() {
     return cn(
-      'bg-input relative !m-0 self-stretch data-[orientation=vertical]:h-auto shrink-0 bg-border',
-      (this.args.orientation ?? 'vertical') === 'horizontal'
-        ? 'h-[1px] w-full'
-        : 'h-full w-[1px]',
+      'bg-input relative !m-0 self-stretch data-[orientation=vertical]:h-auto',
       this.args.class
     );
   }
 
   <template>
-    <div
+    <Separator
       data-slot="button-group-separator"
-      data-orientation={{if @orientation @orientation "vertical"}}
-      aria-orientation={{if @orientation @orientation "vertical"}}
-      role="separator"
-      class={{this.classes}}
+      @orientation={{if @orientation @orientation "vertical"}}
+      @class={{this.classes}}
       ...attributes
     />
   </template>
