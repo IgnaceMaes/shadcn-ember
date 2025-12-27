@@ -88,8 +88,12 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
     this.selectedIndex = 0;
   };
 
-  handleItemHighlight = (isComponent: boolean) => {
+  handleItemHighlight = (item: DocNavItem, isComponent: boolean) => {
     this.selectedType = isComponent ? 'component' : 'page';
+    const index = this.allItems.indexOf(item);
+    if (index !== -1) {
+      this.selectedIndex = index;
+    }
   };
 
   filterItems = (items: DocNavItem[]) => {
@@ -157,7 +161,7 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
       if (selectedElement) {
         selectedElement.scrollIntoView({
           block: 'nearest',
-          behavior: 'smooth',
+          behavior: 'instant',
         });
       }
     }, 0);
@@ -229,7 +233,7 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
                   {{on "click" (fn this.handleSelect item.route)}}
                   {{on
                     "mouseenter"
-                    (fn this.handleItemHighlight false)
+                    (fn this.handleItemHighlight item false)
                     passive=true
                   }}
                 >
@@ -249,7 +253,7 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
                   {{on "click" (fn this.handleSelect item.route)}}
                   {{on
                     "mouseenter"
-                    (fn this.handleItemHighlight true)
+                    (fn this.handleItemHighlight item true)
                     passive=true
                   }}
                 >
