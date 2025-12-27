@@ -1,37 +1,51 @@
 import Component from '@glimmer/component';
 import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
-import { Separator } from './separator.gts';
+import { Separator } from '@/components/ui/separator';
 
-// Note: This is a simplified placeholder for the Item component
-// Used for list items with consistent styling
-
-type Variant = 'default' | 'outline' | 'muted';
-type Size = 'default' | 'sm';
+type ItemVariant = 'default' | 'outline' | 'muted';
+type ItemSize = 'default' | 'sm';
+type ItemMediaVariant = 'default' | 'icon' | 'image';
 
 function itemVariants(
-  variant: Variant = 'default',
-  size: Size = 'default',
+  variant: ItemVariant = 'default',
+  size: ItemSize = 'default',
   className?: string
 ): string {
   const baseClasses =
-    'group/item flex flex-wrap items-center rounded-md border border-transparent text-sm outline-none transition-colors duration-100';
+    'group/item flex items-center border border-transparent text-sm rounded-md transition-colors [a]:hover:bg-accent/50 [a]:transition-colors duration-100 flex-wrap outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]';
 
-  const variantClasses: Record<Variant, string> = {
+  const variantClasses: Record<ItemVariant, string> = {
     default: 'bg-transparent',
     outline: 'border-border',
     muted: 'bg-muted/50',
   };
 
-  const sizeClasses: Record<Size, string> = {
-    default: 'gap-4 p-4',
-    sm: 'gap-2.5 px-4 py-3',
+  const sizeClasses: Record<ItemSize, string> = {
+    default: 'p-4 gap-4',
+    sm: 'py-3 px-4 gap-2.5',
   };
 
   return cn(baseClasses, variantClasses[variant], sizeClasses[size], className);
 }
 
-// ItemGroup Component
+function itemMediaVariants(
+  variant: ItemMediaVariant = 'default',
+  className?: string
+): string {
+  const baseClasses =
+    'flex shrink-0 items-center justify-center gap-2 group-has-[[data-slot=item-description]]/item:self-start [&_svg]:pointer-events-none group-has-[[data-slot=item-description]]/item:translate-y-0.5';
+
+  const variantClasses: Record<ItemMediaVariant, string> = {
+    default: 'bg-transparent',
+    icon: "size-8 border rounded-sm bg-muted [&_svg:not([class*='size-'])]:size-4",
+    image:
+      'size-10 rounded-sm overflow-hidden [&_img]:size-full [&_img]:object-cover',
+  };
+
+  return cn(baseClasses, variantClasses[variant], className);
+}
+
 interface ItemGroupSignature {
   Element: HTMLDivElement;
   Args: {
@@ -53,7 +67,6 @@ const ItemGroup: TOC<ItemGroupSignature> = <template>
   </div>
 </template>;
 
-// ItemSeparator Component
 interface ItemSeparatorSignature {
   Element: HTMLDivElement;
   Args: {
@@ -68,18 +81,17 @@ const ItemSeparator: TOC<ItemSeparatorSignature> = <template>
   <Separator
     data-slot="item-separator"
     @orientation="horizontal"
-    class={{cn "my-0" @class}}
+    @class={{cn "my-0" @class}}
     ...attributes
   />
 </template>;
 
-// Item Component
 interface ItemSignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
-    variant?: Variant;
-    size?: Size;
+    variant?: ItemVariant;
+    size?: ItemSize;
   };
   Blocks: {
     default: [];
@@ -87,23 +99,64 @@ interface ItemSignature {
 }
 
 class Item extends Component<ItemSignature> {
-  get classes() {
-    return itemVariants(
-      this.args.variant ?? 'default',
-      this.args.size ?? 'default',
-      this.args.class
-    );
+  get variant(): ItemVariant {
+    return this.args.variant ?? 'default';
+  }
+
+  get size(): ItemSize {
+    return this.args.size ?? 'default';
+  }
+
+  get classes(): string {
+    return itemVariants(this.variant, this.size, this.args.class);
   }
 
   <template>
-    <div class={{this.classes}} role="listitem" ...attributes>
+    <div
+      data-slot="item"
+      data-variant={{this.variant}}
+      data-size={{this.size}}
+      class={{this.classes}}
+      ...attributes
+    >
       {{yield}}
     </div>
   </template>
 }
 
-// ItemLabel Component
-interface ItemLabelSignature {
+interface ItemMediaSignature {
+  Element: HTMLDivElement;
+  Args: {
+    class?: string;
+    variant?: ItemMediaVariant;
+  };
+  Blocks: {
+    default: [];
+  };
+}
+
+class ItemMedia extends Component<ItemMediaSignature> {
+  get variant(): ItemMediaVariant {
+    return this.args.variant ?? 'default';
+  }
+
+  get classes(): string {
+    return itemMediaVariants(this.variant, this.args.class);
+  }
+
+  <template>
+    <div
+      data-slot="item-media"
+      data-variant={{this.variant}}
+      class={{this.classes}}
+      ...attributes
+    >
+      {{yield}}
+    </div>
+  </template>
+}
+
+interface ItemContentSignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
@@ -113,15 +166,44 @@ interface ItemLabelSignature {
   };
 }
 
-const ItemLabel: TOC<ItemLabelSignature> = <template>
-  <div class={{cn "font-medium" @class}} ...attributes>
+const ItemContent: TOC<ItemContentSignature> = <template>
+  <div
+    data-slot="item-content"
+    class={{cn
+      "flex flex-1 flex-col gap-1 [&+[data-slot=item-content]]:flex-none"
+      @class
+    }}
+    ...attributes
+  >
     {{yield}}
   </div>
 </template>;
 
-// ItemDescription Component
-interface ItemDescriptionSignature {
+interface ItemTitleSignature {
   Element: HTMLDivElement;
+  Args: {
+    class?: string;
+  };
+  Blocks: {
+    default: [];
+  };
+}
+
+const ItemTitle: TOC<ItemTitleSignature> = <template>
+  <div
+    data-slot="item-title"
+    class={{cn
+      "flex w-fit items-center gap-2 text-sm leading-snug font-medium"
+      @class
+    }}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
+
+interface ItemDescriptionSignature {
+  Element: HTMLParagraphElement;
   Args: {
     class?: string;
   };
@@ -131,16 +213,87 @@ interface ItemDescriptionSignature {
 }
 
 const ItemDescription: TOC<ItemDescriptionSignature> = <template>
-  <div class={{cn "text-sm text-muted-foreground" @class}} ...attributes>
+  <p
+    data-slot="item-description"
+    class={{cn
+      "text-muted-foreground line-clamp-2 text-sm leading-normal font-normal text-balance [&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4"
+      @class
+    }}
+    ...attributes
+  >
+    {{yield}}
+  </p>
+</template>;
+
+interface ItemActionsSignature {
+  Element: HTMLDivElement;
+  Args: {
+    class?: string;
+  };
+  Blocks: {
+    default: [];
+  };
+}
+
+const ItemActions: TOC<ItemActionsSignature> = <template>
+  <div
+    data-slot="item-actions"
+    class={{cn "flex items-center gap-2" @class}}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
+
+interface ItemHeaderSignature {
+  Element: HTMLDivElement;
+  Args: {
+    class?: string;
+  };
+  Blocks: {
+    default: [];
+  };
+}
+
+const ItemHeader: TOC<ItemHeaderSignature> = <template>
+  <div
+    data-slot="item-header"
+    class={{cn "flex basis-full items-center justify-between gap-2" @class}}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
+
+interface ItemFooterSignature {
+  Element: HTMLDivElement;
+  Args: {
+    class?: string;
+  };
+  Blocks: {
+    default: [];
+  };
+}
+
+const ItemFooter: TOC<ItemFooterSignature> = <template>
+  <div
+    data-slot="item-footer"
+    class={{cn "flex basis-full items-center justify-between gap-2" @class}}
+    ...attributes
+  >
     {{yield}}
   </div>
 </template>;
 
 export {
-  itemVariants,
   Item,
+  ItemMedia,
+  ItemContent,
+  ItemActions,
   ItemGroup,
   ItemSeparator,
-  ItemLabel,
+  ItemTitle,
   ItemDescription,
+  ItemHeader,
+  ItemFooter,
 };
