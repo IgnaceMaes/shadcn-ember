@@ -21,6 +21,7 @@ const Pagination: TOC<PaginationSignature> = <template>
   <nav
     role="navigation"
     aria-label="pagination"
+    data-slot="pagination"
     class={{cn "mx-auto flex w-full justify-center" @class}}
     ...attributes
   >
@@ -40,7 +41,11 @@ interface PaginationContentSignature {
 }
 
 const PaginationContent: TOC<PaginationContentSignature> = <template>
-  <ul class={{cn "flex flex-row items-center gap-1" @class}} ...attributes>
+  <ul
+    data-slot="pagination-content"
+    class={{cn "flex flex-row items-center gap-1" @class}}
+    ...attributes
+  >
     {{yield}}
   </ul>
 </template>;
@@ -57,7 +62,7 @@ interface PaginationItemSignature {
 }
 
 const PaginationItem: TOC<PaginationItemSignature> = <template>
-  <li class={{cn @class}} ...attributes>
+  <li data-slot="pagination-item" ...attributes>
     {{yield}}
   </li>
 </template>;
@@ -87,6 +92,8 @@ class PaginationLink extends Component<PaginationLinkSignature> {
     <a
       class={{this.classes}}
       aria-current={{if @isActive "page"}}
+      data-slot="pagination-link"
+      data-active={{@isActive}}
       ...attributes
     >
       {{yield}}
@@ -109,11 +116,11 @@ const PaginationPrevious: TOC<PaginationPreviousSignature> = <template>
   <PaginationLink
     aria-label="Go to previous page"
     @size="default"
-    class={{cn "gap-1 pl-2.5" @class}}
+    class={{cn "gap-1 px-2.5 sm:pl-2.5" @class}}
     ...attributes
   >
-    <ChevronLeft class="size-4" />
-    <span>Previous</span>
+    <ChevronLeft />
+    <span class="hidden sm:block">Previous</span>
   </PaginationLink>
 </template>;
 
@@ -132,11 +139,11 @@ const PaginationNext: TOC<PaginationNextSignature> = <template>
   <PaginationLink
     aria-label="Go to next page"
     @size="default"
-    class={{cn "gap-1 pr-2.5" @class}}
+    class={{cn "gap-1 px-2.5 sm:pr-2.5" @class}}
     ...attributes
   >
-    <span>Next</span>
-    <ChevronRight class="size-4" />
+    <span class="hidden sm:block">Next</span>
+    <ChevronRight />
   </PaginationLink>
 </template>;
 
@@ -154,7 +161,8 @@ interface PaginationEllipsisSignature {
 const PaginationEllipsis: TOC<PaginationEllipsisSignature> = <template>
   <span
     aria-hidden="true"
-    class={{cn "flex h-9 w-9 items-center justify-center" @class}}
+    data-slot="pagination-ellipsis"
+    class={{cn "flex size-9 items-center justify-center" @class}}
     ...attributes
   >
     <MoreHorizontal class="size-4" />
