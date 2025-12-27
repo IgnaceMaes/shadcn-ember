@@ -20,6 +20,7 @@ export default class Router extends EmberRouter {
 Router.map(function () {
   // Add route declarations here
   this.route('kitchensink');
+  this.route('blocks');
   this.route('docs', function () {
     // Catch-all for markdown pages
     this.route('catch-all', { path: '/*path' });
