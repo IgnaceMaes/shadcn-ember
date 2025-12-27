@@ -306,6 +306,11 @@ html {
   scroll-behavior: smooth;
 }
 
+::selection {
+  background-color: var(--foreground);
+  color: var(--background);
+}
+
 /* Override ember-shiki line highlight */
 .line.line--highlight-neutral {
   background-color: var(--code-highlight);
