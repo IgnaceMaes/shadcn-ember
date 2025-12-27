@@ -1,16 +1,17 @@
 import { tracked } from '@glimmer/tracking';
 import Component from '@glimmer/component';
 import type { TOC } from '@ember/component/template-only';
+import type { ComponentLike, ModifierLike } from '@glint/template';
 import { on } from '@ember/modifier';
 import { hash, fn } from '@ember/helper';
+import onClickOutside from 'ember-click-outside/modifiers/on-click-outside';
+import { Popover } from 'ember-primitives';
 import ChevronDown from '~icons/lucide/chevron-down';
 import ChevronUp from '~icons/lucide/chevron-up';
 import Check from '~icons/lucide/check';
 import { cn } from '@/lib/utils';
 
-// Select Root Component
 interface SelectSignature {
-  Element: HTMLDivElement;
   Args: {
     value?: string;
     defaultValue?: string;
@@ -18,14 +19,28 @@ interface SelectSignature {
     disabled?: boolean;
     name?: string;
     required?: boolean;
+    placement?:
+      | 'top'
+      | 'right'
+      | 'bottom'
+      | 'left'
+      | 'top-start'
+      | 'top-end'
+      | 'right-start'
+      | 'right-end'
+      | 'bottom-start'
+      | 'bottom-end'
+      | 'left-start'
+      | 'left-end';
+    offsetOptions?: number;
   };
   Blocks: {
     default: [
       {
-        isOpen: boolean;
+        Trigger: ComponentLike<SelectTriggerSignature>;
+        Value: ComponentLike<SelectValueSignature>;
+        Content: ComponentLike<SelectContentSignature>;
         value: string;
-        toggle: () => void;
-        close: () => void;
         selectValue: (value: string) => void;
       },
     ];
@@ -53,61 +68,89 @@ class Select extends Component<SelectSignature> {
   selectValue = (value: string) => {
     this.selectedValue = value;
     this.isOpen = false;
-
-    if (this.args.onValueChange) {
-      this.args.onValueChange(value);
-    }
+    this.args.onValueChange?.(value);
   };
 
   <template>
-    <div class="relative inline-block w-full" ...attributes>
+    <Popover
+      @placement={{if @placement @placement "bottom-start"}}
+      @offsetOptions={{if @offsetOptions @offsetOptions 4}}
+      as |p|
+    >
       {{yield
         (hash
-          isOpen=this.isOpen
+          Trigger=(component
+            SelectTrigger
+            reference=p.reference
+            toggle=this.toggle
+            disabled=@disabled
+          )
+          Value=(component SelectValue value=this.value)
+          Content=(component
+            SelectContent
+            isOpen=this.isOpen
+            popoverContent=p.Content
+            close=this.close
+            selectValue=this.selectValue
+            selectedValue=this.value
+          )
           value=this.value
-          toggle=this.toggle
-          close=this.close
           selectValue=this.selectValue
         )
       }}
-    </div>
+    </Popover>
   </template>
 }
 
-// SelectTrigger Component
 interface SelectTriggerSignature {
   Element: HTMLButtonElement;
   Args: {
     class?: string;
+    size?: 'sm' | 'default';
     disabled?: boolean;
     toggle?: () => void;
+    reference?: ModifierLike<{
+      Element: HTMLElement | SVGElement;
+    }>;
   };
   Blocks: {
     default: [];
   };
 }
 
-const SelectTrigger: TOC<SelectTriggerSignature> = <template>
-  <button
-    type="button"
-    class={{cn
-      "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1"
-      @class
-    }}
-    disabled={{@disabled}}
-    {{on "click" (if @toggle @toggle (fn))}}
-    ...attributes
-  >
-    {{yield}}
-    <ChevronDown class="size-4 opacity-50" />
-  </button>
-</template>;
+class SelectTrigger extends Component<SelectTriggerSignature> {
+  get sizeClass() {
+    return this.args.size === 'sm' ? 'h-8' : 'h-9';
+  }
 
-// SelectValue Component
+  <template>
+    <button
+      type="button"
+      data-slot="select-trigger"
+      data-size={{if @size @size "default"}}
+      class={{cn
+        "border-input data-placeholder:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:hover:bg-input/50 flex w-fit items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50"
+        this.sizeClass
+        "*:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
+        @class
+      }}
+      disabled={{@disabled}}
+      {{@reference}}
+      {{on "click" (if @toggle @toggle (fn))}}
+      ...attributes
+    >
+      {{yield}}
+      <ChevronDown class="size-4 opacity-50" />
+    </button>
+  </template>
+}
+
 interface SelectValueSignature {
   Element: HTMLSpanElement;
   Args: {
+    class?: string;
     placeholder?: string;
+    value?: string;
   };
   Blocks: {
     default: [];
@@ -115,25 +158,39 @@ interface SelectValueSignature {
 }
 
 const SelectValue: TOC<SelectValueSignature> = <template>
-  <span class="block truncate" ...attributes>
+  <span data-slot="select-value" class={{cn @class}} ...attributes>
     {{#if (has-block)}}
       {{yield}}
+    {{else if @value}}
+      {{@value}}
     {{else}}
       {{@placeholder}}
     {{/if}}
   </span>
 </template>;
 
-// SelectContent Component
 interface SelectContentSignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
     position?: 'popper' | 'item-aligned';
+    align?: 'center' | 'start' | 'end';
     isOpen?: boolean;
+    close?: () => void;
+    selectValue?: (value: string) => void;
+    selectedValue?: string;
+    popoverContent?: ComponentLike<{
+      Element: HTMLDivElement;
+      Args: { as?: string; class?: string };
+      Blocks: { default: [] };
+    }>;
   };
   Blocks: {
-    default: [];
+    default: [
+      {
+        Item: ComponentLike<SelectItemSignature>;
+      },
+    ];
   };
 }
 
@@ -144,25 +201,45 @@ class SelectContent extends Component<SelectContentSignature> {
       : '';
   }
 
+  handleClickOutside = () => {
+    this.args.close?.();
+  };
+
   <template>
     {{#if @isOpen}}
-      <div
-        class={{cn
-          "absolute top-full left-0 z-50 mt-1 max-h-96 w-full min-w-[8rem] overflow-auto rounded-md border bg-popover text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95"
-          this.positionClass
-          @class
-        }}
-        ...attributes
-      >
-        <div class="p-1">
-          {{yield}}
-        </div>
-      </div>
+      {{#let @popoverContent as |Content|}}
+        <Content
+          @as="div"
+          data-slot="select-content"
+          class={{cn
+            "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-96 min-w-32 overflow-x-hidden overflow-y-auto rounded-md border shadow-md"
+            this.positionClass
+            @class
+          }}
+          data-state={{if @isOpen "open" "closed"}}
+          role="listbox"
+          {{onClickOutside this.handleClickOutside}}
+          ...attributes
+        >
+          <SelectScrollUpButton />
+          <div class="p-1">
+            {{yield
+              (hash
+                Item=(component
+                  SelectItem
+                  selectValue=@selectValue
+                  selectedValue=@selectedValue
+                )
+              )
+            }}
+          </div>
+          <SelectScrollDownButton />
+        </Content>
+      {{/let}}
     {{/if}}
   </template>
 }
 
-// SelectGroup Component
 interface SelectGroupSignature {
   Element: HTMLDivElement;
   Args: {
@@ -174,12 +251,11 @@ interface SelectGroupSignature {
 }
 
 const SelectGroup: TOC<SelectGroupSignature> = <template>
-  <div class={{cn "py-1" @class}} ...attributes>
+  <div data-slot="select-group" class={{cn @class}} ...attributes>
     {{yield}}
   </div>
 </template>;
 
-// SelectLabel Component
 interface SelectLabelSignature {
   Element: HTMLDivElement;
   Args: {
@@ -191,19 +267,22 @@ interface SelectLabelSignature {
 }
 
 const SelectLabel: TOC<SelectLabelSignature> = <template>
-  <div class={{cn "px-2 py-1.5 text-sm font-semibold" @class}} ...attributes>
+  <div
+    data-slot="select-label"
+    class={{cn "text-muted-foreground px-2 py-1.5 text-xs" @class}}
+    ...attributes
+  >
     {{yield}}
   </div>
 </template>;
 
-// SelectItem Component
 interface SelectItemSignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
     value: string;
     disabled?: boolean;
-    onSelect?: (value: string) => void;
+    selectValue?: (value: string) => void;
     selectedValue?: string;
   };
   Blocks: {
@@ -217,8 +296,8 @@ class SelectItem extends Component<SelectItemSignature> {
   }
 
   handleClick = () => {
-    if (!this.args.disabled && this.args.onSelect) {
-      this.args.onSelect(this.args.value);
+    if (!this.args.disabled && this.args.selectValue) {
+      this.args.selectValue(this.args.value);
     }
   };
 
@@ -226,27 +305,28 @@ class SelectItem extends Component<SelectItemSignature> {
     {{! template-lint-disable require-mandatory-role-attributes require-presentational-children }}
     <div
       role="option"
+      data-slot="select-item"
       class={{cn
-        "relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+        "focus:bg-accent focus:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2"
         @class
       }}
       data-disabled={{if @disabled "true"}}
       {{on "click" this.handleClick}}
       ...attributes
     >
-      {{#if this.isSelected}}
-        <span
-          class="absolute right-2 flex h-3.5 w-3.5 items-center justify-center"
-        >
+      <span
+        data-slot="select-item-indicator"
+        class="absolute right-2 flex size-3.5 items-center justify-center"
+      >
+        {{#if this.isSelected}}
           <Check class="size-4" />
-        </span>
-      {{/if}}
+        {{/if}}
+      </span>
       {{yield}}
     </div>
   </template>
 }
 
-// SelectSeparator Component
 interface SelectSeparatorSignature {
   Element: HTMLDivElement;
   Args: {
@@ -255,10 +335,13 @@ interface SelectSeparatorSignature {
 }
 
 const SelectSeparator: TOC<SelectSeparatorSignature> = <template>
-  <div class={{cn "-mx-1 my-1 h-px bg-muted" @class}} ...attributes></div>
+  <div
+    data-slot="select-separator"
+    class={{cn "bg-border pointer-events-none -mx-1 my-1 h-px" @class}}
+    ...attributes
+  ></div>
 </template>;
 
-// SelectScrollUpButton Component
 interface SelectScrollUpButtonSignature {
   Element: HTMLDivElement;
   Args: {
@@ -268,6 +351,7 @@ interface SelectScrollUpButtonSignature {
 
 const SelectScrollUpButton: TOC<SelectScrollUpButtonSignature> = <template>
   <div
+    data-slot="select-scroll-up-button"
     class={{cn "flex cursor-default items-center justify-center py-1" @class}}
     ...attributes
   >
@@ -275,7 +359,6 @@ const SelectScrollUpButton: TOC<SelectScrollUpButtonSignature> = <template>
   </div>
 </template>;
 
-// SelectScrollDownButton Component
 interface SelectScrollDownButtonSignature {
   Element: HTMLDivElement;
   Args: {
@@ -285,6 +368,7 @@ interface SelectScrollDownButtonSignature {
 
 const SelectScrollDownButton: TOC<SelectScrollDownButtonSignature> = <template>
   <div
+    data-slot="select-scroll-down-button"
     class={{cn "flex cursor-default items-center justify-center py-1" @class}}
     ...attributes
   >

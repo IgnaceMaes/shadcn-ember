@@ -12,13 +12,7 @@ import {
   FieldSet,
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 
 class FieldDemoState {
@@ -120,110 +114,50 @@ const state = new FieldDemoState();
                 <FieldLabel @for="checkout-exp-month">
                   Month
                 </FieldLabel>
-                <Select @onValueChange={{state.selectMonth}} as |select|>
-                  <SelectTrigger
-                    @toggle={{select.toggle}}
-                    id="checkout-exp-month"
-                  >
-                    <SelectValue @placeholder="MM">
+                <Select @onValueChange={{state.selectMonth}} as |s|>
+                  <s.Trigger id="checkout-exp-month">
+                    <s.Value @placeholder="MM">
                       {{#if state.expMonth}}
                         {{state.expMonth}}
                       {{/if}}
-                    </SelectValue>
-                  </SelectTrigger>
-                  <SelectContent @isOpen={{select.isOpen}}>
-                    <SelectItem
-                      @value="01"
-                      @onSelect={{select.selectValue}}
-                    >01</SelectItem>
-                    <SelectItem
-                      @value="02"
-                      @onSelect={{select.selectValue}}
-                    >02</SelectItem>
-                    <SelectItem
-                      @value="03"
-                      @onSelect={{select.selectValue}}
-                    >03</SelectItem>
-                    <SelectItem
-                      @value="04"
-                      @onSelect={{select.selectValue}}
-                    >04</SelectItem>
-                    <SelectItem
-                      @value="05"
-                      @onSelect={{select.selectValue}}
-                    >05</SelectItem>
-                    <SelectItem
-                      @value="06"
-                      @onSelect={{select.selectValue}}
-                    >06</SelectItem>
-                    <SelectItem
-                      @value="07"
-                      @onSelect={{select.selectValue}}
-                    >07</SelectItem>
-                    <SelectItem
-                      @value="08"
-                      @onSelect={{select.selectValue}}
-                    >08</SelectItem>
-                    <SelectItem
-                      @value="09"
-                      @onSelect={{select.selectValue}}
-                    >09</SelectItem>
-                    <SelectItem
-                      @value="10"
-                      @onSelect={{select.selectValue}}
-                    >10</SelectItem>
-                    <SelectItem
-                      @value="11"
-                      @onSelect={{select.selectValue}}
-                    >11</SelectItem>
-                    <SelectItem
-                      @value="12"
-                      @onSelect={{select.selectValue}}
-                    >12</SelectItem>
-                  </SelectContent>
+                    </s.Value>
+                  </s.Trigger>
+                  <s.Content as |c|>
+                    <c.Item @value="01">01</c.Item>
+                    <c.Item @value="02">02</c.Item>
+                    <c.Item @value="03">03</c.Item>
+                    <c.Item @value="04">04</c.Item>
+                    <c.Item @value="05">05</c.Item>
+                    <c.Item @value="06">06</c.Item>
+                    <c.Item @value="07">07</c.Item>
+                    <c.Item @value="08">08</c.Item>
+                    <c.Item @value="09">09</c.Item>
+                    <c.Item @value="10">10</c.Item>
+                    <c.Item @value="11">11</c.Item>
+                    <c.Item @value="12">12</c.Item>
+                  </s.Content>
                 </Select>
               </Field>
               <Field>
                 <FieldLabel @for="checkout-exp-year">
                   Year
                 </FieldLabel>
-                <Select @onValueChange={{state.selectYear}} as |select|>
-                  <SelectTrigger
-                    @toggle={{select.toggle}}
-                    id="checkout-exp-year"
-                  >
-                    <SelectValue @placeholder="YYYY">
+                <Select @onValueChange={{state.selectYear}} as |s|>
+                  <s.Trigger id="checkout-exp-year">
+                    <s.Value @placeholder="YYYY">
                       {{#if state.expYear}}
                         {{state.expYear}}
                       {{/if}}
-                    </SelectValue>
-                  </SelectTrigger>
-                  <SelectContent @isOpen={{select.isOpen}}>
-                    <SelectItem
-                      @value="2024"
-                      @onSelect={{select.selectValue}}
-                    >2024</SelectItem>
-                    <SelectItem
-                      @value="2025"
-                      @onSelect={{select.selectValue}}
-                    >2025</SelectItem>
-                    <SelectItem
-                      @value="2026"
-                      @onSelect={{select.selectValue}}
-                    >2026</SelectItem>
-                    <SelectItem
-                      @value="2027"
-                      @onSelect={{select.selectValue}}
-                    >2027</SelectItem>
-                    <SelectItem
-                      @value="2028"
-                      @onSelect={{select.selectValue}}
-                    >2028</SelectItem>
-                    <SelectItem
-                      @value="2029"
-                      @onSelect={{select.selectValue}}
-                    >2029</SelectItem>
-                  </SelectContent>
+                    </s.Value>
+                  </s.Trigger>
+                  <s.Content as |c|>
+                    <c.Item @value="2024">2024</c.Item>
+                    <c.Item @value="2025">2025</c.Item>
+                    <c.Item @value="2026">2026</c.Item>
+                    <c.Item @value="2027">2027</c.Item>
+                    <c.Item @value="2028">2028</c.Item>
+                    <c.Item @value="2029">2029</c.Item>
+                  </s.Content>
                 </Select>
               </Field>
             </div>

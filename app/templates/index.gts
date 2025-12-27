@@ -28,15 +28,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-} from '@/components/ui/select';
+import { Select, SelectGroup, SelectLabel } from '@/components/ui/select';
 import FieldDemo from '@/components/docs/examples/field-demo';
 
 // State management class for the homepage
@@ -455,31 +447,22 @@ const state = new HomepageState();
                   <CardDescription>Choose an option.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Select @onValueChange={{state.selectFramework}} as |select|>
-                    <SelectTrigger @toggle={{select.toggle}}>
-                      <SelectValue @placeholder="Select framework">
+                  <Select @onValueChange={{state.selectFramework}} as |s|>
+                    <s.Trigger>
+                      <s.Value @placeholder="Select framework">
                         {{#if state.selectedFramework}}
                           {{state.selectedFramework}}
                         {{/if}}
-                      </SelectValue>
-                    </SelectTrigger>
-                    <SelectContent @isOpen={{select.isOpen}}>
+                      </s.Value>
+                    </s.Trigger>
+                    <s.Content as |c|>
                       <SelectGroup>
                         <SelectLabel>Frameworks</SelectLabel>
-                        <SelectItem
-                          @value="Ember.js"
-                          @onSelect={{select.selectValue}}
-                        >Ember.js</SelectItem>
-                        <SelectItem
-                          @value="React"
-                          @onSelect={{select.selectValue}}
-                        >React</SelectItem>
-                        <SelectItem
-                          @value="Vue"
-                          @onSelect={{select.selectValue}}
-                        >Vue</SelectItem>
+                        <c.Item @value="Ember.js">Ember.js</c.Item>
+                        <c.Item @value="React">React</c.Item>
+                        <c.Item @value="Vue">Vue</c.Item>
                       </SelectGroup>
-                    </SelectContent>
+                    </s.Content>
                   </Select>
                 </CardContent>
               </Card>

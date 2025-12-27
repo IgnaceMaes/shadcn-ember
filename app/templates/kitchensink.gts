@@ -25,13 +25,9 @@ import {
 } from '@/components/ui/card';
 import {
   Select,
-  SelectContent,
   SelectGroup,
-  SelectItem,
   SelectLabel,
   SelectSeparator,
-  SelectTrigger,
-  SelectValue,
 } from '@/components/ui/select';
 import {
   Dialog,
@@ -559,53 +555,23 @@ class UiExamples extends Component {
             <Select
               @value={{this.selectValue}}
               @onValueChange={{this.handleSelectChange}}
-              as |select|
+              as |s|
             >
-              <SelectTrigger @toggle={{select.toggle}}>
-                <SelectValue @placeholder="Select a fruit">
-                  {{select.value}}
-                </SelectValue>
-              </SelectTrigger>
-              <SelectContent @isOpen={{select.isOpen}}>
+              <s.Trigger>
+                <s.Value @placeholder="Select a fruit">
+                  {{s.value}}
+                </s.Value>
+              </s.Trigger>
+              <s.Content as |c|>
                 <SelectGroup>
                   <SelectLabel>Fruits</SelectLabel>
-                  <SelectItem
-                    @value="apple"
-                    @onSelect={{select.selectValue}}
-                    @selectedValue={{select.value}}
-                  >
-                    Apple
-                  </SelectItem>
-                  <SelectItem
-                    @value="banana"
-                    @onSelect={{select.selectValue}}
-                    @selectedValue={{select.value}}
-                  >
-                    Banana
-                  </SelectItem>
-                  <SelectItem
-                    @value="orange"
-                    @onSelect={{select.selectValue}}
-                    @selectedValue={{select.value}}
-                  >
-                    Orange
-                  </SelectItem>
-                  <SelectItem
-                    @value="grape"
-                    @onSelect={{select.selectValue}}
-                    @selectedValue={{select.value}}
-                  >
-                    Grape
-                  </SelectItem>
-                  <SelectItem
-                    @value="mango"
-                    @onSelect={{select.selectValue}}
-                    @selectedValue={{select.value}}
-                  >
-                    Mango
-                  </SelectItem>
+                  <c.Item @value="apple">Apple</c.Item>
+                  <c.Item @value="banana">Banana</c.Item>
+                  <c.Item @value="orange">Orange</c.Item>
+                  <c.Item @value="grape">Grape</c.Item>
+                  <c.Item @value="mango">Mango</c.Item>
                 </SelectGroup>
-              </SelectContent>
+              </s.Content>
             </Select>
             <p class="text-muted-foreground text-sm">
               Selected:
@@ -618,50 +584,26 @@ class UiExamples extends Component {
             <Select
               @value={{this.selectValue2}}
               @onValueChange={{this.handleSelect2Change}}
-              as |select|
+              as |s|
             >
-              <SelectTrigger @toggle={{select.toggle}}>
-                <SelectValue @placeholder="Select an option">
-                  {{select.value}}
-                </SelectValue>
-              </SelectTrigger>
-              <SelectContent @isOpen={{select.isOpen}}>
+              <s.Trigger>
+                <s.Value @placeholder="Select an option">
+                  {{s.value}}
+                </s.Value>
+              </s.Trigger>
+              <s.Content as |c|>
                 <SelectGroup>
                   <SelectLabel>Fruits</SelectLabel>
-                  <SelectItem
-                    @value="apple"
-                    @onSelect={{select.selectValue}}
-                    @selectedValue={{select.value}}
-                  >
-                    Apple
-                  </SelectItem>
-                  <SelectItem
-                    @value="banana"
-                    @onSelect={{select.selectValue}}
-                    @selectedValue={{select.value}}
-                  >
-                    Banana
-                  </SelectItem>
+                  <c.Item @value="apple">Apple</c.Item>
+                  <c.Item @value="banana">Banana</c.Item>
                 </SelectGroup>
                 <SelectSeparator />
                 <SelectGroup>
                   <SelectLabel>Vegetables</SelectLabel>
-                  <SelectItem
-                    @value="carrot"
-                    @onSelect={{select.selectValue}}
-                    @selectedValue={{select.value}}
-                  >
-                    Carrot
-                  </SelectItem>
-                  <SelectItem
-                    @value="potato"
-                    @onSelect={{select.selectValue}}
-                    @selectedValue={{select.value}}
-                  >
-                    Potato
-                  </SelectItem>
+                  <c.Item @value="carrot">Carrot</c.Item>
+                  <c.Item @value="potato">Potato</c.Item>
                 </SelectGroup>
-              </SelectContent>
+              </s.Content>
             </Select>
             <p class="text-muted-foreground text-sm">
               Selected:
@@ -671,15 +613,13 @@ class UiExamples extends Component {
 
           <div class="max-w-xs space-y-2">
             <label class="text-sm font-medium">Disabled Select</label>
-            <Select @disabled={{true}} as |select|>
-              <SelectTrigger @disabled={{true}} @toggle={{select.toggle}}>
-                <SelectValue @placeholder="This is disabled" />
-              </SelectTrigger>
-              <SelectContent @isOpen={{select.isOpen}}>
-                <SelectItem @value="option1" @onSelect={{select.selectValue}}>
-                  Option 1
-                </SelectItem>
-              </SelectContent>
+            <Select @disabled={{true}} as |s|>
+              <s.Trigger @disabled={{true}}>
+                <s.Value @placeholder="This is disabled" />
+              </s.Trigger>
+              <s.Content as |c|>
+                <c.Item @value="option1">Option 1</c.Item>
+              </s.Content>
             </Select>
           </div>
         </div>
