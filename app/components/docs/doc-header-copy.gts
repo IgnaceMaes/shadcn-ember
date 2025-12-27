@@ -6,9 +6,6 @@ import Check from '~icons/lucide/check';
 import ChevronDown from '~icons/lucide/chevron-down';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu } from '@/components/ui/dropdown-menu';
-import { DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { DropdownMenuContent } from '@/components/ui/dropdown-menu';
-import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { Popover } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
@@ -89,7 +86,7 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
     <Popover as |p|>
       <div
         class={{cn
-          "bg-secondary group/buttons relative flex rounded-lg *:[[data-slot=button]]:focus-visible:relative *:[[data-slot=button]]:focus-visible:z-10"
+          "bg-secondary group/buttons relative flex rounded-lg *:data-[slot=button]:focus-visible:relative *:data-[slot=button]:focus-visible:z-10"
           @class
         }}
         ...attributes
@@ -111,51 +108,47 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
         </Button>
 
         <DropdownMenu as |d|>
-          <d.Trigger
-            @asChild={{true}}
-            @class="hidden sm:flex"
-            as |triggerClass|
-          >
+          <d.Trigger @class="hidden sm:flex">
             <Button
               @variant="secondary"
               @size="sm"
-              @class={{cn
-                "peer -ml-0.5 size-8 shadow-none md:size-7 md:text-[0.8rem]"
-                triggerClass
-              }}
+              @class="peer -ml-0.5 size-8 shadow-none md:size-7 md:text-[0.8rem]"
             >
               <ChevronDown class="rotate-180 sm:rotate-0" />
             </Button>
           </d.Trigger>
 
-          <d.Content @align="end" @class="shadow-none">
-            <d.Item @asChild={{true}}>
+          <d.Content @align="end" @class="shadow-none min-w-48">
+            <d.Item @asChild={{true}} as |itemClass|>
               <a
                 href={{this.markdownUrl}}
                 target="_blank"
                 rel="noopener noreferrer"
+                class={{itemClass}}
               >
                 <this.MarkdownIcon />
                 View as Markdown
               </a>
             </d.Item>
 
-            <d.Item @asChild={{true}}>
+            <d.Item @asChild={{true}} as |itemClass|>
               <a
                 href={{this.chatGptUrl}}
                 target="_blank"
                 rel="noopener noreferrer"
+                class={{itemClass}}
               >
                 <this.ChatGptIcon />
                 Open in ChatGPT
               </a>
             </d.Item>
 
-            <d.Item @asChild={{true}}>
+            <d.Item @asChild={{true}} as |itemClass|>
               <a
                 href={{this.claudeUrl}}
                 target="_blank"
                 rel="noopener noreferrer"
+                class={{itemClass}}
               >
                 <this.ClaudeIcon />
                 Open in Claude
@@ -169,14 +162,11 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
           @class="!bg-foreground/10 absolute top-0 right-8 z-0 !h-8 peer-focus-visible:opacity-0 sm:right-7 sm:!h-7"
         />
 
-        <p.Trigger @asChild={{true}} @class="flex sm:hidden" as |triggerClass|>
+        <p.Trigger @class="flex sm:hidden">
           <Button
             @variant="secondary"
             @size="sm"
-            @class={{cn
-              "peer -ml-0.5 size-8 shadow-none md:size-7 md:text-[0.8rem]"
-              triggerClass
-            }}
+            @class="peer -ml-0.5 size-8 shadow-none md:size-7 md:text-[0.8rem]"
           >
             <ChevronDown class="rotate-180 sm:rotate-0" />
           </Button>

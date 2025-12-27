@@ -2,12 +2,31 @@ import Component from '@glimmer/component';
 import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
+import { hash } from '@ember/helper';
 import { cn } from '@/lib/utils';
 import Check from '~icons/lucide/check';
 import ChevronRight from '~icons/lucide/chevron-right';
 import Circle from '~icons/lucide/circle';
 import onClickOutside from 'ember-click-outside/modifiers/on-click-outside';
 import type { TOC } from '@ember/component/template-only';
+import type { ComponentLike } from '@glint/template';
+
+interface DropdownMenuYields {
+  Trigger: ComponentLike<DropdownMenuTriggerSignature>;
+  Group: ComponentLike<DropdownMenuGroupSignature>;
+  Portal: ComponentLike<DropdownMenuPortalSignature>;
+  Sub: ComponentLike<DropdownMenuSubSignature>;
+  RadioGroup: ComponentLike<DropdownMenuRadioGroupSignature>;
+  SubTrigger: ComponentLike<DropdownMenuSubTriggerSignature>;
+  SubContent: ComponentLike<DropdownMenuSubContentSignature>;
+  Content: ComponentLike<DropdownMenuContentSignature>;
+  Item: ComponentLike<DropdownMenuItemSignature>;
+  CheckboxItem: ComponentLike<DropdownMenuCheckboxItemSignature>;
+  RadioItem: ComponentLike<DropdownMenuRadioItemSignature>;
+  Label: ComponentLike<DropdownMenuLabelSignature>;
+  Separator: ComponentLike<DropdownMenuSeparatorSignature>;
+  Shortcut: ComponentLike<DropdownMenuShortcutSignature>;
+}
 
 interface DropdownMenuSignature {
   Args: {
@@ -16,7 +35,7 @@ interface DropdownMenuSignature {
     onOpenChange?: (open: boolean) => void;
   };
   Blocks: {
-    default: [isOpen: boolean, setOpen: (open: boolean) => void];
+    default: [DropdownMenuYields];
   };
 }
 
@@ -38,8 +57,29 @@ class DropdownMenu extends Component<DropdownMenuSignature> {
   };
 
   <template>
-    <div data-slot="dropdown-menu">
-      {{yield this.open this.setOpen}}
+    <div data-slot="dropdown-menu" class="relative">
+      {{yield
+        (hash
+          Trigger=(component
+            DropdownMenuTrigger isOpen=this.open setOpen=this.setOpen
+          )
+          Group=DropdownMenuGroup
+          Portal=DropdownMenuPortal
+          Sub=DropdownMenuSub
+          RadioGroup=DropdownMenuRadioGroup
+          SubTrigger=DropdownMenuSubTrigger
+          SubContent=DropdownMenuSubContent
+          Content=(component
+            DropdownMenuContent isOpen=this.open setOpen=this.setOpen
+          )
+          Item=DropdownMenuItem
+          CheckboxItem=DropdownMenuCheckboxItem
+          RadioItem=DropdownMenuRadioItem
+          Label=DropdownMenuLabel
+          Separator=DropdownMenuSeparator
+          Shortcut=DropdownMenuShortcut
+        )
+      }}
     </div>
   </template>
 }
@@ -65,20 +105,20 @@ class DropdownMenuTrigger extends Component<DropdownMenuTriggerSignature> {
 
   <template>
     {{#if @asChild}}
-      <span class="relative inline-block" data-slot="dropdown-menu-trigger">
-        <span
-          role="button"
-          tabindex="0"
-          {{on "click" this.handleClick}}
-          {{on "keydown" this.handleClick}}
-        >
-          {{yield}}
-        </span>
+      <span
+        data-slot="dropdown-menu-trigger"
+        role="button"
+        tabindex="0"
+        {{on "click" this.handleClick}}
+        {{on "keydown" this.handleClick}}
+        ...attributes
+      >
+        {{yield}}
       </span>
     {{else}}
       <button
         type="button"
-        class={{cn "relative inline-block" @class}}
+        class={{cn @class}}
         data-slot="dropdown-menu-trigger"
         {{on "click" this.handleClick}}
         ...attributes
@@ -256,6 +296,7 @@ interface DropdownMenuContentSignature {
   Args: {
     class?: string;
     sideOffset?: number;
+    align?: 'start' | 'center' | 'end';
     isOpen?: boolean;
     setOpen?: (open: boolean) => void;
   };
@@ -269,16 +310,28 @@ class DropdownMenuContent extends Component<DropdownMenuContentSignature> {
     this.args.setOpen?.(false);
   };
 
+  get alignmentStyle(): string {
+    const align = this.args.align ?? 'start';
+    if (align === 'end') {
+      return 'right: 0;';
+    } else if (align === 'center') {
+      return 'left: 50%; transform: translateX(-50%);';
+    }
+    return 'left: 0;';
+  }
+
   <template>
     {{#if @isOpen}}
       <div
         data-slot="dropdown-menu-content"
         class={{cn
-          "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 max-h-(--radix-dropdown-menu-content-available-height) min-w-32 origin-(--radix-dropdown-menu-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border p-1 shadow-md absolute top-full left-0 mt-2"
+          "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 max-h-(--radix-dropdown-menu-content-available-height) min-w-32 origin-(--radix-dropdown-menu-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border p-1 shadow-md absolute top-full mt-2"
           @class
         }}
         data-state={{if @isOpen "open" "closed"}}
+        data-align={{@align}}
         role="menu"
+        style={{this.alignmentStyle}}
         {{onClickOutside this.handleClickOutside}}
         ...attributes
       >
@@ -295,27 +348,37 @@ interface DropdownMenuItemSignature {
     inset?: boolean;
     disabled?: boolean;
     variant?: 'default' | 'destructive';
+    asChild?: boolean;
   };
   Blocks: {
-    default: [];
+    default: [classes?: string];
   };
 }
 
 const DropdownMenuItem: TOC<DropdownMenuItemSignature> = <template>
-  <div
-    data-slot="dropdown-menu-item"
-    data-inset={{@inset}}
-    data-variant={{@variant}}
-    class={{cn
-      "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive! [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
-      @class
+  {{#if @asChild}}
+    {{yield
+      (cn
+        "focus:bg-accent focus:text-accent-foreground hover:bg-accent hover:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive! [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 transition-colors"
+        @class
+      )
     }}
-    role="menuitem"
-    data-disabled={{@disabled}}
-    ...attributes
-  >
-    {{yield}}
-  </div>
+  {{else}}
+    <div
+      data-slot="dropdown-menu-item"
+      data-inset={{@inset}}
+      data-variant={{@variant}}
+      class={{cn
+        "focus:bg-accent focus:text-accent-foreground hover:bg-accent hover:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive! [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 transition-colors"
+        @class
+      }}
+      role="menuitem"
+      data-disabled={{@disabled}}
+      ...attributes
+    >
+      {{yield}}
+    </div>
+  {{/if}}
 </template>;
 
 interface DropdownMenuCheckboxItemSignature {
