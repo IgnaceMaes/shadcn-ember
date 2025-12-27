@@ -2,11 +2,7 @@ import { tracked } from '@glimmer/tracking';
 import Component from '@glimmer/component';
 import { on } from '@ember/modifier';
 import Button from '@/components/ui/button';
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/ui/collapsible';
+import { Collapsible } from '@/components/ui/collapsible';
 import ChevronsUpDown from '~icons/lucide/chevrons-up-down';
 
 export default class CollapsibleDemo extends Component {
@@ -21,17 +17,13 @@ export default class CollapsibleDemo extends Component {
       @open={{this.isOpen}}
       @onOpenChange={{this.setIsOpen}}
       class="flex w-[350px] flex-col gap-2"
-      as |ctx|
+      as |C|
     >
       <div class="flex items-center justify-between gap-4 px-4">
         <h4 class="text-sm font-semibold">
           @peduarte starred 3 repositories
         </h4>
-        <CollapsibleTrigger
-          @context={{ctx}}
-          @asChild={{true}}
-          as |triggerProps|
-        >
+        <C.Trigger @asChild={{true}} as |triggerProps|>
           <Button
             @variant="ghost"
             @size="icon"
@@ -46,19 +38,19 @@ export default class CollapsibleDemo extends Component {
             <ChevronsUpDown />
             <span class="sr-only">Toggle</span>
           </Button>
-        </CollapsibleTrigger>
+        </C.Trigger>
       </div>
       <div class="rounded-md border px-4 py-2 font-mono text-sm">
         @radix-ui/primitives
       </div>
-      <CollapsibleContent @context={{ctx}} class="flex flex-col gap-2">
+      <C.Content class="flex flex-col gap-2">
         <div class="rounded-md border px-4 py-2 font-mono text-sm">
           @radix-ui/colors
         </div>
         <div class="rounded-md border px-4 py-2 font-mono text-sm">
           @stitches/react
         </div>
-      </CollapsibleContent>
+      </C.Content>
     </Collapsible>
   </template>
 }

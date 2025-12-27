@@ -42,3 +42,8 @@ import { on } from '@ember/modifier';
 // Built-in components
 import { LinkTo } from '@ember/routing';
 ```
+
+## Ember patterns
+
+- When needing to pass context from a root ui component to a related sub-component: yield the subcomponent to link them together.
+- When typing components in a yield, use `ComponentLike` from `import type { ComponentLike } from '@glint/template';`

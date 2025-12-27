@@ -69,11 +69,7 @@ import {
   BreadcrumbSeparator,
   BreadcrumbPage,
 } from '@/components/ui/breadcrumb';
-import {
-  Collapsible,
-  CollapsibleTrigger,
-  CollapsibleContent,
-} from '@/components/ui/collapsible';
+import { Collapsible } from '@/components/ui/collapsible';
 import {
   Empty,
   EmptyHeader,
@@ -1535,22 +1531,22 @@ class UiExamples extends Component {
         <Collapsible
           @open={{this.collapsibleOpen}}
           @onOpenChange={{fn (mut this.collapsibleOpen)}}
-          as |ctx|
+          as |C|
         >
           <div class="flex items-center justify-between space-x-4 px-4">
             <h4 class="text-sm font-semibold">
               @peduarte starred 3 repositories
             </h4>
-            <CollapsibleTrigger @context={{ctx}}>
+            <C.Trigger>
               <Button @variant="ghost" @size="sm">
-                {{if ctx.open "Hide" "Show"}}
+                {{if this.collapsibleOpen "Hide" "Show"}}
               </Button>
-            </CollapsibleTrigger>
+            </C.Trigger>
           </div>
           <div class="rounded-md border px-4 py-2 font-mono text-sm">
             @radix-ui/primitives
           </div>
-          <CollapsibleContent @context={{ctx}}>
+          <C.Content>
             <div class="space-y-2">
               <div class="rounded-md border px-4 py-2 font-mono text-sm">
                 @radix-ui/colors
@@ -1559,7 +1555,7 @@ class UiExamples extends Component {
                 @stitches/react
               </div>
             </div>
-          </CollapsibleContent>
+          </C.Content>
         </Collapsible>
       </section>
 

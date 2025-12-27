@@ -15,10 +15,8 @@ interface CollapsibleSignature {
   Blocks: {
     default: [
       {
-        open: boolean;
-        contentId: string;
-        disabled?: boolean;
-        onOpenToggle: () => void;
+        Trigger: unknown;
+        Content: unknown;
       },
     ];
   };
@@ -49,6 +47,15 @@ class Collapsible extends Component<CollapsibleSignature> {
     return this.open ? 'open' : 'closed';
   }
 
+  get context() {
+    return {
+      open: this.open,
+      contentId: this.contentId,
+      disabled: this.disabled,
+      onOpenToggle: this.onOpenToggle,
+    };
+  }
+
   <template>
     <div
       data-slot="collapsible"
@@ -58,10 +65,8 @@ class Collapsible extends Component<CollapsibleSignature> {
     >
       {{yield
         (hash
-          open=this.open
-          contentId=this.contentId
-          disabled=this.disabled
-          onOpenToggle=this.onOpenToggle
+          Trigger=(component CollapsibleTrigger context=this.context)
+          Content=(component CollapsibleContent context=this.context)
         )
       }}
     </div>
