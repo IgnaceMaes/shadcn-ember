@@ -21,7 +21,7 @@ interface ButtonSignature {
     disabled?: boolean;
   };
   Blocks: {
-    default: [];
+    default: [string?];
   };
 }
 
@@ -68,7 +68,7 @@ export default class Button extends Component<ButtonSignature> {
 
   <template>
     {{#if @asChild}}
-      {{yield}}
+      {{yield this.classes}}
     {{else}}
       <button
         data-slot="button"
