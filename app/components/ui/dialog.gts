@@ -192,6 +192,10 @@ interface DialogContentSignature {
 }
 
 class DialogContent extends Component<DialogContentSignature> {
+  get showCloseButton() {
+    return this.args.showCloseButton !== false;
+  }
+
   handleOverlayClick = (event: MouseEvent) => {
     // Stop propagation to prevent closing when clicking inside content
     event.stopPropagation();
@@ -226,7 +230,7 @@ class DialogContent extends Component<DialogContentSignature> {
           ...attributes
         >
           {{yield (if @setOpen @setOpen (fn))}}
-          {{#if (if @showCloseButton @showCloseButton true)}}
+          {{#if this.showCloseButton}}
             <button
               data-slot="dialog-close"
               type="button"

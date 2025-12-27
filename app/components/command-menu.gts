@@ -79,6 +79,10 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
 
   setOpen = (open: boolean) => {
     this.isOpen = open;
+    if (!open) {
+      this.searchValue = '';
+      this.selectedType = null;
+    }
   };
 
   routeExists(route: string): boolean {
