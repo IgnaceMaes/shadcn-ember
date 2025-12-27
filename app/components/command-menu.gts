@@ -3,9 +3,9 @@ import { tracked } from '@glimmer/tracking';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { modifier } from 'ember-modifier';
+import onKey from 'ember-keyboard/helpers/on-key';
 import RouterService from '@ember/routing/router-service';
 import { service } from '@ember/service';
-import type Owner from '@ember/owner';
 import { cn } from '@/lib/utils';
 import { docsNavigation } from '@/lib/docs-navigation';
 import type { DocNavItem } from '@/lib/docs-navigation';
@@ -48,34 +48,8 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
     (item) => !item.route.includes('components.')
   );
 
-  constructor(owner: Owner, args: CommandMenuSignature['Args']) {
-    super(owner, args);
-    this.setupKeyboardShortcuts();
-  }
-
-  willDestroy() {
-    super.willDestroy();
-    document.removeEventListener('keydown', this.handleKeyDown);
-  }
-
-  setupKeyboardShortcuts() {
-    document.addEventListener('keydown', this.handleKeyDown);
-  }
-
-  handleKeyDown = (e: KeyboardEvent) => {
-    if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') {
-      if (
-        (e.target instanceof HTMLElement && e.target.isContentEditable) ||
-        e.target instanceof HTMLInputElement ||
-        e.target instanceof HTMLTextAreaElement ||
-        e.target instanceof HTMLSelectElement
-      ) {
-        return;
-      }
-
-      e.preventDefault();
-      this.isOpen = !this.isOpen;
-    }
+  toggleOpen = () => {
+    this.isOpen = !this.isOpen;
   };
 
   setOpen = (open: boolean) => {
@@ -144,34 +118,27 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
     ];
   }
 
-  handleNavigationKeyDown = (event: KeyboardEvent) => {
-    if (!this.isOpen) return;
-
+  navigateDown = (event: KeyboardEvent) => {
     const allItems = this.allItems;
     if (allItems.length === 0) return;
+    event.preventDefault();
+    this.selectedIndex = Math.min(this.selectedIndex + 1, allItems.length - 1);
+  };
 
-    switch (event.key) {
-      case 'ArrowDown': {
-        event.preventDefault();
-        this.selectedIndex = Math.min(
-          this.selectedIndex + 1,
-          allItems.length - 1
-        );
-        break;
-      }
-      case 'ArrowUp': {
-        event.preventDefault();
-        this.selectedIndex = Math.max(this.selectedIndex - 1, 0);
-        break;
-      }
-      case 'Enter': {
-        event.preventDefault();
-        const selectedItem = allItems[this.selectedIndex];
-        if (selectedItem) {
-          this.handleSelect(selectedItem.route);
-        }
-        break;
-      }
+  navigateUp = (event: KeyboardEvent) => {
+    const allItems = this.allItems;
+    if (allItems.length === 0) return;
+    event.preventDefault();
+    this.selectedIndex = Math.max(this.selectedIndex - 1, 0);
+  };
+
+  selectItem = (event: KeyboardEvent) => {
+    const allItems = this.allItems;
+    if (allItems.length === 0) return;
+    event.preventDefault();
+    const selectedItem = allItems[this.selectedIndex];
+    if (selectedItem) {
+      this.handleSelect(selectedItem.route);
     }
   };
 
@@ -184,6 +151,10 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
   });
 
   <template>
+    {{! Global keyboard shortcuts }}
+    {{onKey "cmd+k" this.toggleOpen}}
+    {{onKey "/" this.toggleOpen}}
+
     <div class={{cn @class}} ...attributes>
       <Button
         @variant="outline"
@@ -206,12 +177,18 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
         @showCloseButton={{false}}
         @class="rounded-xl border-none bg-clip-padding p-2 pb-11 shadow-2xl ring-4 ring-neutral-200/80 dark:bg-neutral-900 dark:ring-neutral-800"
       >
+        {{! Dialog-specific keyboard shortcuts - only active when dialog is open }}
+        {{#if this.isOpen}}
+          {{onKey "ArrowDown" this.navigateDown}}
+          {{onKey "ArrowUp" this.navigateUp}}
+          {{onKey "Enter" this.selectItem}}
+        {{/if}}
+
         <CommandInput
           @placeholder="Search documentation..."
-          @class="bg-input/50 border-input mx-2 rounded-md border !h-9"
+          @class="bg-input/50 border-input rounded-md border !h-9"
           {{this.focusOnInsert}}
           {{on "input" this.handleSearchChange}}
-          {{on "keydown" this.handleNavigationKeyDown}}
         />
 
         <CommandList @class="no-scrollbar min-h-80 scroll-pt-2 scroll-pb-1.5">
