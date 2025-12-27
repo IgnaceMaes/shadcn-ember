@@ -32,10 +32,6 @@ module.exports = function (environment) {
       ],
       defaultThemes: ['github-dark', 'github-light'],
     },
-
-    emberKeyboard: {
-      disableOnInputFields: true,
-    },
   };
 
   if (environment === 'development') {

@@ -19,8 +19,20 @@ export default class ThemeToggle extends Component<ThemeToggleSignature> {
     this.theme.toggleTheme();
   };
 
+  handleKeyToggle = (event: KeyboardEvent) => {
+    const target = event.target as HTMLElement;
+    const isInputField =
+      target.tagName === 'INPUT' ||
+      target.tagName === 'TEXTAREA' ||
+      target.isContentEditable;
+
+    if (!isInputField) {
+      this.handleToggle();
+    }
+  };
+
   <template>
-    {{onKey "d" this.handleToggle}}
+    {{onKey "d" this.handleKeyToggle}}
 
     <Button
       @variant="ghost"
