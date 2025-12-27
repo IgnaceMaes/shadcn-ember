@@ -122,6 +122,12 @@ const components: ComponentItem[] = [
     hasPage: hasMarkdownPage('collapsible'),
   },
   {
+    name: 'Combobox',
+    route: 'docs.components.combobox',
+    isNew: false,
+    hasPage: hasMarkdownPage('combobox'),
+  },
+  {
     name: 'Command',
     route: 'docs.components.command',
     isNew: false,
@@ -134,10 +140,28 @@ const components: ComponentItem[] = [
     hasPage: hasMarkdownPage('context-menu'),
   },
   {
+    name: 'Data Table',
+    route: 'docs.components.data-table',
+    isNew: false,
+    hasPage: hasMarkdownPage('data-table'),
+  },
+  {
+    name: 'Date Picker',
+    route: 'docs.components.date-picker',
+    isNew: false,
+    hasPage: hasMarkdownPage('date-picker'),
+  },
+  {
     name: 'Dialog',
     route: 'docs.components.dialog',
     isNew: false,
     hasPage: hasMarkdownPage('dialog'),
+  },
+  {
+    name: 'Drawer',
+    route: 'docs.components.drawer',
+    isNew: false,
+    hasPage: hasMarkdownPage('drawer'),
   },
   {
     name: 'Dropdown Menu',
@@ -212,6 +236,12 @@ const components: ComponentItem[] = [
     hasPage: hasMarkdownPage('menubar'),
   },
   {
+    name: 'Native Select',
+    route: 'docs.components.native-select',
+    isNew: false,
+    hasPage: hasMarkdownPage('native-select'),
+  },
+  {
     name: 'Navigation Menu',
     route: 'docs.components.navigation-menu',
     isNew: false,
@@ -270,6 +300,12 @@ const components: ComponentItem[] = [
     route: 'docs.components.sheet',
     isNew: false,
     hasPage: hasMarkdownPage('sheet'),
+  },
+  {
+    name: 'Sidebar',
+    route: 'docs.components.sidebar',
+    isNew: false,
+    hasPage: hasMarkdownPage('sidebar'),
   },
   {
     name: 'Skeleton',
@@ -342,6 +378,12 @@ const components: ComponentItem[] = [
     route: 'docs.components.tooltip',
     isNew: false,
     hasPage: hasMarkdownPage('tooltip'),
+  },
+  {
+    name: 'Typography',
+    route: 'docs.components.typography',
+    isNew: false,
+    hasPage: hasMarkdownPage('typography'),
   },
 ];
 
