@@ -499,29 +499,31 @@ export default class MarkdownRenderer extends Component<Signature> {
               <AlertDescription>
                 {{#each node.children as |alertChild|}}
                   {{#if (eq alertChild.type "paragraph")}}
-                    {{#each alertChild.children as |inline|}}
-                      {{#if (eq inline.type "text")}}{{inline.content}}{{/if}}
-                      {{#if (eq inline.type "inlineCode")}}<DocCode
-                        >{{inline.content}}</DocCode>{{/if}}
-                      {{#if (eq inline.type "strong")}}
-                        <DocStrong>
-                          {{#each inline.children as |child|}}
-                            {{#if
-                              (eq child.type "text")
-                            }}{{child.content}}{{/if}}
-                          {{/each}}
-                        </DocStrong>
-                      {{/if}}
-                      {{#if (eq inline.type "link")}}
-                        <DocLink @href={{if inline.url inline.url ""}}>
-                          {{#each inline.children as |child|}}
-                            {{#if
-                              (eq child.type "text")
-                            }}{{child.content}}{{/if}}
-                          {{/each}}
-                        </DocLink>
-                      {{/if}}
-                    {{/each}}
+                    <DocParagraph>
+                      {{#each alertChild.children as |inline|}}
+                        {{#if (eq inline.type "text")}}{{inline.content}}{{/if}}
+                        {{#if (eq inline.type "inlineCode")}}<DocCode
+                          >{{inline.content}}</DocCode>{{/if}}
+                        {{#if (eq inline.type "strong")}}
+                          <DocStrong>
+                            {{#each inline.children as |child|}}
+                              {{#if
+                                (eq child.type "text")
+                              }}{{child.content}}{{/if}}
+                            {{/each}}
+                          </DocStrong>
+                        {{/if}}
+                        {{#if (eq inline.type "link")}}
+                          <DocLink @href={{if inline.url inline.url ""}}>
+                            {{#each inline.children as |child|}}
+                              {{#if
+                                (eq child.type "text")
+                              }}{{child.content}}{{/if}}
+                            {{/each}}
+                          </DocLink>
+                        {{/if}}
+                      {{/each}}
+                    </DocParagraph>
                   {{/if}}
                 {{/each}}
               </AlertDescription>
