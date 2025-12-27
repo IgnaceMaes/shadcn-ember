@@ -32,13 +32,13 @@ import {
 ```
 
 ```hbs showLineNumbers
-<Collapsible as |C|>
-  <C.Trigger>
+<Collapsible as |c|>
+  <c.Trigger>
     Can I use this in my project?
-  </C.Trigger>
-  <C.Content>
+  </c.Trigger>
+  <c.Content>
     Yes. Free to use for personal and commercial projects. No attribution
     required.
-  </C.Content>
+  </c.Content>
 </Collapsible>
 ```
