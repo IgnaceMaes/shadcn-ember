@@ -1,0 +1,69 @@
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+
+<template>
+  <div class="flex w-full max-w-sm flex-col gap-6">
+    <Tabs @defaultValue="account" as |t|>
+      <t.List>
+        <t.Trigger @value="account">Account</t.Trigger>
+        <t.Trigger @value="password">Password</t.Trigger>
+      </t.List>
+      <t.Content @value="account">
+        <Card>
+          <CardHeader>
+            <CardTitle>Account</CardTitle>
+            <CardDescription>
+              Make changes to your account here. Click save when you're done.
+            </CardDescription>
+          </CardHeader>
+          <CardContent @class="grid gap-6">
+            <div class="grid gap-3">
+              <Label for="tabs-demo-name">Name</Label>
+              <Input id="tabs-demo-name" value="Pedro Duarte" />
+            </div>
+            <div class="grid gap-3">
+              <Label for="tabs-demo-username">Username</Label>
+              <Input id="tabs-demo-username" value="@peduarte" />
+            </div>
+          </CardContent>
+          <CardFooter>
+            <Button>Save changes</Button>
+          </CardFooter>
+        </Card>
+      </t.Content>
+      <t.Content @value="password">
+        <Card>
+          <CardHeader>
+            <CardTitle>Password</CardTitle>
+            <CardDescription>
+              Change your password here. After saving, you'll be logged out.
+            </CardDescription>
+          </CardHeader>
+          <CardContent @class="grid gap-6">
+            <div class="grid gap-3">
+              <Label for="tabs-demo-current">Current password</Label>
+              <Input id="tabs-demo-current" type="password" />
+            </div>
+            <div class="grid gap-3">
+              <Label for="tabs-demo-new">New password</Label>
+              <Input id="tabs-demo-new" type="password" />
+            </div>
+          </CardContent>
+          <CardFooter>
+            <Button>Save password</Button>
+          </CardFooter>
+        </Card>
+      </t.Content>
+    </Tabs>
+  </div>
+</template>
