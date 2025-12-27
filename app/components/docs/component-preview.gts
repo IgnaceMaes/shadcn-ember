@@ -11,7 +11,7 @@ const components = import.meta.glob<{ default: ComponentLike }>(
 interface Signature {
   Args: {
     name: string;
-    className?: string;
+    class?: string;
     description?: string;
     align?: 'start' | 'center' | 'end';
   };
@@ -31,6 +31,7 @@ export default class ComponentPreview extends Component<Signature> {
       <ComponentPreviewRender
         @component={{this.componentInstance}}
         @align={{@align}}
+        @class={{@class}}
       />
     {{else}}
       <div class="text-destructive">

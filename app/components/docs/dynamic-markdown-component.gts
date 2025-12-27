@@ -23,6 +23,7 @@ export default <template>
     {{component
       @component
       name=(if p (get p "name"))
+      class=(if p (get p "class"))
       className=(if p (get p "className"))
       description=(if p (get p "description"))
       align=(if p (get p "align"))

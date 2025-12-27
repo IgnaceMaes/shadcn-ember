@@ -3,6 +3,7 @@ import { service } from '@ember/service';
 import { CodeBlock } from 'ember-shiki';
 import type ThemeService from '@/services/theme';
 import type { ComponentLike } from '@glint/template';
+import { cn } from '@/lib/utils';
 
 // Load all example components and their raw source code
 const components = import.meta.glob<{ default: ComponentLike }>(
@@ -20,6 +21,7 @@ interface ComponentPreviewSignature {
     component: ComponentLike;
     showLineNumbers?: boolean;
     align?: 'start' | 'center' | 'end';
+    class?: string;
   };
   Blocks: {
     default?: [];
@@ -60,7 +62,10 @@ export default class ComponentPreviewRender extends Component<ComponentPreviewSi
       <div data-slot="preview">
         <div
           data-align={{this.align}}
-          class="preview flex w-full justify-center data-[align=center]:items-center data-[align=end]:items-end data-[align=start]:items-start h-[450px] p-10"
+          class={{cn
+            "preview flex w-full justify-center data-[align=center]:items-center data-[align=end]:items-end data-[align=start]:items-start h-[450px] p-10"
+            @class
+          }}
         >
           <@component />
         </div>

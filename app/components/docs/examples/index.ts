@@ -27,3 +27,8 @@ export { default as EmptyDemo } from './empty-demo';
 export { default as EmptyInputGroup } from './empty-input-group';
 export { default as EmptyOutline } from './empty-outline';
 export { default as FieldDemo } from './field-demo';
+export { default as InputDemo } from './input-demo';
+export { default as InputDisabled } from './input-disabled';
+export { default as InputFile } from './input-file';
+export { default as InputWithButton } from './input-with-button';
+export { default as InputWithLabel } from './input-with-label';
