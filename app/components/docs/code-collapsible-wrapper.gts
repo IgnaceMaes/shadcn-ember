@@ -29,9 +29,9 @@ export default class CodeCollapsibleWrapper extends Component<Signature> {
       @onOpenChange={{this.onOpenChange}}
       class={{cn "group/collapsible relative md:-mx-1" @class}}
       ...attributes
-      as |C|
+      as |c|
     >
-      <C.Trigger @asChild={{true}} as |triggerProps|>
+      <c.Trigger @asChild={{true}} as |triggerProps|>
         <div class="absolute top-5 right-9 z-10 flex items-center">
           <Button
             @variant="ghost"
@@ -49,18 +49,18 @@ export default class CodeCollapsibleWrapper extends Component<Signature> {
           </Button>
           <Separator @orientation="vertical" @class="mx-1.5 h-4!" />
         </div>
-      </C.Trigger>
-      <C.Content
+      </c.Trigger>
+      <c.Content
         @forceMount={{true}}
         @class="relative mt-6 overflow-hidden data-[state=closed]:max-h-64 data-[state=closed]:after:pointer-events-none data-[state=closed]:after:absolute data-[state=closed]:after:inset-x-0 data-[state=closed]:after:bottom-0 data-[state=closed]:after:h-32 data-[state=closed]:after:bg-linear-to-t data-[state=closed]:after:from-code/80 data-[state=closed]:after:to-transparent [&>figure]:mt-0 [&>figure]:md:mx-0!"
       >
         {{yield}}
-      </C.Content>
-      <C.Trigger
+      </c.Content>
+      <c.Trigger
         @class="from-code/70 to-code text-muted-foreground absolute inset-x-0 -bottom-2 flex h-22 items-center justify-center rounded-b-lg bg-gradient-to-b text-sm group-data-[state=open]/collapsible:hidden"
       >
         {{if this.isOpened "Collapse" "Expand"}}
-      </C.Trigger>
+      </c.Trigger>
     </Collapsible>
   </template>
 }
