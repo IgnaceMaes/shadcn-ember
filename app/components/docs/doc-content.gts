@@ -12,7 +12,7 @@ interface DocContentSignature {
 }
 
 const DocContent: TOC<DocContentSignature> = <template>
-  <div class={{cn "w-full flex-1 pt-6" @class}} data-doc-content ...attributes>
+  <div class={{cn "w-full" @class}} data-doc-content ...attributes>
     {{yield}}
   </div>
 </template>;
