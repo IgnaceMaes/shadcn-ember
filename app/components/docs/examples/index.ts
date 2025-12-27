@@ -79,3 +79,4 @@ export { default as ToggleLg } from './toggle-lg';
 export { default as ToggleOutline } from './toggle-outline';
 export { default as ToggleSm } from './toggle-sm';
 export { default as ToggleWithText } from './toggle-with-text';
+export { default as TooltipDemo } from './tooltip-demo';

@@ -153,14 +153,14 @@ const TooltipContent: TOC<TooltipContentSignature> = <template>
       <Content
         @as="div"
         class={{cn
-          "z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground animate-in fade-in-0 zoom-in-95"
+          "z-50 overflow-hidden rounded-md bg-foreground px-3 py-1.5 text-xs text-background animate-in fade-in-0 zoom-in-95"
           @class
         }}
         role="tooltip"
         ...attributes
       >
         {{yield}}
-        <div class="absolute bg-primary size-2 rotate-45" {{@arrow}}></div>
+        <div class="absolute bg-foreground size-2 rotate-45" {{@arrow}}></div>
       </Content>
     {{/let}}
   {{/if}}
