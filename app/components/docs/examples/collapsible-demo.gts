@@ -1,5 +1,6 @@
 import { tracked } from '@glimmer/tracking';
 import Component from '@glimmer/component';
+import { on } from '@ember/modifier';
 import Button from '@/components/ui/button';
 import {
   Collapsible,
@@ -20,34 +21,44 @@ export default class CollapsibleDemo extends Component {
       @open={{this.isOpen}}
       @onOpenChange={{this.setIsOpen}}
       class="flex w-[350px] flex-col gap-2"
+      as |ctx|
     >
-      {{#let this.isOpen this.setIsOpen as |open setOpen|}}
-        <div class="flex items-center justify-between gap-4 px-4">
-          <h4 class="text-sm font-semibold">
-            @peduarte starred 3 repositories
-          </h4>
-          <CollapsibleTrigger @open={{open}} @setOpen={{setOpen}} @asChild={{true}}>
-            <Button @variant="ghost" @size="icon" class="size-8">
-              <ChevronsUpDown />
-              <span class="sr-only">Toggle</span>
-            </Button>
-          </CollapsibleTrigger>
+      <div class="flex items-center justify-between gap-4 px-4">
+        <h4 class="text-sm font-semibold">
+          @peduarte starred 3 repositories
+        </h4>
+        <CollapsibleTrigger
+          @context={{ctx}}
+          @asChild={{true}}
+          as |triggerProps|
+        >
+          <Button
+            @variant="ghost"
+            @size="icon"
+            class="size-8"
+            {{on "click" triggerProps.onClick}}
+            aria-controls={{triggerProps.aria-controls}}
+            aria-expanded={{triggerProps.aria-expanded}}
+            data-state={{triggerProps.data-state}}
+            data-disabled={{triggerProps.data-disabled}}
+            disabled={{triggerProps.disabled}}
+          >
+            <ChevronsUpDown />
+            <span class="sr-only">Toggle</span>
+          </Button>
+        </CollapsibleTrigger>
+      </div>
+      <div class="rounded-md border px-4 py-2 font-mono text-sm">
+        @radix-ui/primitives
+      </div>
+      <CollapsibleContent @context={{ctx}} class="flex flex-col gap-2">
+        <div class="rounded-md border px-4 py-2 font-mono text-sm">
+          @radix-ui/colors
         </div>
         <div class="rounded-md border px-4 py-2 font-mono text-sm">
-          @radix-ui/primitives
+          @stitches/react
         </div>
-        <CollapsibleContent
-          @open={{open}}
-          class="flex flex-col gap-2"
-        >
-          <div class="rounded-md border px-4 py-2 font-mono text-sm">
-            @radix-ui/colors
-          </div>
-          <div class="rounded-md border px-4 py-2 font-mono text-sm">
-            @stitches/react
-          </div>
-        </CollapsibleContent>
-      {{/let}}
+      </CollapsibleContent>
     </Collapsible>
   </template>
 }

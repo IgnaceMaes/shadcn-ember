@@ -1,36 +1,69 @@
 import Component from '@glimmer/component';
-import type { TOC } from '@ember/component/template-only';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
+import { guidFor } from '@ember/object/internals';
+import { hash } from '@ember/helper';
 
 interface CollapsibleSignature {
+  Element: HTMLDivElement;
   Args: {
+    defaultOpen?: boolean;
     open?: boolean;
     onOpenChange?: (open: boolean) => void;
     disabled?: boolean;
   };
   Blocks: {
-    default: [open: boolean, setOpen: (open: boolean) => void];
+    default: [
+      {
+        open: boolean;
+        contentId: string;
+        disabled?: boolean;
+        onOpenToggle: () => void;
+      },
+    ];
   };
 }
 
 class Collapsible extends Component<CollapsibleSignature> {
-  @tracked isOpen = this.args.open ?? false;
+  @tracked internalOpen = this.args.defaultOpen ?? false;
+
+  contentId = `collapsible-content-${guidFor(this)}`;
 
   get open() {
-    return this.args.open ?? this.isOpen;
+    return this.args.open ?? this.internalOpen;
   }
 
-  setOpen = (open: boolean) => {
-    if (!this.args.disabled) {
-      this.isOpen = open;
-      this.args.onOpenChange?.(open);
+  get disabled() {
+    return this.args.disabled;
+  }
+
+  onOpenToggle = () => {
+    if (!this.disabled) {
+      const newOpen = !this.open;
+      this.internalOpen = newOpen;
+      this.args.onOpenChange?.(newOpen);
     }
   };
 
+  get dataState() {
+    return this.open ? 'open' : 'closed';
+  }
+
   <template>
-    <div data-slot="collapsible" ...attributes>
-      {{yield this.open this.setOpen}}
+    <div
+      data-slot="collapsible"
+      data-state={{this.dataState}}
+      data-disabled={{if this.disabled "" undefined}}
+      ...attributes
+    >
+      {{yield
+        (hash
+          open=this.open
+          contentId=this.contentId
+          disabled=this.disabled
+          onOpenToggle=this.onOpenToggle
+        )
+      }}
     </div>
   </template>
 }
@@ -38,34 +71,61 @@ class Collapsible extends Component<CollapsibleSignature> {
 interface CollapsibleTriggerSignature {
   Element: HTMLButtonElement;
   Args: {
-    open?: boolean;
-    setOpen?: (open: boolean) => void;
+    context: {
+      open: boolean;
+      contentId: string;
+      disabled?: boolean;
+      onOpenToggle: () => void;
+    };
     class?: string;
-    disabled?: boolean;
     asChild?: boolean;
   };
   Blocks: {
-    default: [];
+    default: [
+      {
+        onClick: () => void;
+        'aria-controls': string;
+        'aria-expanded': string;
+        'data-state': string;
+        'data-slot': string;
+        'data-disabled'?: string;
+        disabled?: boolean;
+      },
+    ];
   };
 }
 
 class CollapsibleTrigger extends Component<CollapsibleTriggerSignature> {
-  handleClick = () => {
-    this.args.setOpen?.(!this.args.open);
-  };
+  get dataState() {
+    return this.args.context.open ? 'open' : 'closed';
+  }
+
+  get triggerProps() {
+    return {
+      onClick: this.args.context.onOpenToggle,
+      'aria-controls': this.args.context.contentId,
+      'aria-expanded': this.args.context.open ? 'true' : 'false',
+      'data-state': this.dataState,
+      'data-slot': 'collapsible-trigger' as const,
+      'data-disabled': this.args.context.disabled ? '' : undefined,
+      disabled: this.args.context.disabled,
+    };
+  }
 
   <template>
     {{#if @asChild}}
-      {{yield}}
+      {{yield this.triggerProps}}
     {{else}}
       <button
         type="button"
-        aria-expanded={{if @open "true" "false"}}
-        data-state={{if @open "open" "closed"}}
+        aria-controls={{@context.contentId}}
+        aria-expanded={{if @context.open "true" "false"}}
+        data-state={{this.dataState}}
         data-slot="collapsible-trigger"
-        disabled={{@disabled}}
+        data-disabled={{if @context.disabled "" undefined}}
+        disabled={{@context.disabled}}
         class={{@class}}
-        {{on "click" this.handleClick}}
+        {{on "click" @context.onOpenToggle}}
         ...attributes
       >
         {{yield}}
@@ -77,26 +137,44 @@ class CollapsibleTrigger extends Component<CollapsibleTriggerSignature> {
 interface CollapsibleContentSignature {
   Element: HTMLDivElement;
   Args: {
-    open?: boolean;
+    context: {
+      open: boolean;
+      contentId: string;
+      disabled?: boolean;
+    };
     class?: string;
+    forceMount?: boolean;
   };
   Blocks: {
     default: [];
   };
 }
 
-const CollapsibleContent: TOC<CollapsibleContentSignature> = <template>
-  {{#if @open}}
+class CollapsibleContent extends Component<CollapsibleContentSignature> {
+  get dataState() {
+    return this.args.context.open ? 'open' : 'closed';
+  }
+
+  get isOpen() {
+    return this.args.forceMount || this.args.context.open;
+  }
+
+  <template>
     <div
-      data-state={{if @open "open" "closed"}}
+      id={{@context.contentId}}
+      data-state={{this.dataState}}
       data-slot="collapsible-content"
+      data-disabled={{if @context.disabled "" undefined}}
+      hidden={{unless this.isOpen true}}
       class={{@class}}
       ...attributes
     >
-      {{yield}}
+      {{#if this.isOpen}}
+        {{yield}}
+      {{/if}}
     </div>
-  {{/if}}
-</template>;
+  </template>
+}
 
 export { Collapsible, CollapsibleTrigger, CollapsibleContent };
 

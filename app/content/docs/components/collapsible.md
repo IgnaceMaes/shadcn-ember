@@ -32,15 +32,13 @@ import {
 ```
 
 ```hbs showLineNumbers
-<Collapsible>
-  {{#let this.isOpen this.setIsOpen as |open setOpen|}}
-    <CollapsibleTrigger @open={{open}} @setOpen={{setOpen}}>
-      Can I use this in my project?
-    </CollapsibleTrigger>
-    <CollapsibleContent @open={{open}}>
-      Yes. Free to use for personal and commercial projects. No attribution
-      required.
-    </CollapsibleContent>
-  {{/let}}
+<Collapsible as |ctx|>
+  <CollapsibleTrigger @context={{ctx}}>
+    Can I use this in my project?
+  </CollapsibleTrigger>
+  <CollapsibleContent @context={{ctx}}>
+    Yes. Free to use for personal and commercial projects. No attribution
+    required.
+  </CollapsibleContent>
 </Collapsible>
 ```
