@@ -417,7 +417,7 @@ const components: ComponentItem[] = [
             </span>
           </t.Trigger>
           <t.Content>
-            <p>This component is not yet documented.</p>
+            <p>This component is not yet implemented or documented.</p>
             <p class="text-xs mt-1">Contributions are welcome!</p>
           </t.Content>
         </Tooltip>
