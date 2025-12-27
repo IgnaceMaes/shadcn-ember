@@ -3,6 +3,7 @@ import { service } from '@ember/service';
 import type ThemeService from '@/services/theme';
 import { Button } from '@/components/ui/button';
 import { on } from '@ember/modifier';
+import onKey from 'ember-keyboard/helpers/on-key';
 
 interface ThemeToggleSignature {
   Element: HTMLButtonElement;
@@ -19,6 +20,8 @@ export default class ThemeToggle extends Component<ThemeToggleSignature> {
   };
 
   <template>
+    {{onKey "d" this.handleToggle}}
+
     <Button
       @variant="ghost"
       @size="icon"
