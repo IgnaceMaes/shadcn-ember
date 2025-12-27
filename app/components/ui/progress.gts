@@ -6,7 +6,6 @@ interface ProgressSignature {
   Element: HTMLDivElement;
   Args: {
     value?: number;
-    max?: number;
     class?: string;
   };
   Blocks: {
@@ -15,30 +14,20 @@ interface ProgressSignature {
 }
 
 class Progress extends Component<ProgressSignature> {
-  get progressValue() {
-    const value = this.args.value ?? 0;
-    const max = this.args.max ?? 100;
-    return Math.min(100, (value / max) * 100);
-  }
-
   get indicatorStyle() {
-    return htmlSafe(`transform: translateX(-${100 - this.progressValue}%)`);
+    const value = this.args.value ?? 0;
+    return htmlSafe(`transform: translateX(-${100 - value}%)`);
   }
 
   <template>
     <div
-      role="progressbar"
-      aria-valuemin="0"
-      aria-valuemax={{if @max @max 100}}
-      aria-valuenow={{@value}}
-      class={{cn
-        "relative h-2 w-full overflow-hidden rounded-full bg-primary/20"
-        @class
-      }}
+      data-slot="progress"
+      class={{cn "bg-primary/20 relative h-2 w-full overflow-hidden rounded-full" @class}}
       ...attributes
     >
       <div
-        class="h-full w-full flex-1 bg-primary transition-all"
+        data-slot="progress-indicator"
+        class="bg-primary h-full w-full flex-1 transition-all"
         style={{this.indicatorStyle}}
       ></div>
     </div>
