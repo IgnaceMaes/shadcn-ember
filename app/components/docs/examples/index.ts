@@ -63,3 +63,4 @@ export { default as KbdDemo } from './kbd-demo';
 export { default as KbdGroup } from './kbd-group';
 export { default as KbdInputGroup } from './kbd-input-group';
 export { default as KbdTooltip } from './kbd-tooltip';
+export { default as LabelDemo } from './label-demo';
