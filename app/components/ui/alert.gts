@@ -78,7 +78,7 @@ class AlertTitle extends Component<AlertTitleSignature> {
 class AlertDescription extends Component<AlertDescriptionSignature> {
   get className() {
     return cn(
-      'text-muted-foreground col-start-2 grid justify-items-start gap-1 text-sm [&_p]:leading-relaxed',
+      'text-card-foreground/80 col-start-2 grid justify-items-start gap-1 text-sm [&_p]:leading-relaxed',
       this.args.class
     );
   }
