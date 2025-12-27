@@ -33,6 +33,13 @@ export default class DocHeader extends Component<DocHeaderSignature> {
     return getAdjacentPages(currentRoute, currentPath as string | undefined);
   }
 
+  get currentUrl(): string {
+    if (typeof window === 'undefined') {
+      return '';
+    }
+    return window.location.origin + this.router.currentURL;
+  }
+
   <template>
     <div class={{cn "flex flex-col gap-2" @class}} ...attributes>
       <div class="flex items-start justify-between">
@@ -44,7 +51,7 @@ export default class DocHeader extends Component<DocHeaderSignature> {
         <div
           class="docs-nav bg-background/80 border-border/50 fixed inset-x-0 bottom-0 isolate z-50 flex items-center gap-2 border-t px-6 py-4 backdrop-blur-sm sm:static sm:z-0 sm:border-t-0 sm:bg-transparent sm:px-0 sm:pt-1.5 sm:backdrop-blur-none"
         >
-          <DocHeaderCopy @markdown={{@markdown}} />
+          <DocHeaderCopy @page={{@markdown}} @url={{this.currentUrl}} />
           {{#if this.adjacentPages.prev}}
             <DocLinkTo
               @route={{this.adjacentPages.prev.route}}

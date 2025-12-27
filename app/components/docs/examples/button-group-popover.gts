@@ -1,10 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
+import { Popover } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import BotIcon from '~icons/lucide/bot';
@@ -16,13 +12,13 @@ import ChevronDownIcon from '~icons/lucide/chevron-down';
       <BotIcon />
       Copilot
     </Button>
-    <Popover>
-      <PopoverTrigger @asChild={{true}}>
+    <Popover as |popover|>
+      <popover.Trigger @asChild={{true}}>
         <Button @variant="outline" @size="icon" aria-label="Open Popover">
           <ChevronDownIcon />
         </Button>
-      </PopoverTrigger>
-      <PopoverContent @class="rounded-xl p-0 text-sm">
+      </popover.Trigger>
+      <popover.Content @class="rounded-xl p-0 text-sm">
         <div class="px-4 py-3">
           <div class="text-sm font-medium">Agent Tasks</div>
         </div>
@@ -38,7 +34,7 @@ import ChevronDownIcon from '~icons/lucide/chevron-down';
             background and open a pull request for your review.
           </p>
         </div>
-      </PopoverContent>
+      </popover.Content>
     </Popover>
   </ButtonGroup>
 </template>

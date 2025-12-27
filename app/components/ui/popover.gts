@@ -1,94 +1,123 @@
 import Component from '@glimmer/component';
 import type { TOC } from '@ember/component/template-only';
-import type Owner from '@ember/owner';
+import type { ComponentLike, ModifierLike } from '@glint/template';
 import { tracked } from '@glimmer/tracking';
+import { hash, fn } from '@ember/helper';
 import { on } from '@ember/modifier';
-import { cn } from '@/lib/utils';
+import { Popover as EmberPrimitivesPopover } from 'ember-primitives';
 import onClickOutside from 'ember-click-outside/modifiers/on-click-outside';
+import { cn } from '@/lib/utils';
 
-// Popover Root Component
 interface PopoverSignature {
   Args: {
-    open?: boolean;
-    defaultOpen?: boolean;
-    onOpenChange?: (open: boolean) => void;
+    placement?:
+      | 'top'
+      | 'right'
+      | 'bottom'
+      | 'left'
+      | 'top-start'
+      | 'top-end'
+      | 'right-start'
+      | 'right-end'
+      | 'bottom-start'
+      | 'bottom-end'
+      | 'left-start'
+      | 'left-end';
+    offsetOptions?: number;
   };
   Blocks: {
-    default: [isOpen: boolean, setOpen: (open: boolean) => void];
+    default: [
+      {
+        Trigger: ComponentLike<PopoverTriggerSignature>;
+        Content: ComponentLike<PopoverContentSignature>;
+        Anchor: ComponentLike<PopoverAnchorSignature>;
+      },
+    ];
   };
 }
 
 class Popover extends Component<PopoverSignature> {
-  @tracked isOpen: boolean;
+  @tracked isOpen = false;
 
-  constructor(owner: Owner, args: PopoverSignature['Args']) {
-    super(owner, args);
-    this.isOpen = args.open ?? args.defaultOpen ?? false;
-  }
+  handleClick = () => {
+    this.isOpen = !this.isOpen;
+  };
 
-  get open() {
-    return this.args.open ?? this.isOpen;
-  }
-
-  setOpen = (open: boolean) => {
-    this.isOpen = open;
-    this.args.onOpenChange?.(open);
+  close = () => {
+    this.isOpen = false;
   };
 
   <template>
-    <div class="relative inline-block">
-      {{yield this.open this.setOpen}}
-    </div>
+    <EmberPrimitivesPopover
+      @placement={{if @placement @placement "bottom"}}
+      @offsetOptions={{if @offsetOptions @offsetOptions 4}}
+      as |p|
+    >
+      {{yield
+        (hash
+          Trigger=(component
+            PopoverTrigger reference=p.reference onClick=this.handleClick
+          )
+          Content=(component
+            PopoverContent
+            isOpen=this.isOpen
+            close=this.close
+            popoverContent=p.Content
+          )
+          Anchor=(component PopoverAnchor anchor=p.anchor)
+        )
+      }}
+    </EmberPrimitivesPopover>
   </template>
 }
 
-// PopoverTrigger Component
 interface PopoverTriggerSignature {
   Element: HTMLButtonElement;
   Args: {
     class?: string;
-    setOpen?: (open: boolean) => void;
     asChild?: boolean;
+    reference?: ModifierLike<{
+      Element: HTMLElement | SVGElement;
+    }>;
+    onClick?: () => void;
   };
   Blocks: {
     default: [];
   };
 }
 
-class PopoverTrigger extends Component<PopoverTriggerSignature> {
-  handleClick = () => {
-    const currentOpen = this.args.setOpen !== undefined;
-    this.args.setOpen?.(!currentOpen);
-  };
+const PopoverTrigger: TOC<PopoverTriggerSignature> = <template>
+  {{#if @asChild}}
+    <span
+      role="button"
+      tabindex="0"
+      {{@reference}}
+      {{on "click" (if @onClick @onClick (fn))}}
+      ...attributes
+    >
+      {{yield}}
+    </span>
+  {{else}}
+    <button
+      data-slot="popover-trigger"
+      type="button"
+      class={{cn @class}}
+      {{@reference}}
+      {{on "click" (if @onClick @onClick (fn))}}
+      ...attributes
+    >
+      {{yield}}
+    </button>
+  {{/if}}
+</template>;
 
-  <template>
-    {{#if @asChild}}
-      <span
-        role="button"
-        tabindex="0"
-        {{on "click" this.handleClick}}
-        {{on "keydown" this.handleClick}}
-      >
-        {{yield}}
-      </span>
-    {{else}}
-      <button
-        type="button"
-        class={{cn @class}}
-        {{on "click" this.handleClick}}
-        ...attributes
-      >
-        {{yield}}
-      </button>
-    {{/if}}
-  </template>
-}
-
-// PopoverAnchor Component
 interface PopoverAnchorSignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
+    anchor?: ModifierLike<{
+      Element: HTMLElement;
+    }>;
   };
   Blocks: {
     default: [];
@@ -96,48 +125,48 @@ interface PopoverAnchorSignature {
 }
 
 const PopoverAnchor: TOC<PopoverAnchorSignature> = <template>
-  <div class={{cn @class}} ...attributes>
+  <div data-slot="popover-anchor" class={{cn @class}} {{@anchor}} ...attributes>
     {{yield}}
   </div>
 </template>;
 
-// PopoverContent Component
 interface PopoverContentSignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
-    align?: 'start' | 'center' | 'end';
+    align?: 'center' | 'start' | 'end';
     sideOffset?: number;
+    popoverContent?: ComponentLike<{
+      Element: HTMLDivElement;
+      Args: { as?: string; class?: string };
+      Blocks: { default: [] };
+    }>;
     isOpen?: boolean;
-    setOpen?: (open: boolean) => void;
+    close?: () => void;
   };
   Blocks: {
     default: [];
   };
 }
 
-class PopoverContent extends Component<PopoverContentSignature> {
-  handleClickOutside = () => {
-    this.args.setOpen?.(false);
-  };
-
-  <template>
-    {{#if @isOpen}}
-      <div
+const PopoverContent: TOC<PopoverContentSignature> = <template>
+  {{#if @isOpen}}
+    {{#let @popoverContent as |Content|}}
+      <Content
+        @as="div"
+        data-slot="popover-content"
         class={{cn
-          "absolute z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 top-full left-0 mt-2"
+          "z-50 w-72 origin-(--radix-popover-content-transform-origin) rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
           @class
         }}
-        data-popover-content
         data-state={{if @isOpen "open" "closed"}}
-        role="dialog"
-        {{onClickOutside this.handleClickOutside}}
+        {{onClickOutside @close}}
         ...attributes
       >
         {{yield}}
-      </div>
-    {{/if}}
-  </template>
-}
+      </Content>
+    {{/let}}
+  {{/if}}
+</template>;
 
 export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor };
