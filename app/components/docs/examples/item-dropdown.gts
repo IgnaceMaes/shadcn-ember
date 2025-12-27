@@ -52,7 +52,7 @@ const people = [
                 <ItemMedia>
                   <Avatar @class="size-8">
                     <AvatarImage @src={{person.avatar}} @class="grayscale" />
-                    <AvatarFallback>{{person.username.[0]}}</AvatarFallback>
+                    <AvatarFallback>{{person.username}}</AvatarFallback>
                   </Avatar>
                 </ItemMedia>
                 <ItemContent @class="gap-0.5">
