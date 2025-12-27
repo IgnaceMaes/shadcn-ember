@@ -59,7 +59,7 @@
 :root {
   --radius: 0.65rem;
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --foreground: lab(2.75381 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -205,7 +205,7 @@
   --surface: lab(97.68% -0.0000298023 0.0000119209);
   --surface-foreground: lab(63.04% 0 0);
   --code: var(--surface);
-  --code-foreground: var(--surface-foreground);
+  --code-foreground: lab(2.75381% 0 0);
   --code-highlight: lab(95.36% 0 0);
   --code-number: lab(48.96% 0 0);
   --selection: lab(2.75381% 0 0);

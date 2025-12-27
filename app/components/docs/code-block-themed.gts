@@ -47,7 +47,7 @@ export default class CodeBlockThemed extends Component<CodeBlockThemedSignature>
     >
       {{#if @title}}
         <div
-          class="flex items-center gap-2 border-b border-border bg-muted px-4 py-2 font-mono text-sm text-muted-foreground"
+          class="flex items-center gap-2 border-b border-border bg-code px-4 py-2 font-mono text-sm text-code-foreground"
         >
           {{#if this.extensionIcon}}
             <div
