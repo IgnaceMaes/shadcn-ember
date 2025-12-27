@@ -4,10 +4,8 @@ description: Every component recreated in Figma. With customizable props, typogr
 order: 22
 ---
 
-<Callout>
-  **Note:** The Figma files are contributed by the community. If you have any
-  questions or feedback, please reach out to the Figma file maintainers.
-</Callout>
+> [!NOTE]
+> **Note:** The Figma files are contributed by the community. If you have any questions or feedback, please reach out to the Figma file maintainers.
 
 ## Free
 

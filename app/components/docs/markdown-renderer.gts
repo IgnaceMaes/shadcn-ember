@@ -19,6 +19,8 @@ import {
   DocHeading,
 } from './index';
 import { Separator } from '@/components/ui/separator';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import Info from '~icons/lucide/info';
 import CodeBlockThemed from './code-block-themed';
 import PackageManagerCommand from './package-manager-command';
 import DynamicMarkdownComponent from './dynamic-markdown-component';
@@ -116,6 +118,11 @@ interface TableCell extends MdastNode {
   children: MdastNode[];
 }
 
+interface Blockquote extends MdastNode {
+  type: 'blockquote';
+  children: MdastNode[];
+}
+
 interface ProcessedNode {
   type: string;
   content?: string;
@@ -132,6 +139,7 @@ interface ProcessedNode {
   showLineNumbers?: boolean;
   highlightLines?: number[];
   align?: ('left' | 'right' | 'center' | null)[];
+  alertType?: 'info' | 'note' | 'warning' | 'tip' | 'caution';
 }
 
 interface Signature {
@@ -272,6 +280,48 @@ export default class MarkdownRenderer extends Component<Signature> {
           type: 'tableCell',
           children: this.processInlineNodes((node as TableCell).children),
         };
+      case 'blockquote': {
+        const blockquoteNode = node as Blockquote;
+        const firstParagraph = blockquoteNode.children[0] as
+          | Paragraph
+          | undefined;
+        if (firstParagraph?.children?.[0]?.type === 'text') {
+          const firstText = (firstParagraph.children[0] as Text).value;
+          const alertMatch = firstText.match(
+            /^\[!(INFO|NOTE|WARNING|TIP|CAUTION)\]/
+          );
+          if (alertMatch) {
+            const alertType = alertMatch[1]!.toLowerCase() as
+              | 'info'
+              | 'note'
+              | 'warning'
+              | 'tip'
+              | 'caution';
+            const remainingChildren = [...blockquoteNode.children];
+            const firstParaCopy = { ...firstParagraph };
+            const firstChildren = [...(firstParaCopy.children || [])];
+            const firstTextNode = firstChildren[0] as Text;
+            firstTextNode.value = firstTextNode.value.replace(
+              /^\[!(INFO|NOTE|WARNING|TIP|CAUTION)\]\s*/,
+              ''
+            );
+            if (firstTextNode.value.trim() === '') {
+              firstChildren.shift();
+            }
+            firstParaCopy.children = firstChildren;
+            remainingChildren[0] = firstParaCopy;
+            return {
+              type: 'alert',
+              alertType,
+              children: this.processNodes(remainingChildren),
+            };
+          }
+        }
+        return {
+          type: 'blockquote',
+          children: this.processNodes(blockquoteNode.children),
+        };
+      }
       default:
         return null;
     }
@@ -443,6 +493,40 @@ export default class MarkdownRenderer extends Component<Signature> {
 
       <DocContent>
         {{#each this.processedContent as |node|}}
+          {{#if (eq node.type "alert")}}
+            <Alert @class="my-6">
+              <Info />
+              <AlertDescription>
+                {{#each node.children as |alertChild|}}
+                  {{#if (eq alertChild.type "paragraph")}}
+                    {{#each alertChild.children as |inline|}}
+                      {{#if (eq inline.type "text")}}{{inline.content}}{{/if}}
+                      {{#if (eq inline.type "inlineCode")}}<DocCode
+                        >{{inline.content}}</DocCode>{{/if}}
+                      {{#if (eq inline.type "strong")}}
+                        <DocStrong>
+                          {{#each inline.children as |child|}}
+                            {{#if
+                              (eq child.type "text")
+                            }}{{child.content}}{{/if}}
+                          {{/each}}
+                        </DocStrong>
+                      {{/if}}
+                      {{#if (eq inline.type "link")}}
+                        <DocLink @href={{if inline.url inline.url ""}}>
+                          {{#each inline.children as |child|}}
+                            {{#if
+                              (eq child.type "text")
+                            }}{{child.content}}{{/if}}
+                          {{/each}}
+                        </DocLink>
+                      {{/if}}
+                    {{/each}}
+                  {{/if}}
+                {{/each}}
+              </AlertDescription>
+            </Alert>
+          {{/if}}
           {{#if (eq node.type "component")}}
             {{#if node.componentInstance}}
               <DynamicMarkdownComponent
