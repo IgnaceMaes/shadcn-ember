@@ -1,0 +1,20 @@
+import { tracked } from '@glimmer/tracking';
+import Component from '@glimmer/component';
+import { Progress } from '@/components/ui/progress';
+import type Owner from '@ember/owner';
+
+export default class ProgressDemo extends Component {
+  @tracked progress = 13;
+
+  constructor(owner: Owner, args: object) {
+    super(owner, args);
+
+    setTimeout(() => {
+      this.progress = 66;
+    }, 500);
+  }
+
+  <template>
+    <Progress @value={{this.progress}} @class="w-[60%]" />
+  </template>
+}
