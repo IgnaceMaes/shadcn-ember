@@ -38,6 +38,7 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
   @tracked isOpen = false;
   @tracked searchValue = '';
   @tracked selectedType: 'page' | 'component' | null = null;
+  @tracked selectedIndex = 0;
 
   navItems = docsNavigation;
   componentItems = docsNavigation.filter((item) =>
@@ -82,6 +83,7 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
     if (!open) {
       this.searchValue = '';
       this.selectedType = null;
+      this.selectedIndex = 0;
     }
   };
 
@@ -109,6 +111,7 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
   handleSearchChange = (event: Event) => {
     const target = event.target as HTMLInputElement;
     this.searchValue = target.value;
+    this.selectedIndex = 0;
   };
 
   handleItemHighlight = (isComponent: boolean) => {
@@ -133,6 +136,48 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
     const filteredComponents = this.filterItems(this.componentItems);
     return filteredPages.length > 0 || filteredComponents.length > 0;
   }
+
+  get allItems() {
+    return [
+      ...this.filterItems(this.pageItems),
+      ...this.filterItems(this.componentItems),
+    ];
+  }
+
+  handleNavigationKeyDown = (event: KeyboardEvent) => {
+    if (!this.isOpen) return;
+
+    const allItems = this.allItems;
+    if (allItems.length === 0) return;
+
+    switch (event.key) {
+      case 'ArrowDown': {
+        event.preventDefault();
+        this.selectedIndex = Math.min(
+          this.selectedIndex + 1,
+          allItems.length - 1
+        );
+        break;
+      }
+      case 'ArrowUp': {
+        event.preventDefault();
+        this.selectedIndex = Math.max(this.selectedIndex - 1, 0);
+        break;
+      }
+      case 'Enter': {
+        event.preventDefault();
+        const selectedItem = allItems[this.selectedIndex];
+        if (selectedItem) {
+          this.handleSelect(selectedItem.route);
+        }
+        break;
+      }
+    }
+  };
+
+  isItemSelected = (item: DocNavItem) => {
+    return this.allItems[this.selectedIndex] === item;
+  };
 
   focusOnInsert = modifier((element: HTMLInputElement) => {
     element.focus();
@@ -166,6 +211,7 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
           @class="bg-input/50 border-input mx-2 rounded-md border !h-9"
           {{this.focusOnInsert}}
           {{on "input" this.handleSearchChange}}
+          {{on "keydown" this.handleNavigationKeyDown}}
         />
 
         <CommandList @class="no-scrollbar min-h-80 scroll-pt-2 scroll-pb-1.5">
@@ -185,6 +231,7 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
               {{#each (this.filterItems this.pageItems) as |item|}}
                 <CommandItem
                   @class="data-[selected=true]:border-input data-[selected=true]:bg-input/50 h-9 rounded-md border border-transparent !px-3 font-medium"
+                  data-selected={{if (this.isItemSelected item) "true" "false"}}
                   {{on "click" (fn this.handleSelect item.route)}}
                   {{on
                     "mouseenter"
@@ -203,6 +250,8 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
             <CommandGroup @heading="Components">
               {{#each (this.filterItems this.componentItems) as |item|}}
                 <CommandItem
+                  @class="data-[selected=true]:border-input data-[selected=true]:bg-input/50 h-9 rounded-md border border-transparent !px-3 font-medium"
+                  data-selected={{if (this.isItemSelected item) "true" "false"}}
                   {{on "click" (fn this.handleSelect item.route)}}
                   {{on
                     "mouseenter"

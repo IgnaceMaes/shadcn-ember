@@ -6,8 +6,6 @@ import ArrowRight from '~icons/lucide/arrow-right';
 // UI Components
 import { Button } from '@/components/ui/button';
 
-
-
 <template>
   <div class="min-h-screen bg-background">
     <main>
@@ -38,7 +36,8 @@ import { Button } from '@/components/ui/button';
             <p
               class="text-foreground max-w-3xl text-base text-balance sm:text-lg"
             >
-              Clean, modern building blocks. Copy and paste into your apps. Works with all React frameworks. Open Source. Free forever.
+              Clean, modern building blocks. Copy and paste into your apps.
+              Works with all React frameworks. Open Source. Free forever.
             </p>
             <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
               <Button disabled={{true}}>
