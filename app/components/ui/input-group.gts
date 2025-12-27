@@ -162,6 +162,7 @@ interface InputGroupInputSignature {
   Element: HTMLInputElement;
   Args: {
     class?: string;
+    placeholder?: string;
   };
 }
 

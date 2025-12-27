@@ -64,7 +64,7 @@ class Popover extends Component<PopoverSignature> {
             close=this.close
             popoverContent=p.Content
           )
-          Anchor=(component PopoverAnchor anchor=p.anchor)
+          Anchor=(component PopoverAnchor)
         )
       }}
     </EmberPrimitivesPopover>
@@ -115,9 +115,6 @@ interface PopoverAnchorSignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
-    anchor?: ModifierLike<{
-      Element: HTMLElement;
-    }>;
   };
   Blocks: {
     default: [];
@@ -125,7 +122,7 @@ interface PopoverAnchorSignature {
 }
 
 const PopoverAnchor: TOC<PopoverAnchorSignature> = <template>
-  <div data-slot="popover-anchor" class={{cn @class}} {{@anchor}} ...attributes>
+  <div data-slot="popover-anchor" class={{cn @class}} ...attributes>
     {{yield}}
   </div>
 </template>;
@@ -152,19 +149,34 @@ interface PopoverContentSignature {
 const PopoverContent: TOC<PopoverContentSignature> = <template>
   {{#if @isOpen}}
     {{#let @popoverContent as |Content|}}
-      <Content
-        @as="div"
-        data-slot="popover-content"
-        class={{cn
-          "z-50 w-72 origin-(--radix-popover-content-transform-origin) rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
-          @class
-        }}
-        data-state={{if @isOpen "open" "closed"}}
-        {{onClickOutside @close}}
-        ...attributes
-      >
-        {{yield}}
-      </Content>
+      {{#if @close}}
+        <Content
+          @as="div"
+          data-slot="popover-content"
+          class={{cn
+            "z-50 w-72 origin-(--radix-popover-content-transform-origin) rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
+            @class
+          }}
+          data-state={{if @isOpen "open" "closed"}}
+          {{onClickOutside @close}}
+          ...attributes
+        >
+          {{yield}}
+        </Content>
+      {{else}}
+        <Content
+          @as="div"
+          data-slot="popover-content"
+          class={{cn
+            "z-50 w-72 origin-(--radix-popover-content-transform-origin) rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
+            @class
+          }}
+          data-state={{if @isOpen "open" "closed"}}
+          ...attributes
+        >
+          {{yield}}
+        </Content>
+      {{/if}}
     {{/let}}
   {{/if}}
 </template>;

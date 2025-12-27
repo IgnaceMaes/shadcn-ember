@@ -51,7 +51,7 @@ interface SelectSignature {
         Value: ComponentLike<SelectValueSignature>;
         Content: ComponentLike<SelectContentSignature>;
         value: string;
-        selectValue: (value: string) => void;
+        selectValue: (value: string, label: string) => void;
       },
     ];
   };
