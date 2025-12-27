@@ -424,7 +424,7 @@ export default class MarkdownRenderer extends Component<Signature> {
 
   <template>
     {{#if this.frontmatter.title}}
-      {{pageTitle (concat this.frontmatter.title " - shadcn-ember")}}
+      {{pageTitle (concat this.frontmatter.title " - shadcn-ember") replace=true}}
     {{/if}}
 
     <DocPage @tocItems={{this.tocItems}}>
