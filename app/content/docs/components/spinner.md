@@ -109,9 +109,9 @@ Use the spinner inside `<ItemMedia>` to indicate a loading state.
 
 Use the `Spinner` component to display a spinner.
 
-| Prop      | Type     | Default |
-| --------- | -------- | ------- |
-| `@class`  | `string` | ``      |
+| Prop     | Type     | Default |
+| -------- | -------- | ------- |
+| `@class` | `string` | ``      |
 
 ```hbs
 <Spinner />
