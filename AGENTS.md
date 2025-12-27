@@ -43,7 +43,9 @@ import { on } from '@ember/modifier';
 import { LinkTo } from '@ember/routing';
 ```
 
-## Ember patterns
+## When porting shadcn/ui components to Ember
 
+- No unnecessary code comments in ui component source files
+- Use only named exports in ui component source files (no default exports) and do a single export at the bottom of the file
 - When needing to pass context from a root ui component to a related sub-component: yield the subcomponent to link them together.
-- When typing components in a yield, use `ComponentLike` from `import type { ComponentLike } from '@glint/template';`
+- When typing components in a yield, use `ComponentLike<ExampleSignature>` from `import type { ComponentLike } from '@glint/template';`
