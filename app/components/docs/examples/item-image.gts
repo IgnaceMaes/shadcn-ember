@@ -42,7 +42,6 @@ const music = [
               data-variant={{item.variant}}
               data-size={{item.size}}
               class={{item.class}}
-              role="listitem"
             >
               <ItemMedia @variant="image">
                 <img
