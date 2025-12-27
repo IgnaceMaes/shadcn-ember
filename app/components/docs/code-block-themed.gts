@@ -21,7 +21,9 @@ export default class CodeBlockThemed extends Component<CodeBlockThemedSignature>
 
   get extensionIcon(): string | undefined {
     if (this.args.language === 'gts' || this.args.language === 'glimmer-ts') {
-      return this.theme.currentTheme === 'dark' ? glimmerTsDark : glimmerTsLight;
+      return this.theme.currentTheme === 'dark'
+        ? glimmerTsDark
+        : glimmerTsLight;
     }
     return undefined;
   }
