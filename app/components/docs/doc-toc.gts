@@ -21,21 +21,23 @@ const DocToc: TOC<DocTocSignature> = <template>
   >
     <div class="h-[var(--top-spacing)] shrink-0"></div>
     <div class="no-scrollbar overflow-y-auto px-8">
-      <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
-        <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs">
-          On This Page
-        </p>
-        {{#each @items as |item|}}
-          <a
-            href="#{{item.id}}"
-            class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-depth={{item.depth}}
-          >
-            {{item.title}}
-          </a>
-        {{/each}}
-      </div>
-      <div class="h-12"></div>
+      {{#if @items.length}}
+        <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+          <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs">
+            On This Page
+          </p>
+          {{#each @items as |item|}}
+            <a
+              href="#{{item.id}}"
+              class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+              data-depth={{item.depth}}
+            >
+              {{item.title}}
+            </a>
+          {{/each}}
+        </div>
+        <div class="h-12"></div>
+      {{/if}}
     </div>
     <div class="flex flex-1 flex-col gap-12 px-6">
       <div

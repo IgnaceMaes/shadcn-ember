@@ -31,6 +31,10 @@ export default class DocPage extends Component<DocPageSignature> {
     return getAdjacentPages(currentRoute, currentPath as string | undefined);
   }
 
+  get shouldShowToc(): boolean {
+    return this.args.tocItems !== undefined;
+  }
+
   <template>
     <div class="flex items-stretch text-[1.05rem] sm:text-[15px] xl:w-full">
       <div class="flex min-w-0 flex-1 flex-col">
@@ -66,7 +70,7 @@ export default class DocPage extends Component<DocPageSignature> {
           {{/if}}
         </div>
       </div>
-      {{#if @tocItems}}
+      {{#if this.shouldShowToc}}
         <DocToc @items={{@tocItems}} />
       {{/if}}
     </div>

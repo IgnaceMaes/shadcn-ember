@@ -4,10 +4,6 @@ description: Here you can find all the components available in the library. We a
 order: 2
 ---
 
-## Available Components
-
----
-
 <ComponentsList />
 
 ---
