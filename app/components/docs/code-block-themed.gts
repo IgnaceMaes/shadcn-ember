@@ -2,6 +2,8 @@ import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import { CodeBlock } from 'ember-shiki';
 import CopyButton from '@/components/docs/copy-button';
+import glimmerTsLight from '@/assets/images/glimmer-ts-light.svg';
+import glimmerTsDark from '@/assets/images/glimmer-ts-dark.svg';
 import type ThemeService from '@/services/theme';
 
 interface CodeBlockThemedSignature {
@@ -16,6 +18,13 @@ interface CodeBlockThemedSignature {
 
 export default class CodeBlockThemed extends Component<CodeBlockThemedSignature> {
   @service declare theme: ThemeService;
+
+  get extensionIcon(): string | undefined {
+    if (this.args.language === 'gts' || this.args.language === 'glimmer-ts') {
+      return this.theme.currentTheme === 'dark' ? glimmerTsDark : glimmerTsLight;
+    }
+    return undefined;
+  }
 
   get lineHighlights() {
     if (!this.args.highlightLines || this.args.highlightLines.length === 0) {
@@ -38,6 +47,17 @@ export default class CodeBlockThemed extends Component<CodeBlockThemedSignature>
         <div
           class="flex items-center gap-2 border-b border-border bg-muted px-4 py-2 font-mono text-sm text-muted-foreground"
         >
+          {{#if this.extensionIcon}}
+            <div
+              class="bg-foreground flex size-4 items-center justify-center rounded-[1px] opacity-70"
+            >
+              <img
+                src={{this.extensionIcon}}
+                alt={{@language}}
+                class="size-3.5 text-white dark:text-black"
+              />
+            </div>
+          {{/if}}
           {{@title}}
         </div>
       {{/if}}
