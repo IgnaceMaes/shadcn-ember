@@ -136,4 +136,11 @@ const ItemDescription: TOC<ItemDescriptionSignature> = <template>
   </div>
 </template>;
 
-export { itemVariants, Item, ItemGroup, ItemSeparator, ItemLabel, ItemDescription };
+export {
+  itemVariants,
+  Item,
+  ItemGroup,
+  ItemSeparator,
+  ItemLabel,
+  ItemDescription,
+};
