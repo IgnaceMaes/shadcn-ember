@@ -102,6 +102,7 @@ interface FieldSignature {
   Args: {
     class?: string;
     orientation?: Orientation;
+    invalid?: boolean;
   };
   Blocks: {
     default: [];
@@ -113,17 +114,17 @@ function fieldVariants(
   className?: string
 ): string {
   const baseClasses =
-    'group/field data-[invalid=true]:text-destructive flex w-full gap-3';
+    'group/field flex w-full gap-3 data-[invalid=true]:text-destructive';
 
   const orientationClasses: Record<Orientation, string> = {
     vertical: 'flex-col [&>*]:w-full [&>.sr-only]:w-auto',
     horizontal: [
       'flex-row items-center',
       '[&>[data-slot=field-label]]:flex-auto',
-      'has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px has-[>[data-slot=field-content]]:items-start',
+      'has-[>[data-slot=field-content]]:items-start has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
     ].join(' '),
     responsive: [
-      '@md/field-group:flex-row @md/field-group:items-center @md/field-group:[&>*]:w-auto flex-col [&>*]:w-full [&>.sr-only]:w-auto',
+      'flex-col [&>*]:w-full [&>.sr-only]:w-auto @md/field-group:flex-row @md/field-group:items-center @md/field-group:[&>*]:w-auto',
       '@md/field-group:[&>[data-slot=field-label]]:flex-auto',
       '@md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
     ].join(' '),
@@ -137,6 +138,10 @@ class Field extends Component<FieldSignature> {
     return this.args.orientation ?? 'vertical';
   }
 
+  get invalid() {
+    return this.args.invalid ? 'true' : undefined;
+  }
+
   get classes() {
     return fieldVariants(this.orientation, this.args.class);
   }
@@ -146,6 +151,7 @@ class Field extends Component<FieldSignature> {
       role="group"
       data-slot="field"
       data-orientation={{this.orientation}}
+      data-invalid={{this.invalid}}
       class={{this.classes}}
       ...attributes
     >
@@ -228,7 +234,7 @@ interface FieldTitleSignature {
 class FieldTitle extends Component<FieldTitleSignature> {
   get classes() {
     return cn(
-      'flex w-fit items-center gap-2 text-sm font-medium leading-snug group-data-[disabled=true]/field:opacity-50',
+      'flex w-fit items-center gap-2 text-sm leading-snug font-medium group-data-[disabled=true]/field:opacity-50',
       this.args.class
     );
   }
