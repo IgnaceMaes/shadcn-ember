@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import CodeBlockThemed from './code-block-themed';
+import CodeCollapsibleWrapper from './code-collapsible-wrapper';
 
 // Load all UI component source code
 const uiSources = import.meta.glob<string>('/app/components/ui/*.gts', {
@@ -28,11 +29,13 @@ export default class ComponentSource extends Component<Signature> {
   }
 
   <template>
-    <CodeBlockThemed
-      @language="gts"
-      @code={{this.sourceCode}}
-      @title={{if @title @title this.defaultTitle}}
-      @showLineNumbers={{true}}
-    />
+    <CodeCollapsibleWrapper>
+      <CodeBlockThemed
+        @language="gts"
+        @code={{this.sourceCode}}
+        @title={{if @title @title this.defaultTitle}}
+        @showLineNumbers={{true}}
+      />
+    </CodeCollapsibleWrapper>
   </template>
 }

@@ -8,6 +8,7 @@ Use modern Ember (Polaris edition) conventions:
 
 - Vite as build system
 - TypeScript as language
+- TailwindCSS version 4
 - Template tag components (gts files)
   - Both as components, as well for route templates, as in tests
 - Tailwind CSS for styling
