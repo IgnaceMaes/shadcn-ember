@@ -42,7 +42,12 @@ export default class ComponentPreviewRender extends Component<ComponentPreviewSi
     for (const path in components) {
       const module = components[path];
       if (module?.default === this.args.component) {
-        return rawSources[path] ?? '// Component source not found';
+        let code = rawSources[path] ?? '// Component source not found';
+        // Strip the final line if it's empty
+        if (code.endsWith('\n')) {
+          code = code.slice(0, -1);
+        }
+        return code;
       }
     }
     return '// Component source not found';
