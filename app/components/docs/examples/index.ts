@@ -73,6 +73,8 @@ export { default as NativeSelectInvalid } from './native-select-invalid';
 export { default as PaginationDemo } from './pagination-demo';
 export { default as ProgressDemo } from './progress-demo';
 export { default as RadioGroupDemo } from './radio-group-demo';
+export { default as SelectDemo } from './select-demo';
+export { default as SelectScrollable } from './select-scrollable';
 export { default as ToggleDemo } from './toggle-demo';
 export { default as ToggleDisabled } from './toggle-disabled';
 export { default as ToggleLg } from './toggle-lg';
