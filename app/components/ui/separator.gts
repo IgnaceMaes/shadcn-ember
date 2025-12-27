@@ -15,23 +15,10 @@ interface SeparatorSignature {
   };
 }
 
-function separatorVariants(
-  orientation: Orientation = 'horizontal',
-  className?: string
-): string {
-  const baseClasses = 'shrink-0 bg-border';
-  const orientationClasses: Record<Orientation, string> = {
-    horizontal: 'h-[1px] w-full',
-    vertical: 'h-full w-[1px]',
-  };
-
-  return cn(baseClasses, orientationClasses[orientation], className);
-}
-
 class Separator extends Component<SeparatorSignature> {
   get classes() {
-    return separatorVariants(
-      this.args.orientation ?? 'horizontal',
+    return cn(
+      'bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px',
       this.args.class
     );
   }
@@ -46,6 +33,7 @@ class Separator extends Component<SeparatorSignature> {
 
   <template>
     <div
+      data-slot="separator"
       role={{this.role}}
       data-orientation={{this.orientation}}
       class={{this.classes}}
