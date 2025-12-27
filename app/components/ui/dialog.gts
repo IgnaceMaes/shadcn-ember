@@ -1,7 +1,9 @@
 import Component from '@glimmer/component';
 import type { TOC } from '@ember/component/template-only';
+import type { ComponentLike } from '@glint/template';
 import { tracked } from '@glimmer/tracking';
 import { fn } from '@ember/helper';
+import { hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { cn } from '@/lib/utils';
 import X from '~icons/lucide/x';
@@ -13,7 +15,15 @@ interface DialogSignature {
     onOpenChange?: (open: boolean) => void;
   };
   Blocks: {
-    default: [open: boolean, setOpen: (open: boolean) => void];
+    default: [{
+      Trigger: ComponentLike<DialogTriggerSignature>;
+      Content: ComponentLike<DialogContentSignature>;
+      Header: ComponentLike<DialogHeaderSignature>;
+      Footer: ComponentLike<DialogFooterSignature>;
+      Title: ComponentLike<DialogTitleSignature>;
+      Description: ComponentLike<DialogDescriptionSignature>;
+      Close: ComponentLike<DialogCloseSignature>;
+    }];
   };
 }
 
@@ -31,7 +41,17 @@ class Dialog extends Component<DialogSignature> {
 
   <template>
     <div data-slot="dialog">
-      {{yield this.open this.setOpen}}
+      {{yield
+        (hash
+          Trigger=(component DialogTrigger open=this.open setOpen=this.setOpen)
+          Content=(component DialogContent open=this.open setOpen=this.setOpen)
+          Header=DialogHeader
+          Footer=DialogFooter
+          Title=DialogTitle
+          Description=DialogDescription
+          Close=(component DialogClose setOpen=this.setOpen)
+        )
+      }}
     </div>
   </template>
 }
