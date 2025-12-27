@@ -52,3 +52,7 @@ import { LinkTo } from '@ember/routing';
 - When typing components in a yield, use `ComponentLike<ExampleSignature>` from `import type { ComponentLike } from '@glint/template';`
 - When importing other ui components, always use the absolute path starting with `@/components/ui/`
 - Use camelCase for yielded variables (e.g. `as |c|`)
+- In code examples, simply use the implicit default <template> export (no need for explicit one)
+- In code examples markdown
+  - use `gts` as code fence language when using <template>
+  - use `hbs` as code fence language when only showing within the template
