@@ -28,7 +28,11 @@ export class Collapsible extends Component<CollapsibleSignature> {
     }
   };
 
-  <template>{{yield this.open this.setOpen}}</template>
+  <template>
+    <div data-slot="collapsible" ...attributes>
+      {{yield this.open this.setOpen}}
+    </div>
+  </template>
 }
 
 interface CollapsibleTriggerSignature {
@@ -58,6 +62,7 @@ export class CollapsibleTrigger extends Component<CollapsibleTriggerSignature> {
         type="button"
         aria-expanded={{if @open "true" "false"}}
         data-state={{if @open "open" "closed"}}
+        data-slot="collapsible-trigger"
         disabled={{@disabled}}
         class={{@class}}
         {{on "click" this.handleClick}}
@@ -82,7 +87,12 @@ interface CollapsibleContentSignature {
 
 const CollapsibleContent: TOC<CollapsibleContentSignature> = <template>
   {{#if @open}}
-    <div data-state={{if @open "open" "closed"}} class={{@class}} ...attributes>
+    <div
+      data-state={{if @open "open" "closed"}}
+      data-slot="collapsible-content"
+      class={{@class}}
+      ...attributes
+    >
       {{yield}}
     </div>
   {{/if}}
