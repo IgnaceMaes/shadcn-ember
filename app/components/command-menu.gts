@@ -123,6 +123,7 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
     if (allItems.length === 0) return;
     event.preventDefault();
     this.selectedIndex = Math.min(this.selectedIndex + 1, allItems.length - 1);
+    this.scrollToSelectedItem();
   };
 
   navigateUp = (event: KeyboardEvent) => {
@@ -130,6 +131,7 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
     if (allItems.length === 0) return;
     event.preventDefault();
     this.selectedIndex = Math.max(this.selectedIndex - 1, 0);
+    this.scrollToSelectedItem();
   };
 
   selectItem = (event: KeyboardEvent) => {
@@ -144,6 +146,21 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
 
   isItemSelected = (item: DocNavItem) => {
     return this.allItems[this.selectedIndex] === item;
+  };
+
+  scrollToSelectedItem = () => {
+    // Use setTimeout to ensure DOM has updated with new selection state
+    setTimeout(() => {
+      const selectedElement = document.querySelector(
+        '[data-slot="command-item"][data-selected="true"]'
+      );
+      if (selectedElement) {
+        selectedElement.scrollIntoView({
+          block: 'nearest',
+          behavior: 'smooth',
+        });
+      }
+    }, 0);
   };
 
   focusOnInsert = modifier((element: HTMLInputElement) => {
@@ -207,7 +224,7 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
             >
               {{#each (this.filterItems this.pageItems) as |item|}}
                 <CommandItem
-                  @class="data-[selected=true]:border-input data-[selected=true]:bg-input/50 h-9 rounded-md border border-transparent !px-3 font-medium"
+                  @class="data-[selected=true]:border-input data-[selected=true]:bg-input/50 hover:data-[selected=true]:bg-input/70 h-9 rounded-md border border-transparent !px-3 font-medium"
                   data-selected={{if (this.isItemSelected item) "true" "false"}}
                   {{on "click" (fn this.handleSelect item.route)}}
                   {{on
@@ -227,7 +244,7 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
             <CommandGroup @heading="Components">
               {{#each (this.filterItems this.componentItems) as |item|}}
                 <CommandItem
-                  @class="data-[selected=true]:border-input data-[selected=true]:bg-input/50 h-9 rounded-md border border-transparent !px-3 font-medium"
+                  @class="data-[selected=true]:border-input data-[selected=true]:bg-input/50 hover:data-[selected=true]:bg-input/70 h-9 rounded-md border border-transparent !px-3 font-medium"
                   data-selected={{if (this.isItemSelected item) "true" "false"}}
                   {{on "click" (fn this.handleSelect item.route)}}
                   {{on
