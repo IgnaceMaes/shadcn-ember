@@ -1,8 +1,4 @@
-import {
-  Select,
-  SelectGroup,
-  SelectLabel,
-} from '@/components/ui/select';
+import { Select, SelectGroup, SelectLabel } from '@/components/ui/select';
 
 <template>
   <Select as |s|>

@@ -3,6 +3,7 @@ import Component from '@glimmer/component';
 import type { TOC } from '@ember/component/template-only';
 import type { ComponentLike, ModifierLike } from '@glint/template';
 import { on } from '@ember/modifier';
+import { modifier } from 'ember-modifier';
 import { hash, fn } from '@ember/helper';
 import onClickOutside from 'ember-click-outside/modifiers/on-click-outside';
 import { Popover } from 'ember-primitives';
@@ -10,6 +11,15 @@ import ChevronDown from '~icons/lucide/chevron-down';
 import ChevronUp from '~icons/lucide/chevron-up';
 import Check from '~icons/lucide/check';
 import { cn } from '@/lib/utils';
+
+const lockBodyScroll = modifier(() => {
+  const originalOverflow = document.body.style.overflow;
+  document.body.style.overflow = 'hidden';
+
+  return () => {
+    document.body.style.overflow = originalOverflow;
+  };
+});
 
 interface SelectSignature {
   Args: {
@@ -50,6 +60,7 @@ interface SelectSignature {
 class Select extends Component<SelectSignature> {
   @tracked isOpen = false;
   @tracked selectedValue = this.args.value ?? this.args.defaultValue ?? '';
+  @tracked selectedLabel = '';
 
   get value() {
     return this.args.value ?? this.selectedValue;
@@ -65,8 +76,9 @@ class Select extends Component<SelectSignature> {
     this.isOpen = false;
   };
 
-  selectValue = (value: string) => {
+  selectValue = (value: string, label: string) => {
     this.selectedValue = value;
+    this.selectedLabel = label;
     this.isOpen = false;
     this.args.onValueChange?.(value);
   };
@@ -75,8 +87,13 @@ class Select extends Component<SelectSignature> {
     <Popover
       @placement={{if @placement @placement "bottom-start"}}
       @offsetOptions={{if @offsetOptions @offsetOptions 4}}
+      @flipOptions={{hash}}
+      @shiftOptions={{hash padding=8}}
       as |p|
     >
+      {{#if this.isOpen}}
+        <div {{lockBodyScroll}}></div>
+      {{/if}}
       {{yield
         (hash
           Trigger=(component
@@ -85,7 +102,9 @@ class Select extends Component<SelectSignature> {
             toggle=this.toggle
             disabled=@disabled
           )
-          Value=(component SelectValue value=this.value)
+          Value=(component
+            SelectValue value=this.value label=this.selectedLabel
+          )
           Content=(component
             SelectContent
             isOpen=this.isOpen
@@ -151,6 +170,7 @@ interface SelectValueSignature {
     class?: string;
     placeholder?: string;
     value?: string;
+    label?: string;
   };
   Blocks: {
     default: [];
@@ -161,6 +181,8 @@ const SelectValue: TOC<SelectValueSignature> = <template>
   <span data-slot="select-value" class={{cn @class}} ...attributes>
     {{#if (has-block)}}
       {{yield}}
+    {{else if @label}}
+      {{@label}}
     {{else if @value}}
       {{@value}}
     {{else}}
@@ -177,7 +199,7 @@ interface SelectContentSignature {
     align?: 'center' | 'start' | 'end';
     isOpen?: boolean;
     close?: () => void;
-    selectValue?: (value: string) => void;
+    selectValue?: (value: string, label: string) => void;
     selectedValue?: string;
     popoverContent?: ComponentLike<{
       Element: HTMLDivElement;
@@ -221,7 +243,6 @@ class SelectContent extends Component<SelectContentSignature> {
           {{onClickOutside this.handleClickOutside}}
           ...attributes
         >
-          <SelectScrollUpButton />
           <div class="p-1">
             {{yield
               (hash
@@ -233,7 +254,6 @@ class SelectContent extends Component<SelectContentSignature> {
               )
             }}
           </div>
-          <SelectScrollDownButton />
         </Content>
       {{/let}}
     {{/if}}
@@ -282,7 +302,7 @@ interface SelectItemSignature {
     class?: string;
     value: string;
     disabled?: boolean;
-    selectValue?: (value: string) => void;
+    selectValue?: (value: string, label: string) => void;
     selectedValue?: string;
   };
   Blocks: {
@@ -291,15 +311,22 @@ interface SelectItemSignature {
 }
 
 class SelectItem extends Component<SelectItemSignature> {
+  itemElement: HTMLDivElement | null = null;
+
   get isSelected() {
     return this.args.value === this.args.selectedValue;
   }
 
   handleClick = () => {
     if (!this.args.disabled && this.args.selectValue) {
-      this.args.selectValue(this.args.value);
+      const label = this.itemElement?.textContent?.trim() || this.args.value;
+      this.args.selectValue(this.args.value, label);
     }
   };
+
+  registerElement = modifier((element: HTMLDivElement) => {
+    this.itemElement = element;
+  });
 
   <template>
     {{! template-lint-disable require-mandatory-role-attributes require-presentational-children }}
@@ -307,10 +334,11 @@ class SelectItem extends Component<SelectItemSignature> {
       role="option"
       data-slot="select-item"
       class={{cn
-        "focus:bg-accent focus:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2"
+        "focus:bg-accent focus:text-accent-foreground hover:bg-accent hover:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2"
         @class
       }}
       data-disabled={{if @disabled "true"}}
+      {{this.registerElement}}
       {{on "click" this.handleClick}}
       ...attributes
     >
