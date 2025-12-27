@@ -5,7 +5,6 @@ import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { hash } from '@ember/helper';
 import { cn } from '@/lib/utils';
-import Circle from '~icons/lucide/circle';
 
 // RadioGroup Root Component
 interface RadioGroupSignature {
@@ -108,8 +107,8 @@ class RadioGroupItem extends Component<RadioGroupItemSignature> {
           class="relative flex items-center justify-center"
           data-slot="radio-group-indicator"
         >
-          <Circle
-            class="fill-primary absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2"
+          <span
+            class="bg-primary absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full"
           />
         </span>
       {{/if}}
