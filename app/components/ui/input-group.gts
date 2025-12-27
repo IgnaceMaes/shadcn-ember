@@ -69,4 +69,61 @@ export class InputGroupAddon extends Component<InputGroupAddonSignature> {
   </template>
 }
 
+// InputGroupInput Component
+interface InputGroupInputSignature {
+  Element: HTMLInputElement;
+  Args: {
+    class?: string;
+    placeholder?: string;
+    disabled?: boolean;
+    [key: string]: unknown;
+  };
+}
+
+export const InputGroupInput: TOC<InputGroupInputSignature> = <template>
+  <input
+    type="text"
+    placeholder={{@placeholder}}
+    disabled={{@disabled}}
+    class={{cn
+      "placeholder:text-muted-foreground focus-visible:ring-ring ring-offset-background border-input flex h-full w-full flex-1 rounded-none border-0 bg-transparent px-3 py-2 text-sm shadow-none transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
+      @class
+    }}
+    ...attributes
+  />
+</template>;
+
+// InputGroupButton Component
+import Button from '@/components/ui/button';
+
+interface InputGroupButtonSignature {
+  Element: HTMLButtonElement;
+  Args: {
+    class?: string;
+    size?: 'default' | 'sm' | 'lg' | 'icon' | 'icon-sm' | 'icon-xs' | 'icon-lg';
+    variant?:
+      | 'default'
+      | 'destructive'
+      | 'outline'
+      | 'secondary'
+      | 'ghost'
+      | 'link';
+    [key: string]: unknown;
+  };
+  Blocks: {
+    default: [];
+  };
+}
+
+export const InputGroupButton: TOC<InputGroupButtonSignature> = <template>
+  <Button
+    @size={{@size}}
+    @variant={{@variant}}
+    @class={{cn "rounded-none shadow-none" @class}}
+    ...attributes
+  >
+    {{yield}}
+  </Button>
+</template>;
+
 export default InputGroup;

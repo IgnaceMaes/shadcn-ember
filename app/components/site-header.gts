@@ -54,7 +54,7 @@ import ThemeToggle from '@/components/theme-toggle';
                 ></path>
               </svg>
               <span class="text-muted-foreground w-fit text-xs tabular-nums">
-                0.1K
+                0.01K
               </span>
             </a>
           </Button>
