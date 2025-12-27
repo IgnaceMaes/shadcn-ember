@@ -1,11 +1,10 @@
 import Component from '@glimmer/component';
 import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 
-// Note: This is a simplified placeholder for the InputGroup component
-// Full implementation would handle more complex input grouping scenarios
-
-// InputGroup Root Component
 interface InputGroupSignature {
   Element: HTMLDivElement;
   Args: {
@@ -21,7 +20,14 @@ const InputGroup: TOC<InputGroupSignature> = <template>
     data-slot="input-group"
     role="group"
     class={{cn
-      "group/input-group border-input shadow-xs relative flex w-full items-center rounded-md border outline-none transition-[color,box-shadow] h-9 has-focus:ring-ring has-focus:ring-1"
+      "group/input-group border-input dark:bg-input/30 relative flex w-full items-center rounded-md border shadow-xs transition-[color,box-shadow] outline-none"
+      "h-9 min-w-0 has-[>textarea]:h-auto"
+      "has-[>[data-align=inline-start]]:[&>input]:pl-2"
+      "has-[>[data-align=inline-end]]:[&>input]:pr-2"
+      "has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-start]]:[&>input]:pb-3"
+      "has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3"
+      "has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot=input-group-control]:focus-visible]:ring-[3px]"
+      "has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40"
       @class
     }}
     ...attributes
@@ -30,12 +36,17 @@ const InputGroup: TOC<InputGroupSignature> = <template>
   </div>
 </template>;
 
-// InputGroupAddon Component
+type InputGroupAddonAlign =
+  | 'inline-start'
+  | 'inline-end'
+  | 'block-start'
+  | 'block-end';
+
 interface InputGroupAddonSignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
-    align?: 'inline-start' | 'inline-end' | 'block-start' | 'block-end';
+    align?: InputGroupAddonAlign;
   };
   Blocks: {
     default: [];
@@ -45,20 +56,26 @@ interface InputGroupAddonSignature {
 class InputGroupAddon extends Component<InputGroupAddonSignature> {
   get alignClasses() {
     const align = this.args.align ?? 'inline-start';
-    const alignMap = {
-      'inline-start': 'order-first pl-3',
-      'inline-end': 'order-last pr-3',
-      'block-start': 'order-first w-full justify-start px-3 pt-3',
-      'block-end': 'order-last w-full justify-start px-3 pb-3',
+    const alignMap: Record<InputGroupAddonAlign, string> = {
+      'inline-start':
+        'order-first pl-3 has-[>button]:ml-[-0.45rem] has-[>kbd]:ml-[-0.35rem]',
+      'inline-end':
+        'order-last pr-3 has-[>button]:mr-[-0.45rem] has-[>kbd]:mr-[-0.35rem]',
+      'block-start':
+        'order-first w-full justify-start px-3 pt-3 [.border-b]:pb-3 group-has-[>input]/input-group:pt-2.5',
+      'block-end':
+        'order-last w-full justify-start px-3 pb-3 [.border-t]:pt-3 group-has-[>input]/input-group:pb-2.5',
     };
     return alignMap[align];
   }
 
   <template>
     <div
+      role="group"
+      data-slot="input-group-addon"
       data-align={{@align}}
       class={{cn
-        "text-muted-foreground flex h-auto cursor-text select-none items-center justify-center gap-2 py-1.5 text-sm font-medium"
+        "text-muted-foreground flex h-auto cursor-text items-center justify-center gap-2 py-1.5 text-sm font-medium select-none [&>svg:not([class*='size-'])]:size-4 [&>kbd]:rounded-[calc(var(--radius)-5px)] group-data-[disabled=true]/input-group:opacity-50"
         this.alignClasses
         @class
       }}
@@ -69,38 +86,13 @@ class InputGroupAddon extends Component<InputGroupAddonSignature> {
   </template>
 }
 
-// InputGroupInput Component
-interface InputGroupInputSignature {
-  Element: HTMLInputElement;
-  Args: {
-    class?: string;
-    placeholder?: string;
-    disabled?: boolean;
-    [key: string]: unknown;
-  };
-}
-
-const InputGroupInput: TOC<InputGroupInputSignature> = <template>
-  <input
-    type="text"
-    placeholder={{@placeholder}}
-    disabled={{@disabled}}
-    class={{cn
-      "placeholder:text-muted-foreground focus-visible:ring-ring ring-offset-background border-input flex h-full w-full flex-1 rounded-none border-0 bg-transparent px-3 py-2 text-sm shadow-none transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
-      @class
-    }}
-    ...attributes
-  />
-</template>;
-
-// InputGroupButton Component
-import { Button } from '@/components/ui/button';
+type InputGroupButtonSize = 'xs' | 'sm' | 'icon-xs' | 'icon-sm';
 
 interface InputGroupButtonSignature {
   Element: HTMLButtonElement;
   Args: {
     class?: string;
-    size?: 'default' | 'sm' | 'lg' | 'icon' | 'icon-sm' | 'icon-lg';
+    size?: InputGroupButtonSize;
     variant?:
       | 'default'
       | 'destructive'
@@ -108,22 +100,106 @@ interface InputGroupButtonSignature {
       | 'secondary'
       | 'ghost'
       | 'link';
-    [key: string]: unknown;
+    type?: 'button' | 'submit' | 'reset';
   };
   Blocks: {
     default: [];
   };
 }
 
-const InputGroupButton: TOC<InputGroupButtonSignature> = <template>
-  <Button
-    @size={{@size}}
-    @variant={{@variant}}
-    @class={{cn "rounded-none shadow-none" @class}}
+class InputGroupButton extends Component<InputGroupButtonSignature> {
+  get sizeClasses() {
+    const size = this.args.size ?? 'xs';
+    const sizeMap: Record<InputGroupButtonSize, string> = {
+      xs: "h-6 gap-1 px-2 rounded-[calc(var(--radius)-5px)] [&>svg:not([class*='size-'])]:size-3.5 has-[>svg]:px-2",
+      sm: 'h-8 px-2.5 gap-1.5 rounded-md has-[>svg]:px-2.5',
+      'icon-xs':
+        'size-6 rounded-[calc(var(--radius)-5px)] p-0 has-[>svg]:p-0',
+      'icon-sm': 'size-8 p-0 has-[>svg]:p-0',
+    };
+    return sizeMap[size];
+  }
+
+  <template>
+    <Button
+      type={{@type}}
+      data-size={{@size}}
+      @variant={{@variant}}
+      @class={{cn
+        "text-sm shadow-none flex gap-2 items-center"
+        this.sizeClasses
+        @class
+      }}
+      ...attributes
+    >
+      {{yield}}
+    </Button>
+  </template>
+}
+
+interface InputGroupTextSignature {
+  Element: HTMLSpanElement;
+  Args: {
+    class?: string;
+  };
+  Blocks: {
+    default: [];
+  };
+}
+
+const InputGroupText: TOC<InputGroupTextSignature> = <template>
+  <span
+    class={{cn
+      "text-muted-foreground flex items-center gap-2 text-sm [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4"
+      @class
+    }}
     ...attributes
   >
     {{yield}}
-  </Button>
+  </span>
 </template>;
 
-export { InputGroup, InputGroupAddon, InputGroupInput, InputGroupButton };
+interface InputGroupInputSignature {
+  Element: HTMLInputElement;
+  Args: {
+    class?: string;
+  };
+}
+
+const InputGroupInput: TOC<InputGroupInputSignature> = <template>
+  <Input
+    data-slot="input-group-control"
+    @class={{cn
+      "flex-1 rounded-none border-0 bg-transparent shadow-none focus-visible:ring-0 dark:bg-transparent"
+      @class
+    }}
+    ...attributes
+  />
+</template>;
+
+interface InputGroupTextareaSignature {
+  Element: HTMLTextAreaElement;
+  Args: {
+    class?: string;
+  };
+}
+
+const InputGroupTextarea: TOC<InputGroupTextareaSignature> = <template>
+  <Textarea
+    data-slot="input-group-control"
+    @class={{cn
+      "flex-1 resize-none rounded-none border-0 bg-transparent py-3 shadow-none focus-visible:ring-0 dark:bg-transparent"
+      @class
+    }}
+    ...attributes
+  />
+</template>;
+
+export {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupText,
+  InputGroupInput,
+  InputGroupTextarea,
+};
