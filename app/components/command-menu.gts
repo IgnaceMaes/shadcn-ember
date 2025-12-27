@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
+import { modifier } from 'ember-modifier';
 import RouterService from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import type Owner from '@ember/owner';
@@ -129,6 +130,10 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
     return filteredPages.length > 0 || filteredComponents.length > 0;
   }
 
+  focusOnInsert = modifier((element: HTMLInputElement) => {
+    element.focus();
+  });
+
   <template>
     <div class={{cn @class}} ...attributes>
       <Button
@@ -154,6 +159,7 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
       >
         <CommandInput
           @placeholder="Search documentation..."
+          {{this.focusOnInsert}}
           {{on "input" this.handleSearchChange}}
         />
 
