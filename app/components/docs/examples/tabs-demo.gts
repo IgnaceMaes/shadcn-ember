@@ -1,4 +1,4 @@
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Tabs } from '@/components/ui/tabs';
 import {
   Card,
   CardContent,
@@ -33,6 +33,7 @@ import { Button } from '@/components/ui/button';
             </div>
             <div class="grid gap-3">
               <Label for="tabs-demo-username">Username</Label>
+              {{!-- template-lint-disable no-potential-path-strings --}}
               <Input id="tabs-demo-username" value="@peduarte" />
             </div>
           </CardContent>
