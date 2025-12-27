@@ -70,3 +70,4 @@ export { default as NativeSelectForm } from './native-select-form';
 export { default as NativeSelectGroups } from './native-select-groups';
 export { default as NativeSelectInputGroup } from './native-select-input-group';
 export { default as NativeSelectInvalid } from './native-select-invalid';
+export { default as PaginationDemo } from './pagination-demo';
