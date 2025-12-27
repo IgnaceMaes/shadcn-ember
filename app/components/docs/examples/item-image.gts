@@ -35,8 +35,15 @@ const music = [
     <ItemGroup @class="gap-4">
       {{#each (array music) as |songs|}}
         {{#each songs as |song|}}
-          <Item @variant="outline">
-            <a href="#">
+          <Item @variant="outline" @asChild={{true}} as |item|>
+            <a
+              href="#"
+              data-slot={{item.slot}}
+              data-variant={{item.variant}}
+              data-size={{item.size}}
+              class={{item.class}}
+              role="listitem"
+            >
               <ItemMedia @variant="image">
                 <img
                   src="https://avatar.vercel.sh/{{song.title}}"

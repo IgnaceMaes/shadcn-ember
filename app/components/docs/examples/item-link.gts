@@ -10,8 +10,14 @@ import ExternalLinkIcon from '~icons/lucide/external-link';
 
 <template>
   <div class="flex w-full max-w-md flex-col gap-4">
-    <Item>
-      <a href="#">
+    <Item @asChild={{true}} as |item|>
+      <a
+        href="#"
+        data-slot={{item.slot}}
+        data-variant={{item.variant}}
+        data-size={{item.size}}
+        class={{item.class}}
+      >
         <ItemContent>
           <ItemTitle>Visit our documentation</ItemTitle>
           <ItemDescription>
@@ -23,8 +29,16 @@ import ExternalLinkIcon from '~icons/lucide/external-link';
         </ItemActions>
       </a>
     </Item>
-    <Item @variant="outline">
-      <a href="#" target="_blank" rel="noopener noreferrer">
+    <Item @variant="outline" @asChild={{true}} as |item|>
+      <a
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-slot={{item.slot}}
+        data-variant={{item.variant}}
+        data-size={{item.size}}
+        class={{item.class}}
+      >
         <ItemContent>
           <ItemTitle>External resource</ItemTitle>
           <ItemDescription>

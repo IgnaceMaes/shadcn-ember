@@ -92,9 +92,17 @@ interface ItemSignature {
     class?: string;
     variant?: ItemVariant;
     size?: ItemSize;
+    asChild?: boolean;
   };
   Blocks: {
-    default: [];
+    default: [
+      {
+        slot: string;
+        variant: ItemVariant;
+        size: ItemSize;
+        class: string;
+      }
+    ];
   };
 }
 
@@ -111,16 +119,29 @@ class Item extends Component<ItemSignature> {
     return itemVariants(this.variant, this.size, this.args.class);
   }
 
+  get yieldedContext() {
+    return {
+      slot: 'item',
+      variant: this.variant,
+      size: this.size,
+      class: this.classes,
+    };
+  }
+
   <template>
-    <div
-      data-slot="item"
-      data-variant={{this.variant}}
-      data-size={{this.size}}
-      class={{this.classes}}
-      ...attributes
-    >
-      {{yield}}
-    </div>
+    {{#if @asChild}}
+      {{yield this.yieldedContext}}
+    {{else}}
+      <div
+        data-slot="item"
+        data-variant={{this.variant}}
+        data-size={{this.size}}
+        class={{this.classes}}
+        ...attributes
+      >
+        {{yield this.yieldedContext}}
+      </div>
+    {{/if}}
   </template>
 }
 

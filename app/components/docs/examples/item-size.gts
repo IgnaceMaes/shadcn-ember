@@ -25,8 +25,14 @@ import ChevronRightIcon from '~icons/lucide/chevron-right';
         </Button>
       </ItemActions>
     </Item>
-    <Item @variant="outline" @size="sm">
-      <a href="#">
+    <Item @variant="outline" @size="sm" @asChild={{true}} as |item|>
+      <a
+        href="#"
+        data-slot={{item.slot}}
+        data-variant={{item.variant}}
+        data-size={{item.size}}
+        class={{item.class}}
+      >
         <ItemMedia>
           <BadgeCheckIcon class="size-5" />
         </ItemMedia>
