@@ -404,4 +404,5 @@ export {
   FieldDescription,
   FieldSeparator,
   FieldError,
+  FieldTitle,
 };
