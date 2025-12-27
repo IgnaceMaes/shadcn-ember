@@ -1,11 +1,9 @@
 import type { TOC } from '@ember/component/template-only';
+import Component from '@glimmer/component';
 import { cn } from '@/lib/utils';
 import Search from '~icons/lucide/search';
+import { Dialog } from '@/components/ui/dialog';
 
-// Note: This is a simplified version of the Command component
-// Full implementation would require a command palette library
-
-// Command Root Component
 interface CommandSignature {
   Element: HTMLDivElement;
   Args: {
@@ -17,42 +15,71 @@ interface CommandSignature {
 }
 
 const Command: TOC<CommandSignature> = <template>
-  {{! template-lint-disable require-mandatory-role-attributes }}
   <div
+    data-slot="command"
     class={{cn
-      "flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground"
+      "bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md"
       @class
     }}
-    role="combobox"
     ...attributes
   >
     {{yield}}
   </div>
 </template>;
 
-// CommandDialog Component (would integrate with Dialog)
 interface CommandDialogSignature {
   Args: {
     open?: boolean;
     onOpenChange?: (open: boolean) => void;
+    title?: string;
+    description?: string;
+    class?: string;
+    showCloseButton?: boolean;
   };
   Blocks: {
     default: [];
   };
 }
 
-const CommandDialog: TOC<CommandDialogSignature> = <template>
-  {{! template-lint-disable no-yield-only }}
-  {{! TODO: Integrate with Dialog component }}
-  {{yield}}
-</template>;
+class CommandDialog extends Component<CommandDialogSignature> {
+  get title() {
+    return this.args.title ?? 'Command Palette';
+  }
 
-// CommandInput Component
+  get description() {
+    return this.args.description ?? 'Search for a command to run...';
+  }
+
+  get showCloseButton() {
+    return this.args.showCloseButton ?? true;
+  }
+
+  <template>
+    <Dialog @open={{@open}} @onOpenChange={{@onOpenChange}} as |d|>
+      <d.Header class="sr-only">
+        <d.Title>{{this.title}}</d.Title>
+        <d.Description>{{this.description}}</d.Description>
+      </d.Header>
+      <d.Content
+        @class={{cn "overflow-hidden p-0" @class}}
+        @showCloseButton={{this.showCloseButton}}
+      >
+        <Command
+          @class="[&_[data-cmdk-group-heading]]:text-muted-foreground [&_[data-slot=command-input-wrapper]]:h-12 [&_[data-cmdk-group-heading]]:px-2 [&_[data-cmdk-group-heading]]:font-medium [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5"
+        >
+          {{yield}}
+        </Command>
+      </d.Content>
+    </Dialog>
+  </template>
+}
+
 interface CommandInputSignature {
   Element: HTMLInputElement;
   Args: {
     class?: string;
     placeholder?: string;
+    inputClass?: string;
   };
   Blocks: {
     default: [];
@@ -60,13 +87,17 @@ interface CommandInputSignature {
 }
 
 const CommandInput: TOC<CommandInputSignature> = <template>
-  <div class="flex items-center border-b px-3">
-    <Search class="mr-2 size-4 shrink-0 opacity-50" />
+  <div
+    data-slot="command-input-wrapper"
+    class={{cn "flex h-9 items-center gap-2 border-b px-3" @class}}
+  >
+    <Search class="size-4 shrink-0 opacity-50" />
     <input
+      data-slot="command-input"
       type="text"
       class={{cn
-        "flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
-        @class
+        "placeholder:text-muted-foreground flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50"
+        @inputClass
       }}
       placeholder={{@placeholder}}
       ...attributes
@@ -74,7 +105,6 @@ const CommandInput: TOC<CommandInputSignature> = <template>
   </div>
 </template>;
 
-// CommandList Component
 interface CommandListSignature {
   Element: HTMLDivElement;
   Args: {
@@ -87,15 +117,17 @@ interface CommandListSignature {
 
 const CommandList: TOC<CommandListSignature> = <template>
   <div
-    class={{cn "max-h-[300px] overflow-y-auto overflow-x-hidden" @class}}
-    role="listbox"
+    data-slot="command-list"
+    class={{cn
+      "max-h-[300px] scroll-py-1 overflow-x-hidden overflow-y-auto"
+      @class
+    }}
     ...attributes
   >
     {{yield}}
   </div>
 </template>;
 
-// CommandEmpty Component
 interface CommandEmptySignature {
   Element: HTMLDivElement;
   Args: {
@@ -107,12 +139,15 @@ interface CommandEmptySignature {
 }
 
 const CommandEmpty: TOC<CommandEmptySignature> = <template>
-  <div class={{cn "py-6 text-center text-sm" @class}} ...attributes>
+  <div
+    data-slot="command-empty"
+    class={{cn "py-6 text-center text-sm" @class}}
+    ...attributes
+  >
     {{yield}}
   </div>
 </template>;
 
-// CommandGroup Component
 interface CommandGroupSignature {
   Element: HTMLDivElement;
   Args: {
@@ -126,11 +161,11 @@ interface CommandGroupSignature {
 
 const CommandGroup: TOC<CommandGroupSignature> = <template>
   <div
+    data-slot="command-group"
     class={{cn
-      "overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground"
+      "text-foreground [&_[data-cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 [&_[data-cmdk-group-heading]]:px-2 [&_[data-cmdk-group-heading]]:py-1.5 [&_[data-cmdk-group-heading]]:text-xs [&_[data-cmdk-group-heading]]:font-medium"
       @class
     }}
-    role="group"
     ...attributes
   >
     {{#if @heading}}
@@ -140,7 +175,6 @@ const CommandGroup: TOC<CommandGroupSignature> = <template>
   </div>
 </template>;
 
-// CommandSeparator Component
 interface CommandSeparatorSignature {
   Element: HTMLDivElement;
   Args: {
@@ -153,13 +187,12 @@ interface CommandSeparatorSignature {
 
 const CommandSeparator: TOC<CommandSeparatorSignature> = <template>
   <div
-    class={{cn "-mx-1 h-px bg-border" @class}}
-    role="separator"
+    data-slot="command-separator"
+    class={{cn "bg-border -mx-1 h-px" @class}}
     ...attributes
   ></div>
 </template>;
 
-// CommandItem Component
 interface CommandItemSignature {
   Element: HTMLDivElement;
   Args: {
@@ -172,13 +205,12 @@ interface CommandItemSignature {
 }
 
 const CommandItem: TOC<CommandItemSignature> = <template>
-  {{! template-lint-disable require-mandatory-role-attributes }}
   <div
+    data-slot="command-item"
     class={{cn
-      "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
+      "data-[selected=true]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
       @class
     }}
-    role="option"
     data-disabled={{@disabled}}
     ...attributes
   >
@@ -186,7 +218,6 @@ const CommandItem: TOC<CommandItemSignature> = <template>
   </div>
 </template>;
 
-// CommandShortcut Component
 interface CommandShortcutSignature {
   Element: HTMLSpanElement;
   Args: {
@@ -199,7 +230,8 @@ interface CommandShortcutSignature {
 
 const CommandShortcut: TOC<CommandShortcutSignature> = <template>
   <span
-    class={{cn "ml-auto text-xs tracking-widest text-muted-foreground" @class}}
+    data-slot="command-shortcut"
+    class={{cn "text-muted-foreground ml-auto text-xs tracking-widest" @class}}
     ...attributes
   >
     {{yield}}

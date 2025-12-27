@@ -5,6 +5,7 @@ import { Kbd } from '@/components/ui/kbd';
 import { Separator } from '@/components/ui/separator';
 import { Tooltip } from '@/components/ui/tooltip';
 import ThemeToggle from '@/components/theme-toggle';
+import CommandMenu from '@/components/command-menu';
 
 <template>
   <header class="bg-background sticky top-0 z-50 w-full">
@@ -31,7 +32,10 @@ import ThemeToggle from '@/components/theme-toggle';
           </DocLinkTo>
         </nav>
         <div class="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
-          <Separator @orientation="vertical" class="h-4 ml-2 hidden lg:block" />
+          <div class="hidden w-full flex-1 md:flex md:w-auto md:flex-none">
+            <CommandMenu />
+          </div>
+          <Separator @orientation="vertical" class="ml-2 h-4 hidden lg:block" />
           <Button
             @variant="ghost"
             @size="sm"
