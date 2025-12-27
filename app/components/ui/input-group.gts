@@ -16,7 +16,7 @@ interface InputGroupSignature {
   };
 }
 
-export const InputGroup: TOC<InputGroupSignature> = <template>
+const InputGroup: TOC<InputGroupSignature> = <template>
   <div
     data-slot="input-group"
     role="group"
@@ -42,7 +42,7 @@ interface InputGroupAddonSignature {
   };
 }
 
-export class InputGroupAddon extends Component<InputGroupAddonSignature> {
+class InputGroupAddon extends Component<InputGroupAddonSignature> {
   get alignClasses() {
     const align = this.args.align ?? 'inline-start';
     const alignMap = {
@@ -80,7 +80,7 @@ interface InputGroupInputSignature {
   };
 }
 
-export const InputGroupInput: TOC<InputGroupInputSignature> = <template>
+const InputGroupInput: TOC<InputGroupInputSignature> = <template>
   <input
     type="text"
     placeholder={{@placeholder}}
@@ -94,13 +94,13 @@ export const InputGroupInput: TOC<InputGroupInputSignature> = <template>
 </template>;
 
 // InputGroupButton Component
-import Button from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 
 interface InputGroupButtonSignature {
   Element: HTMLButtonElement;
   Args: {
     class?: string;
-    size?: 'default' | 'sm' | 'lg' | 'icon' | 'icon-sm' | 'icon-xs' | 'icon-lg';
+    size?: 'default' | 'sm' | 'lg' | 'icon' | 'icon-sm' | 'icon-lg';
     variant?:
       | 'default'
       | 'destructive'
@@ -115,7 +115,7 @@ interface InputGroupButtonSignature {
   };
 }
 
-export const InputGroupButton: TOC<InputGroupButtonSignature> = <template>
+const InputGroupButton: TOC<InputGroupButtonSignature> = <template>
   <Button
     @size={{@size}}
     @variant={{@variant}}
@@ -126,4 +126,4 @@ export const InputGroupButton: TOC<InputGroupButtonSignature> = <template>
   </Button>
 </template>;
 
-export default InputGroup;
+export { InputGroup, InputGroupAddon, InputGroupInput, InputGroupButton };

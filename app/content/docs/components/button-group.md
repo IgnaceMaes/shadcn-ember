@@ -181,7 +181,7 @@ Use the `@asChild` argument to render a custom component as the text, for exampl
 
 ```gts showLineNumbers
 import { ButtonGroupText } from '@/components/ui/button-group';
-import Label from '@/components/ui/label';
+import { Label } from '@/components/ui/label';
 
 export default class ButtonGroupTextDemo extends Component {
   <template>

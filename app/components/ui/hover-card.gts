@@ -19,7 +19,7 @@ interface HoverCardSignature {
   };
 }
 
-export class HoverCard extends Component<HoverCardSignature> {
+class HoverCard extends Component<HoverCardSignature> {
   @tracked isOpen: boolean;
   openTimeout: number | null = null;
   closeTimeout: number | null = null;
@@ -54,7 +54,7 @@ interface HoverCardTriggerSignature {
   };
 }
 
-export class HoverCardTrigger extends Component<HoverCardTriggerSignature> {
+class HoverCardTrigger extends Component<HoverCardTriggerSignature> {
   handleMouseEnter = () => {
     this.args.setOpen?.(true);
   };
@@ -99,7 +99,7 @@ interface HoverCardContentSignature {
   };
 }
 
-export const HoverCardContent: TOC<HoverCardContentSignature> = <template>
+const HoverCardContent: TOC<HoverCardContentSignature> = <template>
   {{#if @isOpen}}
     <div
       class={{cn
@@ -114,4 +114,4 @@ export const HoverCardContent: TOC<HoverCardContentSignature> = <template>
   {{/if}}
 </template>;
 
-export default HoverCard;
+export { HoverCard, HoverCardTrigger, HoverCardContent };

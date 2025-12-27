@@ -14,7 +14,7 @@ interface CheckboxSignature {
   };
 }
 
-export default class Checkbox extends Component<CheckboxSignature> {
+class Checkbox extends Component<CheckboxSignature> {
   @tracked internalChecked = this.args.checked ?? false;
 
   get isControlled() {
@@ -81,3 +81,5 @@ export default class Checkbox extends Component<CheckboxSignature> {
     </button>
   </template>
 }
+
+export { Checkbox };

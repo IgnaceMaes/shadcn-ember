@@ -10,7 +10,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu';
-import Separator from '@/components/ui/separator';
+import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 
 interface DocHeaderCopySignature {

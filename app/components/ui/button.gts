@@ -57,7 +57,7 @@ function buttonVariants(
   return cn(baseClasses, variantClasses[variant], sizeClasses[size], className);
 }
 
-export default class Button extends Component<ButtonSignature> {
+class Button extends Component<ButtonSignature> {
   get classes() {
     return buttonVariants(
       this.args.variant ?? 'default',
@@ -85,4 +85,4 @@ export default class Button extends Component<ButtonSignature> {
   </template>
 }
 
-export { buttonVariants };
+export { Button, buttonVariants };

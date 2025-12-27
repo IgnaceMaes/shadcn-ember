@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
-import Separator from './separator.gts';
+import { Separator } from './separator.gts';
 
 // Note: This is a simplified placeholder for the Item component
 // Used for list items with consistent styling
@@ -42,7 +42,7 @@ interface ItemGroupSignature {
   };
 }
 
-export const ItemGroup: TOC<ItemGroupSignature> = <template>
+const ItemGroup: TOC<ItemGroupSignature> = <template>
   <div
     role="list"
     data-slot="item-group"
@@ -64,7 +64,7 @@ interface ItemSeparatorSignature {
   };
 }
 
-export const ItemSeparator: TOC<ItemSeparatorSignature> = <template>
+const ItemSeparator: TOC<ItemSeparatorSignature> = <template>
   <Separator
     data-slot="item-separator"
     @orientation="horizontal"
@@ -86,7 +86,7 @@ interface ItemSignature {
   };
 }
 
-export class Item extends Component<ItemSignature> {
+class Item extends Component<ItemSignature> {
   get classes() {
     return itemVariants(
       this.args.variant ?? 'default',
@@ -113,7 +113,7 @@ interface ItemLabelSignature {
   };
 }
 
-export const ItemLabel: TOC<ItemLabelSignature> = <template>
+const ItemLabel: TOC<ItemLabelSignature> = <template>
   <div class={{cn "font-medium" @class}} ...attributes>
     {{yield}}
   </div>
@@ -130,11 +130,10 @@ interface ItemDescriptionSignature {
   };
 }
 
-export const ItemDescription: TOC<ItemDescriptionSignature> = <template>
+const ItemDescription: TOC<ItemDescriptionSignature> = <template>
   <div class={{cn "text-sm text-muted-foreground" @class}} ...attributes>
     {{yield}}
   </div>
 </template>;
 
-export default Item;
-export { itemVariants };
+export { itemVariants, Item };

@@ -1,9 +1,10 @@
 import DocLinkTo from '@/components/docs/doc-link-to';
 import PhNotches from 'ember-phosphor-icons/components/ph-notches';
-import Button from '@/components/ui/button';
-import Kbd from '@/components/ui/kbd';
-import Separator from '@/components/ui/separator';
-import Tooltip, {
+import { Button } from '@/components/ui/button';
+import { Kbd } from '@/components/ui/kbd';
+import { Separator } from '@/components/ui/separator';
+import {
+  Tooltip,
   TooltipTrigger,
   TooltipContent,
 } from '@/components/ui/tooltip';

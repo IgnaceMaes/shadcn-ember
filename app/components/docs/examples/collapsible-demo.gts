@@ -1,7 +1,7 @@
 import { tracked } from '@glimmer/tracking';
 import Component from '@glimmer/component';
 import { on } from '@ember/modifier';
-import Button from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { Collapsible } from '@/components/ui/collapsible';
 import ChevronsUpDown from '~icons/lucide/chevrons-up-down';
 

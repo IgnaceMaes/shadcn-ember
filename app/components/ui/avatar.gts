@@ -15,7 +15,7 @@ interface AvatarSignature {
   };
 }
 
-export const Avatar: TOC<AvatarSignature> = <template>
+const Avatar: TOC<AvatarSignature> = <template>
   <div
     data-slot="avatar"
     class={{cn
@@ -40,7 +40,7 @@ interface AvatarImageSignature {
   };
 }
 
-export class AvatarImage extends Component<AvatarImageSignature> {
+class AvatarImage extends Component<AvatarImageSignature> {
   @tracked loadingStatus: 'idle' | 'loading' | 'loaded' | 'error' = 'loading';
 
   handleLoad = () => {
@@ -78,7 +78,7 @@ interface AvatarFallbackSignature {
   };
 }
 
-export const AvatarFallback: TOC<AvatarFallbackSignature> = <template>
+const AvatarFallback: TOC<AvatarFallbackSignature> = <template>
   <div
     class={{cn
       "flex h-full w-full items-center justify-center rounded-full bg-muted"
@@ -90,4 +90,4 @@ export const AvatarFallback: TOC<AvatarFallbackSignature> = <template>
   </div>
 </template>;
 
-export { Avatar as default };
+export { Avatar, AvatarImage, AvatarFallback };

@@ -24,7 +24,7 @@ npx embercli-shadcn@latest add checkbox
 ## Usage
 
 ```gts showLineNumbers
-import Checkbox from '@/components/ui/checkbox';
+import { Checkbox } from '@/components/ui/checkbox';
 ```
 
 ```hbs showLineNumbers

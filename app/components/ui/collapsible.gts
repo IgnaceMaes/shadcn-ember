@@ -3,6 +3,7 @@ import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { guidFor } from '@ember/object/internals';
 import { hash } from '@ember/helper';
+import type { ComponentLike } from '@glint/template';
 
 interface CollapsibleSignature {
   Element: HTMLDivElement;
@@ -15,8 +16,8 @@ interface CollapsibleSignature {
   Blocks: {
     default: [
       {
-        Trigger: unknown;
-        Content: unknown;
+        Trigger: ComponentLike<CollapsibleTriggerSignature>;
+        Content: ComponentLike<CollapsibleContentSignature>;
       },
     ];
   };
@@ -73,7 +74,7 @@ class Collapsible extends Component<CollapsibleSignature> {
   </template>
 }
 
-interface CollapsibleTriggerSignature {
+interface CollapsibleTriggerInternalSignature {
   Element: HTMLButtonElement;
   Args: {
     context: {
@@ -100,7 +101,29 @@ interface CollapsibleTriggerSignature {
   };
 }
 
-class CollapsibleTrigger extends Component<CollapsibleTriggerSignature> {
+// Public signature (what users pass when using C.Trigger)
+interface CollapsibleTriggerSignature {
+  Element: HTMLButtonElement;
+  Args: {
+    class?: string;
+    asChild?: boolean;
+  };
+  Blocks: {
+    default: [
+      {
+        onClick: () => void;
+        'aria-controls': string;
+        'aria-expanded': string;
+        'data-state': string;
+        'data-slot': string;
+        'data-disabled'?: string;
+        disabled?: boolean;
+      },
+    ];
+  };
+}
+
+class CollapsibleTrigger extends Component<CollapsibleTriggerInternalSignature> {
   get dataState() {
     return this.args.context.open ? 'open' : 'closed';
   }
@@ -139,7 +162,7 @@ class CollapsibleTrigger extends Component<CollapsibleTriggerSignature> {
   </template>
 }
 
-interface CollapsibleContentSignature {
+interface CollapsibleContentInternalSignature {
   Element: HTMLDivElement;
   Args: {
     context: {
@@ -155,7 +178,19 @@ interface CollapsibleContentSignature {
   };
 }
 
-class CollapsibleContent extends Component<CollapsibleContentSignature> {
+// Public signature (what users pass when using C.Content)
+interface CollapsibleContentSignature {
+  Element: HTMLDivElement;
+  Args: {
+    class?: string;
+    forceMount?: boolean;
+  };
+  Blocks: {
+    default: [];
+  };
+}
+
+class CollapsibleContent extends Component<CollapsibleContentInternalSignature> {
   get dataState() {
     return this.args.context.open ? 'open' : 'closed';
   }
@@ -182,5 +217,3 @@ class CollapsibleContent extends Component<CollapsibleContentSignature> {
 }
 
 export { Collapsible, CollapsibleTrigger, CollapsibleContent };
-
-export { Collapsible as default };

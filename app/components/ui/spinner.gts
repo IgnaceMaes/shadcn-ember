@@ -24,5 +24,4 @@ const Spinner: TOC<SpinnerSignature> = <template>
   />
 </template>;
 
-export default Spinner;
 export { Spinner };

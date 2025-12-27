@@ -18,7 +18,7 @@ interface AlertDialogSignature {
   };
 }
 
-export class AlertDialog extends Component<AlertDialogSignature> {
+class AlertDialog extends Component<AlertDialogSignature> {
   @tracked isOpen: boolean;
 
   constructor(owner: Owner, args: AlertDialogSignature['Args']) {
@@ -51,7 +51,7 @@ interface AlertDialogTriggerSignature {
   };
 }
 
-export class AlertDialogTrigger extends Component<AlertDialogTriggerSignature> {
+class AlertDialogTrigger extends Component<AlertDialogTriggerSignature> {
   handleClick = () => {
     this.args.setOpen?.(true);
   };
@@ -79,7 +79,7 @@ interface AlertDialogPortalSignature {
   };
 }
 
-export const AlertDialogPortal: TOC<AlertDialogPortalSignature> = <template>
+const AlertDialogPortal: TOC<AlertDialogPortalSignature> = <template>
   {{! template-lint-disable no-yield-only }}
   {{yield}}
 </template>;
@@ -96,7 +96,7 @@ interface AlertDialogOverlaySignature {
   };
 }
 
-export const AlertDialogOverlay: TOC<AlertDialogOverlaySignature> = <template>
+const AlertDialogOverlay: TOC<AlertDialogOverlaySignature> = <template>
   {{#if @isOpen}}
     <div
       class={{cn
@@ -122,7 +122,7 @@ interface AlertDialogContentSignature {
   };
 }
 
-export const AlertDialogContent: TOC<AlertDialogContentSignature> = <template>
+const AlertDialogContent: TOC<AlertDialogContentSignature> = <template>
   {{#if @isOpen}}
     <AlertDialogPortal>
       <AlertDialogOverlay @isOpen={{@isOpen}} />
@@ -152,7 +152,7 @@ interface AlertDialogHeaderSignature {
   };
 }
 
-export const AlertDialogHeader: TOC<AlertDialogHeaderSignature> = <template>
+const AlertDialogHeader: TOC<AlertDialogHeaderSignature> = <template>
   <div
     class={{cn "flex flex-col space-y-2 text-center sm:text-left" @class}}
     ...attributes
@@ -172,7 +172,7 @@ interface AlertDialogFooterSignature {
   };
 }
 
-export const AlertDialogFooter: TOC<AlertDialogFooterSignature> = <template>
+const AlertDialogFooter: TOC<AlertDialogFooterSignature> = <template>
   <div
     class={{cn
       "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2"
@@ -195,7 +195,7 @@ interface AlertDialogTitleSignature {
   };
 }
 
-export const AlertDialogTitle: TOC<AlertDialogTitleSignature> = <template>
+const AlertDialogTitle: TOC<AlertDialogTitleSignature> = <template>
   <h2 class={{cn "text-lg font-semibold" @class}} ...attributes>
     {{yield}}
   </h2>
@@ -212,12 +212,11 @@ interface AlertDialogDescriptionSignature {
   };
 }
 
-export const AlertDialogDescription: TOC<AlertDialogDescriptionSignature> =
-  <template>
-    <p class={{cn "text-sm text-muted-foreground" @class}} ...attributes>
-      {{yield}}
-    </p>
-  </template>;
+const AlertDialogDescription: TOC<AlertDialogDescriptionSignature> = <template>
+  <p class={{cn "text-sm text-muted-foreground" @class}} ...attributes>
+    {{yield}}
+  </p>
+</template>;
 
 // AlertDialogAction Component
 interface AlertDialogActionSignature {
@@ -231,7 +230,7 @@ interface AlertDialogActionSignature {
   };
 }
 
-export class AlertDialogAction extends Component<AlertDialogActionSignature> {
+class AlertDialogAction extends Component<AlertDialogActionSignature> {
   handleClick = () => {
     this.args.setOpen?.(false);
   };
@@ -260,7 +259,7 @@ interface AlertDialogCancelSignature {
   };
 }
 
-export class AlertDialogCancel extends Component<AlertDialogCancelSignature> {
+class AlertDialogCancel extends Component<AlertDialogCancelSignature> {
   handleClick = () => {
     this.args.setOpen?.(false);
   };
@@ -280,4 +279,16 @@ export class AlertDialogCancel extends Component<AlertDialogCancelSignature> {
   </template>
 }
 
-export default AlertDialog;
+export {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogPortal,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogAction,
+  AlertDialogCancel,
+};

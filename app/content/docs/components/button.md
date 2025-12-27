@@ -25,7 +25,7 @@ npx embercli-shadcn@latest add button
 ## Usage
 
 ```gts showLineNumbers
-import Button from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 ```
 
 ```hbs showLineNumbers

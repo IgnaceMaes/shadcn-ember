@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { cn } from '@/lib/utils';
-import Separator from '@/components/ui/separator';
+import { Separator } from '@/components/ui/separator';
 
 type Orientation = 'horizontal' | 'vertical';
 
@@ -54,7 +54,7 @@ function buttonGroupVariants(
   return cn(baseClasses, orientationClasses[orientation], className);
 }
 
-export class ButtonGroup extends Component<ButtonGroupSignature> {
+class ButtonGroup extends Component<ButtonGroupSignature> {
   get classes() {
     return buttonGroupVariants(
       this.args.orientation ?? 'horizontal',
@@ -75,7 +75,7 @@ export class ButtonGroup extends Component<ButtonGroupSignature> {
   </template>
 }
 
-export class ButtonGroupText extends Component<ButtonGroupTextSignature> {
+class ButtonGroupText extends Component<ButtonGroupTextSignature> {
   get classes() {
     return cn(
       "bg-muted flex items-center gap-2 rounded-md border px-4 text-sm font-medium shadow-xs [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4",
@@ -94,7 +94,7 @@ export class ButtonGroupText extends Component<ButtonGroupTextSignature> {
   </template>
 }
 
-export class ButtonGroupSeparator extends Component<ButtonGroupSeparatorSignature> {
+class ButtonGroupSeparator extends Component<ButtonGroupSeparatorSignature> {
   get classes() {
     return cn(
       'bg-input relative !m-0 self-stretch data-[orientation=vertical]:h-auto',
@@ -112,4 +112,9 @@ export class ButtonGroupSeparator extends Component<ButtonGroupSeparatorSignatur
   </template>
 }
 
-export { buttonGroupVariants };
+export {
+  ButtonGroup,
+  ButtonGroupText,
+  ButtonGroupSeparator,
+  buttonGroupVariants,
+};

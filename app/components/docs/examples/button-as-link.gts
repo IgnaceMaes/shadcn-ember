@@ -1,5 +1,5 @@
 import { LinkTo } from '@ember/routing';
-import Button from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 
 <template>
   <Button @asChild={{true}} as |classes|>

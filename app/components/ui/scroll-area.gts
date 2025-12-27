@@ -13,7 +13,7 @@ interface ScrollAreaSignature {
   };
 }
 
-export const ScrollArea: TOC<ScrollAreaSignature> = <template>
+const ScrollArea: TOC<ScrollAreaSignature> = <template>
   <div class={{cn "relative overflow-hidden" @class}} ...attributes>
     <div class="h-full w-full rounded-[inherit] overflow-auto">
       {{yield}}
@@ -34,7 +34,7 @@ interface ScrollBarSignature {
   };
 }
 
-export class ScrollBar extends Component<ScrollBarSignature> {
+class ScrollBar extends Component<ScrollBarSignature> {
   get orientationClasses() {
     const orientation = this.args.orientation ?? 'vertical';
     if (orientation === 'vertical') {
@@ -57,4 +57,4 @@ export class ScrollBar extends Component<ScrollBarSignature> {
   </template>
 }
 
-export default ScrollArea;
+export { ScrollArea, ScrollBar };

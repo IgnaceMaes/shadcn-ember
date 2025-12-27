@@ -21,7 +21,7 @@ interface ContextMenuSignature {
   };
 }
 
-export class ContextMenu extends Component<ContextMenuSignature> {
+class ContextMenu extends Component<ContextMenuSignature> {
   @tracked isOpen: boolean;
 
   constructor(owner: Owner, args: ContextMenuSignature['Args']) {
@@ -58,7 +58,7 @@ interface ContextMenuTriggerSignature {
   };
 }
 
-export class ContextMenuTrigger extends Component<ContextMenuTriggerSignature> {
+class ContextMenuTrigger extends Component<ContextMenuTriggerSignature> {
   handleContextMenu = (event: MouseEvent) => {
     event.preventDefault();
     this.args.setOpen?.(true);
@@ -86,7 +86,7 @@ interface ContextMenuGroupSignature {
   };
 }
 
-export const ContextMenuGroup: TOC<ContextMenuGroupSignature> = <template>
+const ContextMenuGroup: TOC<ContextMenuGroupSignature> = <template>
   <div role="group" class={{cn @class}} ...attributes>
     {{yield}}
   </div>
@@ -99,7 +99,7 @@ interface ContextMenuPortalSignature {
   };
 }
 
-export const ContextMenuPortal: TOC<ContextMenuPortalSignature> = <template>
+const ContextMenuPortal: TOC<ContextMenuPortalSignature> = <template>
   <div data-portal>
     {{yield}}
   </div>
@@ -117,7 +117,7 @@ interface ContextMenuSubSignature {
   };
 }
 
-export class ContextMenuSub extends Component<ContextMenuSubSignature> {
+class ContextMenuSub extends Component<ContextMenuSubSignature> {
   @tracked isOpen: boolean;
 
   constructor(owner: Owner, args: ContextMenuSubSignature['Args']) {
@@ -150,7 +150,7 @@ interface ContextMenuRadioGroupSignature {
   };
 }
 
-export class ContextMenuRadioGroup extends Component<ContextMenuRadioGroupSignature> {
+class ContextMenuRadioGroup extends Component<ContextMenuRadioGroupSignature> {
   @tracked internalValue: string;
 
   constructor(owner: Owner, args: ContextMenuRadioGroupSignature['Args']) {
@@ -186,20 +186,19 @@ interface ContextMenuSubTriggerSignature {
   };
 }
 
-export const ContextMenuSubTrigger: TOC<ContextMenuSubTriggerSignature> =
-  <template>
-    <div
-      class={{cn
-        "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground"
-        (if @inset "pl-8")
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-      <ChevronRight class="size-4 ml-auto" />
-    </div>
-  </template>;
+const ContextMenuSubTrigger: TOC<ContextMenuSubTriggerSignature> = <template>
+  <div
+    class={{cn
+      "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground"
+      (if @inset "pl-8")
+      @class
+    }}
+    ...attributes
+  >
+    {{yield}}
+    <ChevronRight class="size-4 ml-auto" />
+  </div>
+</template>;
 
 // ContextMenuSubContent Component
 interface ContextMenuSubContentSignature {
@@ -213,21 +212,20 @@ interface ContextMenuSubContentSignature {
   };
 }
 
-export const ContextMenuSubContent: TOC<ContextMenuSubContentSignature> =
-  <template>
-    {{#if @isOpen}}
-      <div
-        class={{cn
-          "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
-          @class
-        }}
-        data-state={{if @isOpen "open" "closed"}}
-        ...attributes
-      >
-        {{yield}}
-      </div>
-    {{/if}}
-  </template>;
+const ContextMenuSubContent: TOC<ContextMenuSubContentSignature> = <template>
+  {{#if @isOpen}}
+    <div
+      class={{cn
+        "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
+        @class
+      }}
+      data-state={{if @isOpen "open" "closed"}}
+      ...attributes
+    >
+      {{yield}}
+    </div>
+  {{/if}}
+</template>;
 
 // ContextMenuContent Component
 interface ContextMenuContentSignature {
@@ -242,7 +240,7 @@ interface ContextMenuContentSignature {
   };
 }
 
-export class ContextMenuContent extends Component<ContextMenuContentSignature> {
+class ContextMenuContent extends Component<ContextMenuContentSignature> {
   handleClickOutside = () => {
     this.args.setOpen?.(false);
   };
@@ -278,7 +276,7 @@ interface ContextMenuItemSignature {
   };
 }
 
-export const ContextMenuItem: TOC<ContextMenuItemSignature> = <template>
+const ContextMenuItem: TOC<ContextMenuItemSignature> = <template>
   <div
     class={{cn
       "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
@@ -306,7 +304,7 @@ interface ContextMenuCheckboxItemSignature {
   };
 }
 
-export class ContextMenuCheckboxItem extends Component<ContextMenuCheckboxItemSignature> {
+class ContextMenuCheckboxItem extends Component<ContextMenuCheckboxItemSignature> {
   handleClick = () => {
     this.args.onCheckedChange?.(!this.args.checked);
   };
@@ -349,7 +347,7 @@ interface ContextMenuRadioItemSignature {
   };
 }
 
-export class ContextMenuRadioItem extends Component<ContextMenuRadioItemSignature> {
+class ContextMenuRadioItem extends Component<ContextMenuRadioItemSignature> {
   get checked() {
     return this.args.currentValue === this.args.value;
   }
@@ -394,7 +392,7 @@ interface ContextMenuLabelSignature {
   };
 }
 
-export const ContextMenuLabel: TOC<ContextMenuLabelSignature> = <template>
+const ContextMenuLabel: TOC<ContextMenuLabelSignature> = <template>
   <div
     class={{cn
       "px-2 py-1.5 text-sm font-semibold text-foreground"
@@ -418,14 +416,13 @@ interface ContextMenuSeparatorSignature {
   };
 }
 
-export const ContextMenuSeparator: TOC<ContextMenuSeparatorSignature> =
-  <template>
-    <div
-      class={{cn "-mx-1 my-1 h-px bg-muted" @class}}
-      role="separator"
-      ...attributes
-    ></div>
-  </template>;
+const ContextMenuSeparator: TOC<ContextMenuSeparatorSignature> = <template>
+  <div
+    class={{cn "-mx-1 my-1 h-px bg-muted" @class}}
+    role="separator"
+    ...attributes
+  ></div>
+</template>;
 
 // ContextMenuShortcut Component
 interface ContextMenuShortcutSignature {
@@ -438,7 +435,7 @@ interface ContextMenuShortcutSignature {
   };
 }
 
-export const ContextMenuShortcut: TOC<ContextMenuShortcutSignature> = <template>
+const ContextMenuShortcut: TOC<ContextMenuShortcutSignature> = <template>
   <span
     class={{cn "ml-auto text-xs tracking-widest text-muted-foreground" @class}}
     ...attributes
@@ -447,4 +444,20 @@ export const ContextMenuShortcut: TOC<ContextMenuShortcutSignature> = <template>
   </span>
 </template>;
 
-export default ContextMenu;
+export {
+  ContextMenu,
+  ContextMenuTrigger,
+  ContextMenuGroup,
+  ContextMenuPortal,
+  ContextMenuSub,
+  ContextMenuRadioGroup,
+  ContextMenuSubTrigger,
+  ContextMenuSubContent,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuCheckboxItem,
+  ContextMenuRadioItem,
+  ContextMenuLabel,
+  ContextMenuSeparator,
+  ContextMenuShortcut,
+};

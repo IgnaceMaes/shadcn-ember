@@ -17,7 +17,7 @@ interface ChartContainerSignature {
   };
 }
 
-export const ChartContainer: TOC<ChartContainerSignature> = <template>
+const ChartContainer: TOC<ChartContainerSignature> = <template>
   <div class={{cn "w-full" @class}} ...attributes>
     <div class="w-full h-full text-center text-sm text-muted-foreground p-4">
       {{! TODO: Implement chart component }}
@@ -39,7 +39,7 @@ interface ChartTooltipSignature {
   };
 }
 
-export const ChartTooltip: TOC<ChartTooltipSignature> = <template>
+const ChartTooltip: TOC<ChartTooltipSignature> = <template>
   <div
     class={{cn
       "rounded-md border bg-popover px-3 py-1.5 text-xs text-popover-foreground shadow-md"
@@ -62,7 +62,7 @@ interface ChartTooltipContentSignature {
   };
 }
 
-export const ChartTooltipContent: TOC<ChartTooltipContentSignature> = <template>
+const ChartTooltipContent: TOC<ChartTooltipContentSignature> = <template>
   <div class={{cn "space-y-1" @class}} ...attributes>
     {{yield}}
   </div>
@@ -79,7 +79,7 @@ interface ChartLegendSignature {
   };
 }
 
-export const ChartLegend: TOC<ChartLegendSignature> = <template>
+const ChartLegend: TOC<ChartLegendSignature> = <template>
   <div
     class={{cn "flex items-center justify-center gap-4" @class}}
     ...attributes
@@ -99,10 +99,16 @@ interface ChartLegendContentSignature {
   };
 }
 
-export const ChartLegendContent: TOC<ChartLegendContentSignature> = <template>
+const ChartLegendContent: TOC<ChartLegendContentSignature> = <template>
   <div class={{cn "flex items-center gap-2" @class}} ...attributes>
     {{yield}}
   </div>
 </template>;
 
-export default ChartContainer;
+export {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+};

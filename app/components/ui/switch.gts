@@ -13,7 +13,7 @@ interface SwitchSignature {
   };
 }
 
-export default class Switch extends Component<SwitchSignature> {
+class Switch extends Component<SwitchSignature> {
   @tracked internalChecked = this.args.checked ?? false;
 
   get isChecked() {
@@ -68,3 +68,5 @@ export default class Switch extends Component<SwitchSignature> {
     </button>
   </template>
 }
+
+export { Switch };

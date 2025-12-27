@@ -1,4 +1,4 @@
-import Button from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import CircleFadingArrowUpIcon from '~icons/lucide/circle-fading-arrow-up';
 
 <template>

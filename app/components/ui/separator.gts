@@ -28,7 +28,7 @@ function separatorVariants(
   return cn(baseClasses, orientationClasses[orientation], className);
 }
 
-export default class Separator extends Component<SeparatorSignature> {
+class Separator extends Component<SeparatorSignature> {
   get classes() {
     return separatorVariants(
       this.args.orientation ?? 'horizontal',
@@ -53,3 +53,5 @@ export default class Separator extends Component<SeparatorSignature> {
     ></div>
   </template>
 }
+
+export { Separator };

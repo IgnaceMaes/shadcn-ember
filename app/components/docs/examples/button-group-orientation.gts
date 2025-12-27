@@ -1,4 +1,4 @@
-import Button from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import MinusIcon from '~icons/lucide/minus';
 import PlusIcon from '~icons/lucide/plus';

@@ -91,4 +91,3 @@ class AlertDescription extends Component<AlertDescriptionSignature> {
 }
 
 export { Alert, AlertTitle, AlertDescription };
-export default Alert;

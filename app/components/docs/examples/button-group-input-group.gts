@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
-import Button from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import {
   InputGroup,
@@ -46,7 +46,7 @@ export default class ButtonGroupInputGroup extends Component {
               <TooltipTrigger @asChild={{true}}>
                 <InputGroupButton
                   {{on "click" this.toggleVoice}}
-                  @size="icon-xs"
+                  @size="icon-sm"
                   data-active={{this.voiceEnabled}}
                   class="data-[active=true]:bg-orange-100 data-[active=true]:text-orange-700 dark:data-[active=true]:bg-orange-800 dark:data-[active=true]:text-orange-100"
                   aria-pressed={{this.voiceEnabled}}

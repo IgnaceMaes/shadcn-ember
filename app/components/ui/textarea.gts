@@ -21,4 +21,4 @@ const Textarea: TOC<TextareaSignature> = <template>
   />
 </template>;
 
-export default Textarea;
+export { Textarea };

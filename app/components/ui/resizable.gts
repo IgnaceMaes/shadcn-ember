@@ -18,7 +18,7 @@ interface ResizablePanelGroupSignature {
   };
 }
 
-export class ResizablePanelGroup extends Component<ResizablePanelGroupSignature> {
+class ResizablePanelGroup extends Component<ResizablePanelGroupSignature> {
   get directionClass() {
     return this.args.direction === 'vertical' ? 'flex-col' : '';
   }
@@ -48,7 +48,7 @@ interface ResizablePanelSignature {
   };
 }
 
-export const ResizablePanel: TOC<ResizablePanelSignature> = <template>
+const ResizablePanel: TOC<ResizablePanelSignature> = <template>
   <div class={{cn "flex-1" @class}} ...attributes>
     {{yield}}
   </div>
@@ -66,7 +66,7 @@ interface ResizableHandleSignature {
   };
 }
 
-export const ResizableHandle: TOC<ResizableHandleSignature> = <template>
+const ResizableHandle: TOC<ResizableHandleSignature> = <template>
   {{! template-lint-disable require-presentational-children }}
   <div
     class={{cn
@@ -87,4 +87,4 @@ export const ResizableHandle: TOC<ResizableHandleSignature> = <template>
   </div>
 </template>;
 
-export default ResizablePanelGroup;
+export { ResizablePanelGroup, ResizablePanel, ResizableHandle };

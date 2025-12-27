@@ -2,18 +2,18 @@ import { tracked } from '@glimmer/tracking';
 import Component from '@glimmer/component';
 import { fn, get, array } from '@ember/helper';
 import { on } from '@ember/modifier';
-import Button from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import {
   ButtonGroup,
   ButtonGroupSeparator,
   ButtonGroupText,
 } from '@/components/ui/button-group';
-import Switch from '@/components/ui/switch';
-import Checkbox from '@/components/ui/checkbox';
-import Label from '@/components/ui/label';
-import Input from '@/components/ui/input';
-import Textarea from '@/components/ui/textarea';
-import Badge from '@/components/ui/badge';
+import { Switch } from '@/components/ui/switch';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Badge } from '@/components/ui/badge';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import {
   Card,
@@ -43,7 +43,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Tabs } from '@/components/ui/tabs';
-import Separator from '@/components/ui/separator';
+import { Separator } from '@/components/ui/separator';
 import {
   Field,
   FieldLabel,
@@ -77,12 +77,12 @@ import {
   EmptyDescription,
   EmptyMedia,
 } from '@/components/ui/empty';
-import Kbd, { KbdGroup } from '@/components/ui/kbd';
+import { Kbd, KbdGroup } from '@/components/ui/kbd';
 import { Progress } from '@/components/ui/progress';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Spinner } from '@/components/ui/spinner';
 import { Slider } from '@/components/ui/slider';
-import Toggle from '@/components/ui/toggle';
+import { Toggle } from '@/components/ui/toggle';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import {
   Tooltip,

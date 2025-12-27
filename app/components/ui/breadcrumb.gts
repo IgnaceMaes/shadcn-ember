@@ -14,7 +14,7 @@ interface BreadcrumbSignature {
   };
 }
 
-export const Breadcrumb: TOC<BreadcrumbSignature> = <template>
+const Breadcrumb: TOC<BreadcrumbSignature> = <template>
   <nav
     aria-label="breadcrumb"
     data-slot="breadcrumb"
@@ -35,7 +35,7 @@ interface BreadcrumbListSignature {
   };
 }
 
-export const BreadcrumbList: TOC<BreadcrumbListSignature> = <template>
+const BreadcrumbList: TOC<BreadcrumbListSignature> = <template>
   <ol
     data-slot="breadcrumb-list"
     class={{cn
@@ -58,7 +58,7 @@ interface BreadcrumbItemSignature {
   };
 }
 
-export const BreadcrumbItem: TOC<BreadcrumbItemSignature> = <template>
+const BreadcrumbItem: TOC<BreadcrumbItemSignature> = <template>
   <li
     data-slot="breadcrumb-item"
     class={{cn "inline-flex items-center gap-1.5" @class}}
@@ -80,7 +80,7 @@ interface BreadcrumbLinkSignature {
   };
 }
 
-export const BreadcrumbLink: TOC<BreadcrumbLinkSignature> = <template>
+const BreadcrumbLink: TOC<BreadcrumbLinkSignature> = <template>
   {{#if @asChild}}
     {{yield}}
   {{else}}
@@ -105,7 +105,7 @@ interface BreadcrumbPageSignature {
   };
 }
 
-export const BreadcrumbPage: TOC<BreadcrumbPageSignature> = <template>
+const BreadcrumbPage: TOC<BreadcrumbPageSignature> = <template>
   <span
     data-slot="breadcrumb-page"
     role="link"
@@ -128,7 +128,7 @@ interface BreadcrumbSeparatorSignature {
   };
 }
 
-export const BreadcrumbSeparator: TOC<BreadcrumbSeparatorSignature> = <template>
+const BreadcrumbSeparator: TOC<BreadcrumbSeparatorSignature> = <template>
   <li
     data-slot="breadcrumb-separator"
     role="presentation"
@@ -151,7 +151,7 @@ interface BreadcrumbEllipsisSignature {
   };
 }
 
-export const BreadcrumbEllipsis: TOC<BreadcrumbEllipsisSignature> = <template>
+const BreadcrumbEllipsis: TOC<BreadcrumbEllipsisSignature> = <template>
   <span
     data-slot="breadcrumb-ellipsis"
     role="presentation"
@@ -164,4 +164,12 @@ export const BreadcrumbEllipsis: TOC<BreadcrumbEllipsisSignature> = <template>
   </span>
 </template>;
 
-export { Breadcrumb as default };
+export {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+  BreadcrumbEllipsis,
+};

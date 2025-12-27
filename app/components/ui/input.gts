@@ -26,4 +26,4 @@ const Input: TOC<InputSignature> = <template>
   />
 </template>;
 
-export default Input;
+export { Input };

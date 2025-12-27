@@ -23,7 +23,7 @@ interface MenubarSignature {
   };
 }
 
-export const Menubar: TOC<MenubarSignature> = <template>
+const Menubar: TOC<MenubarSignature> = <template>
   <div
     class={{cn
       "flex h-9 items-center space-x-1 rounded-md border bg-background p-1 shadow-sm"
@@ -48,7 +48,7 @@ interface MenubarMenuSignature {
   };
 }
 
-export class MenubarMenu extends Component<MenubarMenuSignature> {
+class MenubarMenu extends Component<MenubarMenuSignature> {
   @tracked isOpen: boolean;
 
   constructor(owner: Owner, args: MenubarMenuSignature['Args']) {
@@ -85,7 +85,7 @@ interface MenubarTriggerSignature {
   };
 }
 
-export class MenubarTrigger extends Component<MenubarTriggerSignature> {
+class MenubarTrigger extends Component<MenubarTriggerSignature> {
   handleClick = () => {
     const newOpen = !this.args.isOpen;
     this.args.setOpen?.(newOpen);
@@ -120,7 +120,7 @@ interface MenubarContentSignature {
   };
 }
 
-export class MenubarContent extends Component<MenubarContentSignature> {
+class MenubarContent extends Component<MenubarContentSignature> {
   handleClickOutside = () => {
     this.args.setOpen?.(false);
   };
@@ -155,7 +155,7 @@ interface MenubarItemSignature {
   };
 }
 
-export const MenubarItem: TOC<MenubarItemSignature> = <template>
+const MenubarItem: TOC<MenubarItemSignature> = <template>
   <div
     class={{cn
       "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
@@ -181,7 +181,7 @@ interface MenubarGroupSignature {
   };
 }
 
-export const MenubarGroup: TOC<MenubarGroupSignature> = <template>
+const MenubarGroup: TOC<MenubarGroupSignature> = <template>
   <div role="group" class={{cn @class}} ...attributes>
     {{yield}}
   </div>
@@ -194,7 +194,7 @@ interface MenubarPortalSignature {
   };
 }
 
-export const MenubarPortal: TOC<MenubarPortalSignature> = <template>
+const MenubarPortal: TOC<MenubarPortalSignature> = <template>
   <div data-portal>
     {{yield}}
   </div>
@@ -213,7 +213,7 @@ interface MenubarRadioGroupSignature {
   };
 }
 
-export class MenubarRadioGroup extends Component<MenubarRadioGroupSignature> {
+class MenubarRadioGroup extends Component<MenubarRadioGroupSignature> {
   @tracked internalValue: string;
 
   constructor(owner: Owner, args: MenubarRadioGroupSignature['Args']) {
@@ -249,7 +249,7 @@ interface MenubarSubSignature {
   };
 }
 
-export class MenubarSub extends Component<MenubarSubSignature> {
+class MenubarSub extends Component<MenubarSubSignature> {
   @tracked isOpen: boolean;
 
   constructor(owner: Owner, args: MenubarSubSignature['Args']) {
@@ -280,7 +280,7 @@ interface MenubarSubTriggerSignature {
   };
 }
 
-export const MenubarSubTrigger: TOC<MenubarSubTriggerSignature> = <template>
+const MenubarSubTrigger: TOC<MenubarSubTriggerSignature> = <template>
   <div
     class={{cn
       "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground"
@@ -305,7 +305,7 @@ interface MenubarSubContentSignature {
   };
 }
 
-export const MenubarSubContent: TOC<MenubarSubContentSignature> = <template>
+const MenubarSubContent: TOC<MenubarSubContentSignature> = <template>
   {{#if @isOpen}}
     <div
       class={{cn
@@ -332,7 +332,7 @@ interface MenubarCheckboxItemSignature {
   };
 }
 
-export const MenubarCheckboxItem: TOC<MenubarCheckboxItemSignature> = <template>
+const MenubarCheckboxItem: TOC<MenubarCheckboxItemSignature> = <template>
   {{! template-lint-disable require-presentational-children }}
   <div
     class={{cn
@@ -365,7 +365,7 @@ interface MenubarRadioItemSignature {
   };
 }
 
-export const MenubarRadioItem: TOC<MenubarRadioItemSignature> = <template>
+const MenubarRadioItem: TOC<MenubarRadioItemSignature> = <template>
   {{! template-lint-disable require-presentational-children }}
   <div
     class={{cn
@@ -397,7 +397,7 @@ interface MenubarLabelSignature {
   };
 }
 
-export const MenubarLabel: TOC<MenubarLabelSignature> = <template>
+const MenubarLabel: TOC<MenubarLabelSignature> = <template>
   <div
     class={{cn "px-2 py-1.5 text-sm font-semibold" (if @inset "pl-8") @class}}
     ...attributes
@@ -417,7 +417,7 @@ interface MenubarSeparatorSignature {
   };
 }
 
-export const MenubarSeparator: TOC<MenubarSeparatorSignature> = <template>
+const MenubarSeparator: TOC<MenubarSeparatorSignature> = <template>
   <div
     class={{cn "-mx-1 my-1 h-px bg-border" @class}}
     role="separator"
@@ -436,7 +436,7 @@ interface MenubarShortcutSignature {
   };
 }
 
-export const MenubarShortcut: TOC<MenubarShortcutSignature> = <template>
+const MenubarShortcut: TOC<MenubarShortcutSignature> = <template>
   <span
     class={{cn "ml-auto text-xs tracking-widest text-muted-foreground" @class}}
     ...attributes
@@ -445,4 +445,21 @@ export const MenubarShortcut: TOC<MenubarShortcutSignature> = <template>
   </span>
 </template>;
 
-export default Menubar;
+export {
+  Menubar,
+  MenubarMenu,
+  MenubarTrigger,
+  MenubarContent,
+  MenubarItem,
+  MenubarGroup,
+  MenubarPortal,
+  MenubarRadioGroup,
+  MenubarSub,
+  MenubarSubTrigger,
+  MenubarSubContent,
+  MenubarCheckboxItem,
+  MenubarRadioItem,
+  MenubarLabel,
+  MenubarSeparator,
+  MenubarShortcut,
+};

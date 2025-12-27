@@ -2,7 +2,7 @@ import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
 import ChevronLeft from '~icons/lucide/chevron-left';
 import ChevronRight from '~icons/lucide/chevron-right';
-import Button from './button.gts';
+import { Button } from './button.gts';
 
 // Note: This is a simplified placeholder for the Carousel component
 // Full implementation would require embla-carousel or similar library
@@ -19,7 +19,7 @@ interface CarouselSignature {
   };
 }
 
-export const Carousel: TOC<CarouselSignature> = <template>
+const Carousel: TOC<CarouselSignature> = <template>
   <div class={{cn "relative" @class}} ...attributes>
     {{yield}}
   </div>
@@ -36,7 +36,7 @@ interface CarouselContentSignature {
   };
 }
 
-export const CarouselContent: TOC<CarouselContentSignature> = <template>
+const CarouselContent: TOC<CarouselContentSignature> = <template>
   <div class="overflow-hidden">
     <div class={{cn "flex" @class}} ...attributes>
       {{yield}}
@@ -55,7 +55,7 @@ interface CarouselItemSignature {
   };
 }
 
-export const CarouselItem: TOC<CarouselItemSignature> = <template>
+const CarouselItem: TOC<CarouselItemSignature> = <template>
   <div class={{cn "min-w-0 shrink-0 grow-0 basis-full" @class}} ...attributes>
     {{yield}}
   </div>
@@ -72,7 +72,7 @@ interface CarouselPreviousSignature {
   };
 }
 
-export const CarouselPrevious: TOC<CarouselPreviousSignature> = <template>
+const CarouselPrevious: TOC<CarouselPreviousSignature> = <template>
   <Button
     @variant="outline"
     @size="icon"
@@ -98,7 +98,7 @@ interface CarouselNextSignature {
   };
 }
 
-export const CarouselNext: TOC<CarouselNextSignature> = <template>
+const CarouselNext: TOC<CarouselNextSignature> = <template>
   <Button
     @variant="outline"
     @size="icon"
@@ -113,4 +113,10 @@ export const CarouselNext: TOC<CarouselNextSignature> = <template>
   </Button>
 </template>;
 
-export default Carousel;
+export {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+};

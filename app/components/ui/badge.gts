@@ -15,7 +15,7 @@ interface BadgeSignature {
   };
 }
 
-export function badgeVariants(
+function badgeVariants(
   variant: Variant = 'default',
   className?: string
 ): string {
@@ -36,7 +36,7 @@ export function badgeVariants(
   return cn(baseClasses, variantClasses[variant], className);
 }
 
-export default class Badge extends Component<BadgeSignature> {
+class Badge extends Component<BadgeSignature> {
   get classes() {
     return badgeVariants(this.args.variant ?? 'default', this.args.class);
   }
@@ -51,3 +51,5 @@ export default class Badge extends Component<BadgeSignature> {
     {{/if}}
   </template>
 }
+
+export { Badge, badgeVariants };

@@ -163,4 +163,3 @@ class TabsContent extends Component<TabsContentSignature> {
 }
 
 export { Tabs, TabsList, TabsTrigger, TabsContent };
-export default Tabs;

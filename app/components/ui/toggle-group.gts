@@ -32,7 +32,7 @@ interface ToggleGroupSignature {
   };
 }
 
-export class ToggleGroup extends Component<ToggleGroupSignature> {
+class ToggleGroup extends Component<ToggleGroupSignature> {
   @tracked internalValue: string | string[];
 
   constructor(owner: Owner, args: ToggleGroupSignature['Args']) {
@@ -116,7 +116,7 @@ interface ToggleGroupItemSignature {
   };
 }
 
-export class ToggleGroupItem extends Component<ToggleGroupItemSignature> {
+class ToggleGroupItem extends Component<ToggleGroupItemSignature> {
   get classes() {
     return toggleVariants(
       this.args.variant ?? 'default',
@@ -148,4 +148,4 @@ export class ToggleGroupItem extends Component<ToggleGroupItemSignature> {
   </template>
 }
 
-export default ToggleGroup;
+export { ToggleGroup, ToggleGroupItem };

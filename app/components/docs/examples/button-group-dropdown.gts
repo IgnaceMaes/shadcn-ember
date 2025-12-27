@@ -1,4 +1,4 @@
-import Button from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import {
   DropdownMenu,
@@ -55,7 +55,7 @@ import VolumeOffIcon from '~icons/lucide/volume-off';
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem @variant="destructive">
+          <DropdownMenuItem @class="text-destructive focus:text-destructive">
             <TrashIcon />
             Delete Conversation
           </DropdownMenuItem>

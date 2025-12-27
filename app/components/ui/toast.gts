@@ -31,7 +31,7 @@ interface ToastProviderSignature {
   };
 }
 
-export const ToastProvider: TOC<ToastProviderSignature> = <template>
+const ToastProvider: TOC<ToastProviderSignature> = <template>
   {{! template-lint-disable no-yield-only }}
   {{yield}}
 </template>;
@@ -47,7 +47,7 @@ interface ToastViewportSignature {
   };
 }
 
-export const ToastViewport: TOC<ToastViewportSignature> = <template>
+const ToastViewport: TOC<ToastViewportSignature> = <template>
   <div
     class={{cn
       "fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]"
@@ -71,7 +71,7 @@ interface ToastSignature {
   };
 }
 
-export class Toast extends Component<ToastSignature> {
+class Toast extends Component<ToastSignature> {
   get classes() {
     return toastVariants(this.args.variant ?? 'default', this.args.class);
   }
@@ -95,7 +95,7 @@ interface ToastActionSignature {
   };
 }
 
-export const ToastAction: TOC<ToastActionSignature> = <template>
+const ToastAction: TOC<ToastActionSignature> = <template>
   <button
     type="button"
     class={{cn
@@ -119,7 +119,7 @@ interface ToastCloseSignature {
   };
 }
 
-export const ToastClose: TOC<ToastCloseSignature> = <template>
+const ToastClose: TOC<ToastCloseSignature> = <template>
   <button
     type="button"
     class={{cn
@@ -143,7 +143,7 @@ interface ToastTitleSignature {
   };
 }
 
-export const ToastTitle: TOC<ToastTitleSignature> = <template>
+const ToastTitle: TOC<ToastTitleSignature> = <template>
   <div
     class={{cn "text-sm font-semibold [&+div]:text-xs" @class}}
     ...attributes
@@ -163,11 +163,19 @@ interface ToastDescriptionSignature {
   };
 }
 
-export const ToastDescription: TOC<ToastDescriptionSignature> = <template>
+const ToastDescription: TOC<ToastDescriptionSignature> = <template>
   <div class={{cn "text-sm opacity-90" @class}} ...attributes>
     {{yield}}
   </div>
 </template>;
 
-export default Toast;
-export { toastVariants };
+export {
+  toastVariants,
+  Toast,
+  ToastProvider,
+  ToastViewport,
+  ToastAction,
+  ToastClose,
+  ToastTitle,
+  ToastDescription,
+};

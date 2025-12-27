@@ -46,7 +46,7 @@ function toggleVariants(
   return cn(baseClasses, variantClasses[variant], sizeClasses[size], className);
 }
 
-export default class Toggle extends Component<ToggleSignature> {
+class Toggle extends Component<ToggleSignature> {
   @tracked internalPressed: boolean;
 
   constructor(owner: Owner, args: ToggleSignature['Args']) {
@@ -89,4 +89,4 @@ export default class Toggle extends Component<ToggleSignature> {
   </template>
 }
 
-export { toggleVariants };
+export { Toggle, toggleVariants };

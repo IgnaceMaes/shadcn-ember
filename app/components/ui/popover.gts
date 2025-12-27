@@ -18,7 +18,7 @@ interface PopoverSignature {
   };
 }
 
-export class Popover extends Component<PopoverSignature> {
+class Popover extends Component<PopoverSignature> {
   @tracked isOpen: boolean;
 
   constructor(owner: Owner, args: PopoverSignature['Args']) {
@@ -55,7 +55,7 @@ interface PopoverTriggerSignature {
   };
 }
 
-export class PopoverTrigger extends Component<PopoverTriggerSignature> {
+class PopoverTrigger extends Component<PopoverTriggerSignature> {
   handleClick = () => {
     const currentOpen = this.args.setOpen !== undefined;
     this.args.setOpen?.(!currentOpen);
@@ -95,7 +95,7 @@ interface PopoverAnchorSignature {
   };
 }
 
-export const PopoverAnchor: TOC<PopoverAnchorSignature> = <template>
+const PopoverAnchor: TOC<PopoverAnchorSignature> = <template>
   <div class={{cn @class}} ...attributes>
     {{yield}}
   </div>
@@ -116,7 +116,7 @@ interface PopoverContentSignature {
   };
 }
 
-export class PopoverContent extends Component<PopoverContentSignature> {
+class PopoverContent extends Component<PopoverContentSignature> {
   handleClickOutside = () => {
     this.args.setOpen?.(false);
   };
@@ -140,4 +140,4 @@ export class PopoverContent extends Component<PopoverContentSignature> {
   </template>
 }
 
-export default Popover;
+export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor };

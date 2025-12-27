@@ -17,7 +17,7 @@ interface DialogSignature {
   };
 }
 
-export class Dialog extends Component<DialogSignature> {
+class Dialog extends Component<DialogSignature> {
   @tracked isOpen = this.args.open ?? false;
 
   get open() {
@@ -46,7 +46,7 @@ interface DialogTriggerSignature {
   };
 }
 
-export class DialogTrigger extends Component<DialogTriggerSignature> {
+class DialogTrigger extends Component<DialogTriggerSignature> {
   handleClick = (event: MouseEvent) => {
     event.preventDefault();
     this.args.setOpen?.(true);
@@ -75,7 +75,7 @@ interface DialogPortalSignature {
   };
 }
 
-export const DialogPortal: TOC<DialogPortalSignature> = <template>
+const DialogPortal: TOC<DialogPortalSignature> = <template>
   <div>
     {{yield}}
   </div>
@@ -94,7 +94,7 @@ interface DialogOverlaySignature {
   };
 }
 
-export class DialogOverlay extends Component<DialogOverlaySignature> {
+class DialogOverlay extends Component<DialogOverlaySignature> {
   handleClick = () => {
     this.args.setOpen?.(false);
   };
@@ -127,7 +127,7 @@ interface DialogCloseSignature {
   };
 }
 
-export class DialogClose extends Component<DialogCloseSignature> {
+class DialogClose extends Component<DialogCloseSignature> {
   handleClick = () => {
     this.args.setOpen?.(false);
   };
@@ -161,7 +161,7 @@ interface DialogContentSignature {
   };
 }
 
-export class DialogContent extends Component<DialogContentSignature> {
+class DialogContent extends Component<DialogContentSignature> {
   handleOverlayClick = (event: MouseEvent) => {
     // Stop propagation to prevent closing when clicking inside content
     event.stopPropagation();
@@ -220,7 +220,7 @@ interface DialogHeaderSignature {
   };
 }
 
-export const DialogHeader: TOC<DialogHeaderSignature> = <template>
+const DialogHeader: TOC<DialogHeaderSignature> = <template>
   <div
     class={{cn "flex flex-col space-y-1.5 text-center sm:text-left" @class}}
     ...attributes
@@ -240,7 +240,7 @@ interface DialogFooterSignature {
   };
 }
 
-export const DialogFooter: TOC<DialogFooterSignature> = <template>
+const DialogFooter: TOC<DialogFooterSignature> = <template>
   <div
     class={{cn
       "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2"
@@ -263,7 +263,7 @@ interface DialogTitleSignature {
   };
 }
 
-export const DialogTitle: TOC<DialogTitleSignature> = <template>
+const DialogTitle: TOC<DialogTitleSignature> = <template>
   <h2
     class={{cn "text-lg font-semibold leading-none tracking-tight" @class}}
     ...attributes
@@ -283,10 +283,21 @@ interface DialogDescriptionSignature {
   };
 }
 
-export const DialogDescription: TOC<DialogDescriptionSignature> = <template>
+const DialogDescription: TOC<DialogDescriptionSignature> = <template>
   <p class={{cn "text-sm text-muted-foreground" @class}} ...attributes>
     {{yield}}
   </p>
 </template>;
 
-export default Dialog;
+export {
+  Dialog,
+  DialogTrigger,
+  DialogPortal,
+  DialogOverlay,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+};

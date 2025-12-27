@@ -13,7 +13,7 @@ interface AspectRatioSignature {
   };
 }
 
-export class AspectRatio extends Component<AspectRatioSignature> {
+class AspectRatio extends Component<AspectRatioSignature> {
   get style() {
     const ratio = this.args.ratio ?? 1;
     return htmlSafe(`padding-bottom: ${(1 / ratio) * 100}%`);
@@ -29,4 +29,4 @@ export class AspectRatio extends Component<AspectRatioSignature> {
   </template>
 }
 
-export default AspectRatio;
+export { AspectRatio };

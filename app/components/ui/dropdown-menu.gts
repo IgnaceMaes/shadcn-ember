@@ -21,7 +21,7 @@ interface DropdownMenuSignature {
   };
 }
 
-export class DropdownMenu extends Component<DropdownMenuSignature> {
+class DropdownMenu extends Component<DropdownMenuSignature> {
   @tracked isOpen: boolean;
 
   constructor(owner: Owner, args: DropdownMenuSignature['Args']) {
@@ -55,7 +55,7 @@ interface DropdownMenuTriggerSignature {
   };
 }
 
-export class DropdownMenuTrigger extends Component<DropdownMenuTriggerSignature> {
+class DropdownMenuTrigger extends Component<DropdownMenuTriggerSignature> {
   handleClick = () => {
     const newOpen = !this.args.isOpen;
     this.args.setOpen?.(newOpen);
@@ -97,7 +97,7 @@ interface DropdownMenuGroupSignature {
   };
 }
 
-export const DropdownMenuGroup: TOC<DropdownMenuGroupSignature> = <template>
+const DropdownMenuGroup: TOC<DropdownMenuGroupSignature> = <template>
   <div role="group" class={{cn @class}} ...attributes>
     {{yield}}
   </div>
@@ -110,7 +110,7 @@ interface DropdownMenuPortalSignature {
   };
 }
 
-export const DropdownMenuPortal: TOC<DropdownMenuPortalSignature> = <template>
+const DropdownMenuPortal: TOC<DropdownMenuPortalSignature> = <template>
   <div data-portal>
     {{yield}}
   </div>
@@ -128,7 +128,7 @@ interface DropdownMenuSubSignature {
   };
 }
 
-export class DropdownMenuSub extends Component<DropdownMenuSubSignature> {
+class DropdownMenuSub extends Component<DropdownMenuSubSignature> {
   @tracked isOpen: boolean;
 
   constructor(owner: Owner, args: DropdownMenuSubSignature['Args']) {
@@ -161,7 +161,7 @@ interface DropdownMenuRadioGroupSignature {
   };
 }
 
-export class DropdownMenuRadioGroup extends Component<DropdownMenuRadioGroupSignature> {
+class DropdownMenuRadioGroup extends Component<DropdownMenuRadioGroupSignature> {
   @tracked internalValue: string;
 
   constructor(owner: Owner, args: DropdownMenuRadioGroupSignature['Args']) {
@@ -197,20 +197,19 @@ interface DropdownMenuSubTriggerSignature {
   };
 }
 
-export const DropdownMenuSubTrigger: TOC<DropdownMenuSubTriggerSignature> =
-  <template>
-    <div
-      class={{cn
-        "flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent data-[state=open]:bg-accent [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
-        (if @inset "pl-8")
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-      <ChevronRight class="size-4 ml-auto" />
-    </div>
-  </template>;
+const DropdownMenuSubTrigger: TOC<DropdownMenuSubTriggerSignature> = <template>
+  <div
+    class={{cn
+      "flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent data-[state=open]:bg-accent [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
+      (if @inset "pl-8")
+      @class
+    }}
+    ...attributes
+  >
+    {{yield}}
+    <ChevronRight class="size-4 ml-auto" />
+  </div>
+</template>;
 
 // DropdownMenuSubContent Component
 interface DropdownMenuSubContentSignature {
@@ -224,21 +223,20 @@ interface DropdownMenuSubContentSignature {
   };
 }
 
-export const DropdownMenuSubContent: TOC<DropdownMenuSubContentSignature> =
-  <template>
-    {{#if @isOpen}}
-      <div
-        class={{cn
-          "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
-          @class
-        }}
-        data-state={{if @isOpen "open" "closed"}}
-        ...attributes
-      >
-        {{yield}}
-      </div>
-    {{/if}}
-  </template>;
+const DropdownMenuSubContent: TOC<DropdownMenuSubContentSignature> = <template>
+  {{#if @isOpen}}
+    <div
+      class={{cn
+        "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
+        @class
+      }}
+      data-state={{if @isOpen "open" "closed"}}
+      ...attributes
+    >
+      {{yield}}
+    </div>
+  {{/if}}
+</template>;
 
 // DropdownMenuContent Component
 interface DropdownMenuContentSignature {
@@ -254,7 +252,7 @@ interface DropdownMenuContentSignature {
   };
 }
 
-export class DropdownMenuContent extends Component<DropdownMenuContentSignature> {
+class DropdownMenuContent extends Component<DropdownMenuContentSignature> {
   handleClickOutside = () => {
     this.args.setOpen?.(false);
   };
@@ -290,7 +288,7 @@ interface DropdownMenuItemSignature {
   };
 }
 
-export const DropdownMenuItem: TOC<DropdownMenuItemSignature> = <template>
+const DropdownMenuItem: TOC<DropdownMenuItemSignature> = <template>
   <div
     class={{cn
       "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&>svg]:size-4 [&>svg]:shrink-0"
@@ -318,7 +316,7 @@ interface DropdownMenuCheckboxItemSignature {
   };
 }
 
-export class DropdownMenuCheckboxItem extends Component<DropdownMenuCheckboxItemSignature> {
+class DropdownMenuCheckboxItem extends Component<DropdownMenuCheckboxItemSignature> {
   handleClick = () => {
     this.args.onCheckedChange?.(!this.args.checked);
   };
@@ -361,7 +359,7 @@ interface DropdownMenuRadioItemSignature {
   };
 }
 
-export class DropdownMenuRadioItem extends Component<DropdownMenuRadioItemSignature> {
+class DropdownMenuRadioItem extends Component<DropdownMenuRadioItemSignature> {
   get checked() {
     return this.args.currentValue === this.args.value;
   }
@@ -406,7 +404,7 @@ interface DropdownMenuLabelSignature {
   };
 }
 
-export const DropdownMenuLabel: TOC<DropdownMenuLabelSignature> = <template>
+const DropdownMenuLabel: TOC<DropdownMenuLabelSignature> = <template>
   <div
     class={{cn "px-2 py-1.5 text-sm font-semibold" (if @inset "pl-8") @class}}
     ...attributes
@@ -426,14 +424,13 @@ interface DropdownMenuSeparatorSignature {
   };
 }
 
-export const DropdownMenuSeparator: TOC<DropdownMenuSeparatorSignature> =
-  <template>
-    <div
-      class={{cn "-mx-1 my-1 h-px bg-muted" @class}}
-      role="separator"
-      ...attributes
-    ></div>
-  </template>;
+const DropdownMenuSeparator: TOC<DropdownMenuSeparatorSignature> = <template>
+  <div
+    class={{cn "-mx-1 my-1 h-px bg-muted" @class}}
+    role="separator"
+    ...attributes
+  ></div>
+</template>;
 
 // DropdownMenuShortcut Component
 interface DropdownMenuShortcutSignature {
@@ -446,14 +443,29 @@ interface DropdownMenuShortcutSignature {
   };
 }
 
-export const DropdownMenuShortcut: TOC<DropdownMenuShortcutSignature> =
-  <template>
-    <span
-      class={{cn "ml-auto text-xs tracking-widest opacity-60" @class}}
-      ...attributes
-    >
-      {{yield}}
-    </span>
-  </template>;
+const DropdownMenuShortcut: TOC<DropdownMenuShortcutSignature> = <template>
+  <span
+    class={{cn "ml-auto text-xs tracking-widest opacity-60" @class}}
+    ...attributes
+  >
+    {{yield}}
+  </span>
+</template>;
 
-export default DropdownMenu;
+export {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuGroup,
+  DropdownMenuPortal,
+  DropdownMenuSub,
+  DropdownMenuRadioGroup,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuCheckboxItem,
+  DropdownMenuRadioItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+};

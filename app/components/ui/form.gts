@@ -1,6 +1,6 @@
 import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
-import Label from './label.gts';
+import { Label } from './label.gts';
 
 // Note: This is a placeholder for the Form component
 // Full implementation would require react-hook-form or a similar form library
@@ -13,7 +13,7 @@ interface FormSignature {
   };
 }
 
-export const Form: TOC<FormSignature> = <template>
+const Form: TOC<FormSignature> = <template>
   {{! template-lint-disable no-yield-only }}
   {{yield}}
 </template>;
@@ -28,7 +28,7 @@ interface FormFieldSignature {
   };
 }
 
-export const FormField: TOC<FormFieldSignature> = <template>
+const FormField: TOC<FormFieldSignature> = <template>
   {{! template-lint-disable no-yield-only }}
   {{yield}}
 </template>;
@@ -44,7 +44,7 @@ interface FormItemSignature {
   };
 }
 
-export const FormItem: TOC<FormItemSignature> = <template>
+const FormItem: TOC<FormItemSignature> = <template>
   <div class={{cn "space-y-2" @class}} ...attributes>
     {{yield}}
   </div>
@@ -61,7 +61,7 @@ interface FormLabelSignature {
   };
 }
 
-export const FormLabel: TOC<FormLabelSignature> = <template>
+const FormLabel: TOC<FormLabelSignature> = <template>
   <Label class={{cn @class}} ...attributes>
     {{yield}}
   </Label>
@@ -74,7 +74,7 @@ interface FormControlSignature {
   };
 }
 
-export const FormControl: TOC<FormControlSignature> = <template>
+const FormControl: TOC<FormControlSignature> = <template>
   {{! template-lint-disable no-yield-only }}
   {{yield}}
 </template>;
@@ -90,7 +90,7 @@ interface FormDescriptionSignature {
   };
 }
 
-export const FormDescription: TOC<FormDescriptionSignature> = <template>
+const FormDescription: TOC<FormDescriptionSignature> = <template>
   <p class={{cn "text-[0.8rem] text-muted-foreground" @class}} ...attributes>
     {{yield}}
   </p>
@@ -107,7 +107,7 @@ interface FormMessageSignature {
   };
 }
 
-export const FormMessage: TOC<FormMessageSignature> = <template>
+const FormMessage: TOC<FormMessageSignature> = <template>
   <p
     class={{cn "text-[0.8rem] font-medium text-destructive" @class}}
     ...attributes
@@ -116,4 +116,12 @@ export const FormMessage: TOC<FormMessageSignature> = <template>
   </p>
 </template>;
 
-export default Form;
+export {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  FormMessage,
+};

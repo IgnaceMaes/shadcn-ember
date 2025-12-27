@@ -1,5 +1,5 @@
 import type { TOC } from '@ember/component/template-only';
-import Button from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 
 export interface TocItem {
   id: string;

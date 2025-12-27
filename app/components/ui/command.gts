@@ -16,7 +16,7 @@ interface CommandSignature {
   };
 }
 
-export const Command: TOC<CommandSignature> = <template>
+const Command: TOC<CommandSignature> = <template>
   {{! template-lint-disable require-mandatory-role-attributes }}
   <div
     class={{cn
@@ -41,7 +41,7 @@ interface CommandDialogSignature {
   };
 }
 
-export const CommandDialog: TOC<CommandDialogSignature> = <template>
+const CommandDialog: TOC<CommandDialogSignature> = <template>
   {{! template-lint-disable no-yield-only }}
   {{! TODO: Integrate with Dialog component }}
   {{yield}}
@@ -59,7 +59,7 @@ interface CommandInputSignature {
   };
 }
 
-export const CommandInput: TOC<CommandInputSignature> = <template>
+const CommandInput: TOC<CommandInputSignature> = <template>
   <div class="flex items-center border-b px-3">
     <Search class="mr-2 size-4 shrink-0 opacity-50" />
     <input
@@ -85,7 +85,7 @@ interface CommandListSignature {
   };
 }
 
-export const CommandList: TOC<CommandListSignature> = <template>
+const CommandList: TOC<CommandListSignature> = <template>
   <div
     class={{cn "max-h-[300px] overflow-y-auto overflow-x-hidden" @class}}
     role="listbox"
@@ -106,7 +106,7 @@ interface CommandEmptySignature {
   };
 }
 
-export const CommandEmpty: TOC<CommandEmptySignature> = <template>
+const CommandEmpty: TOC<CommandEmptySignature> = <template>
   <div class={{cn "py-6 text-center text-sm" @class}} ...attributes>
     {{yield}}
   </div>
@@ -124,7 +124,7 @@ interface CommandGroupSignature {
   };
 }
 
-export const CommandGroup: TOC<CommandGroupSignature> = <template>
+const CommandGroup: TOC<CommandGroupSignature> = <template>
   <div
     class={{cn
       "overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground"
@@ -151,7 +151,7 @@ interface CommandSeparatorSignature {
   };
 }
 
-export const CommandSeparator: TOC<CommandSeparatorSignature> = <template>
+const CommandSeparator: TOC<CommandSeparatorSignature> = <template>
   <div
     class={{cn "-mx-1 h-px bg-border" @class}}
     role="separator"
@@ -171,7 +171,7 @@ interface CommandItemSignature {
   };
 }
 
-export const CommandItem: TOC<CommandItemSignature> = <template>
+const CommandItem: TOC<CommandItemSignature> = <template>
   {{! template-lint-disable require-mandatory-role-attributes }}
   <div
     class={{cn
@@ -197,7 +197,7 @@ interface CommandShortcutSignature {
   };
 }
 
-export const CommandShortcut: TOC<CommandShortcutSignature> = <template>
+const CommandShortcut: TOC<CommandShortcutSignature> = <template>
   <span
     class={{cn "ml-auto text-xs tracking-widest text-muted-foreground" @class}}
     ...attributes
@@ -206,4 +206,14 @@ export const CommandShortcut: TOC<CommandShortcutSignature> = <template>
   </span>
 </template>;
 
-export default Command;
+export {
+  Command,
+  CommandDialog,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+  CommandShortcut,
+  CommandSeparator,
+};

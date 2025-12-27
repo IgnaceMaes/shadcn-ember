@@ -24,7 +24,7 @@ npx embercli-shadcn@latest add badge
 ## Usage
 
 ```gts showLineNumbers
-import Badge from '@/components/ui/badge';
+import { Badge } from '@/components/ui/badge';
 ```
 
 ```hbs showLineNumbers
@@ -40,7 +40,7 @@ You can use the `@asChild` argument to make another component look like a badge.
 
 ```gts showLineNumbers
 import { LinkTo } from '@ember/routing';
-import Badge from '@/components/ui/badge';
+import { Badge } from '@/components/ui/badge';
 
 <template>
   <Badge @asChild={{true}} as |classes|>

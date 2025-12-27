@@ -1,12 +1,12 @@
-import Button from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import Separator from '@/components/ui/separator';
-import Textarea from '@/components/ui/textarea';
+import { Separator } from '@/components/ui/separator';
+import { Textarea } from '@/components/ui/textarea';
 import BotIcon from '~icons/lucide/bot';
 import ChevronDownIcon from '~icons/lucide/chevron-down';
 

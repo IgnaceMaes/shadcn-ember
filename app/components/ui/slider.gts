@@ -23,7 +23,7 @@ interface SliderSignature {
   };
 }
 
-export class Slider extends Component<SliderSignature> {
+class Slider extends Component<SliderSignature> {
   @tracked internalValue: number[];
 
   constructor(owner: Owner, args: SliderSignature['Args']) {
@@ -103,4 +103,4 @@ export class Slider extends Component<SliderSignature> {
   </template>
 }
 
-export default Slider;
+export { Slider };

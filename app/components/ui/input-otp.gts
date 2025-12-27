@@ -19,7 +19,7 @@ interface InputOTPSignature {
   };
 }
 
-export const InputOTP: TOC<InputOTPSignature> = <template>
+const InputOTP: TOC<InputOTPSignature> = <template>
   <div class={{cn "flex items-center gap-2" @class}} ...attributes>
     {{yield}}
   </div>
@@ -36,7 +36,7 @@ interface InputOTPGroupSignature {
   };
 }
 
-export const InputOTPGroup: TOC<InputOTPGroupSignature> = <template>
+const InputOTPGroup: TOC<InputOTPGroupSignature> = <template>
   <div class={{cn "flex items-center" @class}} ...attributes>
     {{yield}}
   </div>
@@ -54,7 +54,7 @@ interface InputOTPSlotSignature {
   };
 }
 
-export const InputOTPSlot: TOC<InputOTPSlotSignature> = <template>
+const InputOTPSlot: TOC<InputOTPSlotSignature> = <template>
   <div
     class={{cn
       "relative flex h-9 w-9 items-center justify-center border-y border-r border-input text-sm shadow-sm transition-all first:rounded-l-md first:border-l last:rounded-r-md"
@@ -77,11 +77,11 @@ interface InputOTPSeparatorSignature {
   };
 }
 
-export const InputOTPSeparator: TOC<InputOTPSeparatorSignature> = <template>
+const InputOTPSeparator: TOC<InputOTPSeparatorSignature> = <template>
   {{! template-lint-disable require-presentational-children }}
   <div role="separator" ...attributes>
     <Minus class="size-4" />
   </div>
 </template>;
 
-export default InputOTP;
+export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator };

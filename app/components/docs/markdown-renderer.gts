@@ -18,7 +18,7 @@ import {
   DocCode,
   DocHeading,
 } from './index';
-import Separator from '@/components/ui/separator';
+import { Separator } from '@/components/ui/separator';
 import CodeBlockThemed from './code-block-themed';
 import PackageManagerCommand from './package-manager-command';
 import DynamicMarkdownComponent from './dynamic-markdown-component';

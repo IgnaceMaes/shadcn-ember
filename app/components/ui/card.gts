@@ -11,7 +11,7 @@ interface CardSignature {
   };
 }
 
-export const Card: TOC<CardSignature> = <template>
+const Card: TOC<CardSignature> = <template>
   <div
     data-slot="card"
     class={{cn
@@ -34,7 +34,7 @@ interface CardHeaderSignature {
   };
 }
 
-export const CardHeader: TOC<CardHeaderSignature> = <template>
+const CardHeader: TOC<CardHeaderSignature> = <template>
   <div
     data-slot="card-header"
     class={{cn
@@ -57,7 +57,7 @@ interface CardTitleSignature {
   };
 }
 
-export const CardTitle: TOC<CardTitleSignature> = <template>
+const CardTitle: TOC<CardTitleSignature> = <template>
   <div
     data-slot="card-title"
     class={{cn "leading-none font-semibold" @class}}
@@ -77,7 +77,7 @@ interface CardDescriptionSignature {
   };
 }
 
-export const CardDescription: TOC<CardDescriptionSignature> = <template>
+const CardDescription: TOC<CardDescriptionSignature> = <template>
   <div
     data-slot="card-description"
     class={{cn "text-muted-foreground text-sm" @class}}
@@ -97,7 +97,7 @@ interface CardActionSignature {
   };
 }
 
-export const CardAction: TOC<CardActionSignature> = <template>
+const CardAction: TOC<CardActionSignature> = <template>
   <div
     data-slot="card-action"
     class={{cn
@@ -120,7 +120,7 @@ interface CardContentSignature {
   };
 }
 
-export const CardContent: TOC<CardContentSignature> = <template>
+const CardContent: TOC<CardContentSignature> = <template>
   <div data-slot="card-content" class={{cn "px-6" @class}} ...attributes>
     {{yield}}
   </div>
@@ -136,7 +136,7 @@ interface CardFooterSignature {
   };
 }
 
-export const CardFooter: TOC<CardFooterSignature> = <template>
+const CardFooter: TOC<CardFooterSignature> = <template>
   <div
     data-slot="card-footer"
     class={{cn "flex items-center px-6 [.border-t]:pt-6" @class}}
@@ -146,4 +146,12 @@ export const CardFooter: TOC<CardFooterSignature> = <template>
   </div>
 </template>;
 
-export default Card;
+export {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardAction,
+  CardContent,
+  CardFooter,
+};

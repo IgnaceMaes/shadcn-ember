@@ -1,6 +1,6 @@
-import Button from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
-import Input from '@/components/ui/input';
+import { Input } from '@/components/ui/input';
 import SearchIcon from '~icons/lucide/search';
 
 <template>

@@ -20,5 +20,4 @@ const Skeleton: TOC<SkeletonSignature> = <template>
   </div>
 </template>;
 
-export default Skeleton;
 export { Skeleton };

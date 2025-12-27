@@ -12,7 +12,7 @@ interface TableSignature {
   };
 }
 
-export const Table: TOC<TableSignature> = <template>
+const Table: TOC<TableSignature> = <template>
   <div class="relative w-full overflow-auto">
     <table class={{cn "w-full caption-bottom text-sm" @class}} ...attributes>
       {{yield}}
@@ -31,7 +31,7 @@ interface TableHeaderSignature {
   };
 }
 
-export const TableHeader: TOC<TableHeaderSignature> = <template>
+const TableHeader: TOC<TableHeaderSignature> = <template>
   <thead class={{cn "[&_tr]:border-b" @class}} ...attributes>
     {{yield}}
   </thead>
@@ -48,7 +48,7 @@ interface TableBodySignature {
   };
 }
 
-export const TableBody: TOC<TableBodySignature> = <template>
+const TableBody: TOC<TableBodySignature> = <template>
   <tbody class={{cn "[&_tr:last-child]:border-0" @class}} ...attributes>
     {{yield}}
   </tbody>
@@ -65,7 +65,7 @@ interface TableFooterSignature {
   };
 }
 
-export const TableFooter: TOC<TableFooterSignature> = <template>
+const TableFooter: TOC<TableFooterSignature> = <template>
   <tfoot
     class={{cn
       "border-t bg-muted/50 font-medium [&>tr]:last:border-b-0"
@@ -88,7 +88,7 @@ interface TableRowSignature {
   };
 }
 
-export const TableRow: TOC<TableRowSignature> = <template>
+const TableRow: TOC<TableRowSignature> = <template>
   <tr
     class={{cn
       "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
@@ -111,7 +111,7 @@ interface TableHeadSignature {
   };
 }
 
-export const TableHead: TOC<TableHeadSignature> = <template>
+const TableHead: TOC<TableHeadSignature> = <template>
   <th
     class={{cn
       "h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
@@ -134,7 +134,7 @@ interface TableCellSignature {
   };
 }
 
-export const TableCell: TOC<TableCellSignature> = <template>
+const TableCell: TOC<TableCellSignature> = <template>
   <td
     class={{cn
       "p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
@@ -157,7 +157,7 @@ interface TableCaptionSignature {
   };
 }
 
-export const TableCaption: TOC<TableCaptionSignature> = <template>
+const TableCaption: TOC<TableCaptionSignature> = <template>
   <caption
     class={{cn "mt-4 text-sm text-muted-foreground" @class}}
     ...attributes
@@ -166,4 +166,13 @@ export const TableCaption: TOC<TableCaptionSignature> = <template>
   </caption>
 </template>;
 
-export default Table;
+export {
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableRow,
+  TableHead,
+  TableCell,
+  TableCaption,
+};

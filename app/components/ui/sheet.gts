@@ -37,7 +37,7 @@ interface SheetSignature {
   };
 }
 
-export class Sheet extends Component<SheetSignature> {
+class Sheet extends Component<SheetSignature> {
   @tracked isOpen: boolean;
 
   constructor(owner: Owner, args: SheetSignature['Args']) {
@@ -70,7 +70,7 @@ interface SheetTriggerSignature {
   };
 }
 
-export class SheetTrigger extends Component<SheetTriggerSignature> {
+class SheetTrigger extends Component<SheetTriggerSignature> {
   handleClick = () => {
     this.args.setOpen?.(true);
   };
@@ -104,7 +104,7 @@ interface SheetCloseSignature {
   };
 }
 
-export class SheetClose extends Component<SheetCloseSignature> {
+class SheetClose extends Component<SheetCloseSignature> {
   handleClick = () => {
     this.args.setOpen?.(false);
   };
@@ -132,7 +132,7 @@ interface SheetPortalSignature {
   };
 }
 
-export const SheetPortal: TOC<SheetPortalSignature> = <template>
+const SheetPortal: TOC<SheetPortalSignature> = <template>
   {{! template-lint-disable no-yield-only }}
   {{yield}}
 </template>;
@@ -150,7 +150,7 @@ interface SheetOverlaySignature {
   };
 }
 
-export class SheetOverlay extends Component<SheetOverlaySignature> {
+class SheetOverlay extends Component<SheetOverlaySignature> {
   handleClick = () => {
     this.args.setOpen?.(false);
   };
@@ -185,7 +185,7 @@ interface SheetContentSignature {
   };
 }
 
-export class SheetContent extends Component<SheetContentSignature> {
+class SheetContent extends Component<SheetContentSignature> {
   get classes() {
     return sheetVariants(this.args.side ?? 'right', this.args.class);
   }
@@ -226,7 +226,7 @@ interface SheetHeaderSignature {
   };
 }
 
-export const SheetHeader: TOC<SheetHeaderSignature> = <template>
+const SheetHeader: TOC<SheetHeaderSignature> = <template>
   <div
     class={{cn "flex flex-col space-y-2 text-center sm:text-left" @class}}
     ...attributes
@@ -246,7 +246,7 @@ interface SheetFooterSignature {
   };
 }
 
-export const SheetFooter: TOC<SheetFooterSignature> = <template>
+const SheetFooter: TOC<SheetFooterSignature> = <template>
   <div
     class={{cn
       "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2"
@@ -269,7 +269,7 @@ interface SheetTitleSignature {
   };
 }
 
-export const SheetTitle: TOC<SheetTitleSignature> = <template>
+const SheetTitle: TOC<SheetTitleSignature> = <template>
   <h2 class={{cn "text-lg font-semibold text-foreground" @class}} ...attributes>
     {{yield}}
   </h2>
@@ -286,10 +286,21 @@ interface SheetDescriptionSignature {
   };
 }
 
-export const SheetDescription: TOC<SheetDescriptionSignature> = <template>
+const SheetDescription: TOC<SheetDescriptionSignature> = <template>
   <p class={{cn "text-sm text-muted-foreground" @class}} ...attributes>
     {{yield}}
   </p>
 </template>;
 
-export default Sheet;
+export {
+  Sheet,
+  SheetTrigger,
+  SheetClose,
+  SheetPortal,
+  SheetOverlay,
+  SheetContent,
+  SheetHeader,
+  SheetFooter,
+  SheetTitle,
+  SheetDescription,
+};

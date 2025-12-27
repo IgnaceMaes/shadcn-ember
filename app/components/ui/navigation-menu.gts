@@ -15,7 +15,7 @@ interface NavigationMenuSignature {
   };
 }
 
-export const NavigationMenu: TOC<NavigationMenuSignature> = <template>
+const NavigationMenu: TOC<NavigationMenuSignature> = <template>
   <nav
     class={{cn
       "relative z-10 flex max-w-max flex-1 items-center justify-center"
@@ -38,7 +38,7 @@ interface NavigationMenuListSignature {
   };
 }
 
-export const NavigationMenuList: TOC<NavigationMenuListSignature> = <template>
+const NavigationMenuList: TOC<NavigationMenuListSignature> = <template>
   <ul
     class={{cn
       "group flex flex-1 list-none items-center justify-center space-x-1"
@@ -61,7 +61,7 @@ interface NavigationMenuItemSignature {
   };
 }
 
-export const NavigationMenuItem: TOC<NavigationMenuItemSignature> = <template>
+const NavigationMenuItem: TOC<NavigationMenuItemSignature> = <template>
   <li class={{cn @class}} ...attributes>
     {{yield}}
   </li>
@@ -78,19 +78,18 @@ interface NavigationMenuTriggerSignature {
   };
 }
 
-export const NavigationMenuTrigger: TOC<NavigationMenuTriggerSignature> =
-  <template>
-    <button
-      type="button"
-      class={{cn
-        "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
-        @class
-      }}
-      ...attributes
-    >
-      {{yield}}
-    </button>
-  </template>;
+const NavigationMenuTrigger: TOC<NavigationMenuTriggerSignature> = <template>
+  <button
+    type="button"
+    class={{cn
+      "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+      @class
+    }}
+    ...attributes
+  >
+    {{yield}}
+  </button>
+</template>;
 
 // NavigationMenuContent Component
 interface NavigationMenuContentSignature {
@@ -103,15 +102,14 @@ interface NavigationMenuContentSignature {
   };
 }
 
-export const NavigationMenuContent: TOC<NavigationMenuContentSignature> =
-  <template>
-    <div
-      class={{cn "left-0 top-0 w-full md:absolute md:w-auto" @class}}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  </template>;
+const NavigationMenuContent: TOC<NavigationMenuContentSignature> = <template>
+  <div
+    class={{cn "left-0 top-0 w-full md:absolute md:w-auto" @class}}
+    ...attributes
+  >
+    {{yield}}
+  </div>
+</template>;
 
 // NavigationMenuLink Component
 interface NavigationMenuLinkSignature {
@@ -124,7 +122,7 @@ interface NavigationMenuLinkSignature {
   };
 }
 
-export const NavigationMenuLink: TOC<NavigationMenuLinkSignature> = <template>
+const NavigationMenuLink: TOC<NavigationMenuLinkSignature> = <template>
   {{! template-lint-disable link-href-attributes }}
   <a class={{cn @class}} ...attributes>
     {{yield}}
@@ -142,20 +140,19 @@ interface NavigationMenuViewportSignature {
   };
 }
 
-export const NavigationMenuViewport: TOC<NavigationMenuViewportSignature> =
-  <template>
-    <div class="absolute left-0 top-full flex justify-center">
-      <div
-        class={{cn
-          "relative mt-1.5 h-auto w-full overflow-hidden rounded-md border bg-popover text-popover-foreground shadow"
-          @class
-        }}
-        ...attributes
-      >
-        {{yield}}
-      </div>
+const NavigationMenuViewport: TOC<NavigationMenuViewportSignature> = <template>
+  <div class="absolute left-0 top-full flex justify-center">
+    <div
+      class={{cn
+        "relative mt-1.5 h-auto w-full overflow-hidden rounded-md border bg-popover text-popover-foreground shadow"
+        @class
+      }}
+      ...attributes
+    >
+      {{yield}}
     </div>
-  </template>;
+  </div>
+</template>;
 
 // NavigationMenuIndicator Component
 interface NavigationMenuIndicatorSignature {
@@ -168,11 +165,20 @@ interface NavigationMenuIndicatorSignature {
   };
 }
 
-export const NavigationMenuIndicator: TOC<NavigationMenuIndicatorSignature> =
+const NavigationMenuIndicator: TOC<NavigationMenuIndicatorSignature> =
   <template>
     <div class={{cn @class}} ...attributes>
       {{yield}}
     </div>
   </template>;
 
-export default NavigationMenu;
+export {
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuTrigger,
+  NavigationMenuContent,
+  NavigationMenuLink,
+  NavigationMenuIndicator,
+  NavigationMenuViewport,
+};

@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { cn } from '@/lib/utils';
-import Label from '@/components/ui/label';
-import Separator from '@/components/ui/separator';
+import { Label } from '@/components/ui/label';
+import { Separator } from '@/components/ui/separator';
 
 // FieldSet Component
 interface FieldSetSignature {
@@ -14,7 +14,7 @@ interface FieldSetSignature {
   };
 }
 
-export class FieldSet extends Component<FieldSetSignature> {
+class FieldSet extends Component<FieldSetSignature> {
   get classes() {
     return cn(
       'flex flex-col gap-6',
@@ -42,7 +42,7 @@ interface FieldLegendSignature {
   };
 }
 
-export class FieldLegend extends Component<FieldLegendSignature> {
+class FieldLegend extends Component<FieldLegendSignature> {
   get variant() {
     return this.args.variant ?? 'legend';
   }
@@ -79,7 +79,7 @@ interface FieldGroupSignature {
   };
 }
 
-export class FieldGroup extends Component<FieldGroupSignature> {
+class FieldGroup extends Component<FieldGroupSignature> {
   get classes() {
     return cn(
       'group/field-group @container/field-group flex w-full flex-col gap-7 data-[slot=checkbox-group]:gap-3 [&>[data-slot=field-group]]:gap-4',
@@ -132,7 +132,7 @@ function fieldVariants(
   return cn(baseClasses, orientationClasses[orientation], className);
 }
 
-export class Field extends Component<FieldSignature> {
+class Field extends Component<FieldSignature> {
   get orientation() {
     return this.args.orientation ?? 'vertical';
   }
@@ -165,7 +165,7 @@ interface FieldContentSignature {
   };
 }
 
-export class FieldContent extends Component<FieldContentSignature> {
+class FieldContent extends Component<FieldContentSignature> {
   get classes() {
     return cn(
       'group/field-content flex flex-1 flex-col gap-1.5 leading-snug',
@@ -192,7 +192,7 @@ interface FieldLabelSignature {
   };
 }
 
-export class FieldLabel extends Component<FieldLabelSignature> {
+class FieldLabel extends Component<FieldLabelSignature> {
   get classes() {
     return cn(
       'group/field-label peer/field-label flex w-fit gap-2 leading-snug group-data-[disabled=true]/field:opacity-50',
@@ -225,7 +225,7 @@ interface FieldTitleSignature {
   };
 }
 
-export class FieldTitle extends Component<FieldTitleSignature> {
+class FieldTitle extends Component<FieldTitleSignature> {
   get classes() {
     return cn(
       'flex w-fit items-center gap-2 text-sm font-medium leading-snug group-data-[disabled=true]/field:opacity-50',
@@ -251,7 +251,7 @@ interface FieldDescriptionSignature {
   };
 }
 
-export class FieldDescription extends Component<FieldDescriptionSignature> {
+class FieldDescription extends Component<FieldDescriptionSignature> {
   get classes() {
     return cn(
       'text-muted-foreground text-sm font-normal leading-normal group-has-[[data-orientation=horizontal]]/field:text-balance',
@@ -279,7 +279,7 @@ interface FieldSeparatorSignature {
   };
 }
 
-export class FieldSeparator extends Component<FieldSeparatorSignature> {
+class FieldSeparator extends Component<FieldSeparatorSignature> {
   get hasContent() {
     return true; // Will be true if block content exists
   }
@@ -323,7 +323,7 @@ interface FieldErrorSignature {
   };
 }
 
-export class FieldError extends Component<FieldErrorSignature> {
+class FieldError extends Component<FieldErrorSignature> {
   get hasContent() {
     return this.content !== null;
   }
@@ -393,3 +393,15 @@ export class FieldError extends Component<FieldErrorSignature> {
     {{/if}}
   </template>
 }
+
+export {
+  FieldSet,
+  FieldLegend,
+  Field,
+  FieldGroup,
+  FieldContent,
+  FieldLabel,
+  FieldDescription,
+  FieldSeparator,
+  FieldError,
+};

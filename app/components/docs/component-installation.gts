@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import { CodeBlock } from 'ember-shiki';
-import Tabs from '@/components/ui/tabs';
+import { Tabs } from '@/components/ui/tabs';
 import Terminal from '~icons/lucide/terminal';
 import type ThemeService from '@/services/theme';
 import type { ComponentLike } from '@glint/template';

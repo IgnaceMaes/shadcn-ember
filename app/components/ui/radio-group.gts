@@ -20,7 +20,7 @@ interface RadioGroupSignature {
   };
 }
 
-export class RadioGroup extends Component<RadioGroupSignature> {
+class RadioGroup extends Component<RadioGroupSignature> {
   @tracked internalValue: string;
 
   constructor(owner: Owner, args: RadioGroupSignature['Args']) {
@@ -61,7 +61,7 @@ interface RadioGroupItemSignature {
   };
 }
 
-export class RadioGroupItem extends Component<RadioGroupItemSignature> {
+class RadioGroupItem extends Component<RadioGroupItemSignature> {
   get checked() {
     return this.args.currentValue === this.args.value;
   }
@@ -94,4 +94,4 @@ export class RadioGroupItem extends Component<RadioGroupItemSignature> {
   </template>
 }
 
-export default RadioGroup;
+export { RadioGroup, RadioGroupItem };

@@ -22,7 +22,7 @@ interface ToasterSignature {
   };
 }
 
-export class Toaster extends Component<ToasterSignature> {
+class Toaster extends Component<ToasterSignature> {
   get positionClasses() {
     const position = this.args.position ?? 'bottom-right';
     const positions: Record<string, string> = {
@@ -50,4 +50,4 @@ export class Toaster extends Component<ToasterSignature> {
   </template>
 }
 
-export default Toaster;
+export { Toaster };

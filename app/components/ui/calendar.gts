@@ -29,5 +29,3 @@ export const Calendar: TOC<CalendarSignature> = <template>
     {{yield}}
   </div>
 </template>;
-
-export default Calendar;

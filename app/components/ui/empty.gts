@@ -13,7 +13,7 @@ interface EmptySignature {
   };
 }
 
-export const Empty: TOC<EmptySignature> = <template>
+const Empty: TOC<EmptySignature> = <template>
   <div
     data-slot="empty"
     class={{cn
@@ -36,7 +36,7 @@ interface EmptyHeaderSignature {
   };
 }
 
-export const EmptyHeader: TOC<EmptyHeaderSignature> = <template>
+const EmptyHeader: TOC<EmptyHeaderSignature> = <template>
   <div
     data-slot="empty-header"
     class={{cn "flex max-w-sm flex-col items-center gap-2 text-center" @class}}
@@ -72,7 +72,7 @@ interface EmptyMediaSignature {
   };
 }
 
-export class EmptyMedia extends Component<EmptyMediaSignature> {
+class EmptyMedia extends Component<EmptyMediaSignature> {
   get classes() {
     return emptyMediaVariants({
       variant: this.args.variant ?? 'default',
@@ -102,7 +102,7 @@ interface EmptyTitleSignature {
   };
 }
 
-export const EmptyTitle: TOC<EmptyTitleSignature> = <template>
+const EmptyTitle: TOC<EmptyTitleSignature> = <template>
   <div
     data-slot="empty-title"
     class={{cn "text-lg font-medium tracking-tight" @class}}
@@ -122,7 +122,7 @@ interface EmptyDescriptionSignature {
   };
 }
 
-export const EmptyDescription: TOC<EmptyDescriptionSignature> = <template>
+const EmptyDescription: TOC<EmptyDescriptionSignature> = <template>
   <div
     data-slot="empty-description"
     class={{cn
@@ -145,7 +145,7 @@ interface EmptyContentSignature {
   };
 }
 
-export const EmptyContent: TOC<EmptyContentSignature> = <template>
+const EmptyContent: TOC<EmptyContentSignature> = <template>
   <div
     data-slot="empty-content"
     class={{cn
@@ -158,4 +158,11 @@ export const EmptyContent: TOC<EmptyContentSignature> = <template>
   </div>
 </template>;
 
-export { Empty as default };
+export {
+  Empty,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+  EmptyDescription,
+  EmptyContent,
+};

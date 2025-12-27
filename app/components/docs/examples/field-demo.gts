@@ -1,7 +1,7 @@
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
-import Button from '@/components/ui/button';
-import Checkbox from '@/components/ui/checkbox';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Field,
   FieldDescription,
@@ -11,7 +11,7 @@ import {
   FieldSeparator,
   FieldSet,
 } from '@/components/ui/field';
-import Input from '@/components/ui/input';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
@@ -19,7 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import Textarea from '@/components/ui/textarea';
+import { Textarea } from '@/components/ui/textarea';
 
 class FieldDemoState {
   @tracked cardName = '';

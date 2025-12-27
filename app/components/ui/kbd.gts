@@ -44,4 +44,4 @@ const KbdGroup: TOC<KbdGroupSignature> = <template>
   </kbd>
 </template>;
 
-export { Kbd as default, KbdGroup };
+export { Kbd, KbdGroup };

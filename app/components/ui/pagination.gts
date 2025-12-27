@@ -17,7 +17,7 @@ interface PaginationSignature {
   };
 }
 
-export const Pagination: TOC<PaginationSignature> = <template>
+const Pagination: TOC<PaginationSignature> = <template>
   <nav
     role="navigation"
     aria-label="pagination"
@@ -39,7 +39,7 @@ interface PaginationContentSignature {
   };
 }
 
-export const PaginationContent: TOC<PaginationContentSignature> = <template>
+const PaginationContent: TOC<PaginationContentSignature> = <template>
   <ul class={{cn "flex flex-row items-center gap-1" @class}} ...attributes>
     {{yield}}
   </ul>
@@ -56,7 +56,7 @@ interface PaginationItemSignature {
   };
 }
 
-export const PaginationItem: TOC<PaginationItemSignature> = <template>
+const PaginationItem: TOC<PaginationItemSignature> = <template>
   <li class={{cn @class}} ...attributes>
     {{yield}}
   </li>
@@ -75,7 +75,7 @@ interface PaginationLinkSignature {
   };
 }
 
-export class PaginationLink extends Component<PaginationLinkSignature> {
+class PaginationLink extends Component<PaginationLinkSignature> {
   get classes() {
     const variant = this.args.isActive ? 'outline' : 'ghost';
     const size = this.args.size ?? 'icon';
@@ -105,7 +105,7 @@ interface PaginationPreviousSignature {
   };
 }
 
-export const PaginationPrevious: TOC<PaginationPreviousSignature> = <template>
+const PaginationPrevious: TOC<PaginationPreviousSignature> = <template>
   <PaginationLink
     aria-label="Go to previous page"
     @size="default"
@@ -128,7 +128,7 @@ interface PaginationNextSignature {
   };
 }
 
-export const PaginationNext: TOC<PaginationNextSignature> = <template>
+const PaginationNext: TOC<PaginationNextSignature> = <template>
   <PaginationLink
     aria-label="Go to next page"
     @size="default"
@@ -151,7 +151,7 @@ interface PaginationEllipsisSignature {
   };
 }
 
-export const PaginationEllipsis: TOC<PaginationEllipsisSignature> = <template>
+const PaginationEllipsis: TOC<PaginationEllipsisSignature> = <template>
   <span
     aria-hidden="true"
     class={{cn "flex h-9 w-9 items-center justify-center" @class}}
@@ -162,4 +162,12 @@ export const PaginationEllipsis: TOC<PaginationEllipsisSignature> = <template>
   </span>
 </template>;
 
-export default Pagination;
+export {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationPrevious,
+  PaginationNext,
+  PaginationEllipsis,
+};

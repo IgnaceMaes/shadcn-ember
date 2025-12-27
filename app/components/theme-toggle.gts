@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import type ThemeService from '@/services/theme';
-import Button from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { on } from '@ember/modifier';
 
 interface ThemeToggleSignature {

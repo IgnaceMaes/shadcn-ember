@@ -14,7 +14,7 @@ interface ProgressSignature {
   };
 }
 
-export class Progress extends Component<ProgressSignature> {
+class Progress extends Component<ProgressSignature> {
   get progressValue() {
     const value = this.args.value ?? 0;
     const max = this.args.max ?? 100;
@@ -45,4 +45,4 @@ export class Progress extends Component<ProgressSignature> {
   </template>
 }
 
-export default Progress;
+export { Progress };

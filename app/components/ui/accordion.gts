@@ -21,7 +21,7 @@ interface AccordionSignature {
   };
 }
 
-export class Accordion extends Component<AccordionSignature> {
+class Accordion extends Component<AccordionSignature> {
   @tracked internalValue: string | string[] =
     this.args.value ?? (this.args.type === 'multiple' ? [] : '');
 
@@ -56,7 +56,7 @@ interface AccordionItemSignature {
   };
 }
 
-export class AccordionItem extends Component<AccordionItemSignature> {
+class AccordionItem extends Component<AccordionItemSignature> {
   get isOpen() {
     const currentValue = this.args.currentValue;
     if (Array.isArray(currentValue)) {
@@ -106,7 +106,7 @@ interface AccordionTriggerSignature {
   };
 }
 
-export class AccordionTrigger extends Component<AccordionTriggerSignature> {
+class AccordionTrigger extends Component<AccordionTriggerSignature> {
   handleClick = () => {
     this.args.toggle?.();
   };
@@ -143,7 +143,7 @@ interface AccordionContentSignature {
   };
 }
 
-export const AccordionContent: TOC<AccordionContentSignature> = <template>
+const AccordionContent: TOC<AccordionContentSignature> = <template>
   {{#if @isOpen}}
     <div
       class="overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
@@ -156,3 +156,5 @@ export const AccordionContent: TOC<AccordionContentSignature> = <template>
     </div>
   {{/if}}
 </template>;
+
+export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };

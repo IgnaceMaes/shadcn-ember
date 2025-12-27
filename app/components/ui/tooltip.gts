@@ -16,7 +16,7 @@ interface TooltipProviderSignature {
   };
 }
 
-export const TooltipProvider: TOC<TooltipProviderSignature> = <template>
+const TooltipProvider: TOC<TooltipProviderSignature> = <template>
   {{! template-lint-disable no-yield-only }}
   {{yield}}
 </template>;
@@ -33,7 +33,7 @@ interface TooltipSignature {
   };
 }
 
-export class Tooltip extends Component<TooltipSignature> {
+class Tooltip extends Component<TooltipSignature> {
   @tracked isOpen: boolean;
 
   constructor(owner: Owner, args: TooltipSignature['Args']) {
@@ -70,7 +70,7 @@ interface TooltipTriggerSignature {
   };
 }
 
-export class TooltipTrigger extends Component<TooltipTriggerSignature> {
+class TooltipTrigger extends Component<TooltipTriggerSignature> {
   handleMouseEnter = () => {
     this.args.setOpen?.(true);
   };
@@ -126,7 +126,7 @@ interface TooltipContentSignature {
   };
 }
 
-export const TooltipContent: TOC<TooltipContentSignature> = <template>
+const TooltipContent: TOC<TooltipContentSignature> = <template>
   {{#if @isOpen}}
     <div
       class={{cn
@@ -141,4 +141,4 @@ export const TooltipContent: TOC<TooltipContentSignature> = <template>
   {{/if}}
 </template>;
 
-export default Tooltip;
+export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };

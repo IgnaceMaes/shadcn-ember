@@ -32,7 +32,7 @@ interface SelectSignature {
   };
 }
 
-export class Select extends Component<SelectSignature> {
+class Select extends Component<SelectSignature> {
   @tracked isOpen = false;
   @tracked selectedValue = this.args.value ?? this.args.defaultValue ?? '';
 
@@ -87,7 +87,7 @@ interface SelectTriggerSignature {
   };
 }
 
-export const SelectTrigger: TOC<SelectTriggerSignature> = <template>
+const SelectTrigger: TOC<SelectTriggerSignature> = <template>
   <button
     type="button"
     class={{cn
@@ -114,7 +114,7 @@ interface SelectValueSignature {
   };
 }
 
-export const SelectValue: TOC<SelectValueSignature> = <template>
+const SelectValue: TOC<SelectValueSignature> = <template>
   <span class="block truncate" ...attributes>
     {{#if (has-block)}}
       {{yield}}
@@ -137,7 +137,7 @@ interface SelectContentSignature {
   };
 }
 
-export class SelectContent extends Component<SelectContentSignature> {
+class SelectContent extends Component<SelectContentSignature> {
   get positionClass() {
     return this.args.position === 'popper'
       ? 'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1'
@@ -173,7 +173,7 @@ interface SelectGroupSignature {
   };
 }
 
-export const SelectGroup: TOC<SelectGroupSignature> = <template>
+const SelectGroup: TOC<SelectGroupSignature> = <template>
   <div class={{cn "py-1" @class}} ...attributes>
     {{yield}}
   </div>
@@ -190,7 +190,7 @@ interface SelectLabelSignature {
   };
 }
 
-export const SelectLabel: TOC<SelectLabelSignature> = <template>
+const SelectLabel: TOC<SelectLabelSignature> = <template>
   <div class={{cn "px-2 py-1.5 text-sm font-semibold" @class}} ...attributes>
     {{yield}}
   </div>
@@ -211,7 +211,7 @@ interface SelectItemSignature {
   };
 }
 
-export class SelectItem extends Component<SelectItemSignature> {
+class SelectItem extends Component<SelectItemSignature> {
   get isSelected() {
     return this.args.value === this.args.selectedValue;
   }
@@ -254,7 +254,7 @@ interface SelectSeparatorSignature {
   };
 }
 
-export const SelectSeparator: TOC<SelectSeparatorSignature> = <template>
+const SelectSeparator: TOC<SelectSeparatorSignature> = <template>
   <div class={{cn "-mx-1 my-1 h-px bg-muted" @class}} ...attributes></div>
 </template>;
 
@@ -266,15 +266,14 @@ interface SelectScrollUpButtonSignature {
   };
 }
 
-export const SelectScrollUpButton: TOC<SelectScrollUpButtonSignature> =
-  <template>
-    <div
-      class={{cn "flex cursor-default items-center justify-center py-1" @class}}
-      ...attributes
-    >
-      <ChevronUp class="size-4" />
-    </div>
-  </template>;
+const SelectScrollUpButton: TOC<SelectScrollUpButtonSignature> = <template>
+  <div
+    class={{cn "flex cursor-default items-center justify-center py-1" @class}}
+    ...attributes
+  >
+    <ChevronUp class="size-4" />
+  </div>
+</template>;
 
 // SelectScrollDownButton Component
 interface SelectScrollDownButtonSignature {
@@ -284,12 +283,24 @@ interface SelectScrollDownButtonSignature {
   };
 }
 
-export const SelectScrollDownButton: TOC<SelectScrollDownButtonSignature> =
-  <template>
-    <div
-      class={{cn "flex cursor-default items-center justify-center py-1" @class}}
-      ...attributes
-    >
-      <ChevronDown class="size-4" />
-    </div>
-  </template>;
+const SelectScrollDownButton: TOC<SelectScrollDownButtonSignature> = <template>
+  <div
+    class={{cn "flex cursor-default items-center justify-center py-1" @class}}
+    ...attributes
+  >
+    <ChevronDown class="size-4" />
+  </div>
+</template>;
+
+export {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectGroup,
+  SelectLabel,
+  SelectItem,
+  SelectSeparator,
+  SelectScrollUpButton,
+  SelectScrollDownButton,
+};

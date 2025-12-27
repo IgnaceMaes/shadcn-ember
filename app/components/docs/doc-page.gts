@@ -1,12 +1,14 @@
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import type RouterService from '@ember/routing/router-service';
+import { array } from '@ember/helper';
 import { cn } from '@/lib/utils';
 import DocToc, { type TocItem } from './doc-toc';
 import DocLinkTo from './doc-link-to';
 import { getAdjacentPages, type AdjacentPages } from '@/lib/docs-navigation';
 import ArrowLeft from '~icons/lucide/arrow-left';
 import ArrowRight from '~icons/lucide/arrow-right';
+import { or } from 'ember-truth-helpers';
 
 interface DocPageSignature {
   Element: HTMLDivElement;
@@ -29,10 +31,6 @@ export default class DocPage extends Component<DocPageSignature> {
       return { prev: undefined, next: undefined };
     }
     return getAdjacentPages(currentRoute, currentPath as string | undefined);
-  }
-
-  get shouldShowToc(): boolean {
-    return this.args.tocItems !== undefined;
   }
 
   <template>
@@ -70,9 +68,7 @@ export default class DocPage extends Component<DocPageSignature> {
           {{/if}}
         </div>
       </div>
-      {{#if this.shouldShowToc}}
-        <DocToc @items={{@tocItems}} />
-      {{/if}}
+      <DocToc @items={{or @tocItems (array)}} />
     </div>
   </template>
 }

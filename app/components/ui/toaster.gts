@@ -15,5 +15,3 @@ export const Toaster: TOC<ToasterSignature> = <template>
     <ToastViewport />
   </ToastProvider>
 </template>;
-
-export default Toaster;
