@@ -65,7 +65,7 @@ class CommandDialog extends Component<CommandDialogSignature> {
         @showCloseButton={{this.showCloseButton}}
       >
         <Command
-          class="[&_[cmdk-group-heading]]:text-muted-foreground [&_[data-slot=command-input-wrapper]]:h-12 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5"
+          @class="[&_[data-cmdk-group-heading]]:text-muted-foreground [&_[data-slot=command-input-wrapper]]:h-12 [&_[data-cmdk-group-heading]]:px-2 [&_[data-cmdk-group-heading]]:font-medium [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5"
         >
           {{yield}}
         </Command>
@@ -79,6 +79,7 @@ interface CommandInputSignature {
   Args: {
     class?: string;
     placeholder?: string;
+    inputClass?: string;
   };
   Blocks: {
     default: [];
@@ -88,7 +89,7 @@ interface CommandInputSignature {
 const CommandInput: TOC<CommandInputSignature> = <template>
   <div
     data-slot="command-input-wrapper"
-    class="flex h-9 items-center gap-2 border-b px-3"
+    class={{cn "flex h-9 items-center gap-2 border-b px-3" @class}}
   >
     <Search class="size-4 shrink-0 opacity-50" />
     <input
@@ -96,7 +97,7 @@ const CommandInput: TOC<CommandInputSignature> = <template>
       type="text"
       class={{cn
         "placeholder:text-muted-foreground flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50"
-        @class
+        @inputClass
       }}
       placeholder={{@placeholder}}
       ...attributes
@@ -162,7 +163,7 @@ const CommandGroup: TOC<CommandGroupSignature> = <template>
   <div
     data-slot="command-group"
     class={{cn
-      "text-foreground [&_[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium"
+      "text-foreground [&_[data-cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 [&_[data-cmdk-group-heading]]:px-2 [&_[data-cmdk-group-heading]]:py-1.5 [&_[data-cmdk-group-heading]]:text-xs [&_[data-cmdk-group-heading]]:font-medium"
       @class
     }}
     ...attributes
@@ -207,7 +208,7 @@ const CommandItem: TOC<CommandItemSignature> = <template>
   <div
     data-slot="command-item"
     class={{cn
-      "data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
+      "data-[selected=true]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
       @class
     }}
     data-disabled={{@disabled}}

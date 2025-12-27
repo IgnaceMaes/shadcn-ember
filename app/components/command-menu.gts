@@ -159,6 +159,7 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
       >
         <CommandInput
           @placeholder="Search documentation..."
+          @class="bg-input/50 border-input mx-2 rounded-md border !h-9"
           {{this.focusOnInsert}}
           {{on "input" this.handleSearchChange}}
         />
@@ -179,7 +180,7 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
             >
               {{#each (this.filterItems this.pageItems) as |item|}}
                 <CommandItem
-                  @class="data-[selected=true]:border-input data-[selected=true]:bg-input/50 h-9 rounded-md border border-transparent !px-3 font-medium cursor-pointer"
+                  @class="data-[selected=true]:border-input data-[selected=true]:bg-input/50 h-9 rounded-md border border-transparent !px-3 font-medium"
                   {{on "click" (fn this.handleSelect item.route)}}
                   {{on
                     "mouseenter"
@@ -195,13 +196,9 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
           {{/if}}
 
           {{#if (this.filterItems this.componentItems)}}
-            <CommandGroup
-              @heading="Components"
-              @class="!p-0 [&_[data-cmdk-group-heading]]:scroll-mt-16 [&_[data-cmdk-group-heading]]:!p-3 [&_[data-cmdk-group-heading]]:!pb-1"
-            >
+            <CommandGroup @heading="Components">
               {{#each (this.filterItems this.componentItems) as |item|}}
                 <CommandItem
-                  @class="data-[selected=true]:border-input data-[selected=true]:bg-input/50 h-9 rounded-md border border-transparent !px-3 font-medium cursor-pointer"
                   {{on "click" (fn this.handleSelect item.route)}}
                   {{on
                     "mouseenter"
