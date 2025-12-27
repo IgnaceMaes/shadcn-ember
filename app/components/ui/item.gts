@@ -101,7 +101,7 @@ interface ItemSignature {
         variant: ItemVariant;
         size: ItemSize;
         class: string;
-      }
+      },
     ];
   };
 }
