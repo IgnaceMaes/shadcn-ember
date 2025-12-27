@@ -4,6 +4,7 @@ import { CodeBlock } from 'ember-shiki';
 import type ThemeService from '@/services/theme';
 import type { ComponentLike } from '@glint/template';
 import { cn } from '@/lib/utils';
+import CopyButton from '@/components/docs/copy-button';
 
 // Load all example components and their raw source code
 const components = import.meta.glob<{ default: ComponentLike }>(
@@ -76,11 +77,13 @@ export default class ComponentPreviewRender extends Component<ComponentPreviewSi
           class="relative [&_pre]:max-h-[400px] [&_pre]:!m-0 [&_pre]:!rounded-none"
           style="--shiki-dark: #e1e4e8; --shiki-light: #1f2328; --shiki-dark-bg: #24292e; --shiki-light-bg: var(--surface); background-color: var(--surface);"
         >
+          <CopyButton @value={{this.code}} />
           <CodeBlock
             @language="gts"
             @code={{this.code}}
             @showLineNumbers={{this.showLineNumbers}}
             @theme={{this.theme.codeBlockTheme}}
+            @showCopyButton={{false}}
             style="--ember-shiki-padding-x: 1rem; --ember-shiki-padding-y: 0.875rem; --ember-shiki-border-radius: 0; --ember-shiki-background-color: transparent; --ember-shiki-line-height: 1.6; --ember-shiki-font-size: 0.875rem;"
           />
         </div>
