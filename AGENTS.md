@@ -51,3 +51,4 @@ import { LinkTo } from '@ember/routing';
 - When needing to pass context from a root ui component to a related sub-component: yield the subcomponent to link them together.
 - When typing components in a yield, use `ComponentLike<ExampleSignature>` from `import type { ComponentLike } from '@glint/template';`
 - When importing other ui components, always use the absolute path starting with `@/components/ui/`
+- Use camelCase for yielded variables (e.g. `as |c|`)
