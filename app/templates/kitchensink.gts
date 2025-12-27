@@ -84,12 +84,7 @@ import { Spinner } from '@/components/ui/spinner';
 import { Slider } from '@/components/ui/slider';
 import { Toggle } from '@/components/ui/toggle';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-  TooltipProvider,
-} from '@/components/ui/tooltip';
+import { Tooltip, TooltipProvider } from '@/components/ui/tooltip';
 import {
   Popover,
   PopoverTrigger,
@@ -1682,17 +1677,13 @@ class UiExamples extends Component {
       <section class="space-y-4">
         <h2 class="text-2xl font-semibold">Tooltip</h2>
         <TooltipProvider>
-          <Tooltip
-            @open={{this.tooltipOpen}}
-            @onOpenChange={{fn (mut this.tooltipOpen)}}
-            as |open setOpen|
-          >
-            <TooltipTrigger @setOpen={{setOpen}}>
+          <Tooltip as |t|>
+            <t.Trigger>
               <Button @variant="outline">Hover me</Button>
-            </TooltipTrigger>
-            <TooltipContent @isOpen={{open}}>
+            </t.Trigger>
+            <t.Content>
               <p>Add to library</p>
-            </TooltipContent>
+            </t.Content>
           </Tooltip>
         </TooltipProvider>
       </section>

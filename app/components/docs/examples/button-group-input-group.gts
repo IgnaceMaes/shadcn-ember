@@ -9,11 +9,7 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from '@/components/ui/input-group';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
+import { Tooltip } from '@/components/ui/tooltip';
 import AudioLinesIcon from '~icons/lucide/audio-lines';
 import PlusIcon from '~icons/lucide/plus';
 
@@ -42,8 +38,8 @@ export default class ButtonGroupInputGroup extends Component {
             disabled={{this.voiceEnabled}}
           />
           <InputGroupAddon @align="inline-end">
-            <Tooltip>
-              <TooltipTrigger @asChild={{true}}>
+            <Tooltip as |t|>
+              <t.Trigger>
                 <InputGroupButton
                   {{on "click" this.toggleVoice}}
                   @size="icon-sm"
@@ -53,8 +49,8 @@ export default class ButtonGroupInputGroup extends Component {
                 >
                   <AudioLinesIcon />
                 </InputGroupButton>
-              </TooltipTrigger>
-              <TooltipContent>Voice Mode</TooltipContent>
+              </t.Trigger>
+              <t.Content>Voice Mode</t.Content>
             </Tooltip>
           </InputGroupAddon>
         </InputGroup>

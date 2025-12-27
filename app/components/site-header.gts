@@ -3,11 +3,7 @@ import PhNotches from 'ember-phosphor-icons/components/ph-notches';
 import { Button } from '@/components/ui/button';
 import { Kbd } from '@/components/ui/kbd';
 import { Separator } from '@/components/ui/separator';
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-} from '@/components/ui/tooltip';
+import { Tooltip } from '@/components/ui/tooltip';
 import ThemeToggle from '@/components/theme-toggle';
 
 <template>
@@ -60,19 +56,18 @@ import ThemeToggle from '@/components/theme-toggle';
             </a>
           </Button>
           <Separator @orientation="vertical" @class="h-4" />
-          <Tooltip as |isOpen setOpen|>
-            <TooltipTrigger @setOpen={{setOpen}} @asChild={{true}}>
+          <Tooltip @placement="bottom" as |t|>
+            <t.Trigger>
               <ThemeToggle />
-            </TooltipTrigger>
-            <TooltipContent
-              @isOpen={{isOpen}}
+            </t.Trigger>
+            <t.Content
               @class="top-full mt-2 bottom-auto mb-0 whitespace-nowrap"
             >
               Toggle theme
               <Kbd
                 @class="bg-background/20 text-background dark:bg-background/10"
               >D</Kbd>
-            </TooltipContent>
+            </t.Content>
           </Tooltip>
         </div>
       </div>
