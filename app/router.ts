@@ -1,4 +1,5 @@
 import EmberRouter from '@embroider/router';
+import { next } from '@ember/runloop';
 import config from 'shadcn-ember/config/environment';
 
 export default class Router extends EmberRouter {
@@ -8,7 +9,10 @@ export default class Router extends EmberRouter {
   constructor(...args: ConstructorParameters<typeof EmberRouter>) {
     super(...args);
     this.on('routeDidChange', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // eslint-disable-next-line ember/no-runloop
+      next(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
     });
   }
 }
