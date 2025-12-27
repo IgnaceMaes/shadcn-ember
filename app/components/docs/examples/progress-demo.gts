@@ -14,7 +14,5 @@ export default class ProgressDemo extends Component {
     }, 500);
   }
 
-  <template>
-    <Progress @value={{this.progress}} @class="w-[60%]" />
-  </template>
+  <template><Progress @value={{this.progress}} @class="w-[60%]" /></template>
 }

@@ -84,11 +84,11 @@ A list item that wraps individual pagination elements.
 
 A clickable link for individual page numbers.
 
-| Prop        | Type                                       | Default     |
-| ----------- | ------------------------------------------ | ----------- |
-| `@isActive` | `boolean`                                  | `false`     |
-| `@size`     | `"default" \| "sm" \| "lg" \| "icon"`      | `"icon"`    |
-| `@class`    | `string`                                   | `undefined` |
+| Prop        | Type                                  | Default     |
+| ----------- | ------------------------------------- | ----------- |
+| `@isActive` | `boolean`                             | `false`     |
+| `@size`     | `"default" \| "sm" \| "lg" \| "icon"` | `"icon"`    |
+| `@class`    | `string`                              | `undefined` |
 
 ### PaginationPrevious
 

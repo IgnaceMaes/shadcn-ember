@@ -22,7 +22,10 @@ class Progress extends Component<ProgressSignature> {
   <template>
     <div
       data-slot="progress"
-      class={{cn "bg-primary/20 relative h-2 w-full overflow-hidden rounded-full" @class}}
+      class={{cn
+        "bg-primary/20 relative h-2 w-full overflow-hidden rounded-full"
+        @class
+      }}
       ...attributes
     >
       <div

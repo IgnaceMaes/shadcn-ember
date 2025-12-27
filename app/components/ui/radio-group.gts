@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import type { ComponentLike } from '@glint/template';
 import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
@@ -17,7 +18,11 @@ interface RadioGroupSignature {
     class?: string;
   };
   Blocks: {
-    default: [state: { value: string; setValue: (value: string) => void }];
+    default: [
+      {
+        Item: ComponentLike<RadioGroupItemSignature>;
+      },
+    ];
   };
 }
 
@@ -41,14 +46,19 @@ class RadioGroup extends Component<RadioGroupSignature> {
   };
 
   <template>
-    <div
-      class={{cn "grid gap-3" @class}}
-      role="radiogroup"
-      data-slot="radio-group"
-      ...attributes
-    >
-      {{yield (hash value=this.value setValue=this.setValue)}}
-    </div>
+    {{#let
+      (component RadioGroupItem currentValue=this.value setValue=this.setValue)
+      as |Item|
+    }}
+      <div
+        class={{cn "grid gap-3" @class}}
+        role="radiogroup"
+        data-slot="radio-group"
+        ...attributes
+      >
+        {{yield (hash Item=Item)}}
+      </div>
+    {{/let}}
   </template>
 }
 

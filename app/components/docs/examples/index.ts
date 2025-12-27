@@ -72,3 +72,4 @@ export { default as NativeSelectInputGroup } from './native-select-input-group';
 export { default as NativeSelectInvalid } from './native-select-invalid';
 export { default as PaginationDemo } from './pagination-demo';
 export { default as ProgressDemo } from './progress-demo';
+export { default as RadioGroupDemo } from './radio-group-demo';
