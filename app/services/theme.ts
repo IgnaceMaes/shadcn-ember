@@ -52,7 +52,8 @@ export default class ThemeService extends Service {
   }
 
   private applyColorTheme() {
-    const normalizedTheme = this.currentColorTheme === 'default' ? 'neutral' : this.currentColorTheme;
+    const normalizedTheme =
+      this.currentColorTheme === 'default' ? 'neutral' : this.currentColorTheme;
     // Apply theme to all theme containers
     const containers = document.querySelectorAll('.theme-container');
     containers.forEach((container) => {

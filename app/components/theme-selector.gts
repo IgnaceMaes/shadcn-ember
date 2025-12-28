@@ -18,7 +18,9 @@ class ThemeSelector extends Component<ThemeSelectorSignature> {
   @service declare theme: ThemeService;
 
   get value() {
-    return this.theme.currentColorTheme === 'default' ? 'neutral' : this.theme.currentColorTheme;
+    return this.theme.currentColorTheme === 'default'
+      ? 'neutral'
+      : this.theme.currentColorTheme;
   }
 
   setActiveTheme = (value: string) => {
