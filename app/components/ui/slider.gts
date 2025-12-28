@@ -3,9 +3,9 @@ import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { htmlSafe } from '@ember/template';
+import { fn } from '@ember/helper';
 import { cn } from '@/lib/utils';
 
-// Slider Root Component
 interface SliderSignature {
   Element: HTMLDivElement;
   Args: {
@@ -16,10 +16,8 @@ interface SliderSignature {
     max?: number;
     step?: number;
     disabled?: boolean;
+    orientation?: 'horizontal' | 'vertical';
     class?: string;
-  };
-  Blocks: {
-    default: [];
   };
 }
 
@@ -47,58 +45,164 @@ class Slider extends Component<SliderSignature> {
     return this.args.step ?? 1;
   }
 
-  get percentage() {
-    const val = this.value[0] ?? 0;
-    return ((val - this.min) / (this.max - this.min)) * 100;
+  get orientation() {
+    return this.args.orientation ?? 'horizontal';
   }
 
-  get widthStyle() {
-    return htmlSafe(`width: ${this.percentage}%`);
+  get values() {
+    const val = this.value;
+    const def = this.args.defaultValue;
+    return Array.isArray(val)
+      ? val
+      : Array.isArray(def)
+        ? def
+        : [this.min, this.max];
   }
 
-  get thumbStyle() {
-    return htmlSafe(`left: ${this.percentage}%; transform: translateX(-50%)`);
+  get rangePercentage() {
+    if (this.values.length === 0) return { start: 0, width: 0 };
+    const minVal = Math.min(...this.values);
+    const maxVal = Math.max(...this.values);
+    const start = ((minVal - this.min) / (this.max - this.min)) * 100;
+    const end = ((maxVal - this.min) / (this.max - this.min)) * 100;
+    return { start, width: end - start };
   }
 
-  get currentValue() {
-    return this.value[0] ?? 0;
+  get rangeStyle() {
+    const { start, width } = this.rangePercentage;
+    if (this.orientation === 'vertical') {
+      return htmlSafe(`bottom: ${start}%; height: ${width}%`);
+    }
+    return htmlSafe(`left: ${start}%; width: ${width}%`);
   }
 
-  handleInput = (event: Event) => {
+  thumbStyle = (index: number) => {
+    const val = this.values[index] ?? 0;
+    const percentage = ((val - this.min) / (this.max - this.min)) * 100;
+    if (this.orientation === 'vertical') {
+      return htmlSafe(`bottom: ${percentage}%; transform: translateY(50%)`);
+    }
+    return htmlSafe(`left: ${percentage}%; transform: translateX(-50%)`);
+  };
+
+  handleInput = (index: number, event: Event) => {
     const target = event.target as HTMLInputElement;
-    const newValue = [parseFloat(target.value)];
+    const newValue = [...this.values];
+    newValue[index] = parseFloat(target.value);
+    this.internalValue = newValue;
+    this.args.onValueChange?.(newValue);
+  };
+
+  handleThumbMouseDown = (index: number, event: MouseEvent) => {
+    if (this.args.disabled) return;
+
+    event.preventDefault();
+    const slider = (event.currentTarget as HTMLElement).parentElement;
+    if (!slider) return;
+
+    const updateValue = (clientPos: number) => {
+      const rect = slider.getBoundingClientRect();
+      let percentage: number;
+
+      if (this.orientation === 'vertical') {
+        percentage = 1 - (clientPos - rect.top) / rect.height;
+      } else {
+        percentage = (clientPos - rect.left) / rect.width;
+      }
+
+      percentage = Math.max(0, Math.min(1, percentage));
+      const rawValue = this.min + percentage * (this.max - this.min);
+      const steppedValue = Math.round(rawValue / this.step) * this.step;
+      const clampedValue = Math.max(this.min, Math.min(this.max, steppedValue));
+
+      const newValue = [...this.values];
+      newValue[index] = clampedValue;
+      this.internalValue = newValue;
+      this.args.onValueChange?.(newValue);
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      updateValue(this.orientation === 'vertical' ? e.clientY : e.clientX);
+    };
+
+    const handleMouseUp = () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  };
+
+  handleTrackClick = (event: MouseEvent) => {
+    if (this.args.disabled) return;
+
+    const target = event.currentTarget as HTMLElement;
+    const rect = target.getBoundingClientRect();
+    let percentage: number;
+
+    if (this.orientation === 'vertical') {
+      percentage = 1 - (event.clientY - rect.top) / rect.height;
+    } else {
+      percentage = (event.clientX - rect.left) / rect.width;
+    }
+
+    percentage = Math.max(0, Math.min(1, percentage));
+    const rawValue = this.min + percentage * (this.max - this.min);
+    const steppedValue = Math.round(rawValue / this.step) * this.step;
+    const clampedValue = Math.max(this.min, Math.min(this.max, steppedValue));
+
+    // Find closest thumb
+    let closestIndex = 0;
+    let closestDistance = Math.abs(this.values[0] - clampedValue);
+
+    for (let i = 1; i < this.values.length; i++) {
+      const distance = Math.abs(this.values[i] - clampedValue);
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = i;
+      }
+    }
+
+    const newValue = [...this.values];
+    newValue[closestIndex] = clampedValue;
     this.internalValue = newValue;
     this.args.onValueChange?.(newValue);
   };
 
   <template>
     <div
+      data-slot="slider"
+      data-disabled={{if @disabled "true"}}
+      data-orientation={{this.orientation}}
       class={{cn
-        "relative flex w-full touch-none select-none items-center"
+        "relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-44 data-[orientation=vertical]:w-auto data-[orientation=vertical]:flex-col"
         @class
       }}
       ...attributes
     >
       <div
-        class="relative h-1.5 w-full grow overflow-hidden rounded-full bg-primary/20"
+        data-slot="slider-track"
+        class="bg-muted relative grow overflow-hidden rounded-full data-[orientation=horizontal]:h-1.5 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5"
+        data-orientation={{this.orientation}}
+        {{on "mousedown" this.handleTrackClick}}
       >
-        <div class="absolute h-full bg-primary" style={{this.widthStyle}}></div>
+        <div
+          data-slot="slider-range"
+          data-orientation={{this.orientation}}
+          class="bg-primary absolute data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full"
+          style={{this.rangeStyle}}
+        ></div>
       </div>
-      {{! template-lint-disable require-input-label }}
-      <input
-        type="range"
-        min={{this.min}}
-        max={{this.max}}
-        step={{this.step}}
-        value={{this.currentValue}}
-        disabled={{@disabled}}
-        class="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
-        {{on "input" this.handleInput}}
-      />
-      <div
-        class="block h-4 w-4 rounded-full border border-primary/50 bg-background shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 absolute"
-        style={{this.thumbStyle}}
-      ></div>
+      {{#each this.values as |val index|}}
+        <div
+          data-slot="slider-thumb"
+          class="border-primary ring-ring/50 absolute block size-4 shrink-0 rounded-full border bg-white shadow-sm transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 cursor-pointer"
+          style={{this.thumbStyle index}}
+          tabindex={{if @disabled "-1" "0"}}
+          {{on "mousedown" (fn this.handleThumbMouseDown index)}}
+        ></div>
+      {{/each}}
     </div>
   </template>
 }
