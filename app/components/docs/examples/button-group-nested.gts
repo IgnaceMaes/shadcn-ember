@@ -15,12 +15,6 @@ import ArrowRightIcon from '~icons/lucide/arrow-right';
       <Button @variant="outline" @size="sm">
         3
       </Button>
-      <Button @variant="outline" @size="sm">
-        4
-      </Button>
-      <Button @variant="outline" @size="sm">
-        5
-      </Button>
     </ButtonGroup>
     <ButtonGroup>
       <Button @variant="outline" @size="icon-sm" aria-label="Previous">

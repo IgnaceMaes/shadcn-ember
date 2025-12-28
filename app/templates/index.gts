@@ -18,6 +18,8 @@ import AppearanceSettings from '@/components/docs/examples/appearance-settings';
 import NotionPromptForm from '@/components/docs/examples/notion-prompt-form';
 import ButtonGroupDemo from '@/components/docs/examples/button-group-demo';
 import FieldCheckboxDemo from '@/components/docs/examples/field-checkbox-demo';
+import ButtonGroupNested from '@/components/docs/examples/button-group-nested';
+import ButtonGroupPopover from '@/components/docs/examples/button-group-popover';
 
 <template>
   <div class="min-h-screen bg-background">
@@ -105,6 +107,10 @@ import FieldCheckboxDemo from '@/components/docs/examples/field-checkbox-demo';
               <NotionPromptForm />
               <ButtonGroupDemo />
               <FieldCheckboxDemo />
+              <div class="flex justify-between gap-4">
+                <ButtonGroupNested />
+                <ButtonGroupPopover />
+              </div>
             </div>
 
           </div>

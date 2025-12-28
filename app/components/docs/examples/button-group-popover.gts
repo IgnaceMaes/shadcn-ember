@@ -8,17 +8,17 @@ import ChevronDownIcon from '~icons/lucide/chevron-down';
 
 <template>
   <ButtonGroup>
-    <Button @variant="outline">
+    <Button @variant="outline" @size="sm">
       <BotIcon />
       Copilot
     </Button>
     <Popover as |popover|>
       <popover.Trigger @asChild={{true}}>
-        <Button @variant="outline" @size="icon" aria-label="Open Popover">
+        <Button @variant="outline" @size="icon-sm" aria-label="Open Popover">
           <ChevronDownIcon />
         </Button>
       </popover.Trigger>
-      <popover.Content @class="rounded-xl p-0 text-sm">
+      <popover.Content @align="end" @class="rounded-xl p-0 text-sm">
         <div class="px-4 py-3">
           <div class="text-sm font-medium">Agent Tasks</div>
         </div>
