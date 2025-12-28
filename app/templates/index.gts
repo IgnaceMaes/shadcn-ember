@@ -12,6 +12,8 @@ import SpinnerBadge from '@/components/docs/examples/spinner-badge';
 import ButtonGroupInputGroup from 'shadcn-ember/components/docs/examples/button-group-input-group';
 import InputGroupDemo from '@/components/docs/examples/input-group-demo';
 import InputGroupButton from '@/components/docs/examples/input-group-button';
+import ItemDemo from '@/components/docs/examples/item-demo';
+import { FieldSeparator } from 'shadcn-ember/components/ui/field';
 
 <template>
   <div class="min-h-screen bg-background">
@@ -89,6 +91,8 @@ import InputGroupButton from '@/components/docs/examples/input-group-button';
             {{! Column 3 }}
             <div class="flex flex-col gap-6 *:[div]:w-full *:[div]:max-w-full">
               <InputGroupButton />
+              <ItemDemo />
+              <FieldSeparator @class="my-4">Appearance Settings</FieldSeparator>
             </div>
 
             {{! Column 4 }}

@@ -1,3 +1,5 @@
+import BadgeCheck from '~icons/lucide/badge-check';
+import ChevronRight from '~icons/lucide/chevron-right';
 import { Button } from '@/components/ui/button';
 import {
   Item,
@@ -7,22 +9,18 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
-import BadgeCheckIcon from '~icons/lucide/badge-check';
-import ChevronRightIcon from '~icons/lucide/chevron-right';
 
 <template>
   <div class="flex w-full max-w-md flex-col gap-6">
     <Item @variant="outline">
       <ItemContent>
-        <ItemTitle>Basic Item</ItemTitle>
-        <ItemDescription>
-          A simple item with title and description.
+        <ItemTitle>Two-factor authentication</ItemTitle>
+        <ItemDescription @class="text-pretty xl:hidden 2xl:block">
+          Verify via email or phone number.
         </ItemDescription>
       </ItemContent>
       <ItemActions>
-        <Button @variant="outline" @size="sm">
-          Action
-        </Button>
+        <Button @size="sm">Enable</Button>
       </ItemActions>
     </Item>
     <Item @variant="outline" @size="sm" @asChild={{true}} as |item|>
@@ -34,13 +32,13 @@ import ChevronRightIcon from '~icons/lucide/chevron-right';
         class={{item.class}}
       >
         <ItemMedia>
-          <BadgeCheckIcon class="size-5" />
+          <BadgeCheck class="size-5" />
         </ItemMedia>
         <ItemContent>
           <ItemTitle>Your profile has been verified.</ItemTitle>
         </ItemContent>
         <ItemActions>
-          <ChevronRightIcon class="size-4" />
+          <ChevronRight class="size-4" />
         </ItemActions>
       </a>
     </Item>
