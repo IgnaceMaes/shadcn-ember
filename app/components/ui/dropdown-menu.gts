@@ -2,7 +2,6 @@ import Component from '@glimmer/component';
 import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { modifier } from 'ember-modifier';
 import { hash } from '@ember/helper';
 import { cn } from '@/lib/utils';
@@ -315,12 +314,12 @@ class DropdownMenuSubTrigger extends Component<DropdownMenuSubTriggerSignature> 
     this.args.setOpen?.(true);
   };
 
-  registerElement = (element: HTMLElement) => {
+  registerElement = modifier((element: HTMLElement) => {
     this.args.setTriggerElement?.(element);
     return () => {
       this.args.setTriggerElement?.(null);
     };
-  };
+  });
 
   <template>
     <div
@@ -330,7 +329,7 @@ class DropdownMenuSubTrigger extends Component<DropdownMenuSubTriggerSignature> 
         "focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
         @class
       }}
-      {{(modifier this.registerElement)}}
+      {{this.registerElement}}
       {{on "mouseenter" this.handleMouseEnter}}
       ...attributes
     >
