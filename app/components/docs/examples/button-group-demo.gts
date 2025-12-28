@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import {
   DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuRadioGroup,
@@ -13,7 +12,6 @@ import {
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import ArchiveIcon from '~icons/lucide/archive';
 import ArrowLeftIcon from '~icons/lucide/arrow-left';
@@ -45,13 +43,13 @@ export default class ButtonGroupDemo extends Component {
       </ButtonGroup>
       <ButtonGroup>
         <Button @variant="outline">Snooze</Button>
-        <DropdownMenu>
-          <DropdownMenuTrigger @asChild={{true}}>
+        <DropdownMenu as |dm|>
+          <dm.Trigger @asChild={{true}}>
             <Button @variant="outline" @size="icon" aria-label="More Options">
               <MoreHorizontalIcon />
             </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent @class="w-52">
+          </dm.Trigger>
+          <dm.Content @class="w-52">
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <MailCheckIcon />
@@ -108,7 +106,7 @@ export default class ButtonGroupDemo extends Component {
                 Trash
               </DropdownMenuItem>
             </DropdownMenuGroup>
-          </DropdownMenuContent>
+          </dm.Content>
         </DropdownMenu>
       </ButtonGroup>
     </ButtonGroup>
