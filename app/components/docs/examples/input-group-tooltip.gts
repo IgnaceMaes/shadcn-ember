@@ -6,19 +6,15 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from '@/components/ui/input-group';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
+import { Tooltip } from '@/components/ui/tooltip';
 
 <template>
   <div class="grid w-full max-w-sm gap-4">
     <InputGroup>
       <InputGroupInput placeholder="Enter password" type="password" />
       <InputGroupAddon @align="inline-end">
-        <Tooltip>
-          <TooltipTrigger>
+        <Tooltip as |t|>
+          <t.Trigger>
             <InputGroupButton
               @variant="ghost"
               aria-label="Info"
@@ -26,10 +22,10 @@ import {
             >
               <Info />
             </InputGroupButton>
-          </TooltipTrigger>
-          <TooltipContent>
+          </t.Trigger>
+          <t.Content>
             <p>Password must be at least 8 characters</p>
-          </TooltipContent>
+          </t.Content>
         </Tooltip>
       </InputGroupAddon>
     </InputGroup>
@@ -37,8 +33,8 @@ import {
     <InputGroup>
       <InputGroupInput placeholder="Your email address" />
       <InputGroupAddon @align="inline-end">
-        <Tooltip>
-          <TooltipTrigger>
+        <Tooltip as |t|>
+          <t.Trigger>
             <InputGroupButton
               @variant="ghost"
               aria-label="Help"
@@ -46,18 +42,18 @@ import {
             >
               <HelpCircle />
             </InputGroupButton>
-          </TooltipTrigger>
-          <TooltipContent>
+          </t.Trigger>
+          <t.Content>
             <p>We'll use this to send you notifications</p>
-          </TooltipContent>
+          </t.Content>
         </Tooltip>
       </InputGroupAddon>
     </InputGroup>
 
     <InputGroup>
       <InputGroupInput placeholder="Enter API key" />
-      <Tooltip @placement="left">
-        <TooltipTrigger>
+      <Tooltip @placement="left" as |t|>
+        <t.Trigger>
           <InputGroupAddon>
             <InputGroupButton
               @variant="ghost"
@@ -67,10 +63,10 @@ import {
               <HelpCircle />
             </InputGroupButton>
           </InputGroupAddon>
-        </TooltipTrigger>
-        <TooltipContent>
+        </t.Trigger>
+        <t.Content>
           <p>Click for help with API keys</p>
-        </TooltipContent>
+        </t.Content>
       </Tooltip>
     </InputGroup>
   </div>
