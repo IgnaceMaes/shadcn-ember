@@ -11,6 +11,7 @@ import EmptyAvatarGroup from 'shadcn-ember/components/docs/examples/empty-avatar
 import SpinnerBadge from '@/components/docs/examples/spinner-badge';
 import ButtonGroupInputGroup from 'shadcn-ember/components/docs/examples/button-group-input-group';
 import InputGroupDemo from '@/components/docs/examples/input-group-demo';
+import InputGroupButton from '@/components/docs/examples/input-group-button';
 
 <template>
   <div class="min-h-screen bg-background">
@@ -87,7 +88,7 @@ import InputGroupDemo from '@/components/docs/examples/input-group-demo';
 
             {{! Column 3 }}
             <div class="flex flex-col gap-6 *:[div]:w-full *:[div]:max-w-full">
-
+              <InputGroupButton />
             </div>
 
             {{! Column 4 }}
