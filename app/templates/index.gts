@@ -24,8 +24,15 @@ import FieldHear from '@/components/docs/examples/field-hear';
 import SpinnerEmpty from '@/components/docs/examples/spinner-empty';
 import { ExamplesNav } from 'shadcn-ember/components/examples-nav';
 import { PageNav } from 'shadcn-ember/components/page-nav';
+import ThemeSelector from '@/components/theme-selector';
+import Component from '@glimmer/component';
+import { service } from '@ember/service';
+import type ThemeService from '@/services/theme';
 
-<template>
+class IndexRoute extends Component {
+  @service declare theme: ThemeService;
+
+  <template>
   <div class="min-h-screen bg-background">
     <main>
       {{! Hero Section }}
@@ -76,8 +83,10 @@ import { PageNav } from 'shadcn-ember/components/page-nav';
       </section>
 
       <PageNav @class="hidden md:flex">
-        <ExamplesNav @class="[&>a:first-child]:text-primary flex-1 overflow-hidden" />
-        {{!-- <ThemeSelector className="mr-4 hidden md:flex" /> --}}
+        <ExamplesNav
+          @class="[&>a:first-child]:text-primary flex-1 overflow-hidden"
+        />
+        <ThemeSelector class="mr-4 hidden md:flex" />
       </PageNav>
 
       {{! Component Examples }}
@@ -86,6 +95,7 @@ import { PageNav } from 'shadcn-ember/components/page-nav';
           {{! Masonry layout - manually balanced columns }}
           <div
             class="theme-container mx-auto grid gap-8 py-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-6 2xl:gap-8"
+            data-theme={{this.theme.currentColorTheme}}
           >
 
             {{! Column 1 }}
@@ -130,3 +140,6 @@ import { PageNav } from 'shadcn-ember/components/page-nav';
     </main>
   </div>
 </template>
+}
+
+export default IndexRoute;

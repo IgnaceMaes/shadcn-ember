@@ -70,7 +70,10 @@ class FieldHear extends Component {
                       <Checkbox
                         id={{option.value}}
                         @checked={{this.isChecked option.value}}
-                        @onCheckedChange={{fn this.handleCheckedChange option.value}}
+                        @onCheckedChange={{fn
+                          this.handleCheckedChange
+                          option.value
+                        }}
                         @class="-ml-6 -translate-x-1 rounded-full transition-all duration-100 ease-linear data-[state=checked]:ml-0 data-[state=checked]:translate-x-0"
                       />
                       <FieldTitle>{{option.label}}</FieldTitle>

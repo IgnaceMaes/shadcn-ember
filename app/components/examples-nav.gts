@@ -75,7 +75,10 @@ class ExamplesNav extends Component<ExamplesNavSignature> {
             @isActive={{this.isActive "/"}}
           />
           {{#each examples as |example|}}
-            <ExampleLink @example={{example}} @isActive={{this.isActive example.href}} />
+            <ExampleLink
+              @example={{example}}
+              @isActive={{this.isActive example.href}}
+            />
           {{/each}}
         </div>
         <ScrollBar @orientation="horizontal" @class="invisible" />

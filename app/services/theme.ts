@@ -5,6 +5,7 @@ import { action } from '@ember/object';
 
 export default class ThemeService extends Service {
   @tracked currentTheme: 'light' | 'dark' = 'light';
+  @tracked currentColorTheme: string = 'neutral';
 
   get codeBlockTheme() {
     return this.currentTheme === 'dark' ? 'github-dark' : 'github-light';
@@ -21,6 +22,7 @@ export default class ThemeService extends Service {
       | 'light'
       | 'dark'
       | null;
+    const storedColorTheme = localStorage.getItem('colorTheme');
 
     if (storedTheme) {
       this.currentTheme = storedTheme;
@@ -32,7 +34,12 @@ export default class ThemeService extends Service {
       this.currentTheme = prefersDark ? 'dark' : 'light';
     }
 
+    if (storedColorTheme) {
+      this.currentColorTheme = storedColorTheme;
+    }
+
     this.applyTheme();
+    this.applyColorTheme();
   }
 
   private applyTheme() {
@@ -42,6 +49,15 @@ export default class ThemeService extends Service {
     } else {
       root.classList.remove('dark');
     }
+  }
+
+  private applyColorTheme() {
+    const normalizedTheme = this.currentColorTheme === 'default' ? 'neutral' : this.currentColorTheme;
+    // Apply theme to all theme containers
+    const containers = document.querySelectorAll('.theme-container');
+    containers.forEach((container) => {
+      container.setAttribute('data-theme', normalizedTheme);
+    });
   }
 
   @action
@@ -56,6 +72,13 @@ export default class ThemeService extends Service {
     this.currentTheme = theme;
     localStorage.setItem('theme', theme);
     this.applyTheme();
+  }
+
+  @action
+  setColorTheme(colorTheme: string) {
+    this.currentColorTheme = colorTheme;
+    localStorage.setItem('colorTheme', colorTheme);
+    this.applyColorTheme();
   }
 }
 
