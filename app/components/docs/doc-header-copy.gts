@@ -83,7 +83,7 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
   </template>;
 
   <template>
-    <Popover @placement="top" as |p|>
+    <Popover as |p|>
       <div
         class={{cn
           "bg-secondary group/buttons relative flex rounded-lg *:data-[slot=button]:focus-visible:relative *:data-[slot=button]:focus-visible:z-10"
@@ -175,6 +175,7 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
         <p.Content
           @class="bg-background/70 dark:bg-background/60 w-52 !origin-center rounded-lg p-1 shadow-sm backdrop-blur-sm"
           @align="start"
+          @side="top"
         >
           <Button
             @variant="ghost"

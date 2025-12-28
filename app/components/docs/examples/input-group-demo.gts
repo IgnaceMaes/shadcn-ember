@@ -4,10 +4,7 @@ import Plus from '~icons/lucide/plus';
 import ArrowUp from '~icons/lucide/arrow-up';
 import Search from '~icons/lucide/search';
 
-import {
-  DropdownMenu,
-  DropdownMenuItem,
-} from '@/components/ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import {
   InputGroup,
   InputGroupAddon,
