@@ -23,11 +23,11 @@ export default class ButtonGroupInputGroup extends Component {
   <template>
     <ButtonGroup class="[--radius:9999rem]">
       <ButtonGroup>
-        <Button @variant="outline" @size="icon">
+        <Button @variant="outline" @size="icon" aria-label="Add">
           <PlusIcon />
         </Button>
       </ButtonGroup>
-      <ButtonGroup>
+      <ButtonGroup class="flex-1">
         <InputGroup>
           <InputGroupInput
             placeholder={{if
@@ -42,10 +42,11 @@ export default class ButtonGroupInputGroup extends Component {
               <t.Trigger>
                 <InputGroupButton
                   {{on "click" this.toggleVoice}}
-                  @size="icon-sm"
                   data-active={{this.voiceEnabled}}
-                  class="data-[active=true]:bg-orange-100 data-[active=true]:text-orange-700 dark:data-[active=true]:bg-orange-800 dark:data-[active=true]:text-orange-100"
+                  class="data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
                   aria-pressed={{this.voiceEnabled}}
+                  @size="icon-xs"
+                  aria-label="Voice Mode"
                 >
                   <AudioLinesIcon />
                 </InputGroupButton>

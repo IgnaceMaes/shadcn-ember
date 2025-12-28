@@ -3,7 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { Spinner } from '@/components/ui/spinner';
 
 const SpinnerBadge: TOC<{ Element: HTMLDivElement }> = <template>
-  <div class="flex items-center gap-4 [--radius:1.2rem]">
+  <div class="flex items-center gap-2">
     <Badge>
       <Spinner />
       Syncing
@@ -14,7 +14,7 @@ const SpinnerBadge: TOC<{ Element: HTMLDivElement }> = <template>
     </Badge>
     <Badge @variant="outline">
       <Spinner />
-      Processing
+      Loading
     </Badge>
   </div>
 </template>;

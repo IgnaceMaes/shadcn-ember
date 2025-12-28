@@ -12,7 +12,7 @@ import Plus from '~icons/lucide/plus';
 
 <template>
   {{! template-lint-disable no-potential-path-strings }}
-  <Empty>
+  <Empty @class="flex-none border">
     <EmptyHeader>
       <EmptyMedia>
         <div
