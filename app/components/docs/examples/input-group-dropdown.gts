@@ -2,9 +2,7 @@ import ChevronDown from '~icons/lucide/chevron-down';
 import MoreHorizontal from '~icons/lucide/more-horizontal';
 import {
   DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
   InputGroup,
@@ -18,8 +16,8 @@ import {
     <InputGroup>
       <InputGroupInput placeholder="Enter file name" />
       <InputGroupAddon @align="inline-end">
-        <DropdownMenu>
-          <DropdownMenuTrigger>
+        <DropdownMenu as |d|>
+          <d.Trigger>
             <InputGroupButton
               @variant="ghost"
               aria-label="More"
@@ -27,12 +25,12 @@ import {
             >
               <MoreHorizontal />
             </InputGroupButton>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent @align="end">
+          </d.Trigger>
+          <d.Content @align="end">
             <DropdownMenuItem>Settings</DropdownMenuItem>
             <DropdownMenuItem>Copy path</DropdownMenuItem>
             <DropdownMenuItem>Open location</DropdownMenuItem>
-          </DropdownMenuContent>
+          </d.Content>
         </DropdownMenu>
       </InputGroupAddon>
     </InputGroup>
@@ -40,18 +38,18 @@ import {
     <InputGroup @class="[--radius:1rem]">
       <InputGroupInput placeholder="Enter search query" />
       <InputGroupAddon @align="inline-end">
-        <DropdownMenu>
-          <DropdownMenuTrigger>
+        <DropdownMenu as |d|>
+          <d.Trigger>
             <InputGroupButton @variant="ghost" @class="!pr-1.5 text-xs">
               Search In...
               <ChevronDown class="size-3" />
             </InputGroupButton>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent @align="end" @class="[--radius:0.95rem]">
+          </d.Trigger>
+          <d.Content @align="end" @class="[--radius:0.95rem]">
             <DropdownMenuItem>Documentation</DropdownMenuItem>
             <DropdownMenuItem>Blog Posts</DropdownMenuItem>
             <DropdownMenuItem>Changelog</DropdownMenuItem>
-          </DropdownMenuContent>
+          </d.Content>
         </DropdownMenu>
       </InputGroupAddon>
     </InputGroup>
