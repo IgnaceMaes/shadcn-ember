@@ -37,7 +37,7 @@ The `@` alias is a preference. You can use other aliases if you want.
 
 Add the following to your `app/app.css` file. You can learn more about using CSS variables for theming in the theming section.
 
-```css
+```css title="app/app.css"
 @import 'tailwindcss';
 
 @custom-variant dark (&:is(.dark *));
