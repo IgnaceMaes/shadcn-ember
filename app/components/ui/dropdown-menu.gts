@@ -124,13 +124,22 @@ interface DropdownMenuGroupSignature {
 
 class DropdownMenuGroup extends Component<DropdownMenuGroupSignature> {
   @tracked currentOpenSubmenu: symbol | null = null;
+  private submenuCloseCallbacks: Set<() => void> = new Set();
 
   closeAllSubmenus = () => {
     this.currentOpenSubmenu = null;
+    this.submenuCloseCallbacks.forEach((close) => close());
   };
 
   setOpenSubmenu = (id: symbol) => {
     this.currentOpenSubmenu = id;
+  };
+
+  registerSubmenu = (closeCallback: () => void) => {
+    this.submenuCloseCallbacks.add(closeCallback);
+    return () => {
+      this.submenuCloseCallbacks.delete(closeCallback);
+    };
   };
 
   <template>
@@ -148,7 +157,11 @@ class DropdownMenuGroup extends Component<DropdownMenuGroupSignature> {
           Label=(component
             DropdownMenuLabel closeOtherSubmenus=this.closeAllSubmenus
           )
-          Sub=(component DropdownMenuSub closeOtherSubmenus=this.closeAllSubmenus)
+          Sub=(component
+            DropdownMenuSub
+            closeOtherSubmenus=this.closeAllSubmenus
+            registerSubmenu=this.registerSubmenu
+          )
         )
       }}
     </div>
@@ -178,6 +191,7 @@ interface DropdownMenuSubSignature {
     defaultOpen?: boolean;
     onOpenChange?: (open: boolean) => void;
     closeOtherSubmenus?: () => void;
+    registerSubmenu?: (closeCallback: () => void) => () => void;
   };
   Blocks: {
     default: [DropdownMenuSubYields];
@@ -187,10 +201,22 @@ interface DropdownMenuSubSignature {
 class DropdownMenuSub extends Component<DropdownMenuSubSignature> {
   @tracked isOpen: boolean;
   @tracked triggerElement: HTMLElement | null = null;
+  private unregister?: () => void;
 
   constructor(owner: Owner, args: DropdownMenuSubSignature['Args']) {
     super(owner, args);
     this.isOpen = args.open ?? args.defaultOpen ?? false;
+
+    if (args.registerSubmenu) {
+      this.unregister = args.registerSubmenu(() => {
+        this.isOpen = false;
+      });
+    }
+  }
+
+  willDestroy() {
+    super.willDestroy();
+    this.unregister?.();
   }
 
   get open() {
