@@ -4,7 +4,7 @@ description: Combine labels, controls, and help text to compose accessible form 
 component: true
 ---
 
-<ComponentPreview name="field-demo" class="[&_.preview]:h-[800px] [&_.preview]:p-6 md:[&_.preview]:h-[850px]" />
+<ComponentPreview name="field-demo" class="h-[800px] [&>*:first-child]:border-none md:h-[850px]" />
 
 ## Installation
 
