@@ -6,7 +6,7 @@ import { fn } from '@ember/helper';
 import { hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { cn } from '@/lib/utils';
-import X from '~icons/lucide/x';
+import XIcon from '~icons/lucide/x';
 
 // Dialog Root Component
 interface DialogSignature {
@@ -193,7 +193,7 @@ interface DialogContentSignature {
 
 class DialogContent extends Component<DialogContentSignature> {
   get showCloseButton() {
-    return this.args.showCloseButton !== false;
+    return this.args.showCloseButton ?? true;
   }
 
   handleOverlayClick = (event: MouseEvent) => {
@@ -238,7 +238,7 @@ class DialogContent extends Component<DialogContentSignature> {
               data-state={{if @open "open" "closed"}}
               {{on "click" this.handleCloseClick}}
             >
-              <X />
+              <XIcon />
               <span class="sr-only">Close</span>
             </button>
           {{/if}}
