@@ -287,6 +287,7 @@ class NotionPromptForm extends Component {
                 <InputGroupButton
                   @size="icon-sm"
                   @class="rounded-full"
+                  @variant="ghost"
                   aria-label="Attach file"
                 >
                   <Paperclip />
@@ -302,7 +303,11 @@ class NotionPromptForm extends Component {
               <Tooltip as |t|>
                 <t.Trigger>
                   <d.Trigger>
-                    <InputGroupButton @size="sm" @class="rounded-full">
+                    <InputGroupButton
+                      @size="sm"
+                      @class="rounded-full"
+                      @variant="ghost"
+                    >
                       {{this.selectedModel.name}}
                     </InputGroupButton>
                   </d.Trigger>
@@ -335,7 +340,11 @@ class NotionPromptForm extends Component {
               as |d|
             >
               <d.Trigger>
-                <InputGroupButton @size="sm" @class="rounded-full">
+                <InputGroupButton
+                  @size="sm"
+                  @class="rounded-full"
+                  @variant="ghost"
+                >
                   <Globe />
                   All Sources
                 </InputGroupButton>
