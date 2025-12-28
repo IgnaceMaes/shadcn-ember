@@ -1,41 +1,26 @@
 ---
-title: Manual Installation
-description: Add dependencies to your project manually.
+title: Vite
+description: Install and configure shadcn-ember for Vite.
 ---
+
+## Create project
+
+Start by creating a new Ember project using the official blueprint:
+
+```bash
+npx ember-cli@latest new my-app --typescript
+cd my-app
+```
 
 ## Add Tailwind CSS
 
-Components are styled using Tailwind CSS. You need to install Tailwind CSS in your project.
-
-[Follow the Tailwind CSS installation instructions to get started.](https://tailwindcss.com/docs/installation)
-
-## Add dependencies
-
-Add the following dependencies to your project:
+Install Tailwind CSS v4:
 
 ```bash
-npm install class-variance-authority clsx tailwind-merge
+npm install tailwindcss @tailwindcss/vite
 ```
 
-## Configure path aliases
-
-Configure the path aliases in your `tsconfig.json` file.
-
-```json {3-6} title="tsconfig.json" showLineNumbers
-{
-  "compilerOptions": {
-    "paths": {
-      "@/*": ["./app/*"]
-    }
-  }
-}
-```
-
-The `@` alias is a preference. You can use other aliases if you want.
-
-## Configure styles
-
-Add the following to your `app/app.css` file. You can learn more about using CSS variables for theming in the theming section.
+Create a `app/app.css` file with the following content:
 
 ```css title="app/app.css"
 @import 'tailwindcss';
@@ -138,7 +123,141 @@ Add the following to your `app/app.css` file. You can learn more about using CSS
 }
 ```
 
+Import the CSS file in `app/app.ts`:
+
+```typescript title="app/app.ts" showLineNumbers
+import './app.css';
+```
+
+## Edit tsconfig.json file
+
+Add the `paths` property to the `compilerOptions` section of the `tsconfig.json` file:
+
+```json title="tsconfig.json" {3-5} showLineNumbers
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./app/*"]
+    }
+  }
+}
+```
+
+The `@` alias is a preference. You can use other aliases if you want.
+
+## Update vite.config.mjs
+
+### Resolve
+
+Add the following code to the vite config so your app can resolve paths without error:
+
+```javascript title="vite.config.mjs" showLineNumbers {1,16-20}
+import path from 'path';
+import { defineConfig } from 'vite';
+import { extensions, classicEmberSupport, ember } from '@embroider/vite';
+import { babel } from '@rollup/plugin-babel';
+
+export default defineConfig({
+  plugins: [
+    classicEmberSupport(),
+    ember(),
+    // extra plugins here
+    babel({
+      babelHelpers: 'runtime',
+      extensions,
+    }),
+  ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './app'),
+    },
+  },
+});
+```
+
+### Tailwind CSS
+
+Add the Tailwind CSS plugin to your `vite.config.mjs`:
+
+```javascript title="vite.config.mjs" showLineNumbers {5,16}
+import path from 'path';
+import { defineConfig } from 'vite';
+import { extensions, classicEmberSupport, ember } from '@embroider/vite';
+import { babel } from '@rollup/plugin-babel';
+import tailwindcss from '@tailwindcss/vite';
+
+export default defineConfig({
+  plugins: [
+    classicEmberSupport(),
+    ember(),
+    // extra plugins here
+    babel({
+      babelHelpers: 'runtime',
+      extensions,
+    }),
+    tailwindcss(),
+  ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './app'),
+    },
+  },
+});
+```
+
+Add the following dependencies to your project:
+
+```bash
+npm install class-variance-authority clsx tailwind-merge
+```
+
+### Configure icons
+
+shadcn-ember uses `unplugin-icons` for icon support. Install the dependencies:
+
+```bash
+npm install -D unplugin-icons @iconify-json/lucide
+```
+
+Add the plugin to your `vite.config.mjs`:
+
+```javascript {6,18} title="vite.config.mjs" showLineNumbers
+import path from 'path';
+import { defineConfig } from 'vite';
+import { extensions, classicEmberSupport, ember } from '@embroider/vite';
+import { babel } from '@rollup/plugin-babel';
+import tailwindcss from '@tailwindcss/vite';
+import Icons from 'unplugin-icons/vite';
+
+export default defineConfig({
+  plugins: [
+    classicEmberSupport(),
+    ember(),
+    // extra plugins here
+    babel({
+      babelHelpers: 'runtime',
+      extensions,
+    }),
+    tailwindcss(),
+    Icons({ compiler: 'ember' }),
+  ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './app'),
+    },
+  },
+});
+```
+
+Import icons like this:
+
+```typescript
+import Check from '~icons/lucide/check';
+```
+
 ## Add a cn helper
+
+Create a utility function for merging class names:
 
 ```typescript showLineNumbers title="app/lib/utils.ts"
 import { clsx, type ClassValue } from 'clsx';
@@ -149,61 +268,20 @@ export function cn(...inputs: ClassValue[]) {
 }
 ```
 
-## Configure icons
+## Run the CLI
 
-Ember uses `unplugin-icons` for icon support. Install the dependencies:
+There is [no CLI yet](/docs/cli) yet. For now copy and paste the components into `app/components/ui`.
 
-```bash
-npm install --save-dev unplugin-icons @iconify-json/lucide
+## Add Components
+
+Copy and paste the shadcn-ember component in your app. You can then import it like this:
+
+```gts showLineNumbers title="app/templates/application.gts"
+import { Button } from '@/components/ui/button';
+
+<template>
+  <div class='flex min-h-svh flex-col items-center justify-center'>
+    <Button>Click me</Button>
+  </div>
+</template>
 ```
-
-Add the plugin to your `vite.config.mjs`:
-
-```javascript {5-7} title="vite.config.mjs" showLineNumbers
-import Icons from 'unplugin-icons/vite';
-
-export default defineConfig({
-  plugins: [
-    // ... other plugins
-    Icons({
-      compiler: 'glimmer',
-    }),
-  ],
-});
-```
-
-Import icons like this:
-
-```typescript
-import Check from '~icons/lucide/check';
-```
-
-## Create a components.json file
-
-Create a `components.json` file in the root of your project.
-
-```json title="components.json" showLineNumbers
-{
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "new-york",
-  "typescript": true,
-  "tailwind": {
-    "config": "",
-    "css": "app/app.css",
-    "baseColor": "neutral",
-    "cssVariables": true,
-    "prefix": ""
-  },
-  "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
-    "ui": "@/components/ui",
-    "lib": "@/lib"
-  },
-  "iconLibrary": "lucide"
-}
-```
-
-## That's it
-
-You can now start adding components to your project.
