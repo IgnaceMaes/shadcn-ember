@@ -4,7 +4,12 @@ import { CodeBlock } from 'ember-shiki';
 import CopyButton from '@/components/docs/copy-button';
 import glimmerTsLight from '@/assets/images/glimmer-ts-light.svg';
 import glimmerTsDark from '@/assets/images/glimmer-ts-dark.svg';
+import JsonIcon from '~icons/vscode-icons/file-type-json';
+import TypeScriptIcon from '~icons/vscode-icons/file-type-typescript';
+import JavaScriptIcon from '~icons/vscode-icons/file-type-js';
+import CssIcon from '~icons/vscode-icons/file-type-css';
 import type ThemeService from '@/services/theme';
+import type { ComponentLike } from '@glint/template';
 
 interface CodeBlockThemedSignature {
   Args: {
@@ -19,13 +24,29 @@ interface CodeBlockThemedSignature {
 export default class CodeBlockThemed extends Component<CodeBlockThemedSignature> {
   @service declare theme: ThemeService;
 
-  get extensionIcon(): string | undefined {
-    if (this.args.language === 'gts' || this.args.language === 'glimmer-ts') {
+  get iconSrc(): string | undefined {
+    const lang = this.args.language;
+    if (lang === 'gts' || lang === 'glimmer-ts') {
       return this.theme.currentTheme === 'dark'
         ? glimmerTsDark
         : glimmerTsLight;
     }
     return undefined;
+  }
+
+  get iconComponent(): ComponentLike | undefined {
+    const lang = this.args.language;
+    if (lang === 'json') return JsonIcon as ComponentLike;
+    if (lang === 'typescript' || lang === 'ts')
+      return TypeScriptIcon as ComponentLike;
+    if (lang === 'javascript' || lang === 'js')
+      return JavaScriptIcon as ComponentLike;
+    if (lang === 'css') return CssIcon as ComponentLike;
+    return undefined;
+  }
+
+  get hasIcon(): boolean {
+    return this.iconSrc !== undefined || this.iconComponent !== undefined;
   }
 
   get lineHighlights() {
@@ -49,15 +70,25 @@ export default class CodeBlockThemed extends Component<CodeBlockThemedSignature>
         <div
           class="flex items-center gap-2 border-b border-border bg-code px-4 py-2 font-mono text-sm text-code-foreground"
         >
-          {{#if this.extensionIcon}}
+          {{#if this.hasIcon}}
             <div
               class="bg-foreground flex size-4 items-center justify-center rounded-[1px] opacity-70"
             >
-              <img
-                src={{this.extensionIcon}}
-                alt={{@language}}
-                class="size-3.5 text-white dark:text-black"
-              />
+              {{#if this.iconSrc}}
+                <img
+                  src={{this.iconSrc}}
+                  alt={{@language}}
+                  class="size-3.5 text-white dark:text-black"
+                />
+              {{else if this.iconComponent}}
+                {{#let this.iconComponent as |Icon|}}
+                  <span
+                    class="size-3 text-white dark:text-black [&_path]:fill-current! [&_circle]:fill-current! [&_rect]:fill-current!"
+                  >
+                    <Icon />
+                  </span>
+                {{/let}}
+              {{/if}}
             </div>
           {{/if}}
           {{@title}}
