@@ -1,0 +1,215 @@
+---
+title: Input Group
+description: Display additional information or actions to an input or textarea.
+---
+
+<ComponentPreview name="input-group-demo" />
+
+## Installation
+
+### CLI
+
+```bash
+npx embercli-shadcn@latest add input-group
+```
+
+### Manual
+
+**Copy and paste the input-group component into your project:**
+
+<ComponentSource name="input-group" />
+
+**Update the import paths to match your project setup.**
+
+## Usage
+
+```gts showLineNumbers
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+  InputGroupTextarea,
+} from '@/components/ui/input-group';
+```
+
+```hbs showLineNumbers
+<InputGroup>
+  <InputGroupInput @placeholder="Search..." />
+  <InputGroupAddon>
+    <SearchIcon />
+  </InputGroupAddon>
+  <InputGroupAddon @align="inline-end">
+    <InputGroupButton>Search</InputGroupButton>
+  </InputGroupAddon>
+</InputGroup>
+```
+
+## Examples
+
+### Icon
+
+<ComponentPreview name="input-group-icon" />
+
+### Text
+
+Display additional text information alongside inputs.
+
+<ComponentPreview name="input-group-text" />
+
+### Button
+
+Add buttons to perform actions within the input group.
+
+<ComponentPreview name="input-group-button" />
+
+### Tooltip
+
+Add tooltips to provide additional context or help.
+
+<ComponentPreview name="input-group-tooltip" />
+
+### Textarea
+
+Input groups also work with textarea components. Use `block-start` or `block-end` for alignment.
+
+<ComponentPreview name="input-group-textarea" />
+
+### Spinner
+
+Show loading indicators while processing input.
+
+<ComponentPreview name="input-group-spinner" />
+
+### Label
+
+Add labels within input groups to improve accessibility.
+
+<ComponentPreview name="input-group-label" />
+
+### Dropdown
+
+Pair input groups with dropdown menus for complex interactions.
+
+<ComponentPreview name="input-group-dropdown" />
+
+### Button Group
+
+Wrap input groups with button groups to create prefixes and suffixes.
+
+<ComponentPreview name="input-group-button-group" />
+
+## API Reference
+
+### InputGroup
+
+The main component that wraps inputs and addons.
+
+| Prop     | Type     | Default |
+| -------- | -------- | ------- |
+| `@class` | `string` |         |
+
+```hbs
+<InputGroup>
+  <InputGroupInput />
+  <InputGroupAddon />
+</InputGroup>
+```
+
+### InputGroupAddon
+
+Displays icons, text, buttons, or other content alongside inputs.
+
+**Focus Navigation:** For proper focus navigation, the `InputGroupAddon` component should be placed after the input. Set the `@align` argument to position the addon.
+
+| Prop     | Type                                                             | Default          |
+| -------- | ---------------------------------------------------------------- | ---------------- |
+| `@align` | `"inline-start" \| "inline-end" \| "block-start" \| "block-end"` | `"inline-start"` |
+| `@class` | `string`                                                         |                  |
+
+```hbs
+<InputGroupAddon @align="inline-end">
+  <SearchIcon />
+</InputGroupAddon>
+```
+
+**For `<InputGroupInput />`, use the `inline-start` or `inline-end` alignment. For `<InputGroupTextarea />`, use the `block-start` or `block-end` alignment.**
+
+The `InputGroupAddon` component can have multiple `InputGroupButton` components and icons.
+
+```hbs
+<InputGroupAddon>
+  <InputGroupButton>Button</InputGroupButton>
+  <InputGroupButton>Button</InputGroupButton>
+</InputGroupAddon>
+```
+
+### InputGroupButton
+
+Displays buttons within input groups.
+
+| Prop       | Type                                                                          | Default   |
+| ---------- | ----------------------------------------------------------------------------- | --------- |
+| `@size`    | `"xs" \| "icon-xs" \| "sm" \| "icon-sm"`                                      | `"xs"`    |
+| `@variant` | `"default" \| "destructive" \| "outline" \| "secondary" \| "ghost" \| "link"` | `"ghost"` |
+| `@class`   | `string`                                                                      |           |
+
+```hbs
+<InputGroupButton>Button</InputGroupButton>
+<InputGroupButton @size="icon-xs" aria-label="Copy">
+  <CopyIcon />
+</InputGroupButton>
+```
+
+### InputGroupInput
+
+Replacement for `<Input />` when building input groups. This component has the input group styles pre-applied and uses the unified `data-slot="input-group-control"` for focus state handling.
+
+| Prop     | Type     | Default |
+| -------- | -------- | ------- |
+| `@class` | `string` |         |
+
+All other arguments are passed through to the underlying `<Input />` component.
+
+```hbs
+<InputGroup>
+  <InputGroupInput @placeholder="Enter text..." />
+  <InputGroupAddon>
+    <SearchIcon />
+  </InputGroupAddon>
+</InputGroup>
+```
+
+### InputGroupTextarea
+
+Replacement for `<Textarea />` when building input groups. This component has the textarea group styles pre-applied and uses the unified `data-slot="input-group-control"` for focus state handling.
+
+| Prop     | Type     | Default |
+| -------- | -------- | ------- |
+| `@class` | `string` |         |
+
+All other arguments are passed through to the underlying `<Textarea />` component.
+
+```hbs
+<InputGroup>
+  <InputGroupTextarea @placeholder="Enter message..." />
+  <InputGroupAddon @align="block-end">
+    <InputGroupButton>Send</InputGroupButton>
+  </InputGroupAddon>
+</InputGroup>
+```
+
+### InputGroupText
+
+Display text content within input groups.
+
+| Prop     | Type     | Default |
+| -------- | -------- | ------- |
+| `@class` | `string` |         |
+
+```hbs
+<InputGroupAddon>
+  <InputGroupText>$</InputGroupText>
+</InputGroupAddon>
+```
