@@ -17,6 +17,7 @@ import { FieldSeparator } from 'shadcn-ember/components/ui/field';
 import AppearanceSettings from '@/components/docs/examples/appearance-settings';
 import NotionPromptForm from '@/components/docs/examples/notion-prompt-form';
 import ButtonGroupDemo from '@/components/docs/examples/button-group-demo';
+import FieldCheckboxDemo from '@/components/docs/examples/field-checkbox-demo';
 
 <template>
   <div class="min-h-screen bg-background">
@@ -103,6 +104,7 @@ import ButtonGroupDemo from '@/components/docs/examples/button-group-demo';
             <div class="flex flex-col gap-6 *:[div]:w-full *:[div]:max-w-full">
               <NotionPromptForm />
               <ButtonGroupDemo />
+              <FieldCheckboxDemo />
             </div>
 
           </div>
