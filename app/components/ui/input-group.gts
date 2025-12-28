@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import type { TOC } from '@ember/component/template-only';
+import { on } from '@ember/modifier';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -69,7 +70,17 @@ class InputGroupAddon extends Component<InputGroupAddonSignature> {
     return alignMap[align];
   }
 
+  handleClick = (e: MouseEvent) => {
+    if ((e.target as HTMLElement).closest('button')) {
+      return;
+    }
+    (e.currentTarget as HTMLElement).parentElement
+      ?.querySelector('input')
+      ?.focus();
+  };
+
   <template>
+    {{! template-lint-disable no-invalid-interactive }}
     <div
       role="group"
       data-slot="input-group-addon"
@@ -79,6 +90,7 @@ class InputGroupAddon extends Component<InputGroupAddonSignature> {
         this.alignClasses
         @class
       }}
+      {{on "click" this.handleClick}}
       ...attributes
     >
       {{yield}}
@@ -121,9 +133,9 @@ class InputGroupButton extends Component<InputGroupButtonSignature> {
 
   <template>
     <Button
-      type={{@type}}
+      @type={{if @type @type "button"}}
       data-size={{@size}}
-      @variant={{@variant}}
+      @variant={{if @variant @variant "ghost"}}
       @class={{cn
         "text-sm shadow-none flex gap-2 items-center"
         this.sizeClasses
