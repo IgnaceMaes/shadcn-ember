@@ -14,7 +14,6 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import MoreHorizontal from '~icons/lucide/more-horizontal';
 import { fn } from '@ember/helper';
-import { on } from '@ember/modifier';
 
 export default class DropdownMenuDialogDemo extends Component {
   @tracked showNewDialog = false;
