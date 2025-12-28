@@ -14,6 +14,7 @@ import InputGroupDemo from '@/components/docs/examples/input-group-demo';
 import InputGroupButton from '@/components/docs/examples/input-group-button';
 import ItemDemo from '@/components/docs/examples/item-demo';
 import { FieldSeparator } from 'shadcn-ember/components/ui/field';
+import AppearanceSettings from '@/components/docs/examples/appearance-settings';
 
 <template>
   <div class="min-h-screen bg-background">
@@ -93,6 +94,7 @@ import { FieldSeparator } from 'shadcn-ember/components/ui/field';
               <InputGroupButton />
               <ItemDemo />
               <FieldSeparator @class="my-4">Appearance Settings</FieldSeparator>
+              <AppearanceSettings />
             </div>
 
             {{! Column 4 }}
