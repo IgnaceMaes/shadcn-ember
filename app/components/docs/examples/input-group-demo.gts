@@ -42,6 +42,7 @@ import { Tooltip } from '@/components/ui/tooltip';
             <InputGroupButton
               @class="rounded-full"
               @size="icon-xs"
+              @variant="ghost"
               aria-label="Info"
             >
               <InfoCircle />

@@ -56,6 +56,7 @@ export default class InputGroupButtonExample extends Component {
           <InputGroupButton
             {{on "click" this.toggleFavorite}}
             @size="icon-xs"
+            @variant="ghost"
             aria-label="Favorite"
           >
             <StarIcon

@@ -46,6 +46,7 @@ export default class ButtonGroupInputGroup extends Component {
                   class="data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
                   aria-pressed={{this.voiceEnabled}}
                   @size="icon-xs"
+                  @variant="ghost"
                   aria-label="Voice Mode"
                 >
                   <AudioLinesIcon />
