@@ -1,3 +1,4 @@
+import type { TOC } from '@ember/component/template-only';
 import Component from '@glimmer/component';
 import { cn } from '@/lib/utils';
 import { Label } from '@/components/ui/label';
@@ -285,37 +286,27 @@ interface FieldSeparatorSignature {
   };
 }
 
-class FieldSeparator extends Component<FieldSeparatorSignature> {
-  get hasContent() {
-    return true; // Will be true if block content exists
-  }
-
-  get classes() {
-    return cn(
-      'relative -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2',
-      this.args.class
-    );
-  }
-
-  <template>
-    <div
-      data-slot="field-separator"
-      data-content={{this.hasContent}}
-      class={{this.classes}}
-      ...attributes
-    >
-      <Separator @class="absolute inset-0 top-1/2" />
-      {{#if (has-block)}}
-        <span
-          class="bg-background text-muted-foreground relative mx-auto block w-fit px-2"
-          data-slot="field-separator-content"
-        >
-          {{yield}}
-        </span>
-      {{/if}}
-    </div>
-  </template>
-}
+const FieldSeparator: TOC<FieldSeparatorSignature> = <template>
+  <div
+    data-slot="field-separator"
+    data-content={{has-block}}
+    class={{cn
+      "relative -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2"
+      @class
+    }}
+    ...attributes
+  >
+    <Separator @class="absolute inset-0 top-1/2" />
+    {{#if (has-block)}}
+      <span
+        class="bg-background text-muted-foreground relative mx-auto block w-fit px-2"
+        data-slot="field-separator-content"
+      >
+        {{yield}}
+      </span>
+    {{/if}}
+  </div>
+</template>;
 
 // FieldError Component
 interface FieldErrorSignature {
@@ -330,34 +321,33 @@ interface FieldErrorSignature {
 }
 
 class FieldError extends Component<FieldErrorSignature> {
-  get hasContent() {
-    return this.content !== null;
-  }
-
-  get content() {
-    // If block content exists, use it (checked in template)
-    // Otherwise, process errors
+  get uniqueErrors() {
     const errors = this.args.errors;
-
-    if (!errors) {
+    if (!errors?.length) {
       return null;
     }
 
-    return errors;
+    // Deduplicate errors based on message
+    const errorMap = new Map<string | undefined, { message?: string }>();
+    for (const error of errors) {
+      if (error?.message) {
+        errorMap.set(error.message, error);
+      }
+    }
+
+    return Array.from(errorMap.values());
   }
 
-  get singleError() {
-    const errors = this.args.errors;
-    return errors?.length === 1 && errors[0]?.message
-      ? errors[0].message
-      : null;
+  get isSingleError() {
+    return this.uniqueErrors?.length === 1;
   }
 
-  get multipleErrors() {
-    const errors = this.args.errors;
-    return errors && errors.length > 1
-      ? errors.filter((e) => e?.message)
-      : null;
+  get singleErrorMessage() {
+    return this.uniqueErrors?.[0]?.message ?? null;
+  }
+
+  get isMultipleErrors() {
+    return this.uniqueErrors && this.uniqueErrors.length > 1;
   }
 
   get classes() {
@@ -374,27 +364,24 @@ class FieldError extends Component<FieldErrorSignature> {
       >
         {{yield}}
       </div>
-    {{else if this.singleError}}
+    {{else if this.uniqueErrors}}
       <div
         role="alert"
         data-slot="field-error"
         class={{this.classes}}
         ...attributes
       >
-        {{this.singleError}}
-      </div>
-    {{else if this.multipleErrors}}
-      <div
-        role="alert"
-        data-slot="field-error"
-        class={{this.classes}}
-        ...attributes
-      >
-        <ul class="ml-4 flex list-disc flex-col gap-1">
-          {{#each this.multipleErrors as |error|}}
-            <li>{{error.message}}</li>
-          {{/each}}
-        </ul>
+        {{#if this.isSingleError}}
+          {{this.singleErrorMessage}}
+        {{else if this.isMultipleErrors}}
+          <ul class="ml-4 flex list-disc flex-col gap-1">
+            {{#each this.uniqueErrors as |error|}}
+              {{#if error.message}}
+                <li>{{error.message}}</li>
+              {{/if}}
+            {{/each}}
+          </ul>
+        {{/if}}
       </div>
     {{/if}}
   </template>
