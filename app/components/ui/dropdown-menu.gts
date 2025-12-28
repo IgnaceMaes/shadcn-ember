@@ -2,6 +2,8 @@ import Component from '@glimmer/component';
 import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { modifier } from 'ember-modifier';
 import { hash } from '@ember/helper';
 import { cn } from '@/lib/utils';
 import Check from '~icons/lucide/check';
