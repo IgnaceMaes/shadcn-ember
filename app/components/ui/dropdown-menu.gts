@@ -11,6 +11,14 @@ import Circle from '~icons/lucide/circle';
 import onClickOutside from 'ember-click-outside/modifiers/on-click-outside';
 import type { TOC } from '@ember/component/template-only';
 import type { ComponentLike } from '@glint/template';
+import {
+  computePosition,
+  flip,
+  shift,
+  offset,
+  autoUpdate,
+  type Placement,
+} from '@floating-ui/dom';
 
 interface DropdownMenuYields {
   Trigger: ComponentLike<DropdownMenuTriggerSignature>;
@@ -30,6 +38,7 @@ interface DropdownMenuSignature {
 
 class DropdownMenu extends Component<DropdownMenuSignature> {
   @tracked isOpen: boolean;
+  @tracked triggerElement: HTMLElement | null = null;
 
   constructor(owner: Owner, args: DropdownMenuSignature['Args']) {
     super(owner, args);
@@ -45,15 +54,25 @@ class DropdownMenu extends Component<DropdownMenuSignature> {
     this.args.onOpenChange?.(open);
   };
 
+  setTriggerElement = (element: HTMLElement | null) => {
+    this.triggerElement = element;
+  };
+
   <template>
     <div data-slot="dropdown-menu" class="relative">
       {{yield
         (hash
           Trigger=(component
-            DropdownMenuTrigger isOpen=this.open setOpen=this.setOpen
+            DropdownMenuTrigger
+            isOpen=this.open
+            setOpen=this.setOpen
+            setTriggerElement=this.setTriggerElement
           )
           Content=(component
-            DropdownMenuContent isOpen=this.open setOpen=this.setOpen
+            DropdownMenuContent
+            isOpen=this.open
+            setOpen=this.setOpen
+            triggerElement=this.triggerElement
           )
         )
       }}
@@ -68,6 +87,7 @@ interface DropdownMenuTriggerSignature {
     setOpen?: (open: boolean) => void;
     isOpen?: boolean;
     asChild?: boolean;
+    setTriggerElement?: (element: HTMLElement | null) => void;
   };
   Blocks: {
     default: [];
@@ -80,12 +100,20 @@ class DropdownMenuTrigger extends Component<DropdownMenuTriggerSignature> {
     this.args.setOpen?.(newOpen);
   };
 
+  registerElement = modifier((element: HTMLElement) => {
+    this.args.setTriggerElement?.(element);
+    return () => {
+      this.args.setTriggerElement?.(null);
+    };
+  });
+
   <template>
     {{#if @asChild}}
       <span
         data-slot="dropdown-menu-trigger"
         role="button"
         tabindex="0"
+        {{this.registerElement}}
         {{on "click" this.handleClick}}
         {{on "keydown" this.handleClick}}
         ...attributes
@@ -97,6 +125,7 @@ class DropdownMenuTrigger extends Component<DropdownMenuTriggerSignature> {
         type="button"
         class={{cn @class}}
         data-slot="dropdown-menu-trigger"
+        {{this.registerElement}}
         {{on "click" this.handleClick}}
         ...attributes
       >
@@ -366,16 +395,42 @@ interface DropdownMenuSubContentSignature {
 }
 
 class DropdownMenuSubContent extends Component<DropdownMenuSubContentSignature> {
-  get positionStyle(): string {
-    if (!this.args.triggerElement) {
-      return 'display: none;';
+  @tracked x = 0;
+  @tracked y = 0;
+  private cleanup?: () => void;
+
+  positionSubmenu = modifier(
+    (
+      element: HTMLElement,
+      [triggerElement]: [HTMLElement | null | undefined]
+    ) => {
+      if (!triggerElement) return;
+
+      const update = () => {
+        void computePosition(triggerElement, element, {
+          placement: 'right-start',
+          strategy: 'fixed',
+          middleware: [
+            offset(4),
+            flip({ fallbackAxisSideDirection: 'start' }),
+            shift({ padding: 8 }),
+          ],
+        }).then(({ x, y }) => {
+          this.x = x;
+          this.y = y;
+        });
+      };
+
+      this.cleanup = autoUpdate(triggerElement, element, update);
+
+      return () => {
+        this.cleanup?.();
+      };
     }
+  );
 
-    const rect = this.args.triggerElement.getBoundingClientRect();
-    const left = rect.right + 4;
-    const top = rect.top;
-
-    return `position: fixed; left: ${left}px; top: ${top}px; z-index: 50;`;
+  get positionStyle(): string {
+    return `position: fixed; left: ${this.x}px; top: ${this.y}px; z-index: 50;`;
   }
 
   handleMouseEnter = () => {
@@ -395,6 +450,7 @@ class DropdownMenuSubContent extends Component<DropdownMenuSubContentSignature> 
         data-state={{if @isOpen "open" "closed"}}
         role="menu"
         style={{this.positionStyle}}
+        {{this.positionSubmenu @triggerElement}}
         {{on "mouseenter" this.handleMouseEnter}}
         ...attributes
       >
@@ -419,6 +475,7 @@ interface DropdownMenuContentSignature {
     align?: 'start' | 'center' | 'end';
     isOpen?: boolean;
     setOpen?: (open: boolean) => void;
+    triggerElement?: HTMLElement | null;
   };
   Blocks: {
     default: [DropdownMenuContentYields];
@@ -426,18 +483,49 @@ interface DropdownMenuContentSignature {
 }
 
 class DropdownMenuContent extends Component<DropdownMenuContentSignature> {
+  @tracked x = 0;
+  @tracked y = 0;
+  private cleanup?: () => void;
+
   handleClickOutside = () => {
     this.args.setOpen?.(false);
   };
 
-  get alignmentStyle(): string {
-    const align = this.args.align ?? 'start';
-    if (align === 'end') {
-      return 'right: 0;';
-    } else if (align === 'center') {
-      return 'left: 50%; transform: translateX(-50%);';
+  positionContent = modifier(
+    (
+      element: HTMLElement,
+      [triggerElement]: [HTMLElement | null | undefined]
+    ) => {
+      if (!triggerElement) return;
+
+      const align = this.args.align ?? 'start';
+      const placementMap: Record<string, Placement> = {
+        start: 'bottom-start',
+        center: 'bottom',
+        end: 'bottom-end',
+      };
+
+      const update = () => {
+        void computePosition(triggerElement, element, {
+          placement: placementMap[align] || 'bottom-start',
+          strategy: 'fixed',
+          middleware: [offset(8), flip(), shift({ padding: 8 })],
+        }).then(({ x, y }) => {
+          this.x = x;
+          this.y = y;
+        });
+      };
+
+      this.cleanup = autoUpdate(triggerElement, element, update);
+
+      return () => {
+        this.cleanup?.();
+      };
     }
-    return 'left: 0;';
+  );
+
+  get positionStyle(): string {
+    return `position: fixed; left: ${this.x}px; top: ${this.y}px; z-index: 50;`;
   }
 
   <template>
@@ -445,13 +533,14 @@ class DropdownMenuContent extends Component<DropdownMenuContentSignature> {
       <div
         data-slot="dropdown-menu-content"
         class={{cn
-          "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 max-h-(--radix-dropdown-menu-content-available-height) min-w-32 origin-(--radix-dropdown-menu-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border p-1 shadow-md absolute top-full mt-2"
+          "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 max-h-(--radix-dropdown-menu-content-available-height) min-w-32 origin-(--radix-dropdown-menu-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border p-1 shadow-md"
           @class
         }}
         data-state={{if @isOpen "open" "closed"}}
         data-align={{@align}}
         role="menu"
-        style={{this.alignmentStyle}}
+        style={{this.positionStyle}}
+        {{this.positionContent @triggerElement}}
         {{onClickOutside this.handleClickOutside}}
         ...attributes
       >
