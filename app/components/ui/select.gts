@@ -12,7 +12,9 @@ import ChevronUp from '~icons/lucide/chevron-up';
 import Check from '~icons/lucide/check';
 import { cn } from '@/lib/utils';
 
-const lockBodyScroll = modifier(() => {
+const lockBodyScroll = modifier((element: Element, [isOpen]: [boolean]) => {
+  if (!isOpen) return;
+
   const originalOverflow = document.body.style.overflow;
   document.body.style.overflow = 'hidden';
 
@@ -89,11 +91,9 @@ class Select extends Component<SelectSignature> {
       @offsetOptions={{if @offsetOptions @offsetOptions 4}}
       @flipOptions={{hash}}
       @shiftOptions={{hash padding=8}}
+      {{lockBodyScroll this.isOpen}}
       as |p|
     >
-      {{#if this.isOpen}}
-        <div {{lockBodyScroll}}></div>
-      {{/if}}
       {{yield
         (hash
           Trigger=(component
