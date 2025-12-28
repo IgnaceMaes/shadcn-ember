@@ -116,6 +116,7 @@ interface DropdownMenuGroupSignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
+    setOpen?: (open: boolean) => void;
   };
   Blocks: {
     default: [DropdownMenuGroupYields];
@@ -152,7 +153,9 @@ class DropdownMenuGroup extends Component<DropdownMenuGroupSignature> {
       {{yield
         (hash
           Item=(component
-            DropdownMenuItem closeOtherSubmenus=this.closeAllSubmenus
+            DropdownMenuItem
+            closeOtherSubmenus=this.closeAllSubmenus
+            setOpen=@setOpen
           )
           Label=(component
             DropdownMenuLabel closeOtherSubmenus=this.closeAllSubmenus
@@ -161,6 +164,7 @@ class DropdownMenuGroup extends Component<DropdownMenuGroupSignature> {
             DropdownMenuSub
             closeOtherSubmenus=this.closeAllSubmenus
             registerSubmenu=this.registerSubmenu
+            setOpen=@setOpen
           )
         )
       }}
@@ -192,6 +196,7 @@ interface DropdownMenuSubSignature {
     onOpenChange?: (open: boolean) => void;
     closeOtherSubmenus?: () => void;
     registerSubmenu?: (closeCallback: () => void) => () => void;
+    setOpen?: (open: boolean) => void;
   };
   Blocks: {
     default: [DropdownMenuSubYields];
@@ -249,6 +254,7 @@ class DropdownMenuSub extends Component<DropdownMenuSubSignature> {
             DropdownMenuSubContent
             isOpen=this.open
             triggerElement=this.triggerElement
+            setOpen=@setOpen
           )
         )
       }}
@@ -342,15 +348,20 @@ class DropdownMenuSubTrigger extends Component<DropdownMenuSubTriggerSignature> 
   </template>
 }
 
+interface DropdownMenuSubContentYields {
+  Item: ComponentLike<DropdownMenuItemSignature>;
+}
+
 interface DropdownMenuSubContentSignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
     isOpen?: boolean;
     triggerElement?: HTMLElement | null;
+    setOpen?: (open: boolean) => void;
   };
   Blocks: {
-    default: [];
+    default: [DropdownMenuSubContentYields];
   };
 }
 
@@ -387,10 +398,19 @@ class DropdownMenuSubContent extends Component<DropdownMenuSubContentSignature> 
         {{on "mouseenter" this.handleMouseEnter}}
         ...attributes
       >
-        {{yield}}
+        {{yield
+          (hash Item=(component DropdownMenuItem setOpen=@setOpen))
+        }}
       </div>
     {{/if}}
   </template>
+}
+
+interface DropdownMenuContentYields {
+  Item: ComponentLike<DropdownMenuItemSignature>;
+  Group: ComponentLike<DropdownMenuGroupSignature>;
+  CheckboxItem: ComponentLike<DropdownMenuCheckboxItemSignature>;
+  RadioGroup: ComponentLike<DropdownMenuRadioGroupSignature>;
 }
 
 interface DropdownMenuContentSignature {
@@ -403,7 +423,7 @@ interface DropdownMenuContentSignature {
     setOpen?: (open: boolean) => void;
   };
   Blocks: {
-    default: [];
+    default: [DropdownMenuContentYields];
   };
 }
 
@@ -437,7 +457,14 @@ class DropdownMenuContent extends Component<DropdownMenuContentSignature> {
         {{onClickOutside this.handleClickOutside}}
         ...attributes
       >
-        {{yield}}
+        {{yield
+          (hash
+            Item=(component DropdownMenuItem setOpen=@setOpen)
+            Group=(component DropdownMenuGroup setOpen=@setOpen)
+            CheckboxItem=(component DropdownMenuCheckboxItem setOpen=@setOpen)
+            RadioGroup=(component DropdownMenuRadioGroup)
+          )
+        }}
       </div>
     {{/if}}
   </template>
@@ -453,6 +480,7 @@ interface DropdownMenuItemSignature {
     asChild?: boolean;
     closeOtherSubmenus?: () => void;
     onSelect?: () => void;
+    setOpen?: (open: boolean) => void;
   };
   Blocks: {
     default: [classes?: string];
@@ -467,6 +495,7 @@ class DropdownMenuItem extends Component<DropdownMenuItemSignature> {
   handleClick = () => {
     if (!this.args.disabled) {
       this.args.onSelect?.();
+      this.args.setOpen?.(false);
     }
   };
 

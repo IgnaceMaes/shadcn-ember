@@ -1,8 +1,6 @@
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
-  DropdownMenuGroup,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuPortal,
   DropdownMenuSeparator,
@@ -14,9 +12,9 @@ import {
     <dm.Trigger @asChild={{true}}>
       <Button @variant="outline">Open</Button>
     </dm.Trigger>
-    <dm.Content @class="w-56" @align="start">
+    <dm.Content @class="w-56" @align="start" as |c|>
       <DropdownMenuLabel>My Account</DropdownMenuLabel>
-      <DropdownMenuGroup as |g|>
+      <c.Group as |g|>
         <g.Item>
           Profile
           <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
@@ -33,18 +31,18 @@ import {
           Keyboard shortcuts
           <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
         </g.Item>
-      </DropdownMenuGroup>
+      </c.Group>
       <DropdownMenuSeparator />
-      <DropdownMenuGroup as |g|>
+      <c.Group as |g|>
         <g.Item>Team</g.Item>
         <g.Sub as |sub|>
           <sub.Trigger>Invite users</sub.Trigger>
           <DropdownMenuPortal>
-            <sub.Content>
-              <DropdownMenuItem>Email</DropdownMenuItem>
-              <DropdownMenuItem>Message</DropdownMenuItem>
+            <sub.Content as |sc|>
+              <sc.Item>Email</sc.Item>
+              <sc.Item>Message</sc.Item>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>More...</DropdownMenuItem>
+              <sc.Item>More...</sc.Item>
             </sub.Content>
           </DropdownMenuPortal>
         </g.Sub>
@@ -52,16 +50,16 @@ import {
           New Team
           <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
         </g.Item>
-      </DropdownMenuGroup>
+      </c.Group>
       <DropdownMenuSeparator />
-      <DropdownMenuItem>GitHub</DropdownMenuItem>
-      <DropdownMenuItem>Support</DropdownMenuItem>
-      <DropdownMenuItem @disabled={{true}}>API</DropdownMenuItem>
+      <c.Item>GitHub</c.Item>
+      <c.Item>Support</c.Item>
+      <c.Item @disabled={{true}}>API</c.Item>
       <DropdownMenuSeparator />
-      <DropdownMenuItem>
+      <c.Item>
         Log out
         <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-      </DropdownMenuItem>
+      </c.Item>
     </dm.Content>
   </DropdownMenu>
 </template>
