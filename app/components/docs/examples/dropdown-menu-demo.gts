@@ -19,39 +19,39 @@ import {
     </dm.Trigger>
     <dm.Content @class="w-56" @align="start">
       <DropdownMenuLabel>My Account</DropdownMenuLabel>
-      <DropdownMenuGroup>
-        <DropdownMenuItem>
+      <DropdownMenuGroup as |closeSubmenus|>
+        <DropdownMenuItem @closeOtherSubmenus={{closeSubmenus}}>
           Profile
           <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem @closeOtherSubmenus={{closeSubmenus}}>
           Billing
           <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem @closeOtherSubmenus={{closeSubmenus}}>
           Settings
           <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem @closeOtherSubmenus={{closeSubmenus}}>
           Keyboard shortcuts
           <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
-      <DropdownMenuGroup>
-        <DropdownMenuItem>Team</DropdownMenuItem>
-        <DropdownMenuSub as |isSubOpen|>
-          <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
+      <DropdownMenuGroup as |closeSubmenus|>
+        <DropdownMenuItem @closeOtherSubmenus={{closeSubmenus}}>Team</DropdownMenuItem>
+        <DropdownMenuSub @closeOtherSubmenus={{closeSubmenus}} as |sub|>
+          <sub.Trigger>Invite users</sub.Trigger>
           <DropdownMenuPortal>
-            <DropdownMenuSubContent @isOpen={{isSubOpen}}>
+            <sub.Content>
               <DropdownMenuItem>Email</DropdownMenuItem>
               <DropdownMenuItem>Message</DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>More...</DropdownMenuItem>
-            </DropdownMenuSubContent>
+            </sub.Content>
           </DropdownMenuPortal>
         </DropdownMenuSub>
-        <DropdownMenuItem>
+        <DropdownMenuItem @closeOtherSubmenus={{closeSubmenus}}>
           New Team
           <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
         </DropdownMenuItem>

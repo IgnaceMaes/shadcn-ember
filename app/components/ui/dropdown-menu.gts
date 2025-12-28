@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
+import { modifier } from 'ember-modifier';
 import { hash } from '@ember/helper';
 import { cn } from '@/lib/utils';
 import Check from '~icons/lucide/check';
@@ -111,20 +112,32 @@ interface DropdownMenuGroupSignature {
     class?: string;
   };
   Blocks: {
-    default: [];
+    default: [closeAllSubmenus: () => void];
   };
 }
 
-const DropdownMenuGroup: TOC<DropdownMenuGroupSignature> = <template>
-  <div
-    role="group"
-    data-slot="dropdown-menu-group"
-    class={{cn @class}}
-    ...attributes
-  >
-    {{yield}}
-  </div>
-</template>;
+class DropdownMenuGroup extends Component<DropdownMenuGroupSignature> {
+  @tracked currentOpenSubmenu: symbol | null = null;
+
+  closeAllSubmenus = () => {
+    this.currentOpenSubmenu = null;
+  };
+
+  setOpenSubmenu = (id: symbol) => {
+    this.currentOpenSubmenu = id;
+  };
+
+  <template>
+    <div
+      role="group"
+      data-slot="dropdown-menu-group"
+      class={{cn @class}}
+      ...attributes
+    >
+      {{yield this.closeAllSubmenus}}
+    </div>
+  </template>
+}
 
 interface DropdownMenuPortalSignature {
   Blocks: {
@@ -138,19 +151,26 @@ const DropdownMenuPortal: TOC<DropdownMenuPortalSignature> = <template>
   </div>
 </template>;
 
+interface DropdownMenuSubYields {
+  Trigger: ComponentLike<DropdownMenuSubTriggerSignature>;
+  Content: ComponentLike<DropdownMenuSubContentSignature>;
+}
+
 interface DropdownMenuSubSignature {
   Args: {
     open?: boolean;
     defaultOpen?: boolean;
     onOpenChange?: (open: boolean) => void;
+    closeOtherSubmenus?: () => void;
   };
   Blocks: {
-    default: [isOpen: boolean, setOpen: (open: boolean) => void];
+    default: [DropdownMenuSubYields];
   };
 }
 
 class DropdownMenuSub extends Component<DropdownMenuSubSignature> {
   @tracked isOpen: boolean;
+  @tracked triggerElement: HTMLElement | null = null;
 
   constructor(owner: Owner, args: DropdownMenuSubSignature['Args']) {
     super(owner, args);
@@ -162,13 +182,33 @@ class DropdownMenuSub extends Component<DropdownMenuSubSignature> {
   }
 
   setOpen = (open: boolean) => {
+    if (open && this.args.closeOtherSubmenus) {
+      this.args.closeOtherSubmenus();
+    }
     this.isOpen = open;
     this.args.onOpenChange?.(open);
   };
 
+  setTriggerElement = (element: HTMLElement | null) => {
+    this.triggerElement = element;
+  };
+
   <template>
     <div data-slot="dropdown-menu-sub">
-      {{yield this.open this.setOpen}}
+      {{yield
+        (hash
+          Trigger=(component
+            DropdownMenuSubTrigger
+            setOpen=this.setOpen
+            setTriggerElement=this.setTriggerElement
+          )
+          Content=(component
+            DropdownMenuSubContent
+            isOpen=this.open
+            triggerElement=this.triggerElement
+          )
+        )
+      }}
     </div>
   </template>
 }
@@ -219,53 +259,94 @@ interface DropdownMenuSubTriggerSignature {
   Args: {
     class?: string;
     inset?: boolean;
+    setOpen?: (open: boolean) => void;
+    setTriggerElement?: (element: HTMLElement | null) => void;
   };
   Blocks: {
     default: [];
   };
 }
 
-const DropdownMenuSubTrigger: TOC<DropdownMenuSubTriggerSignature> = <template>
-  <div
-    data-slot="dropdown-menu-sub-trigger"
-    data-inset={{@inset}}
-    class={{cn
-      "focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
-      @class
-    }}
-    ...attributes
-  >
-    {{yield}}
-    <ChevronRight class="ml-auto size-4" />
-  </div>
-</template>;
+class DropdownMenuSubTrigger extends Component<DropdownMenuSubTriggerSignature> {
+  handleMouseEnter = () => {
+    this.args.setOpen?.(true);
+  };
+
+  registerElement = (element: HTMLElement) => {
+    this.args.setTriggerElement?.(element);
+    return () => {
+      this.args.setTriggerElement?.(null);
+    };
+  };
+
+  <template>
+    <div
+      data-slot="dropdown-menu-sub-trigger"
+      data-inset={{@inset}}
+      class={{cn
+        "focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
+        @class
+      }}
+      {{(modifier this.registerElement)}}
+      {{on "mouseenter" this.handleMouseEnter}}
+      ...attributes
+    >
+      {{yield}}
+      <ChevronRight class="ml-auto size-4" />
+    </div>
+  </template>
+}
 
 interface DropdownMenuSubContentSignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
     isOpen?: boolean;
+    triggerElement?: HTMLElement | null;
   };
   Blocks: {
     default: [];
   };
 }
 
-const DropdownMenuSubContent: TOC<DropdownMenuSubContentSignature> = <template>
-  {{#if @isOpen}}
-    <div
-      data-slot="dropdown-menu-sub-content"
-      class={{cn
-        "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-32 origin-(--radix-dropdown-menu-content-transform-origin) overflow-hidden rounded-md border p-1 shadow-lg"
-        @class
-      }}
-      data-state={{if @isOpen "open" "closed"}}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  {{/if}}
-</template>;
+class DropdownMenuSubContent extends Component<DropdownMenuSubContentSignature> {
+  get positionStyle(): string {
+    if (!this.args.triggerElement) {
+      return 'display: none;';
+    }
+
+    const rect = this.args.triggerElement.getBoundingClientRect();
+    const left = rect.right + 4;
+    const top = rect.top;
+
+    return `position: fixed; left: ${left}px; top: ${top}px; z-index: 50;`;
+  }
+
+  handleMouseEnter = () => {
+    // Keep the submenu open when hovering over it
+  };
+
+  <template>
+    {{#if @isOpen}}
+      <div
+        data-slot="dropdown-menu-sub-content"
+        data-side="right"
+        data-align="start"
+        class={{cn
+          "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-32 origin-(--radix-dropdown-menu-content-transform-origin) overflow-hidden rounded-md border p-1 shadow-lg"
+          @class
+        }}
+        data-state={{if @isOpen "open" "closed"}}
+        role="menu"
+        style={{this.positionStyle}}
+        {{on "mouseenter" this.handleMouseEnter}}
+        ...attributes
+      >
+        {{yield}}
+      </div>
+    {{/if}}
+  </template>
+}
 
 interface DropdownMenuContentSignature {
   Element: HTMLDivElement;
@@ -325,37 +406,45 @@ interface DropdownMenuItemSignature {
     disabled?: boolean;
     variant?: 'default' | 'destructive';
     asChild?: boolean;
+    closeOtherSubmenus?: () => void;
   };
   Blocks: {
     default: [classes?: string];
   };
 }
 
-const DropdownMenuItem: TOC<DropdownMenuItemSignature> = <template>
-  {{#if @asChild}}
-    {{yield
-      (cn
-        "focus:bg-accent focus:text-accent-foreground hover:bg-accent hover:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive! [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 transition-colors"
-        @class
-      )
-    }}
-  {{else}}
-    <div
-      data-slot="dropdown-menu-item"
-      data-inset={{@inset}}
-      data-variant={{@variant}}
-      class={{cn
-        "focus:bg-accent focus:text-accent-foreground hover:bg-accent hover:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive! [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 transition-colors"
-        @class
+class DropdownMenuItem extends Component<DropdownMenuItemSignature> {
+  handleMouseEnter = () => {
+    this.args.closeOtherSubmenus?.();
+  };
+
+  <template>
+    {{#if @asChild}}
+      {{yield
+        (cn
+          "focus:bg-accent focus:text-accent-foreground hover:bg-accent hover:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive! [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 transition-colors"
+          @class
+        )
       }}
-      role="menuitem"
-      data-disabled={{@disabled}}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  {{/if}}
-</template>;
+    {{else}}
+      <div
+        data-slot="dropdown-menu-item"
+        data-inset={{@inset}}
+        data-variant={{@variant}}
+        class={{cn
+          "focus:bg-accent focus:text-accent-foreground hover:bg-accent hover:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive! [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 transition-colors"
+          @class
+        }}
+        role="menuitem"
+        data-disabled={{@disabled}}
+        {{on "mouseenter" this.handleMouseEnter}}
+        ...attributes
+      >
+        {{yield}}
+      </div>
+    {{/if}}
+  </template>
+}
 
 interface DropdownMenuCheckboxItemSignature {
   Element: HTMLDivElement;
@@ -451,22 +540,30 @@ interface DropdownMenuLabelSignature {
   Args: {
     class?: string;
     inset?: boolean;
+    closeOtherSubmenus?: () => void;
   };
   Blocks: {
     default: [];
   };
 }
 
-const DropdownMenuLabel: TOC<DropdownMenuLabelSignature> = <template>
-  <div
-    data-slot="dropdown-menu-label"
-    data-inset={{@inset}}
-    class={{cn "px-2 py-1.5 text-sm font-medium data-inset:pl-8" @class}}
-    ...attributes
-  >
-    {{yield}}
-  </div>
-</template>;
+class DropdownMenuLabel extends Component<DropdownMenuLabelSignature> {
+  handleMouseEnter = () => {
+    this.args.closeOtherSubmenus?.();
+  };
+
+  <template>
+    <div
+      data-slot="dropdown-menu-label"
+      data-inset={{@inset}}
+      class={{cn "px-2 py-1.5 text-sm font-medium data-inset:pl-8" @class}}
+      {{on "mouseenter" this.handleMouseEnter}}
+      ...attributes
+    >
+      {{yield}}
+    </div>
+  </template>
+}
 
 interface DropdownMenuSeparatorSignature {
   Element: HTMLDivElement;
