@@ -64,11 +64,11 @@ import { Tooltip } from '@/components/ui/tooltip';
         >
           <Plus />
         </InputGroupButton>
-        <DropdownMenu>
-          <DropdownMenuTrigger>
+        <DropdownMenu as |d|>
+          <d.Trigger>
             <InputGroupButton @variant="ghost">Auto</InputGroupButton>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
+          </d.Trigger>
+          <d.Content
             {{! @side="top" }}
             @align="start"
             @class="[--radius:0.95rem]"
@@ -76,7 +76,7 @@ import { Tooltip } from '@/components/ui/tooltip';
             <DropdownMenuItem>Auto</DropdownMenuItem>
             <DropdownMenuItem>Agent</DropdownMenuItem>
             <DropdownMenuItem>Manual</DropdownMenuItem>
-          </DropdownMenuContent>
+          </d.Content>
         </DropdownMenu>
         <InputGroupText @class="ml-auto">52% used</InputGroupText>
         <Separator @orientation="vertical" @class="!h-4" />

@@ -13,21 +13,21 @@ import {
 <template>
   <div class="grid w-full max-w-sm gap-6">
     <InputGroup>
-      <InputGroupInput @placeholder="Search..." />
+      <InputGroupInput placeholder="Search..." />
       <InputGroupAddon>
         <Search />
       </InputGroupAddon>
     </InputGroup>
 
     <InputGroup>
-      <InputGroupInput type="email" @placeholder="Enter your email" />
+      <InputGroupInput type="email" placeholder="Enter your email" />
       <InputGroupAddon>
         <Mail />
       </InputGroupAddon>
     </InputGroup>
 
     <InputGroup>
-      <InputGroupInput @placeholder="Card number" />
+      <InputGroupInput placeholder="Card number" />
       <InputGroupAddon>
         <CreditCard />
       </InputGroupAddon>
@@ -37,7 +37,7 @@ import {
     </InputGroup>
 
     <InputGroup>
-      <InputGroupInput @placeholder="Card number" />
+      <InputGroupInput placeholder="Card number" />
       <InputGroupAddon @align="inline-end">
         <Star />
         <Info />
