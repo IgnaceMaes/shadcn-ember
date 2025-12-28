@@ -9,7 +9,6 @@ Start by creating a new Ember project using the official blueprint:
 
 ```bash
 npx ember-cli@latest new my-app --typescript
-cd my-app
 ```
 
 ## Add Tailwind CSS
