@@ -10,6 +10,7 @@ import FieldSlider from '@/components/docs/examples/field-slider';
 import EmptyAvatarGroup from 'shadcn-ember/components/docs/examples/empty-avatar-group';
 import SpinnerBadge from '@/components/docs/examples/spinner-badge';
 import ButtonGroupInputGroup from 'shadcn-ember/components/docs/examples/button-group-input-group';
+import InputGroupDemo from '@/components/docs/examples/input-group-demo';
 
 <template>
   <div class="min-h-screen bg-background">
@@ -81,6 +82,7 @@ import ButtonGroupInputGroup from 'shadcn-ember/components/docs/examples/button-
               <SpinnerBadge />
               <ButtonGroupInputGroup />
               <FieldSlider />
+              <InputGroupDemo />
             </div>
 
             {{! Column 3 }}
