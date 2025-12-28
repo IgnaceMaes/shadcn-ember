@@ -65,6 +65,7 @@ class Slider extends Component<SliderSignature> {
     // For single value sliders, show progress from min to value
     if (this.values.length === 1) {
       const value = this.values[0];
+      if (value === undefined) return { start: 0, width: 0 };
       const start = 0;
       const end = ((value - this.min) / (this.max - this.min)) * 100;
       return { start, width: end };
@@ -164,10 +165,10 @@ class Slider extends Component<SliderSignature> {
 
     // Find closest thumb
     let closestIndex = 0;
-    let closestDistance = Math.abs(this.values[0] - clampedValue);
+    let closestDistance = Math.abs((this.values[0] ?? 0) - clampedValue);
 
     for (let i = 1; i < this.values.length; i++) {
-      const distance = Math.abs(this.values[i] - clampedValue);
+      const distance = Math.abs((this.values[i] ?? 0) - clampedValue);
       if (distance < closestDistance) {
         closestDistance = distance;
         closestIndex = i;
@@ -191,6 +192,7 @@ class Slider extends Component<SliderSignature> {
       }}
       ...attributes
     >
+      {{! template-lint-disable no-invalid-interactive no-pointer-down-event-binding }}
       <div
         data-slot="slider-track"
         class="bg-muted relative grow overflow-hidden rounded-full data-[orientation=horizontal]:h-1.5 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5"
@@ -205,6 +207,7 @@ class Slider extends Component<SliderSignature> {
         ></div>
       </div>
       {{#each this.values as |val index|}}
+        {{! template-lint-disable no-pointer-down-event-binding }}
         <div
           data-slot="slider-thumb"
           class="border-primary ring-ring/50 absolute block size-4 shrink-0 rounded-full border bg-white shadow-sm transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 cursor-pointer"
