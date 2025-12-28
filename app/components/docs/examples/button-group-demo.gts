@@ -73,7 +73,7 @@ export default class ButtonGroupDemo extends Component {
                   <TagIcon />
                   Label As...
                 </sub.Trigger>
-                <sub.Content as |sc|>
+                <sub.Content>
                   <c.RadioGroup
                     @value={{this.label}}
                     @onValueChange={{this.handleLabelChange}}
@@ -106,9 +106,7 @@ export default class ButtonGroupDemo extends Component {
             </c.Group>
             <DropdownMenuSeparator />
             <c.Group as |g|>
-              <g.Item
-                @class="text-destructive focus:text-destructive"
-              >
+              <g.Item @class="text-destructive focus:text-destructive">
                 <Trash2Icon />
                 Trash
               </g.Item>

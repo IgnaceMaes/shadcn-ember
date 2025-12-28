@@ -398,9 +398,7 @@ class DropdownMenuSubContent extends Component<DropdownMenuSubContentSignature> 
         {{on "mouseenter" this.handleMouseEnter}}
         ...attributes
       >
-        {{yield
-          (hash Item=(component DropdownMenuItem setOpen=@setOpen))
-        }}
+        {{yield (hash Item=(component DropdownMenuItem setOpen=@setOpen))}}
       </div>
     {{/if}}
   </template>
