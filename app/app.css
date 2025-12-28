@@ -54,6 +54,8 @@
   --color-code-foreground: var(--code-foreground);
   --color-code-highlight: var(--code-highlight);
   --color-code-number: var(--code-number);
+  --color-surface: var(--surface);
+  --color-surface-foreground: var(--surface-foreground);
 }
 
 :root {
@@ -203,7 +205,7 @@
 
   /* docs specific */
   --surface: lab(97.68% -0.0000298023 0.0000119209);
-  --surface-foreground: lab(63.04% 0 0);
+  --surface-foreground: var(--foreground);
   --code: var(--surface);
   --code-foreground: lab(2.75381% 0 0);
   --code-highlight: lab(95.36% 0 0);
@@ -253,7 +255,7 @@
 
   /* defaults */
   --surface: #161616;
-  --surface-foreground: #a1a1a1;
+  --surface-foreground: var(--foreground);
   --code: var(--surface);
   --code-foreground: var(--surface-foreground);
   --code-highlight: lab(15.32% 0 0);
