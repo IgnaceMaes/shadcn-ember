@@ -19,11 +19,7 @@ import {
   InputGroupTextarea,
 } from '@/components/ui/input-group';
 import { Separator } from '@/components/ui/separator';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
+import { Tooltip } from '@/components/ui/tooltip';
 
 <template>
   <div class="grid w-full max-w-sm gap-6">
@@ -41,8 +37,8 @@ import {
         <InputGroupText>https://</InputGroupText>
       </InputGroupAddon>
       <InputGroupAddon @align="inline-end">
-        <Tooltip>
-          <TooltipTrigger>
+        <Tooltip as |t|>
+          <t.Trigger>
             <InputGroupButton
               @class="rounded-full"
               @size="icon-xs"
@@ -50,8 +46,8 @@ import {
             >
               <InfoCircle />
             </InputGroupButton>
-          </TooltipTrigger>
-          <TooltipContent>This is content in a tooltip.</TooltipContent>
+          </t.Trigger>
+          <t.Content>This is content in a tooltip.</t.Content>
         </Tooltip>
       </InputGroupAddon>
     </InputGroup>
