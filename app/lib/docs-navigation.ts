@@ -22,17 +22,13 @@ const markdownFiles = import.meta.glob<string>('/app/content/docs/**/*.md', {
 });
 
 // Convert file path to route name
-// e.g., "/app/content/docs/index.md" -> "docs"
+// e.g., "/app/content/docs/index.md" -> "docs.index"
 // e.g., "/app/content/docs/installation.md" -> "docs.installation"
 // e.g., "/app/content/docs/components/accordion.md" -> "docs.components.accordion"
 function filePathToRoute(filePath: string): string {
   const relativePath = filePath
     .replace('/app/content/docs/', '')
     .replace('.md', '');
-
-  if (relativePath === 'index') {
-    return 'docs';
-  }
 
   return 'docs.' + relativePath.replace(/\//g, '.');
 }
@@ -54,6 +50,10 @@ function generateNavigation(): DocNavItem[] {
 
   // Sort by order if specified, otherwise by route name
   items.sort((a, b) => {
+    // Hardcode introduction (index page) to be first
+    if (a.route === 'docs.index') return -1;
+    if (b.route === 'docs.index') return 1;
+
     if (a.order !== undefined && b.order !== undefined) {
       return a.order - b.order;
     }
@@ -86,7 +86,7 @@ function generateSidebar(): DocSidebarSection[] {
   for (const item of docsNavigation) {
     // Top-level pages go into "Sections"
     if (
-      item.route === 'docs' ||
+      item.route === 'docs.index' ||
       item.route === 'docs.components' ||
       item.route === 'docs.changelog'
     ) {
