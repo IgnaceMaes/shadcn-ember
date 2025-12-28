@@ -27,10 +27,9 @@ export default class InputGroupButtonExample extends Component {
         Input Secure
       </Label>
       <InputGroup @class="[--radius:9999px]">
-        <InputGroupInput id="input-secure-19" @class="!pl-0.5" />
         <Popover as |p|>
           <p.Trigger>
-            <InputGroupAddon>
+            <InputGroupAddon @align="inline-start">
               <InputGroupButton
                 @variant="secondary"
                 @size="icon-xs"
@@ -52,6 +51,7 @@ export default class InputGroupButtonExample extends Component {
         <InputGroupAddon @class="text-muted-foreground !pl-1">
           https://
         </InputGroupAddon>
+        <InputGroupInput id="input-secure-19" @class="!pl-0.5" />
         <InputGroupAddon @align="inline-end">
           <InputGroupButton
             {{on "click" this.toggleFavorite}}
