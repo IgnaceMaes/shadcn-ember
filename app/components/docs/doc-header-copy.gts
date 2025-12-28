@@ -5,7 +5,7 @@ import Copy from '~icons/lucide/copy';
 import Check from '~icons/lucide/check';
 import ChevronDown from '~icons/lucide/chevron-down';
 import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import { DropdownMenu } from '@/components/ui/dropdown-menu';
 import { Popover } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';

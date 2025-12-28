@@ -36,6 +36,8 @@ export { default as ButtonWithIcon } from './button-with-icon';
 export { default as CardDemo } from './card-demo';
 export { default as CheckboxDemo } from './checkbox-demo';
 export { default as CollapsibleDemo } from './collapsible-demo';
+export { default as DialogCloseButton } from './dialog-close-button';
+export { default as DialogDemo } from './dialog-demo';
 export { default as DropdownMenuCheckboxes } from './dropdown-menu-checkboxes';
 export { default as DropdownMenuDemo } from './dropdown-menu-demo';
 export { default as DropdownMenuDialog } from './dropdown-menu-dialog';
