@@ -1,11 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import {
   Item,
   ItemContent,
@@ -37,14 +32,14 @@ const people = [
 <template>
   {{! template-lint-disable no-potential-path-strings }}
   <div class="flex min-h-64 w-full max-w-md flex-col items-center gap-6">
-    <DropdownMenu>
-      <DropdownMenuTrigger @asChild={{true}}>
+    <DropdownMenu as |dm|>
+      <dm.Trigger @asChild={{true}}>
         <Button @variant="outline" @size="sm" @class="w-fit">
           Select
           <ChevronDownIcon />
         </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent @class="w-72 [--radius:0.65rem]">
+      </dm.Trigger>
+      <dm.Content @class="w-72 [--radius:0.65rem]">
         {{#each (array people) as |persons|}}
           {{#each persons as |person|}}
             <DropdownMenuItem @class="p-0">
@@ -63,7 +58,7 @@ const people = [
             </DropdownMenuItem>
           {{/each}}
         {{/each}}
-      </DropdownMenuContent>
+      </dm.Content>
     </DropdownMenu>
   </div>
 </template>

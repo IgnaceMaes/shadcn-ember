@@ -5,7 +5,7 @@ import Copy from '~icons/lucide/copy';
 import Check from '~icons/lucide/check';
 import ChevronDown from '~icons/lucide/chevron-down';
 import { Button } from '@/components/ui/button';
-import { DropdownMenu } from '@/components/ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { Popover } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
@@ -107,8 +107,8 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
           Copy Page
         </Button>
 
-        <DropdownMenu as |d|>
-          <d.Trigger @class="hidden sm:flex">
+        <DropdownMenu as |dm|>
+          <dm.Trigger @class="hidden sm:flex">
             <Button
               @variant="secondary"
               @size="sm"
@@ -116,10 +116,10 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
             >
               <ChevronDown class="rotate-180 sm:rotate-0" />
             </Button>
-          </d.Trigger>
+          </dm.Trigger>
 
-          <d.Content @align="end" @class="shadow-none min-w-48">
-            <d.Item @asChild={{true}} as |itemClass|>
+          <dm.Content @align="end" @class="shadow-none min-w-48">
+            <DropdownMenuItem @asChild={{true}} as |itemClass|>
               <a
                 href={{this.markdownUrl}}
                 target="_blank"
@@ -129,9 +129,9 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
                 <this.MarkdownIcon />
                 View as Markdown
               </a>
-            </d.Item>
+            </DropdownMenuItem>
 
-            <d.Item @asChild={{true}} as |itemClass|>
+            <DropdownMenuItem @asChild={{true}} as |itemClass|>
               <a
                 href={{this.chatGptUrl}}
                 target="_blank"
@@ -141,9 +141,9 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
                 <this.ChatGptIcon />
                 Open in ChatGPT
               </a>
-            </d.Item>
+            </DropdownMenuItem>
 
-            <d.Item @asChild={{true}} as |itemClass|>
+            <DropdownMenuItem @asChild={{true}} as |itemClass|>
               <a
                 href={{this.claudeUrl}}
                 target="_blank"
@@ -153,8 +153,8 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
                 <this.ClaudeIcon />
                 Open in Claude
               </a>
-            </d.Item>
-          </d.Content>
+            </DropdownMenuItem>
+          </dm.Content>
         </DropdownMenu>
 
         <Separator

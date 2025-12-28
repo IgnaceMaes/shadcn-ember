@@ -13,19 +13,7 @@ import type { ComponentLike } from '@glint/template';
 
 interface DropdownMenuYields {
   Trigger: ComponentLike<DropdownMenuTriggerSignature>;
-  Group: ComponentLike<DropdownMenuGroupSignature>;
-  Portal: ComponentLike<DropdownMenuPortalSignature>;
-  Sub: ComponentLike<DropdownMenuSubSignature>;
-  RadioGroup: ComponentLike<DropdownMenuRadioGroupSignature>;
-  SubTrigger: ComponentLike<DropdownMenuSubTriggerSignature>;
-  SubContent: ComponentLike<DropdownMenuSubContentSignature>;
   Content: ComponentLike<DropdownMenuContentSignature>;
-  Item: ComponentLike<DropdownMenuItemSignature>;
-  CheckboxItem: ComponentLike<DropdownMenuCheckboxItemSignature>;
-  RadioItem: ComponentLike<DropdownMenuRadioItemSignature>;
-  Label: ComponentLike<DropdownMenuLabelSignature>;
-  Separator: ComponentLike<DropdownMenuSeparatorSignature>;
-  Shortcut: ComponentLike<DropdownMenuShortcutSignature>;
 }
 
 interface DropdownMenuSignature {
@@ -63,21 +51,9 @@ class DropdownMenu extends Component<DropdownMenuSignature> {
           Trigger=(component
             DropdownMenuTrigger isOpen=this.open setOpen=this.setOpen
           )
-          Group=DropdownMenuGroup
-          Portal=DropdownMenuPortal
-          Sub=DropdownMenuSub
-          RadioGroup=DropdownMenuRadioGroup
-          SubTrigger=DropdownMenuSubTrigger
-          SubContent=DropdownMenuSubContent
           Content=(component
             DropdownMenuContent isOpen=this.open setOpen=this.setOpen
           )
-          Item=DropdownMenuItem
-          CheckboxItem=DropdownMenuCheckboxItem
-          RadioItem=DropdownMenuRadioItem
-          Label=DropdownMenuLabel
-          Separator=DropdownMenuSeparator
-          Shortcut=DropdownMenuShortcut
         )
       }}
     </div>

@@ -92,27 +92,25 @@ You can compose `<BreadcrumbItem />` with a `<DropdownMenu />` to create a dropd
 
 <ComponentPreview name="breadcrumb-dropdown" />
 
-```gts showLineNumbers {1-6,11-22}
+```gts showLineNumbers {1,7-18}
 import {
   DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
 ...
 
 <template>
   <BreadcrumbItem>
-    <DropdownMenu>
-      <DropdownMenuTrigger>
+    <DropdownMenu as |dm|>
+      <dm.Trigger>
         Components
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      </dm.Trigger>
+      <dm.Content>
         <DropdownMenuItem>Documentation</DropdownMenuItem>
         <DropdownMenuItem>Themes</DropdownMenuItem>
         <DropdownMenuItem>GitHub</DropdownMenuItem>
-      </DropdownMenuContent>
+      </dm.Content>
     </DropdownMenu>
   </BreadcrumbItem>
 </template>

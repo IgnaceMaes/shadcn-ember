@@ -2,11 +2,9 @@ import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import {
   DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import AlertTriangleIcon from '~icons/lucide/alert-triangle';
 import CheckIcon from '~icons/lucide/check';
@@ -20,13 +18,13 @@ import VolumeOffIcon from '~icons/lucide/volume-off';
 <template>
   <ButtonGroup>
     <Button @variant="outline">Follow</Button>
-    <DropdownMenu>
-      <DropdownMenuTrigger @asChild={{true}}>
+    <DropdownMenu as |dm|>
+      <dm.Trigger @asChild={{true}}>
         <Button @variant="outline" class="!pl-2">
           <ChevronDownIcon />
         </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent @class="[--radius:1rem]">
+      </dm.Trigger>
+      <dm.Content @class="[--radius:1rem]">
         <DropdownMenuGroup>
           <DropdownMenuItem>
             <VolumeOffIcon />
@@ -60,7 +58,7 @@ import VolumeOffIcon from '~icons/lucide/volume-off';
             Delete Conversation
           </DropdownMenuItem>
         </DropdownMenuGroup>
-      </DropdownMenuContent>
+      </dm.Content>
     </DropdownMenu>
   </ButtonGroup>
 </template>
