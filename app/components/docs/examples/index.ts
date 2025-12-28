@@ -81,6 +81,7 @@ export { default as ProgressDemo } from './progress-demo';
 export { default as RadioGroupDemo } from './radio-group-demo';
 export { default as SelectDemo } from './select-demo';
 export { default as SelectScrollable } from './select-scrollable';
+export { default as SliderDemo } from './slider-demo';
 export { default as ToggleDemo } from './toggle-demo';
 export { default as ToggleDisabled } from './toggle-disabled';
 export { default as ToggleLg } from './toggle-lg';
