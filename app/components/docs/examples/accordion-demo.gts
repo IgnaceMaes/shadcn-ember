@@ -1,29 +1,11 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
+import { Accordion } from '@/components/ui/accordion';
 
 <template>
   <div class="w-full">
-    <Accordion
-      @type="single"
-      @collapsible={{true}}
-      @value="item-1"
-      as |value setValue|
-    >
-      <AccordionItem
-        @value="item-1"
-        @currentValue={{value}}
-        @setValue={{setValue}}
-        @type="single"
-        as |isOpen toggle|
-      >
-        <AccordionTrigger @isOpen={{isOpen}} @toggle={{toggle}}>
-          Product Information
-        </AccordionTrigger>
-        <AccordionContent @isOpen={{isOpen}}>
+    <Accordion @type="single" @collapsible={{true}} as |Item|>
+      <Item @value="item-1" as |Trigger Content|>
+        <Trigger>Product Information</Trigger>
+        <Content>
           <div class="flex flex-col gap-4 text-balance">
             <p>
               Our flagship product combines cutting-edge technology with sleek
@@ -35,19 +17,12 @@ import {
               intuitive user interface designed for both beginners and experts.
             </p>
           </div>
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem
-        @value="item-2"
-        @currentValue={{value}}
-        @setValue={{setValue}}
-        @type="single"
-        as |isOpen toggle|
-      >
-        <AccordionTrigger @isOpen={{isOpen}} @toggle={{toggle}}>
-          Shipping Details
-        </AccordionTrigger>
-        <AccordionContent @isOpen={{isOpen}}>
+        </Content>
+      </Item>
+
+      <Item @value="item-2" as |Trigger Content|>
+        <Trigger>Shipping Details</Trigger>
+        <Content>
           <div class="flex flex-col gap-4 text-balance">
             <p>
               We offer worldwide shipping through trusted courier partners.
@@ -59,19 +34,12 @@ import {
               shipment in real-time through our dedicated tracking portal.
             </p>
           </div>
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem
-        @value="item-3"
-        @currentValue={{value}}
-        @setValue={{setValue}}
-        @type="single"
-        as |isOpen toggle|
-      >
-        <AccordionTrigger @isOpen={{isOpen}} @toggle={{toggle}}>
-          Return Policy
-        </AccordionTrigger>
-        <AccordionContent @isOpen={{isOpen}}>
+        </Content>
+      </Item>
+
+      <Item @value="item-3" as |Trigger Content|>
+        <Trigger>Return Policy</Trigger>
+        <Content>
           <div class="flex flex-col gap-4 text-balance">
             <p>
               We stand behind our products with a comprehensive 30-day return
@@ -84,8 +52,8 @@ import {
               item.
             </p>
           </div>
-        </AccordionContent>
-      </AccordionItem>
+        </Content>
+      </Item>
     </Accordion>
   </div>
 </template>
