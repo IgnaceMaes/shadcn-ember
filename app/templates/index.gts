@@ -22,6 +22,8 @@ import ButtonGroupNested from '@/components/docs/examples/button-group-nested';
 import ButtonGroupPopover from '@/components/docs/examples/button-group-popover';
 import FieldHear from '@/components/docs/examples/field-hear';
 import SpinnerEmpty from '@/components/docs/examples/spinner-empty';
+import { ExamplesNav } from 'shadcn-ember/components/examples-nav';
+import { PageNav } from 'shadcn-ember/components/page-nav';
 
 <template>
   <div class="min-h-screen bg-background">
@@ -72,6 +74,11 @@ import SpinnerEmpty from '@/components/docs/examples/spinner-empty';
           </div>
         </div>
       </section>
+
+      <PageNav @class="hidden md:flex">
+        <ExamplesNav @class="[&>a:first-child]:text-primary flex-1 overflow-hidden" />
+        {{!-- <ThemeSelector className="mr-4 hidden md:flex" /> --}}
+      </PageNav>
 
       {{! Component Examples }}
       <section class="container-wrapper section-soft flex-1 pb-6">
