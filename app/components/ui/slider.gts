@@ -52,11 +52,7 @@ class Slider extends Component<SliderSignature> {
   get values() {
     const val = this.value;
     const def = this.args.defaultValue;
-    return Array.isArray(val)
-      ? val
-      : Array.isArray(def)
-        ? def
-        : [this.min];
+    return Array.isArray(val) ? val : Array.isArray(def) ? def : [this.min];
   }
 
   get rangePercentage() {

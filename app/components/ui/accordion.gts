@@ -16,7 +16,7 @@ interface AccordionItemSignature {
   };
   Blocks: {
     default: [
-      ComponentLike<AccordionTriggerSignature>,
+      ComponentLike<Omit<AccordionTriggerSignature, 'toggle'>>,
       ComponentLike<AccordionContentSignature>,
     ];
   };
