@@ -69,7 +69,7 @@ import { Tooltip } from '@/components/ui/tooltip';
             <InputGroupButton @variant="ghost">Auto</InputGroupButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            @side="top"
+            {{!-- @side="top" --}}
             @align="start"
             @class="[--radius:0.95rem]"
           >

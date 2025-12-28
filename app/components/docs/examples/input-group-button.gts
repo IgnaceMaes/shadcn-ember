@@ -41,7 +41,7 @@ export default class InputGroupButtonExample extends Component {
           </p.Trigger>
           <p.Content
             @align="start"
-            @alignOffset={{10}}
+            @sideOffset={{10}}
             @class="flex flex-col gap-1 rounded-xl text-sm"
           >
             <div class="font-medium">Your connection is not secure.</div>
