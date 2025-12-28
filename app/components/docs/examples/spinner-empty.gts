@@ -11,7 +11,7 @@ import {
 import { Spinner } from '@/components/ui/spinner';
 
 const SpinnerEmpty: TOC<{ Element: HTMLDivElement }> = <template>
-  <Empty @class="w-full">
+  <Empty @class="w-full border md:p-6">
     <EmptyHeader>
       <EmptyMedia @variant="icon">
         <Spinner />
