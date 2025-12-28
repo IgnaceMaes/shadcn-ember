@@ -1,14 +1,24 @@
 import Service from '@ember/service';
 import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
+
+type Theme = 'dark' | 'light' | 'system';
 
 export default class ThemeService extends Service {
-  @tracked currentTheme: 'light' | 'dark' = 'light';
+  @tracked theme: Theme = 'system';
   @tracked currentColorTheme: string = 'neutral';
 
+  mediaQuery?: MediaQueryList;
+
   get codeBlockTheme() {
-    return this.currentTheme === 'dark' ? 'github-dark' : 'github-light';
+    return this.resolvedTheme === 'dark' ? 'github-dark' : 'github-light';
+  }
+
+  get resolvedTheme(): 'light' | 'dark' {
+    if (this.theme === 'system') {
+      return this.mediaQuery?.matches ? 'dark' : 'light';
+    }
+    return this.theme;
   }
 
   constructor(owner: Owner) {
@@ -16,74 +26,59 @@ export default class ThemeService extends Service {
     this.initializeTheme();
   }
 
-  private initializeTheme() {
-    // Check localStorage first
-    const storedTheme = localStorage.getItem('theme') as
-      | 'light'
-      | 'dark'
-      | null;
+  initializeTheme() {
+    const storedTheme = localStorage.getItem('theme') as Theme | null;
     const storedColorTheme = localStorage.getItem('colorTheme');
 
     if (storedTheme) {
-      this.currentTheme = storedTheme;
-    } else {
-      // Check system preference
-      const prefersDark = window.matchMedia(
-        '(prefers-color-scheme: dark)'
-      ).matches;
-      this.currentTheme = prefersDark ? 'dark' : 'light';
+      this.theme = storedTheme;
     }
 
     if (storedColorTheme) {
       this.currentColorTheme = storedColorTheme;
     }
 
+    this.mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    this.mediaQuery.addEventListener('change', this.handleSystemThemeChange);
+
     this.applyTheme();
     this.applyColorTheme();
   }
 
-  private applyTheme() {
-    const root = document.documentElement;
-    if (this.currentTheme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
+  handleSystemThemeChange = () => {
+    if (this.theme === 'system') {
+      this.applyTheme();
     }
+  };
+
+  applyTheme() {
+    const root = document.documentElement;
+    root.classList.remove('light', 'dark');
+    root.classList.add(this.resolvedTheme);
   }
 
-  private applyColorTheme() {
+  applyColorTheme() {
     const normalizedTheme =
       this.currentColorTheme === 'default' ? 'neutral' : this.currentColorTheme;
-    // Apply theme to all theme containers
     const containers = document.querySelectorAll('.theme-container');
     containers.forEach((container) => {
       container.setAttribute('data-theme', normalizedTheme);
     });
   }
 
-  @action
-  toggleTheme() {
-    this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
-    localStorage.setItem('theme', this.currentTheme);
-    this.applyTheme();
-  }
-
-  @action
-  setTheme(theme: 'light' | 'dark') {
-    this.currentTheme = theme;
+  setTheme = (theme: Theme) => {
+    this.theme = theme;
     localStorage.setItem('theme', theme);
     this.applyTheme();
-  }
+  };
 
-  @action
-  setColorTheme(colorTheme: string) {
+  setColorTheme = (colorTheme: string) => {
     this.currentColorTheme = colorTheme;
     localStorage.setItem('colorTheme', colorTheme);
     this.applyColorTheme();
-  }
+  };
 }
 
-// DO NOT DELETE: this is how TypeScript knows how to look up your services.
 declare module '@ember/service' {
   interface Registry {
     theme: ThemeService;

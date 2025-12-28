@@ -16,7 +16,8 @@ export default class ThemeToggle extends Component<ThemeToggleSignature> {
   @service declare theme: ThemeService;
 
   handleToggle = () => {
-    this.theme.toggleTheme();
+    const nextTheme = this.theme.resolvedTheme === 'light' ? 'dark' : 'light';
+    this.theme.setTheme(nextTheme);
   };
 
   handleKeyToggle = (event: KeyboardEvent) => {
