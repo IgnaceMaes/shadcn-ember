@@ -106,13 +106,19 @@ class DropdownMenuTrigger extends Component<DropdownMenuTriggerSignature> {
   </template>
 }
 
+interface DropdownMenuGroupYields {
+  Item: ComponentLike<DropdownMenuItemSignature>;
+  Label: ComponentLike<DropdownMenuLabelSignature>;
+  Sub: ComponentLike<DropdownMenuSubSignature>;
+}
+
 interface DropdownMenuGroupSignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
   };
   Blocks: {
-    default: [closeAllSubmenus: () => void];
+    default: [DropdownMenuGroupYields];
   };
 }
 
@@ -134,7 +140,17 @@ class DropdownMenuGroup extends Component<DropdownMenuGroupSignature> {
       class={{cn @class}}
       ...attributes
     >
-      {{yield this.closeAllSubmenus}}
+      {{yield
+        (hash
+          Item=(component
+            DropdownMenuItem closeOtherSubmenus=this.closeAllSubmenus
+          )
+          Label=(component
+            DropdownMenuLabel closeOtherSubmenus=this.closeAllSubmenus
+          )
+          Sub=(component DropdownMenuSub closeOtherSubmenus=this.closeAllSubmenus)
+        )
+      }}
     </div>
   </template>
 }

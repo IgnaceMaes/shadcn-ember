@@ -19,28 +19,28 @@ import {
     </dm.Trigger>
     <dm.Content @class="w-56" @align="start">
       <DropdownMenuLabel>My Account</DropdownMenuLabel>
-      <DropdownMenuGroup as |closeSubmenus|>
-        <DropdownMenuItem @closeOtherSubmenus={{closeSubmenus}}>
+      <DropdownMenuGroup as |g|>
+        <g.Item>
           Profile
           <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-        </DropdownMenuItem>
-        <DropdownMenuItem @closeOtherSubmenus={{closeSubmenus}}>
+        </g.Item>
+        <g.Item>
           Billing
           <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-        </DropdownMenuItem>
-        <DropdownMenuItem @closeOtherSubmenus={{closeSubmenus}}>
+        </g.Item>
+        <g.Item>
           Settings
           <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-        </DropdownMenuItem>
-        <DropdownMenuItem @closeOtherSubmenus={{closeSubmenus}}>
+        </g.Item>
+        <g.Item>
           Keyboard shortcuts
           <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
-        </DropdownMenuItem>
+        </g.Item>
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
-      <DropdownMenuGroup as |closeSubmenus|>
-        <DropdownMenuItem @closeOtherSubmenus={{closeSubmenus}}>Team</DropdownMenuItem>
-        <DropdownMenuSub @closeOtherSubmenus={{closeSubmenus}} as |sub|>
+      <DropdownMenuGroup as |g|>
+        <g.Item>Team</g.Item>
+        <g.Sub as |sub|>
           <sub.Trigger>Invite users</sub.Trigger>
           <DropdownMenuPortal>
             <sub.Content>
@@ -50,11 +50,11 @@ import {
               <DropdownMenuItem>More...</DropdownMenuItem>
             </sub.Content>
           </DropdownMenuPortal>
-        </DropdownMenuSub>
-        <DropdownMenuItem @closeOtherSubmenus={{closeSubmenus}}>
+        </g.Sub>
+        <g.Item>
           New Team
           <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
-        </DropdownMenuItem>
+        </g.Item>
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
       <DropdownMenuItem>GitHub</DropdownMenuItem>
