@@ -15,14 +15,14 @@ import {
 <template>
   <div class="grid w-full max-w-sm gap-4">
     <InputGroup>
-      <InputGroupInput id="email" @placeholder="shadcn" />
+      <InputGroupInput id="email" placeholder="shadcn" />
       <InputGroupAddon>
         <Label for="email">@</Label>
       </InputGroupAddon>
     </InputGroup>
 
     <InputGroup>
-      <InputGroupInput id="email-2" @placeholder="shadcn@vercel.com" />
+      <InputGroupInput id="email-2" placeholder="shadcn@vercel.com" />
       <InputGroupAddon @align="block-start">
         <Label for="email-2" @class="text-foreground">
           Email

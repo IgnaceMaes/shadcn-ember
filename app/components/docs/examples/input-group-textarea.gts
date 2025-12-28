@@ -14,7 +14,7 @@ import {
   <div class="grid w-full max-w-md gap-4">
     <InputGroup>
       <InputGroupTextarea
-        @placeholder="console.log('Hello, world!');"
+        placeholder="console.log('Hello, world!');"
         @class="min-h-[200px]"
       />
       <InputGroupAddon @align="block-end" @class="border-t">

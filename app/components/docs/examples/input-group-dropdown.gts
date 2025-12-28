@@ -16,7 +16,7 @@ import {
 <template>
   <div class="grid w-full max-w-sm gap-4">
     <InputGroup>
-      <InputGroupInput @placeholder="Enter file name" />
+      <InputGroupInput placeholder="Enter file name" />
       <InputGroupAddon @align="inline-end">
         <DropdownMenu>
           <DropdownMenuTrigger>
@@ -38,7 +38,7 @@ import {
     </InputGroup>
 
     <InputGroup @class="[--radius:1rem]">
-      <InputGroupInput @placeholder="Enter search query" />
+      <InputGroupInput placeholder="Enter search query" />
       <InputGroupAddon @align="inline-end">
         <DropdownMenu>
           <DropdownMenuTrigger>

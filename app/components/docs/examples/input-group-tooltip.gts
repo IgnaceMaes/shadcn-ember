@@ -15,7 +15,7 @@ import {
 <template>
   <div class="grid w-full max-w-sm gap-4">
     <InputGroup>
-      <InputGroupInput @placeholder="Enter password" type="password" />
+      <InputGroupInput placeholder="Enter password" type="password" />
       <InputGroupAddon @align="inline-end">
         <Tooltip>
           <TooltipTrigger>
@@ -35,7 +35,7 @@ import {
     </InputGroup>
 
     <InputGroup>
-      <InputGroupInput @placeholder="Your email address" />
+      <InputGroupInput placeholder="Your email address" />
       <InputGroupAddon @align="inline-end">
         <Tooltip>
           <TooltipTrigger>
@@ -55,7 +55,7 @@ import {
     </InputGroup>
 
     <InputGroup>
-      <InputGroupInput @placeholder="Enter API key" />
+      <InputGroupInput placeholder="Enter API key" />
       <Tooltip @placement="left">
         <TooltipTrigger>
           <InputGroupAddon>
