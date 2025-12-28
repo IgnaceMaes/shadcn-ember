@@ -20,6 +20,7 @@ import ButtonGroupDemo from '@/components/docs/examples/button-group-demo';
 import FieldCheckboxDemo from '@/components/docs/examples/field-checkbox-demo';
 import ButtonGroupNested from '@/components/docs/examples/button-group-nested';
 import ButtonGroupPopover from '@/components/docs/examples/button-group-popover';
+import FieldHear from '@/components/docs/examples/field-hear';
 
 <template>
   <div class="min-h-screen bg-background">
@@ -111,6 +112,7 @@ import ButtonGroupPopover from '@/components/docs/examples/button-group-popover'
                 <ButtonGroupNested />
                 <ButtonGroupPopover />
               </div>
+              <FieldHear />
             </div>
 
           </div>
