@@ -118,8 +118,8 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
             </Button>
           </dm.Trigger>
 
-          <dm.Content @align="end" @class="shadow-none min-w-48">
-            <DropdownMenuItem @asChild={{true}} as |itemClass|>
+          <dm.Content @align="end" @class="shadow-none min-w-48" as |c|>
+            <c.Item @asChild={{true}} as |itemClass|>
               <a
                 href={{this.markdownUrl}}
                 target="_blank"
@@ -129,9 +129,9 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
                 <this.MarkdownIcon />
                 View as Markdown
               </a>
-            </DropdownMenuItem>
+            </c.Item>
 
-            <DropdownMenuItem @asChild={{true}} as |itemClass|>
+            <c.Item @asChild={{true}} as |itemClass|>
               <a
                 href={{this.chatGptUrl}}
                 target="_blank"
@@ -141,9 +141,9 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
                 <this.ChatGptIcon />
                 Open in ChatGPT
               </a>
-            </DropdownMenuItem>
+            </c.Item>
 
-            <DropdownMenuItem @asChild={{true}} as |itemClass|>
+            <c.Item @asChild={{true}} as |itemClass|>
               <a
                 href={{this.claudeUrl}}
                 target="_blank"
@@ -153,7 +153,7 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
                 <this.ClaudeIcon />
                 Open in Claude
               </a>
-            </DropdownMenuItem>
+            </c.Item>
           </dm.Content>
         </DropdownMenu>
 

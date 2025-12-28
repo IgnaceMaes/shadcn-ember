@@ -4,8 +4,6 @@ import { Button } from '@/components/ui/button';
 import { Dialog } from '@/components/ui/dialog';
 import {
   DropdownMenu,
-  DropdownMenuGroup,
-  DropdownMenuItem,
   DropdownMenuLabel,
 } from '@/components/ui/dropdown-menu';
 import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
@@ -34,17 +32,17 @@ export default class DropdownMenuDialogDemo extends Component {
           <MoreHorizontal />
         </Button>
       </dm.Trigger>
-      <dm.Content @class="w-40" @align="end">
+      <dm.Content @class="w-40" @align="end" as |c|>
         <DropdownMenuLabel>File Actions</DropdownMenuLabel>
-        <DropdownMenuGroup>
-          <DropdownMenuItem @onSelect={{fn this.setShowNewDialog true}}>
+        <c.Group as |g|>
+          <g.Item @onSelect={{fn this.setShowNewDialog true}}>
             New File...
-          </DropdownMenuItem>
-          <DropdownMenuItem @onSelect={{fn this.setShowShareDialog true}}>
+          </g.Item>
+          <g.Item @onSelect={{fn this.setShowShareDialog true}}>
             Share...
-          </DropdownMenuItem>
-          <DropdownMenuItem @disabled={{true}}>Download</DropdownMenuItem>
-        </DropdownMenuGroup>
+          </g.Item>
+          <g.Item @disabled={{true}}>Download</g.Item>
+        </c.Group>
       </dm.Content>
     </DropdownMenu>
 

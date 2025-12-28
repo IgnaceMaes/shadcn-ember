@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuLabel,
-  DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
@@ -21,10 +20,10 @@ export default class DropdownMenuRadioGroupDemo extends Component {
       <dm.Trigger @asChild={{true}}>
         <Button @variant="outline">Open</Button>
       </dm.Trigger>
-      <dm.Content @class="w-56">
+      <dm.Content @class="w-56" as |c|>
         <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuRadioGroup
+        <c.RadioGroup
           @value={{this.position}}
           @onValueChange={{this.setPosition}}
           as |value setValue|
@@ -50,7 +49,7 @@ export default class DropdownMenuRadioGroupDemo extends Component {
           >
             Right
           </DropdownMenuRadioItem>
-        </DropdownMenuRadioGroup>
+        </c.RadioGroup>
       </dm.Content>
     </DropdownMenu>
   </template>

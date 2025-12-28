@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { DropdownMenu, DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import { DropdownMenu } from '@/components/ui/dropdown-menu';
 import {
   Item,
   ItemContent,
@@ -39,10 +39,10 @@ const people = [
           <ChevronDownIcon />
         </Button>
       </dm.Trigger>
-      <dm.Content @class="w-72 [--radius:0.65rem]">
+      <dm.Content @class="w-72 [--radius:0.65rem]" as |c|>
         {{#each (array people) as |persons|}}
           {{#each persons as |person|}}
-            <DropdownMenuItem @class="p-0">
+            <c.Item @class="p-0">
               <Item @size="sm" @class="w-full p-2">
                 <ItemMedia>
                   <Avatar @class="size-8">
@@ -55,7 +55,7 @@ const people = [
                   <ItemDescription>{{person.email}}</ItemDescription>
                 </ItemContent>
               </Item>
-            </DropdownMenuItem>
+            </c.Item>
           {{/each}}
         {{/each}}
       </dm.Content>

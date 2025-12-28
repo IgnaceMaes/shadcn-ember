@@ -6,7 +6,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { DropdownMenu, DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import { DropdownMenu } from '@/components/ui/dropdown-menu';
 
 <template>
   <Breadcrumb>
@@ -20,10 +20,10 @@ import { DropdownMenu, DropdownMenuItem } from '@/components/ui/dropdown-menu';
           <dm.Trigger @class="flex items-center gap-1">
             Components
           </dm.Trigger>
-          <dm.Content>
-            <DropdownMenuItem>Documentation</DropdownMenuItem>
-            <DropdownMenuItem>Themes</DropdownMenuItem>
-            <DropdownMenuItem>GitHub</DropdownMenuItem>
+          <dm.Content as |c|>
+            <c.Item>Documentation</c.Item>
+            <c.Item>Themes</c.Item>
+            <c.Item>GitHub</c.Item>
           </dm.Content>
         </DropdownMenu>
       </BreadcrumbItem>

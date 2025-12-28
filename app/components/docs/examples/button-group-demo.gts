@@ -4,14 +4,8 @@ import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import {
   DropdownMenu,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
 } from '@/components/ui/dropdown-menu';
 import ArchiveIcon from '~icons/lucide/archive';
 import ArrowLeftIcon from '~icons/lucide/arrow-left';
@@ -49,63 +43,76 @@ export default class ButtonGroupDemo extends Component {
               <MoreHorizontalIcon />
             </Button>
           </dm.Trigger>
-          <dm.Content @class="w-52">
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
+          <dm.Content @class="w-52" as |c|>
+            <c.Group as |g|>
+              <g.Item>
                 <MailCheckIcon />
                 Mark as Read
-              </DropdownMenuItem>
-              <DropdownMenuItem>
+              </g.Item>
+              <g.Item>
                 <ArchiveIcon />
                 Archive
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
+              </g.Item>
+            </c.Group>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
+            <c.Group as |g|>
+              <g.Item>
                 <ClockIcon />
                 Snooze
-              </DropdownMenuItem>
-              <DropdownMenuItem>
+              </g.Item>
+              <g.Item>
                 <CalendarPlusIcon />
                 Add to Calendar
-              </DropdownMenuItem>
-              <DropdownMenuItem>
+              </g.Item>
+              <g.Item>
                 <ListFilterIcon />
                 Add to List
-              </DropdownMenuItem>
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger>
+              </g.Item>
+              <g.Sub as |sub|>
+                <sub.Trigger>
                   <TagIcon />
                   Label As...
-                </DropdownMenuSubTrigger>
-                <DropdownMenuSubContent>
-                  <DropdownMenuRadioGroup
+                </sub.Trigger>
+                <sub.Content as |sc|>
+                  <c.RadioGroup
                     @value={{this.label}}
                     @onValueChange={{this.handleLabelChange}}
+                    as |value setValue|
                   >
-                    <DropdownMenuRadioItem @value="personal">
+                    <DropdownMenuRadioItem
+                      @value="personal"
+                      @currentValue={{value}}
+                      @setValue={{setValue}}
+                    >
                       Personal
                     </DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem @value="work">
+                    <DropdownMenuRadioItem
+                      @value="work"
+                      @currentValue={{value}}
+                      @setValue={{setValue}}
+                    >
                       Work
                     </DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem @value="other">
+                    <DropdownMenuRadioItem
+                      @value="other"
+                      @currentValue={{value}}
+                      @setValue={{setValue}}
+                    >
                       Other
                     </DropdownMenuRadioItem>
-                  </DropdownMenuRadioGroup>
-                </DropdownMenuSubContent>
-              </DropdownMenuSub>
-            </DropdownMenuGroup>
+                  </c.RadioGroup>
+                </sub.Content>
+              </g.Sub>
+            </c.Group>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem
+            <c.Group as |g|>
+              <g.Item
                 @class="text-destructive focus:text-destructive"
               >
                 <Trash2Icon />
                 Trash
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
+              </g.Item>
+            </c.Group>
           </dm.Content>
         </DropdownMenu>
       </ButtonGroup>

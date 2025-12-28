@@ -2,8 +2,6 @@ import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import {
   DropdownMenu,
-  DropdownMenuGroup,
-  DropdownMenuItem,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import AlertTriangleIcon from '~icons/lucide/alert-triangle';
@@ -24,40 +22,40 @@ import VolumeOffIcon from '~icons/lucide/volume-off';
           <ChevronDownIcon />
         </Button>
       </dm.Trigger>
-      <dm.Content @class="[--radius:1rem]">
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
+      <dm.Content @class="[--radius:1rem]" as |c|>
+        <c.Group as |g|>
+          <g.Item>
             <VolumeOffIcon />
             Mute Conversation
-          </DropdownMenuItem>
-          <DropdownMenuItem>
+          </g.Item>
+          <g.Item>
             <CheckIcon />
             Mark as Read
-          </DropdownMenuItem>
-          <DropdownMenuItem>
+          </g.Item>
+          <g.Item>
             <AlertTriangleIcon />
             Report Conversation
-          </DropdownMenuItem>
-          <DropdownMenuItem>
+          </g.Item>
+          <g.Item>
             <UserRoundXIcon />
             Block User
-          </DropdownMenuItem>
-          <DropdownMenuItem>
+          </g.Item>
+          <g.Item>
             <ShareIcon />
             Share Conversation
-          </DropdownMenuItem>
-          <DropdownMenuItem>
+          </g.Item>
+          <g.Item>
             <CopyIcon />
             Copy Conversation
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
+          </g.Item>
+        </c.Group>
         <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem @class="text-destructive focus:text-destructive">
+        <c.Group as |g|>
+          <g.Item @class="text-destructive focus:text-destructive">
             <TrashIcon />
             Delete Conversation
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
+          </g.Item>
+        </c.Group>
       </dm.Content>
     </DropdownMenu>
   </ButtonGroup>
