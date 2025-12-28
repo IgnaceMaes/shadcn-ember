@@ -6,9 +6,7 @@ import Search from '~icons/lucide/search';
 
 import {
   DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
   InputGroup,

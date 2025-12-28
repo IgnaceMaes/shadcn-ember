@@ -34,8 +34,8 @@ import { Popover } from '@/components/ui/popover';
 ```
 
 ```hbs showLineNumbers
-<Popover as |p|>
-  <p.Trigger>Open</p.Trigger>
-  <p.Content>Place content for the popover here.</p.Content>
+<Popover as |popover|>
+  <popover.Trigger>Open</popover.Trigger>
+  <popover.Content>Place content for the popover here.</popover.Content>
 </Popover>
 ```

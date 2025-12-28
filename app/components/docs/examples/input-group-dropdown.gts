@@ -1,9 +1,6 @@
 import ChevronDown from '~icons/lucide/chevron-down';
 import MoreHorizontal from '~icons/lucide/more-horizontal';
-import {
-  DropdownMenu,
-  DropdownMenuItem,
-} from '@/components/ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import {
   InputGroup,
   InputGroupAddon,
