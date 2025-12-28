@@ -43,6 +43,5 @@ export { default as ComponentDocPage } from './component-doc-page';
 export { default as ComponentDocHeader } from './component-doc-header';
 export { default as ComponentDocSection } from './component-doc-section';
 export { default as ComponentPreviewRender } from './component-preview-render.gts';
-export { default as ComponentInstallation } from './component-installation';
 export { default as CodeBlockThemed } from './code-block-themed';
 export { default as PackageManagerCommand } from './package-manager-command';
