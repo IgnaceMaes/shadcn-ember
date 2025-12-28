@@ -42,23 +42,11 @@ export default class DropdownMenuDialogDemo extends Component {
       <dm.Content @class="w-40" @align="end">
         <DropdownMenuLabel>File Actions</DropdownMenuLabel>
         <DropdownMenuGroup>
-          <DropdownMenuItem @asChild={{true}} as |itemClasses|>
-            <button
-              type="button"
-              class={{itemClasses}}
-              {{on "click" (fn this.setShowNewDialog true)}}
-            >
-              New File...
-            </button>
+          <DropdownMenuItem @onSelect={{fn this.setShowNewDialog true}}>
+            New File...
           </DropdownMenuItem>
-          <DropdownMenuItem @asChild={{true}} as |itemClasses|>
-            <button
-              type="button"
-              class={{itemClasses}}
-              {{on "click" (fn this.setShowShareDialog true)}}
-            >
-              Share...
-            </button>
+          <DropdownMenuItem @onSelect={{fn this.setShowShareDialog true}}>
+            Share...
           </DropdownMenuItem>
           <DropdownMenuItem @disabled={{true}}>Download</DropdownMenuItem>
         </DropdownMenuGroup>

@@ -423,6 +423,7 @@ interface DropdownMenuItemSignature {
     variant?: 'default' | 'destructive';
     asChild?: boolean;
     closeOtherSubmenus?: () => void;
+    onSelect?: () => void;
   };
   Blocks: {
     default: [classes?: string];
@@ -432,6 +433,12 @@ interface DropdownMenuItemSignature {
 class DropdownMenuItem extends Component<DropdownMenuItemSignature> {
   handleMouseEnter = () => {
     this.args.closeOtherSubmenus?.();
+  };
+
+  handleClick = () => {
+    if (!this.args.disabled) {
+      this.args.onSelect?.();
+    }
   };
 
   <template>
@@ -454,6 +461,7 @@ class DropdownMenuItem extends Component<DropdownMenuItemSignature> {
         role="menuitem"
         data-disabled={{@disabled}}
         {{on "mouseenter" this.handleMouseEnter}}
+        {{on "click" this.handleClick}}
         ...attributes
       >
         {{yield}}
