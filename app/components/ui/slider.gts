@@ -56,11 +56,21 @@ class Slider extends Component<SliderSignature> {
       ? val
       : Array.isArray(def)
         ? def
-        : [this.min, this.max];
+        : [this.min];
   }
 
   get rangePercentage() {
     if (this.values.length === 0) return { start: 0, width: 0 };
+
+    // For single value sliders, show progress from min to value
+    if (this.values.length === 1) {
+      const value = this.values[0];
+      const start = 0;
+      const end = ((value - this.min) / (this.max - this.min)) * 100;
+      return { start, width: end };
+    }
+
+    // For range sliders, show progress between the two values
     const minVal = Math.min(...this.values);
     const maxVal = Math.max(...this.values);
     const start = ((minVal - this.min) / (this.max - this.min)) * 100;
