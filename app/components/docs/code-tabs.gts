@@ -22,14 +22,10 @@ export default class CodeTabs extends Component<Signature> {
       <Tabs
         @value={{this.selectedTab}}
         @onValueChange={{this.handleValueChange}}
-        as |t|
       >
         {{yield
           (hash
-            TabsList=TabsList
-            TabsTrigger=TabsTrigger
-            TabsContent=TabsContent
-            tabs=t
+            TabsList=TabsList TabsTrigger=TabsTrigger TabsContent=TabsContent
           )
         }}
       </Tabs>

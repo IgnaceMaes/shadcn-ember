@@ -1,4 +1,4 @@
-import { Tabs } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import {
   Card,
   CardContent,
@@ -13,12 +13,12 @@ import { Button } from '@/components/ui/button';
 
 <template>
   <div class="flex w-full max-w-sm flex-col gap-6">
-    <Tabs @defaultValue="account" as |t|>
-      <t.List>
-        <t.Trigger @value="account">Account</t.Trigger>
-        <t.Trigger @value="password">Password</t.Trigger>
-      </t.List>
-      <t.Content @value="account">
+    <Tabs @defaultValue="account">
+      <TabsList>
+        <TabsTrigger @value="account">Account</TabsTrigger>
+        <TabsTrigger @value="password">Password</TabsTrigger>
+      </TabsList>
+      <TabsContent @value="account">
         <Card>
           <CardHeader>
             <CardTitle>Account</CardTitle>
@@ -41,8 +41,8 @@ import { Button } from '@/components/ui/button';
             <Button>Save changes</Button>
           </CardFooter>
         </Card>
-      </t.Content>
-      <t.Content @value="password">
+      </TabsContent>
+      <TabsContent @value="password">
         <Card>
           <CardHeader>
             <CardTitle>Password</CardTitle>
@@ -64,7 +64,7 @@ import { Button } from '@/components/ui/button';
             <Button>Save password</Button>
           </CardFooter>
         </Card>
-      </t.Content>
+      </TabsContent>
     </Tabs>
   </div>
 </template>

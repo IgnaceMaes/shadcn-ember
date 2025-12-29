@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { CodeBlock } from 'ember-shiki';
-import { Tabs } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import CopyButton from '@/components/docs/copy-button';
 import Terminal from '~icons/lucide/terminal';
 import type ThemeService from '@/services/theme';
@@ -114,11 +114,7 @@ export default class PackageManagerCommand extends Component<PackageManagerComma
       style="--shiki-dark: #e1e4e8; --shiki-light: #1f2328; --shiki-dark-bg: #24292e; --shiki-light-bg: var(--surface); background-color: var(--surface);"
     >
       <CopyButton @value={{this.currentCommand}} @class="!top-1.5 !right-2" />
-      <Tabs
-        @defaultValue="pnpm"
-        @onValueChange={{this.handleTabChange}}
-        as |pkgTabs|
-      >
+      <Tabs @defaultValue="pnpm" @onValueChange={{this.handleTabChange}}>
         <div
           class="border-border/50 flex items-center gap-2 border-b px-3 py-1"
         >
@@ -127,37 +123,37 @@ export default class PackageManagerCommand extends Component<PackageManagerComma
           >
             <Terminal class="size-3 text-white dark:text-black" />
           </div>
-          <pkgTabs.List
+          <TabsList
             @class="text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-none bg-transparent p-0"
           >
-            <pkgTabs.Trigger
+            <TabsTrigger
               @value="pnpm"
               @class="dark:data-[state=active]:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring dark:data-[state=active]:border-input dark:data-[state=active]:bg-input/30 text-foreground dark:text-muted-foreground inline-flex flex-1 items-center justify-center gap-1.5 rounded-md px-2 py-1 text-sm font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 data-[state=active]:bg-accent data-[state=active]:border-input h-7 border border-transparent pt-0.5 data-[state=active]:shadow-none"
             >
               pnpm
-            </pkgTabs.Trigger>
-            <pkgTabs.Trigger
+            </TabsTrigger>
+            <TabsTrigger
               @value="npm"
               @class="dark:data-[state=active]:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring dark:data-[state=active]:border-input dark:data-[state=active]:bg-input/30 text-foreground dark:text-muted-foreground inline-flex flex-1 items-center justify-center gap-1.5 rounded-md px-2 py-1 text-sm font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 data-[state=active]:bg-accent data-[state=active]:border-input h-7 border border-transparent pt-0.5 data-[state=active]:shadow-none"
             >
               npm
-            </pkgTabs.Trigger>
-            <pkgTabs.Trigger
+            </TabsTrigger>
+            <TabsTrigger
               @value="yarn"
               @class="dark:data-[state=active]:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring dark:data-[state=active]:border-input dark:data-[state=active]:bg-input/30 text-foreground dark:text-muted-foreground inline-flex flex-1 items-center justify-center gap-1.5 rounded-md px-2 py-1 text-sm font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 data-[state=active]:bg-accent data-[state=active]:border-input h-7 border border-transparent pt-0.5 data-[state=active]:shadow-none"
             >
               yarn
-            </pkgTabs.Trigger>
-            <pkgTabs.Trigger
+            </TabsTrigger>
+            <TabsTrigger
               @value="bun"
               @class="dark:data-[state=active]:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring dark:data-[state=active]:border-input dark:data-[state=active]:bg-input/30 text-foreground dark:text-muted-foreground inline-flex flex-1 items-center justify-center gap-1.5 rounded-md px-2 py-1 text-sm font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 data-[state=active]:bg-accent data-[state=active]:border-input h-7 border border-transparent pt-0.5 data-[state=active]:shadow-none"
             >
               bun
-            </pkgTabs.Trigger>
-          </pkgTabs.List>
+            </TabsTrigger>
+          </TabsList>
         </div>
         <div class="no-scrollbar overflow-x-auto">
-          <pkgTabs.Content
+          <TabsContent
             @value="pnpm"
             @class="flex-1 outline-none mt-0 px-4 py-3.5"
           >
@@ -169,8 +165,8 @@ export default class PackageManagerCommand extends Component<PackageManagerComma
               @theme={{this.theme.codeBlockTheme}}
               style="--ember-shiki-padding-x: 0; --ember-shiki-padding-y: 0; --ember-shiki-border-radius: 0; --ember-shiki-background-color: transparent; --ember-shiki-line-height: 1.5; --ember-shiki-font-size: 0.875rem;"
             />
-          </pkgTabs.Content>
-          <pkgTabs.Content
+          </TabsContent>
+          <TabsContent
             @value="npm"
             @class="flex-1 outline-none mt-0 px-4 py-3.5"
           >
@@ -182,8 +178,8 @@ export default class PackageManagerCommand extends Component<PackageManagerComma
               @theme={{this.theme.codeBlockTheme}}
               style="--ember-shiki-padding-x: 0; --ember-shiki-padding-y: 0; --ember-shiki-border-radius: 0; --ember-shiki-background-color: transparent; --ember-shiki-line-height: 1.5; --ember-shiki-font-size: 0.875rem;"
             />
-          </pkgTabs.Content>
-          <pkgTabs.Content
+          </TabsContent>
+          <TabsContent
             @value="yarn"
             @class="flex-1 outline-none mt-0 px-4 py-3.5"
           >
@@ -195,8 +191,8 @@ export default class PackageManagerCommand extends Component<PackageManagerComma
               @theme={{this.theme.codeBlockTheme}}
               style="--ember-shiki-padding-x: 0; --ember-shiki-padding-y: 0; --ember-shiki-border-radius: 0; --ember-shiki-background-color: transparent; --ember-shiki-line-height: 1.5; --ember-shiki-font-size: 0.875rem;"
             />
-          </pkgTabs.Content>
-          <pkgTabs.Content
+          </TabsContent>
+          <TabsContent
             @value="bun"
             @class="flex-1 outline-none mt-0 px-4 py-3.5"
           >
@@ -208,7 +204,7 @@ export default class PackageManagerCommand extends Component<PackageManagerComma
               @theme={{this.theme.codeBlockTheme}}
               style="--ember-shiki-padding-x: 0; --ember-shiki-padding-y: 0; --ember-shiki-border-radius: 0; --ember-shiki-background-color: transparent; --ember-shiki-line-height: 1.5; --ember-shiki-font-size: 0.875rem;"
             />
-          </pkgTabs.Content>
+          </TabsContent>
         </div>
       </Tabs>
     </div>
