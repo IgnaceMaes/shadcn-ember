@@ -2,8 +2,22 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { guidFor } from '@ember/object/internals';
-import { hash } from '@ember/helper';
-import type { ComponentLike } from '@glint/template';
+import type Owner from '@ember/owner';
+import { provide, consume } from 'ember-provide-consume-context';
+import { cn } from '@/lib/utils';
+
+const CollapsibleContext = 'collapsible-context' as const;
+
+interface CollapsibleContextValue {
+  open: boolean;
+  contentId: string;
+  disabled?: boolean;
+  onOpenToggle: () => void;
+}
+
+interface ContextRegistry {
+  [CollapsibleContext]: CollapsibleContextValue;
+}
 
 interface CollapsibleSignature {
   Element: HTMLDivElement;
@@ -14,22 +28,21 @@ interface CollapsibleSignature {
     disabled?: boolean;
   };
   Blocks: {
-    default: [
-      {
-        Trigger: ComponentLike<CollapsibleTriggerSignature>;
-        Content: ComponentLike<CollapsibleContentSignature>;
-      },
-    ];
+    default: [];
   };
 }
 
 class Collapsible extends Component<CollapsibleSignature> {
-  @tracked internalOpen = this.args.defaultOpen ?? false;
-
+  @tracked currentOpen: boolean;
   contentId = `collapsible-content-${guidFor(this)}`;
 
+  constructor(owner: Owner, args: CollapsibleSignature['Args']) {
+    super(owner, args);
+    this.currentOpen = args.open ?? args.defaultOpen ?? false;
+  }
+
   get open() {
-    return this.args.open ?? this.internalOpen;
+    return this.args.open ?? this.currentOpen;
   }
 
   get disabled() {
@@ -39,7 +52,7 @@ class Collapsible extends Component<CollapsibleSignature> {
   onOpenToggle = () => {
     if (!this.disabled) {
       const newOpen = !this.open;
-      this.internalOpen = newOpen;
+      this.currentOpen = newOpen;
       this.args.onOpenChange?.(newOpen);
     }
   };
@@ -48,7 +61,8 @@ class Collapsible extends Component<CollapsibleSignature> {
     return this.open ? 'open' : 'closed';
   }
 
-  get context() {
+  @provide(CollapsibleContext)
+  get context(): CollapsibleContextValue {
     return {
       open: this.open,
       contentId: this.contentId,
@@ -64,44 +78,11 @@ class Collapsible extends Component<CollapsibleSignature> {
       data-disabled={{if this.disabled "" undefined}}
       ...attributes
     >
-      {{yield
-        (hash
-          Trigger=(component CollapsibleTrigger context=this.context)
-          Content=(component CollapsibleContent context=this.context)
-        )
-      }}
+      {{yield}}
     </div>
   </template>
 }
 
-interface CollapsibleTriggerInternalSignature {
-  Element: HTMLButtonElement;
-  Args: {
-    context: {
-      open: boolean;
-      contentId: string;
-      disabled?: boolean;
-      onOpenToggle: () => void;
-    };
-    class?: string;
-    asChild?: boolean;
-  };
-  Blocks: {
-    default: [
-      {
-        onClick: () => void;
-        'aria-controls': string;
-        'aria-expanded': string;
-        'data-state': string;
-        'data-slot': string;
-        'data-disabled'?: string;
-        disabled?: boolean;
-      },
-    ];
-  };
-}
-
-// Public signature (what users pass when using C.Trigger)
 interface CollapsibleTriggerSignature {
   Element: HTMLButtonElement;
   Args: {
@@ -123,20 +104,22 @@ interface CollapsibleTriggerSignature {
   };
 }
 
-class CollapsibleTrigger extends Component<CollapsibleTriggerInternalSignature> {
+class CollapsibleTrigger extends Component<CollapsibleTriggerSignature> {
+  @consume(CollapsibleContext) context!: ContextRegistry[typeof CollapsibleContext];
+
   get dataState() {
-    return this.args.context.open ? 'open' : 'closed';
+    return this.context.open ? 'open' : 'closed';
   }
 
   get triggerProps() {
     return {
-      onClick: this.args.context.onOpenToggle,
-      'aria-controls': this.args.context.contentId,
-      'aria-expanded': this.args.context.open ? 'true' : 'false',
+      onClick: this.context.onOpenToggle,
+      'aria-controls': this.context.contentId,
+      'aria-expanded': this.context.open ? 'true' : 'false',
       'data-state': this.dataState,
       'data-slot': 'collapsible-trigger' as const,
-      'data-disabled': this.args.context.disabled ? '' : undefined,
-      disabled: this.args.context.disabled,
+      'data-disabled': this.context.disabled ? '' : undefined,
+      disabled: this.context.disabled,
     };
   }
 
@@ -146,14 +129,14 @@ class CollapsibleTrigger extends Component<CollapsibleTriggerInternalSignature> 
     {{else}}
       <button
         type="button"
-        aria-controls={{@context.contentId}}
-        aria-expanded={{if @context.open "true" "false"}}
+        aria-controls={{this.context.contentId}}
+        aria-expanded={{if this.context.open "true" "false"}}
         data-state={{this.dataState}}
         data-slot="collapsible-trigger"
-        data-disabled={{if @context.disabled "" undefined}}
-        disabled={{@context.disabled}}
+        data-disabled={{if this.context.disabled "" undefined}}
+        disabled={{this.context.disabled}}
         class={{@class}}
-        {{on "click" @context.onOpenToggle}}
+        {{on "click" this.context.onOpenToggle}}
         ...attributes
       >
         {{yield}}
@@ -162,23 +145,6 @@ class CollapsibleTrigger extends Component<CollapsibleTriggerInternalSignature> 
   </template>
 }
 
-interface CollapsibleContentInternalSignature {
-  Element: HTMLDivElement;
-  Args: {
-    context: {
-      open: boolean;
-      contentId: string;
-      disabled?: boolean;
-    };
-    class?: string;
-    forceMount?: boolean;
-  };
-  Blocks: {
-    default: [];
-  };
-}
-
-// Public signature (what users pass when using C.Content)
 interface CollapsibleContentSignature {
   Element: HTMLDivElement;
   Args: {
@@ -190,21 +156,23 @@ interface CollapsibleContentSignature {
   };
 }
 
-class CollapsibleContent extends Component<CollapsibleContentInternalSignature> {
+class CollapsibleContent extends Component<CollapsibleContentSignature> {
+  @consume(CollapsibleContext) context!: ContextRegistry[typeof CollapsibleContext];
+
   get dataState() {
-    return this.args.context.open ? 'open' : 'closed';
+    return this.context.open ? 'open' : 'closed';
   }
 
   get isOpen() {
-    return this.args.forceMount || this.args.context.open;
+    return this.args.forceMount || this.context.open;
   }
 
   <template>
     <div
-      id={{@context.contentId}}
+      id={{this.context.contentId}}
       data-state={{this.dataState}}
       data-slot="collapsible-content"
-      data-disabled={{if @context.disabled "" undefined}}
+      data-disabled={{if this.context.disabled "" undefined}}
       hidden={{unless this.isOpen true}}
       class={{@class}}
       ...attributes
