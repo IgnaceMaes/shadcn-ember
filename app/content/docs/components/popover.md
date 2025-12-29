@@ -18,7 +18,7 @@ npx embercli-shadcn@latest add popover
 **Install the following dependencies:**
 
 ```bash
-pnpm add ember-primitives ember-click-outside
+pnpm add ember-click-outside
 ```
 
 **Copy and paste the popover component into your project:**
