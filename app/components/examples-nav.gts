@@ -5,7 +5,11 @@ import type RouterService from '@ember/routing/router-service';
 import { hash } from '@ember/helper';
 import { cn } from '@/lib/utils';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import { Tooltip } from '@/components/ui/tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 interface Example {
   name: string;
@@ -101,8 +105,8 @@ interface ExampleLinkSignature {
 const ExampleLink: TOC<ExampleLinkSignature> = <template>
   {{#unless @example.hidden}}
     {{#if @example.notImplemented}}
-      <Tooltip as |t|>
-        <t.Trigger>
+      <Tooltip>
+        <TooltipTrigger>
           <span
             class="text-muted-foreground hover:text-primary data-[active=true]:text-primary flex h-7 cursor-not-allowed items-center justify-center px-4 text-center text-base font-medium opacity-60 transition-colors"
             data-active={{if @isActive "true" "false"}}
@@ -110,10 +114,10 @@ const ExampleLink: TOC<ExampleLinkSignature> = <template>
           >
             {{@example.name}}
           </span>
-        </t.Trigger>
-        <t.Content>
+        </TooltipTrigger>
+        <TooltipContent>
           Not yet implemented. Contributions welcome.
-        </t.Content>
+        </TooltipContent>
       </Tooltip>
     {{else}}
       <a

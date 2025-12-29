@@ -1,5 +1,9 @@
 import DocLinkTo from './doc-link-to';
-import { Tooltip } from '@/components/ui/tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 // Import all markdown files to see which components have pages
 const markdownFiles = import.meta.glob<string>(
@@ -402,8 +406,8 @@ const components: ComponentItem[] = [
           {{/if}}
         </DocLinkTo>
       {{else}}
-        <Tooltip as |t|>
-          <t.Trigger>
+        <Tooltip>
+          <TooltipTrigger>
             <span
               class="inline-flex items-center gap-2 text-lg font-medium text-muted-foreground md:text-base cursor-help"
             >
@@ -415,11 +419,11 @@ const components: ComponentItem[] = [
                 ></span>
               {{/if}}
             </span>
-          </t.Trigger>
-          <t.Content>
+          </TooltipTrigger>
+          <TooltipContent>
             <p>This component is not yet implemented or documented.</p>
             <p class="text-xs mt-1">Contributions are welcome!</p>
-          </t.Content>
+          </TooltipContent>
         </Tooltip>
       {{/if}}
     {{/each}}

@@ -1,31 +1,35 @@
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { Kbd, KbdGroup } from '@/components/ui/kbd';
-import { Tooltip } from '@/components/ui/tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 <template>
   <div class="flex flex-wrap gap-4">
     <ButtonGroup>
-      <Tooltip as |t|>
-        <t.Trigger>
+      <Tooltip>
+        <TooltipTrigger>
           <Button @size="sm" @variant="outline">
             Save
           </Button>
-        </t.Trigger>
-        <t.Content>
+        </TooltipTrigger>
+        <TooltipContent>
           <div class="flex items-center gap-2">
             Save Changes
             <Kbd>S</Kbd>
           </div>
-        </t.Content>
+        </TooltipContent>
       </Tooltip>
-      <Tooltip as |t|>
-        <t.Trigger>
+      <Tooltip>
+        <TooltipTrigger>
           <Button @size="sm" @variant="outline">
             Print
           </Button>
-        </t.Trigger>
-        <t.Content>
+        </TooltipTrigger>
+        <TooltipContent>
           <div class="flex items-center gap-2">
             Print Document
             <KbdGroup>
@@ -33,7 +37,7 @@ import { Tooltip } from '@/components/ui/tooltip';
               <Kbd>P</Kbd>
             </KbdGroup>
           </div>
-        </t.Content>
+        </TooltipContent>
       </Tooltip>
     </ButtonGroup>
   </div>

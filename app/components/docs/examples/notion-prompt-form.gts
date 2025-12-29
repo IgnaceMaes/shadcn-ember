@@ -49,7 +49,11 @@ import {
   PopoverContent,
 } from '@/components/ui/popover';
 import { Switch } from '@/components/ui/switch';
-import { Tooltip } from '@/components/ui/tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 const SAMPLE_DATA = {
   mentionable: [
@@ -245,8 +249,8 @@ class NotionPromptForm extends Component {
           />
           <InputGroupAddon @align="block-start">
             <Popover>
-              <Tooltip as |t|>
-                <t.Trigger {{on "focusin" this.stopPropagation}}>
+              <Tooltip>
+                <TooltipTrigger {{on "focusin" this.stopPropagation}}>
                   <PopoverTrigger>
                     <InputGroupButton
                       @variant="outline"
@@ -257,8 +261,8 @@ class NotionPromptForm extends Component {
                       {{#unless this.hasMentions}}Add context{{/unless}}
                     </InputGroupButton>
                   </PopoverTrigger>
-                </t.Trigger>
-                <t.Content>Mention a person, page, or date</t.Content>
+                </TooltipTrigger>
+                <TooltipContent>Mention a person, page, or date</TooltipContent>
               </Tooltip>
               <PopoverContent @class="p-0 [--radius:1.2rem]" @align="start">
                 <Command>
@@ -297,8 +301,8 @@ class NotionPromptForm extends Component {
             </div>
           </InputGroupAddon>
           <InputGroupAddon @align="block-end" @class="gap-1">
-            <Tooltip as |t|>
-              <t.Trigger>
+            <Tooltip>
+              <TooltipTrigger>
                 <InputGroupButton
                   @size="icon-sm"
                   @class="rounded-full"
@@ -307,15 +311,15 @@ class NotionPromptForm extends Component {
                 >
                   <Paperclip />
                 </InputGroupButton>
-              </t.Trigger>
-              <t.Content>Attach file</t.Content>
+              </TooltipTrigger>
+              <TooltipContent>Attach file</TooltipContent>
             </Tooltip>
             <DropdownMenu
               @open={{this.modelPopoverOpen}}
               @onOpenChange={{fn (mut this.modelPopoverOpen)}}
             >
-              <Tooltip as |t|>
-                <t.Trigger>
+              <Tooltip>
+                <TooltipTrigger>
                   <DropdownMenuTrigger>
                     <InputGroupButton
                       @size="sm"
@@ -325,8 +329,8 @@ class NotionPromptForm extends Component {
                       {{this.selectedModel.name}}
                     </InputGroupButton>
                   </DropdownMenuTrigger>
-                </t.Trigger>
-                <t.Content>Select AI model</t.Content>
+                </TooltipTrigger>
+                <TooltipContent>Select AI model</TooltipContent>
               </Tooltip>
               <DropdownMenuContent @align="start" @class="[--radius:1rem]">
                 {{#each SAMPLE_DATA.models as |model|}}
