@@ -43,7 +43,11 @@ import {
   InputGroupButton,
   InputGroupTextarea,
 } from '@/components/ui/input-group';
-import { Popover } from '@/components/ui/popover';
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from '@/components/ui/popover';
 import { Switch } from '@/components/ui/switch';
 import { Tooltip } from '@/components/ui/tooltip';
 
@@ -240,10 +244,10 @@ class NotionPromptForm extends Component {
             placeholder="Ask, search, or make anything..."
           />
           <InputGroupAddon @align="block-start">
-            <Popover as |p|>
+            <Popover>
               <Tooltip as |t|>
                 <t.Trigger {{on "focusin" this.stopPropagation}}>
-                  <p.Trigger>
+                  <PopoverTrigger>
                     <InputGroupButton
                       @variant="outline"
                       @size={{if this.hasMentions "icon-sm" "sm"}}
@@ -252,11 +256,11 @@ class NotionPromptForm extends Component {
                       <At />
                       {{#unless this.hasMentions}}Add context{{/unless}}
                     </InputGroupButton>
-                  </p.Trigger>
+                  </PopoverTrigger>
                 </t.Trigger>
                 <t.Content>Mention a person, page, or date</t.Content>
               </Tooltip>
-              <p.Content @class="p-0 [--radius:1.2rem]" @align="start">
+              <PopoverContent @class="p-0 [--radius:1.2rem]" @align="start">
                 <Command>
                   <CommandInput placeholder="Search pages..." />
                   <CommandList>
@@ -275,7 +279,7 @@ class NotionPromptForm extends Component {
                     {{/each-in}}
                   </CommandList>
                 </Command>
-              </p.Content>
+              </PopoverContent>
             </Popover>
             <div class="no-scrollbar -m-1.5 flex gap-1 overflow-y-auto p-1.5">
               {{#each this.mentionedItems as |item|}}

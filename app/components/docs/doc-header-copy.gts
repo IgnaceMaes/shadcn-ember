@@ -11,7 +11,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Popover } from '@/components/ui/popover';
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverAnchor,
+} from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 
@@ -88,7 +93,7 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
   </template>;
 
   <template>
-    <Popover as |p|>
+    <Popover>
       <div
         class={{cn
           "bg-secondary group/buttons relative flex rounded-lg *:data-[slot=button]:focus-visible:relative *:data-[slot=button]:focus-visible:z-10"
@@ -96,7 +101,7 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
         }}
         ...attributes
       >
-        <p.Anchor />
+        <PopoverAnchor />
 
         <Button
           @variant="secondary"
@@ -167,7 +172,7 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
           @class="!bg-foreground/10 absolute top-0 right-8 z-0 !h-8 peer-focus-visible:opacity-0 sm:right-7 sm:!h-7"
         />
 
-        <p.Trigger @class="flex sm:hidden">
+        <PopoverTrigger @class="flex sm:hidden">
           <Button
             @variant="secondary"
             @size="sm"
@@ -175,9 +180,9 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
           >
             <ChevronDown class="rotate-180 sm:rotate-0" />
           </Button>
-        </p.Trigger>
+        </PopoverTrigger>
 
-        <p.Content
+        <PopoverContent
           @class="bg-background/70 dark:bg-background/60 w-52 !origin-center rounded-lg p-1 shadow-sm backdrop-blur-sm"
           @align="start"
           @side="top"
@@ -235,7 +240,7 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
               Open in Claude
             </a>
           </Button>
-        </p.Content>
+        </PopoverContent>
       </div>
     </Popover>
   </template>

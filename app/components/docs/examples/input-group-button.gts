@@ -12,7 +12,11 @@ import {
   InputGroupInput,
 } from '@/components/ui/input-group';
 import { Label } from '@/components/ui/label';
-import { Popover } from '@/components/ui/popover';
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from '@/components/ui/popover';
 
 export default class InputGroupButtonExample extends Component {
   @tracked isFavorite = false;
@@ -27,8 +31,8 @@ export default class InputGroupButtonExample extends Component {
         Input Secure
       </Label>
       <InputGroup @class="[--radius:9999px]">
-        <Popover as |p|>
-          <p.Trigger>
+        <Popover>
+          <PopoverTrigger>
             <InputGroupAddon @align="inline-start">
               <InputGroupButton
                 @variant="secondary"
@@ -38,15 +42,15 @@ export default class InputGroupButtonExample extends Component {
                 <InfoIcon />
               </InputGroupButton>
             </InputGroupAddon>
-          </p.Trigger>
-          <p.Content
+          </PopoverTrigger>
+          <PopoverContent
             @align="start"
             @sideOffset={{10}}
             @class="flex flex-col gap-1 rounded-xl text-sm"
           >
             <div class="font-medium">Your connection is not secure.</div>
             <div>You should not enter any sensitive information on this site.</div>
-          </p.Content>
+          </PopoverContent>
         </Popover>
         <InputGroupAddon @class="text-muted-foreground !pl-1">
           https://

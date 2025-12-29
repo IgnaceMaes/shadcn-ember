@@ -30,12 +30,16 @@ pnpm add ember-primitives ember-click-outside
 ## Usage
 
 ```gts showLineNumbers
-import { Popover } from '@/components/ui/popover';
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from '@/components/ui/popover';
 ```
 
 ```hbs showLineNumbers
-<Popover as |popover|>
-  <popover.Trigger>Open</popover.Trigger>
-  <popover.Content>Place content for the popover here.</popover.Content>
+<Popover>
+  <PopoverTrigger>Open</PopoverTrigger>
+  <PopoverContent>Place content for the popover here.</PopoverContent>
 </Popover>
 ```
