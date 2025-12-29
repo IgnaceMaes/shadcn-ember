@@ -18,7 +18,7 @@ import {
   FieldTitle,
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import { RadioGroup } from '@/components/ui/radio-group';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Switch } from '@/components/ui/switch';
 
 export default class AppearanceSettings extends Component {
@@ -51,7 +51,7 @@ export default class AppearanceSettings extends Component {
           <FieldDescription>
             Select the compute environment for your cluster.
           </FieldDescription>
-          <RadioGroup @defaultValue="kubernetes" as |rg|>
+          <RadioGroup @defaultValue="kubernetes">
             <FieldLabel @for="kubernetes-r2h">
               <Field @orientation="horizontal">
                 <FieldContent>
@@ -61,7 +61,7 @@ export default class AppearanceSettings extends Component {
                     default.
                   </FieldDescription>
                 </FieldContent>
-                <rg.Item
+                <RadioGroupItem
                   @value="kubernetes"
                   id="kubernetes-r2h"
                   aria-label="Kubernetes"
@@ -77,7 +77,7 @@ export default class AppearanceSettings extends Component {
                     soon)
                   </FieldDescription>
                 </FieldContent>
-                <rg.Item @value="vm" id="vm-z4k" aria-label="Virtual Machine" />
+                <RadioGroupItem @value="vm" id="vm-z4k" aria-label="Virtual Machine" />
               </Field>
             </FieldLabel>
           </RadioGroup>
