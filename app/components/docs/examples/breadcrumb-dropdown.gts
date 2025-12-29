@@ -6,7 +6,12 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { DropdownMenu } from '@/components/ui/dropdown-menu';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 <template>
   <Breadcrumb>
@@ -16,15 +21,15 @@ import { DropdownMenu } from '@/components/ui/dropdown-menu';
       </BreadcrumbItem>
       <BreadcrumbSeparator />
       <BreadcrumbItem>
-        <DropdownMenu as |dm|>
-          <dm.Trigger @class="flex items-center gap-1">
+        <DropdownMenu>
+          <DropdownMenuTrigger @class="flex items-center gap-1">
             Components
-          </dm.Trigger>
-          <dm.Content as |c|>
-            <c.Item>Documentation</c.Item>
-            <c.Item>Themes</c.Item>
-            <c.Item>GitHub</c.Item>
-          </dm.Content>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem>Documentation</DropdownMenuItem>
+            <DropdownMenuItem>Themes</DropdownMenuItem>
+            <DropdownMenuItem>GitHub</DropdownMenuItem>
+          </DropdownMenuContent>
         </DropdownMenu>
       </BreadcrumbItem>
       <BreadcrumbSeparator />

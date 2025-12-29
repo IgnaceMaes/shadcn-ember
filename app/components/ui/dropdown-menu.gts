@@ -1,16 +1,16 @@
 import Component from '@glimmer/component';
 import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
+import { cached } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { modifier } from 'ember-modifier';
-import { hash } from '@ember/helper';
+import { provide, consume } from 'ember-provide-consume-context';
 import { cn } from '@/lib/utils';
 import Check from '~icons/lucide/check';
 import ChevronRight from '~icons/lucide/chevron-right';
 import Circle from '~icons/lucide/circle';
 import onClickOutside from 'ember-click-outside/modifiers/on-click-outside';
 import type { TOC } from '@ember/component/template-only';
-import type { ComponentLike } from '@glint/template';
 import {
   computePosition,
   flip,
@@ -20,9 +20,37 @@ import {
   type Placement,
 } from '@floating-ui/dom';
 
-interface DropdownMenuYields {
-  Trigger: ComponentLike<DropdownMenuTriggerSignature>;
-  Content: ComponentLike<DropdownMenuContentSignature>;
+const DropdownMenuContext = 'dropdown-menu-context' as const;
+const DropdownMenuGroupContext = 'dropdown-menu-group-context' as const;
+const DropdownMenuSubContext = 'dropdown-menu-sub-context' as const;
+
+interface DropdownMenuContextValue {
+  isOpen: boolean;
+  setOpen: (open: boolean) => void;
+  triggerElement: HTMLElement | null;
+  setTriggerElement: (element: HTMLElement | null) => void;
+  closeAllSubmenus?: () => void;
+  registerGroupCloseCallback?: (callback: () => void) => () => void;
+}
+
+interface DropdownMenuGroupContextValue {
+  closeAllSubmenus: () => void;
+  registerSubmenu: (closeCallback: () => void) => () => void;
+  setOpen: (open: boolean) => void;
+}
+
+interface DropdownMenuSubContextValue {
+  isOpen: boolean;
+  setOpen: (open: boolean) => void;
+  triggerElement: HTMLElement | null;
+  setTriggerElement: (element: HTMLElement | null) => void;
+  parentSetOpen: (open: boolean) => void;
+}
+
+interface ContextRegistry {
+  [DropdownMenuContext]: DropdownMenuContextValue;
+  [DropdownMenuGroupContext]: DropdownMenuGroupContextValue;
+  [DropdownMenuSubContext]: DropdownMenuSubContextValue;
 }
 
 interface DropdownMenuSignature {
@@ -32,13 +60,13 @@ interface DropdownMenuSignature {
     onOpenChange?: (open: boolean) => void;
   };
   Blocks: {
-    default: [DropdownMenuYields];
+    default: [];
   };
 }
 
 class DropdownMenu extends Component<DropdownMenuSignature> {
   @tracked isOpen: boolean;
-  @tracked triggerElement: HTMLElement | null = null;
+  triggerElement: HTMLElement | null = null;
 
   constructor(owner: Owner, args: DropdownMenuSignature['Args']) {
     super(owner, args);
@@ -58,24 +86,20 @@ class DropdownMenu extends Component<DropdownMenuSignature> {
     this.triggerElement = element;
   };
 
+  @cached
+  @provide(DropdownMenuContext)
+  get context(): DropdownMenuContextValue {
+    return {
+      isOpen: this.open,
+      setOpen: this.setOpen,
+      triggerElement: this.triggerElement,
+      setTriggerElement: this.setTriggerElement,
+    };
+  }
+
   <template>
     <div data-slot="dropdown-menu" class="relative">
-      {{yield
-        (hash
-          Trigger=(component
-            DropdownMenuTrigger
-            isOpen=this.open
-            setOpen=this.setOpen
-            setTriggerElement=this.setTriggerElement
-          )
-          Content=(component
-            DropdownMenuContent
-            isOpen=this.open
-            setOpen=this.setOpen
-            triggerElement=this.triggerElement
-          )
-        )
-      }}
+      {{yield}}
     </div>
   </template>
 }
@@ -84,10 +108,7 @@ interface DropdownMenuTriggerSignature {
   Element: HTMLButtonElement;
   Args: {
     class?: string;
-    setOpen?: (open: boolean) => void;
-    isOpen?: boolean;
     asChild?: boolean;
-    setTriggerElement?: (element: HTMLElement | null) => void;
   };
   Blocks: {
     default: [];
@@ -95,15 +116,18 @@ interface DropdownMenuTriggerSignature {
 }
 
 class DropdownMenuTrigger extends Component<DropdownMenuTriggerSignature> {
+  @consume(DropdownMenuContext)
+  context!: ContextRegistry[typeof DropdownMenuContext];
+
   handleClick = () => {
-    const newOpen = !this.args.isOpen;
-    this.args.setOpen?.(newOpen);
+    const newOpen = !this.context.isOpen;
+    this.context.setOpen(newOpen);
   };
 
   registerElement = modifier((element: HTMLElement) => {
-    this.args.setTriggerElement?.(element);
+    this.context.setTriggerElement(element);
     return () => {
-      this.args.setTriggerElement?.(null);
+      this.context.setTriggerElement(null);
     };
   });
 
@@ -135,26 +159,35 @@ class DropdownMenuTrigger extends Component<DropdownMenuTriggerSignature> {
   </template>
 }
 
-interface DropdownMenuGroupYields {
-  Item: ComponentLike<DropdownMenuItemSignature>;
-  Label: ComponentLike<DropdownMenuLabelSignature>;
-  Sub: ComponentLike<DropdownMenuSubSignature>;
-}
-
 interface DropdownMenuGroupSignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
-    setOpen?: (open: boolean) => void;
   };
   Blocks: {
-    default: [DropdownMenuGroupYields];
+    default: [];
   };
 }
 
 class DropdownMenuGroup extends Component<DropdownMenuGroupSignature> {
+  @consume(DropdownMenuContext)
+  menuContext!: ContextRegistry[typeof DropdownMenuContext];
+
   @tracked currentOpenSubmenu: symbol | null = null;
   private submenuCloseCallbacks: Set<() => void> = new Set();
+  private unregister?: () => void;
+
+  constructor(owner: Owner, args: DropdownMenuGroupSignature['Args']) {
+    super(owner, args);
+    this.unregister = this.menuContext.registerGroupCloseCallback?.(
+      this.closeAllSubmenus
+    );
+  }
+
+  willDestroy() {
+    super.willDestroy();
+    this.unregister?.();
+  }
 
   closeAllSubmenus = () => {
     this.currentOpenSubmenu = null;
@@ -172,6 +205,16 @@ class DropdownMenuGroup extends Component<DropdownMenuGroupSignature> {
     };
   };
 
+  @cached
+  @provide(DropdownMenuGroupContext)
+  get context(): DropdownMenuGroupContextValue {
+    return {
+      closeAllSubmenus: this.closeAllSubmenus,
+      registerSubmenu: this.registerSubmenu,
+      setOpen: this.menuContext.setOpen,
+    };
+  }
+
   <template>
     <div
       role="group"
@@ -179,24 +222,7 @@ class DropdownMenuGroup extends Component<DropdownMenuGroupSignature> {
       class={{cn @class}}
       ...attributes
     >
-      {{yield
-        (hash
-          Item=(component
-            DropdownMenuItem
-            closeOtherSubmenus=this.closeAllSubmenus
-            setOpen=@setOpen
-          )
-          Label=(component
-            DropdownMenuLabel closeOtherSubmenus=this.closeAllSubmenus
-          )
-          Sub=(component
-            DropdownMenuSub
-            closeOtherSubmenus=this.closeAllSubmenus
-            registerSubmenu=this.registerSubmenu
-            setOpen=@setOpen
-          )
-        )
-      }}
+      {{yield}}
     </div>
   </template>
 }
@@ -213,39 +239,32 @@ const DropdownMenuPortal: TOC<DropdownMenuPortalSignature> = <template>
   </div>
 </template>;
 
-interface DropdownMenuSubYields {
-  Trigger: ComponentLike<DropdownMenuSubTriggerSignature>;
-  Content: ComponentLike<DropdownMenuSubContentSignature>;
-}
-
 interface DropdownMenuSubSignature {
   Args: {
     open?: boolean;
     defaultOpen?: boolean;
     onOpenChange?: (open: boolean) => void;
-    closeOtherSubmenus?: () => void;
-    registerSubmenu?: (closeCallback: () => void) => () => void;
-    setOpen?: (open: boolean) => void;
   };
   Blocks: {
-    default: [DropdownMenuSubYields];
+    default: [];
   };
 }
 
 class DropdownMenuSub extends Component<DropdownMenuSubSignature> {
+  @consume(DropdownMenuGroupContext)
+  groupContext!: ContextRegistry[typeof DropdownMenuGroupContext];
+
   @tracked isOpen: boolean;
-  @tracked triggerElement: HTMLElement | null = null;
+  triggerElement: HTMLElement | null = null;
   private unregister?: () => void;
 
   constructor(owner: Owner, args: DropdownMenuSubSignature['Args']) {
     super(owner, args);
     this.isOpen = args.open ?? args.defaultOpen ?? false;
 
-    if (args.registerSubmenu) {
-      this.unregister = args.registerSubmenu(() => {
-        this.isOpen = false;
-      });
-    }
+    this.unregister = this.groupContext.registerSubmenu(() => {
+      this.isOpen = false;
+    });
   }
 
   willDestroy() {
@@ -258,8 +277,8 @@ class DropdownMenuSub extends Component<DropdownMenuSubSignature> {
   }
 
   setOpen = (open: boolean) => {
-    if (open && this.args.closeOtherSubmenus) {
-      this.args.closeOtherSubmenus();
+    if (open) {
+      this.groupContext.closeAllSubmenus();
     }
     this.isOpen = open;
     this.args.onOpenChange?.(open);
@@ -269,24 +288,21 @@ class DropdownMenuSub extends Component<DropdownMenuSubSignature> {
     this.triggerElement = element;
   };
 
+  @cached
+  @provide(DropdownMenuSubContext)
+  get context(): DropdownMenuSubContextValue {
+    return {
+      isOpen: this.open,
+      setOpen: this.setOpen,
+      triggerElement: this.triggerElement,
+      setTriggerElement: this.setTriggerElement,
+      parentSetOpen: this.groupContext.setOpen,
+    };
+  }
+
   <template>
     <div data-slot="dropdown-menu-sub">
-      {{yield
-        (hash
-          Trigger=(component
-            DropdownMenuSubTrigger
-            isOpen=this.open
-            setOpen=this.setOpen
-            setTriggerElement=this.setTriggerElement
-          )
-          Content=(component
-            DropdownMenuSubContent
-            isOpen=this.open
-            triggerElement=this.triggerElement
-            setOpen=@setOpen
-          )
-        )
-      }}
+      {{yield}}
     </div>
   </template>
 }
@@ -337,9 +353,6 @@ interface DropdownMenuSubTriggerSignature {
   Args: {
     class?: string;
     inset?: boolean;
-    isOpen?: boolean;
-    setOpen?: (open: boolean) => void;
-    setTriggerElement?: (element: HTMLElement | null) => void;
   };
   Blocks: {
     default: [];
@@ -347,14 +360,17 @@ interface DropdownMenuSubTriggerSignature {
 }
 
 class DropdownMenuSubTrigger extends Component<DropdownMenuSubTriggerSignature> {
+  @consume(DropdownMenuSubContext)
+  context!: ContextRegistry[typeof DropdownMenuSubContext];
+
   handleMouseEnter = () => {
-    this.args.setOpen?.(true);
+    this.context.setOpen(true);
   };
 
   registerElement = modifier((element: HTMLElement) => {
-    this.args.setTriggerElement?.(element);
+    this.context.setTriggerElement(element);
     return () => {
-      this.args.setTriggerElement?.(null);
+      this.context.setTriggerElement(null);
     };
   });
 
@@ -362,7 +378,7 @@ class DropdownMenuSubTrigger extends Component<DropdownMenuSubTriggerSignature> 
     <div
       data-slot="dropdown-menu-sub-trigger"
       data-inset={{@inset}}
-      data-state={{if @isOpen "open" "closed"}}
+      data-state={{if this.context.isOpen "open" "closed"}}
       class={{cn
         "focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
         @class
@@ -377,27 +393,35 @@ class DropdownMenuSubTrigger extends Component<DropdownMenuSubTriggerSignature> 
   </template>
 }
 
-interface DropdownMenuSubContentYields {
-  Item: ComponentLike<DropdownMenuItemSignature>;
-}
-
 interface DropdownMenuSubContentSignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
-    isOpen?: boolean;
-    triggerElement?: HTMLElement | null;
-    setOpen?: (open: boolean) => void;
   };
   Blocks: {
-    default: [DropdownMenuSubContentYields];
+    default: [];
   };
 }
 
 class DropdownMenuSubContent extends Component<DropdownMenuSubContentSignature> {
+  @consume(DropdownMenuSubContext)
+  subContext!: ContextRegistry[typeof DropdownMenuSubContext];
+
+  @consume(DropdownMenuContext)
+  menuContext!: ContextRegistry[typeof DropdownMenuContext];
+
   @tracked x = 0;
   @tracked y = 0;
   private cleanup?: () => void;
+
+  @cached
+  @provide(DropdownMenuContext)
+  get context(): DropdownMenuContextValue {
+    return {
+      ...this.menuContext,
+      closeAllSubmenus: undefined,
+    };
+  }
 
   positionSubmenu = modifier(
     (
@@ -438,7 +462,7 @@ class DropdownMenuSubContent extends Component<DropdownMenuSubContentSignature> 
   };
 
   <template>
-    {{#if @isOpen}}
+    {{#if this.subContext.isOpen}}
       <div
         data-slot="dropdown-menu-sub-content"
         data-side="right"
@@ -447,24 +471,17 @@ class DropdownMenuSubContent extends Component<DropdownMenuSubContentSignature> 
           "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-32 origin-(--radix-dropdown-menu-content-transform-origin) overflow-hidden rounded-md border p-1 shadow-lg"
           @class
         }}
-        data-state={{if @isOpen "open" "closed"}}
+        data-state={{if this.subContext.isOpen "open" "closed"}}
         role="menu"
         style={{this.positionStyle}}
-        {{this.positionSubmenu @triggerElement}}
+        {{this.positionSubmenu this.subContext.triggerElement}}
         {{on "mouseenter" this.handleMouseEnter}}
         ...attributes
       >
-        {{yield (hash Item=(component DropdownMenuItem setOpen=@setOpen))}}
+        {{yield}}
       </div>
     {{/if}}
   </template>
-}
-
-interface DropdownMenuContentYields {
-  Item: ComponentLike<DropdownMenuItemSignature>;
-  Group: ComponentLike<DropdownMenuGroupSignature>;
-  CheckboxItem: ComponentLike<DropdownMenuCheckboxItemSignature>;
-  RadioGroup: ComponentLike<DropdownMenuRadioGroupSignature>;
 }
 
 interface DropdownMenuContentSignature {
@@ -473,22 +490,44 @@ interface DropdownMenuContentSignature {
     class?: string;
     sideOffset?: number;
     align?: 'start' | 'center' | 'end';
-    isOpen?: boolean;
-    setOpen?: (open: boolean) => void;
-    triggerElement?: HTMLElement | null;
   };
   Blocks: {
-    default: [DropdownMenuContentYields];
+    default: [];
   };
 }
 
 class DropdownMenuContent extends Component<DropdownMenuContentSignature> {
+  @consume(DropdownMenuContext)
+  menuContext!: ContextRegistry[typeof DropdownMenuContext];
+
   @tracked x = 0;
   @tracked y = 0;
   private cleanup?: () => void;
+  private groupCloseCallbacks: Set<() => void> = new Set();
+
+  closeAllSubmenus = () => {
+    this.groupCloseCallbacks.forEach((close) => close());
+  };
+
+  registerGroupCloseCallback = (closeCallback: () => void) => {
+    this.groupCloseCallbacks.add(closeCallback);
+    return () => {
+      this.groupCloseCallbacks.delete(closeCallback);
+    };
+  };
+
+  @cached
+  @provide(DropdownMenuContext)
+  get context(): DropdownMenuContextValue {
+    return {
+      ...this.menuContext,
+      closeAllSubmenus: this.closeAllSubmenus,
+      registerGroupCloseCallback: this.registerGroupCloseCallback,
+    };
+  }
 
   handleClickOutside = () => {
-    this.args.setOpen?.(false);
+    this.menuContext.setOpen(false);
   };
 
   positionContent = modifier(
@@ -529,29 +568,22 @@ class DropdownMenuContent extends Component<DropdownMenuContentSignature> {
   }
 
   <template>
-    {{#if @isOpen}}
+    {{#if this.menuContext.isOpen}}
       <div
         data-slot="dropdown-menu-content"
         class={{cn
           "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 max-h-(--radix-dropdown-menu-content-available-height) min-w-32 origin-(--radix-dropdown-menu-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border p-1 shadow-md"
           @class
         }}
-        data-state={{if @isOpen "open" "closed"}}
+        data-state={{if this.menuContext.isOpen "open" "closed"}}
         data-align={{@align}}
         role="menu"
         style={{this.positionStyle}}
-        {{this.positionContent @triggerElement}}
+        {{this.positionContent this.menuContext.triggerElement}}
         {{onClickOutside this.handleClickOutside}}
         ...attributes
       >
-        {{yield
-          (hash
-            Item=(component DropdownMenuItem setOpen=@setOpen)
-            Group=(component DropdownMenuGroup setOpen=@setOpen)
-            CheckboxItem=(component DropdownMenuCheckboxItem setOpen=@setOpen)
-            RadioGroup=(component DropdownMenuRadioGroup)
-          )
-        }}
+        {{yield}}
       </div>
     {{/if}}
   </template>
@@ -565,9 +597,7 @@ interface DropdownMenuItemSignature {
     disabled?: boolean;
     variant?: 'default' | 'destructive';
     asChild?: boolean;
-    closeOtherSubmenus?: () => void;
     onSelect?: () => void;
-    setOpen?: (open: boolean) => void;
   };
   Blocks: {
     default: [classes?: string];
@@ -575,14 +605,17 @@ interface DropdownMenuItemSignature {
 }
 
 class DropdownMenuItem extends Component<DropdownMenuItemSignature> {
+  @consume(DropdownMenuContext)
+  menuContext!: ContextRegistry[typeof DropdownMenuContext];
+
   handleMouseEnter = () => {
-    this.args.closeOtherSubmenus?.();
+    this.menuContext.closeAllSubmenus?.();
   };
 
   handleClick = () => {
     if (!this.args.disabled) {
       this.args.onSelect?.();
-      this.args.setOpen?.(false);
+      this.menuContext.setOpen(false);
     }
   };
 
@@ -709,7 +742,6 @@ interface DropdownMenuLabelSignature {
   Args: {
     class?: string;
     inset?: boolean;
-    closeOtherSubmenus?: () => void;
   };
   Blocks: {
     default: [];
@@ -717,8 +749,11 @@ interface DropdownMenuLabelSignature {
 }
 
 class DropdownMenuLabel extends Component<DropdownMenuLabelSignature> {
+  @consume(DropdownMenuContext)
+  menuContext!: ContextRegistry[typeof DropdownMenuContext];
+
   handleMouseEnter = () => {
-    this.args.closeOtherSubmenus?.();
+    this.menuContext.closeAllSubmenus?.();
   };
 
   <template>

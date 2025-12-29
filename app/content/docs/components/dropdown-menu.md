@@ -41,16 +41,16 @@ import {
 ```
 
 ```hbs showLineNumbers
-<DropdownMenu as |dm|>
-  <dm.Trigger>Open</dm.Trigger>
-  <dm.Content>
+<DropdownMenu>
+  <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+  <DropdownMenuContent>
     <DropdownMenuLabel>My Account</DropdownMenuLabel>
     <DropdownMenuSeparator />
     <DropdownMenuItem>Profile</DropdownMenuItem>
     <DropdownMenuItem>Billing</DropdownMenuItem>
     <DropdownMenuItem>Team</DropdownMenuItem>
     <DropdownMenuItem>Subscription</DropdownMenuItem>
-  </dm.Content>
+  </DropdownMenuContent>
 </DropdownMenu>
 ```
 

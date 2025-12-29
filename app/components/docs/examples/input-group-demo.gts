@@ -4,7 +4,12 @@ import Plus from '~icons/lucide/plus';
 import ArrowUp from '~icons/lucide/arrow-up';
 import Search from '~icons/lucide/search';
 
-import { DropdownMenu, DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import {
   InputGroup,
   InputGroupAddon,
@@ -59,11 +64,11 @@ import { Tooltip } from '@/components/ui/tooltip';
         >
           <Plus />
         </InputGroupButton>
-        <DropdownMenu as |d|>
-          <d.Trigger>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
             <InputGroupButton @variant="ghost">Auto</InputGroupButton>
-          </d.Trigger>
-          <d.Content
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
             {{! @side="top" }}
             @align="start"
             @class="[--radius:0.95rem]"
@@ -71,7 +76,7 @@ import { Tooltip } from '@/components/ui/tooltip';
             <DropdownMenuItem>Auto</DropdownMenuItem>
             <DropdownMenuItem>Agent</DropdownMenuItem>
             <DropdownMenuItem>Manual</DropdownMenuItem>
-          </d.Content>
+          </DropdownMenuContent>
         </DropdownMenu>
         <InputGroupText @class="ml-auto">52% used</InputGroupText>
         <Separator @orientation="vertical" @class="!h-4" />

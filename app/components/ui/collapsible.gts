@@ -4,7 +4,6 @@ import { on } from '@ember/modifier';
 import { guidFor } from '@ember/object/internals';
 import type Owner from '@ember/owner';
 import { provide, consume } from 'ember-provide-consume-context';
-import { cn } from '@/lib/utils';
 
 const CollapsibleContext = 'collapsible-context' as const;
 
@@ -105,7 +104,8 @@ interface CollapsibleTriggerSignature {
 }
 
 class CollapsibleTrigger extends Component<CollapsibleTriggerSignature> {
-  @consume(CollapsibleContext) context!: ContextRegistry[typeof CollapsibleContext];
+  @consume(CollapsibleContext)
+  context!: ContextRegistry[typeof CollapsibleContext];
 
   get dataState() {
     return this.context.open ? 'open' : 'closed';
@@ -157,7 +157,8 @@ interface CollapsibleContentSignature {
 }
 
 class CollapsibleContent extends Component<CollapsibleContentSignature> {
-  @consume(CollapsibleContext) context!: ContextRegistry[typeof CollapsibleContext];
+  @consume(CollapsibleContext)
+  context!: ContextRegistry[typeof CollapsibleContext];
 
   get dataState() {
     return this.context.open ? 'open' : 'closed';
