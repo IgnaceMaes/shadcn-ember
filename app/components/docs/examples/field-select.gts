@@ -1,24 +1,30 @@
 import { Field, FieldDescription, FieldLabel } from '@/components/ui/field';
-import { Select } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 <template>
   <div class="w-full max-w-md">
     <Field>
       <FieldLabel>Department</FieldLabel>
-      <Select as |s|>
-        <s.Trigger>
-          <s.Value @placeholder="Choose department" />
-        </s.Trigger>
-        <s.Content as |c|>
-          <c.Item @value="engineering">Engineering</c.Item>
-          <c.Item @value="design">Design</c.Item>
-          <c.Item @value="marketing">Marketing</c.Item>
-          <c.Item @value="sales">Sales</c.Item>
-          <c.Item @value="support">Customer Support</c.Item>
-          <c.Item @value="hr">Human Resources</c.Item>
-          <c.Item @value="finance">Finance</c.Item>
-          <c.Item @value="operations">Operations</c.Item>
-        </s.Content>
+      <Select>
+        <SelectTrigger>
+          <SelectValue @placeholder="Choose department" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem @value="engineering">Engineering</SelectItem>
+          <SelectItem @value="design">Design</SelectItem>
+          <SelectItem @value="marketing">Marketing</SelectItem>
+          <SelectItem @value="sales">Sales</SelectItem>
+          <SelectItem @value="support">Customer Support</SelectItem>
+          <SelectItem @value="hr">Human Resources</SelectItem>
+          <SelectItem @value="finance">Finance</SelectItem>
+          <SelectItem @value="operations">Operations</SelectItem>
+        </SelectContent>
       </Select>
       <FieldDescription>
         Select your department or area of work.

@@ -3,7 +3,13 @@ import { service } from '@ember/service';
 import { THEMES } from '@/lib/themes';
 import { cn } from '@/lib/utils';
 import { Label } from '@/components/ui/label';
-import { Select } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { CopyCodeButton } from '@/components/theme-customizer';
 import type ThemeService from '@/services/theme';
 
@@ -32,29 +38,25 @@ class ThemeSelector extends Component<ThemeSelectorSignature> {
       <Label @for="theme-selector" @class="sr-only">
         Theme
       </Label>
-      <Select
-        @value={{this.value}}
-        @onValueChange={{this.setActiveTheme}}
-        as |s|
-      >
-        <s.Trigger
+      <Select @value={{this.value}} @onValueChange={{this.setActiveTheme}}>
+        <SelectTrigger
           id="theme-selector"
           @size="sm"
           @class="bg-secondary text-secondary-foreground border-secondary justify-start shadow-none *:data-[slot=select-value]:w-12"
         >
           <span class="font-medium">Theme:</span>
-          <s.Value @placeholder="Select a theme" />
-        </s.Trigger>
-        <s.Content @align="end" as |c|>
+          <SelectValue @placeholder="Select a theme" />
+        </SelectTrigger>
+        <SelectContent @align="end">
           {{#each THEMES as |theme|}}
-            <c.Item
+            <SelectItem
               @value={{theme.name}}
               @class="data-[state=checked]:opacity-50"
             >
               {{theme.label}}
-            </c.Item>
+            </SelectItem>
           {{/each}}
-        </s.Content>
+        </SelectContent>
       </Select>
       <CopyCodeButton @variant="secondary" @size="icon-sm" />
     </div>

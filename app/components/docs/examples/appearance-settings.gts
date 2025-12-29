@@ -77,7 +77,11 @@ export default class AppearanceSettings extends Component {
                     soon)
                   </FieldDescription>
                 </FieldContent>
-                <RadioGroupItem @value="vm" id="vm-z4k" aria-label="Virtual Machine" />
+                <RadioGroupItem
+                  @value="vm"
+                  id="vm-z4k"
+                  aria-label="Virtual Machine"
+                />
               </Field>
             </FieldLabel>
           </RadioGroup>

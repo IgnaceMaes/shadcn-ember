@@ -1,53 +1,62 @@
-import { Select, SelectGroup, SelectLabel } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 <template>
-  <Select as |s|>
-    <s.Trigger @class="w-[280px]">
-      <s.Value @placeholder="Select a timezone" />
-    </s.Trigger>
-    <s.Content as |c|>
+  <Select>
+    <SelectTrigger @class="w-[280px]">
+      <SelectValue @placeholder="Select a timezone" />
+    </SelectTrigger>
+    <SelectContent>
       <SelectGroup>
         <SelectLabel>North America</SelectLabel>
-        <c.Item @value="est">Eastern Standard Time (EST)</c.Item>
-        <c.Item @value="cst">Central Standard Time (CST)</c.Item>
-        <c.Item @value="mst">Mountain Standard Time (MST)</c.Item>
-        <c.Item @value="pst">Pacific Standard Time (PST)</c.Item>
-        <c.Item @value="akst">Alaska Standard Time (AKST)</c.Item>
-        <c.Item @value="hst">Hawaii Standard Time (HST)</c.Item>
+        <SelectItem @value="est">Eastern Standard Time (EST)</SelectItem>
+        <SelectItem @value="cst">Central Standard Time (CST)</SelectItem>
+        <SelectItem @value="mst">Mountain Standard Time (MST)</SelectItem>
+        <SelectItem @value="pst">Pacific Standard Time (PST)</SelectItem>
+        <SelectItem @value="akst">Alaska Standard Time (AKST)</SelectItem>
+        <SelectItem @value="hst">Hawaii Standard Time (HST)</SelectItem>
       </SelectGroup>
       <SelectGroup>
         <SelectLabel>Europe & Africa</SelectLabel>
-        <c.Item @value="gmt">Greenwich Mean Time (GMT)</c.Item>
-        <c.Item @value="cet">Central European Time (CET)</c.Item>
-        <c.Item @value="eet">Eastern European Time (EET)</c.Item>
-        <c.Item @value="west">Western European Summer Time (WEST)</c.Item>
-        <c.Item @value="cat">Central Africa Time (CAT)</c.Item>
-        <c.Item @value="eat">East Africa Time (EAT)</c.Item>
+        <SelectItem @value="gmt">Greenwich Mean Time (GMT)</SelectItem>
+        <SelectItem @value="cet">Central European Time (CET)</SelectItem>
+        <SelectItem @value="eet">Eastern European Time (EET)</SelectItem>
+        <SelectItem @value="west">Western European Summer Time (WEST)</SelectItem>
+        <SelectItem @value="cat">Central Africa Time (CAT)</SelectItem>
+        <SelectItem @value="eat">East Africa Time (EAT)</SelectItem>
       </SelectGroup>
       <SelectGroup>
         <SelectLabel>Asia</SelectLabel>
-        <c.Item @value="msk">Moscow Time (MSK)</c.Item>
-        <c.Item @value="ist">India Standard Time (IST)</c.Item>
-        <c.Item @value="cst_china">China Standard Time (CST)</c.Item>
-        <c.Item @value="jst">Japan Standard Time (JST)</c.Item>
-        <c.Item @value="kst">Korea Standard Time (KST)</c.Item>
-        <c.Item @value="ist_indonesia">Indonesia Central Standard Time (WITA)</c.Item>
+        <SelectItem @value="msk">Moscow Time (MSK)</SelectItem>
+        <SelectItem @value="ist">India Standard Time (IST)</SelectItem>
+        <SelectItem @value="cst_china">China Standard Time (CST)</SelectItem>
+        <SelectItem @value="jst">Japan Standard Time (JST)</SelectItem>
+        <SelectItem @value="kst">Korea Standard Time (KST)</SelectItem>
+        <SelectItem @value="ist_indonesia">Indonesia Central Standard Time
+          (WITA)</SelectItem>
       </SelectGroup>
       <SelectGroup>
         <SelectLabel>Australia & Pacific</SelectLabel>
-        <c.Item @value="awst">Australian Western Standard Time (AWST)</c.Item>
-        <c.Item @value="acst">Australian Central Standard Time (ACST)</c.Item>
-        <c.Item @value="aest">Australian Eastern Standard Time (AEST)</c.Item>
-        <c.Item @value="nzst">New Zealand Standard Time (NZST)</c.Item>
-        <c.Item @value="fjt">Fiji Time (FJT)</c.Item>
+        <SelectItem @value="awst">Australian Western Standard Time (AWST)</SelectItem>
+        <SelectItem @value="acst">Australian Central Standard Time (ACST)</SelectItem>
+        <SelectItem @value="aest">Australian Eastern Standard Time (AEST)</SelectItem>
+        <SelectItem @value="nzst">New Zealand Standard Time (NZST)</SelectItem>
+        <SelectItem @value="fjt">Fiji Time (FJT)</SelectItem>
       </SelectGroup>
       <SelectGroup>
         <SelectLabel>South America</SelectLabel>
-        <c.Item @value="art">Argentina Time (ART)</c.Item>
-        <c.Item @value="bot">Bolivia Time (BOT)</c.Item>
-        <c.Item @value="brt">Brasilia Time (BRT)</c.Item>
-        <c.Item @value="clt">Chile Standard Time (CLT)</c.Item>
+        <SelectItem @value="art">Argentina Time (ART)</SelectItem>
+        <SelectItem @value="bot">Bolivia Time (BOT)</SelectItem>
+        <SelectItem @value="brt">Brasilia Time (BRT)</SelectItem>
+        <SelectItem @value="clt">Chile Standard Time (CLT)</SelectItem>
       </SelectGroup>
-    </s.Content>
+    </SelectContent>
   </Select>
 </template>

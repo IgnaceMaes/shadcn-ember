@@ -1,19 +1,27 @@
-import { Select, SelectGroup, SelectLabel } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 <template>
-  <Select as |s|>
-    <s.Trigger @class="w-[180px]">
-      <s.Value @placeholder="Select a fruit" />
-    </s.Trigger>
-    <s.Content as |c|>
+  <Select>
+    <SelectTrigger @class="w-[180px]">
+      <SelectValue @placeholder="Select a fruit" />
+    </SelectTrigger>
+    <SelectContent>
       <SelectGroup>
         <SelectLabel>Fruits</SelectLabel>
-        <c.Item @value="apple">Apple</c.Item>
-        <c.Item @value="banana">Banana</c.Item>
-        <c.Item @value="blueberry">Blueberry</c.Item>
-        <c.Item @value="grapes">Grapes</c.Item>
-        <c.Item @value="pineapple">Pineapple</c.Item>
+        <SelectItem @value="apple">Apple</SelectItem>
+        <SelectItem @value="banana">Banana</SelectItem>
+        <SelectItem @value="blueberry">Blueberry</SelectItem>
+        <SelectItem @value="grapes">Grapes</SelectItem>
+        <SelectItem @value="pineapple">Pineapple</SelectItem>
       </SelectGroup>
-    </s.Content>
+    </SelectContent>
   </Select>
 </template>

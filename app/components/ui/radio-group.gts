@@ -84,7 +84,8 @@ interface RadioGroupItemSignature {
 }
 
 class RadioGroupItem extends Component<RadioGroupItemSignature> {
-  @consume(RadioGroupContext) context!: ContextRegistry[typeof RadioGroupContext];
+  @consume(RadioGroupContext)
+  context!: ContextRegistry[typeof RadioGroupContext];
 
   get checked() {
     return this.context.value === this.args.value;
