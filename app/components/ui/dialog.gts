@@ -1,36 +1,42 @@
 import Component from '@glimmer/component';
 import type { TOC } from '@ember/component/template-only';
-import type { ComponentLike } from '@glint/template';
 import { tracked } from '@glimmer/tracking';
-import { fn } from '@ember/helper';
-import { hash } from '@ember/helper';
 import { on } from '@ember/modifier';
+import type Owner from '@ember/owner';
+import { provide, consume } from 'ember-provide-consume-context';
 import { cn } from '@/lib/utils';
 import XIcon from '~icons/lucide/x';
 
-// Dialog Root Component
+const DialogContext = 'dialog-context' as const;
+
+interface DialogContextValue {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}
+
+interface ContextRegistry {
+  [DialogContext]: DialogContextValue;
+}
+
 interface DialogSignature {
   Args: {
     open?: boolean;
     onOpenChange?: (open: boolean) => void;
+    class?: string;
   };
   Blocks: {
-    default: [
-      {
-        Trigger: ComponentLike<DialogTriggerSignature>;
-        Content: ComponentLike<DialogContentSignature>;
-        Header: ComponentLike<DialogHeaderSignature>;
-        Footer: ComponentLike<DialogFooterSignature>;
-        Title: ComponentLike<DialogTitleSignature>;
-        Description: ComponentLike<DialogDescriptionSignature>;
-        Close: ComponentLike<DialogCloseSignature>;
-      },
-    ];
+    default: [];
   };
+  Element: HTMLDivElement;
 }
 
 class Dialog extends Component<DialogSignature> {
-  @tracked isOpen = this.args.open ?? false;
+  @tracked isOpen: boolean;
+
+  constructor(owner: Owner, args: DialogSignature['Args']) {
+    super(owner, args);
+    this.isOpen = args.open ?? false;
+  }
 
   get open() {
     return this.args.open ?? this.isOpen;
@@ -41,29 +47,24 @@ class Dialog extends Component<DialogSignature> {
     this.args.onOpenChange?.(open);
   };
 
+  @provide(DialogContext)
+  get context(): DialogContextValue {
+    return {
+      open: this.open,
+      setOpen: this.setOpen,
+    };
+  }
+
   <template>
-    <div data-slot="dialog">
-      {{yield
-        (hash
-          Trigger=(component DialogTrigger open=this.open setOpen=this.setOpen)
-          Content=(component DialogContent open=this.open setOpen=this.setOpen)
-          Header=DialogHeader
-          Footer=DialogFooter
-          Title=DialogTitle
-          Description=DialogDescription
-          Close=(component DialogClose setOpen=this.setOpen)
-        )
-      }}
+    <div data-slot="dialog" class={{cn @class}} ...attributes>
+      {{yield}}
     </div>
   </template>
 }
 
-// Dialog Trigger Component
 interface DialogTriggerSignature {
   Element: HTMLButtonElement;
   Args: {
-    open?: boolean;
-    setOpen?: (open: boolean) => void;
     class?: string;
     asChild?: boolean;
   };
@@ -73,9 +74,11 @@ interface DialogTriggerSignature {
 }
 
 class DialogTrigger extends Component<DialogTriggerSignature> {
+  @consume(DialogContext) context!: ContextRegistry[typeof DialogContext];
+
   handleClick = (event: MouseEvent) => {
     event.preventDefault();
-    this.args.setOpen?.(true);
+    this.context.setOpen(true);
   };
 
   <template>
@@ -95,7 +98,6 @@ class DialogTrigger extends Component<DialogTriggerSignature> {
   </template>
 }
 
-// Dialog Portal Component (just yields in Ember)
 interface DialogPortalSignature {
   Blocks: {
     default: [];
@@ -108,13 +110,10 @@ const DialogPortal: TOC<DialogPortalSignature> = <template>
   </div>
 </template>;
 
-// Dialog Overlay Component
 interface DialogOverlaySignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
-    open?: boolean;
-    setOpen?: (open: boolean) => void;
   };
   Blocks: {
     default: [];
@@ -122,8 +121,10 @@ interface DialogOverlaySignature {
 }
 
 class DialogOverlay extends Component<DialogOverlaySignature> {
+  @consume(DialogContext) context!: ContextRegistry[typeof DialogContext];
+
   handleClick = () => {
-    this.args.setOpen?.(false);
+    this.context.setOpen(false);
   };
 
   <template>
@@ -133,7 +134,7 @@ class DialogOverlay extends Component<DialogOverlaySignature> {
         "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50"
         @class
       }}
-      data-state={{if @open "open" "closed"}}
+      data-state={{if this.context.open "open" "closed"}}
       role="button"
       tabindex="0"
       {{on "click" this.handleClick}}
@@ -142,12 +143,10 @@ class DialogOverlay extends Component<DialogOverlaySignature> {
   </template>
 }
 
-// Dialog Close Component
 interface DialogCloseSignature {
   Element: HTMLButtonElement;
   Args: {
     class?: string;
-    setOpen?: (open: boolean) => void;
     asChild?: boolean;
   };
   Blocks: {
@@ -156,8 +155,10 @@ interface DialogCloseSignature {
 }
 
 class DialogClose extends Component<DialogCloseSignature> {
+  @consume(DialogContext) context!: ContextRegistry[typeof DialogContext];
+
   handleClick = () => {
-    this.args.setOpen?.(false);
+    this.context.setOpen(false);
   };
 
   <template>
@@ -177,51 +178,49 @@ class DialogClose extends Component<DialogCloseSignature> {
   </template>
 }
 
-// Dialog Content Component
 interface DialogContentSignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
-    open?: boolean;
-    setOpen?: (open: boolean) => void;
     showCloseButton?: boolean;
   };
   Blocks: {
-    default: [setOpen: (open: boolean) => void];
+    default: [];
   };
 }
 
 class DialogContent extends Component<DialogContentSignature> {
+  @consume(DialogContext) context!: ContextRegistry[typeof DialogContext];
+
   get showCloseButton() {
     return this.args.showCloseButton ?? true;
   }
 
   handleOverlayClick = (event: MouseEvent) => {
-    // Stop propagation to prevent closing when clicking inside content
     event.stopPropagation();
   };
 
   handleCloseClick = () => {
-    this.args.setOpen?.(false);
+    this.context.setOpen(false);
   };
 
   handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'Escape') {
-      this.args.setOpen?.(false);
+      this.context.setOpen(false);
     }
   };
 
   <template>
-    {{#if @open}}
+    {{#if this.context.open}}
       <DialogPortal>
-        <DialogOverlay @open={{@open}} @setOpen={{@setOpen}} />
+        <DialogOverlay />
         <div
           data-slot="dialog-content"
           class={{cn
             "bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border p-6 shadow-lg duration-200 outline-none sm:max-w-lg"
             @class
           }}
-          data-state={{if @open "open" "closed"}}
+          data-state={{if this.context.open "open" "closed"}}
           role="dialog"
           aria-modal="true"
           tabindex="-1"
@@ -229,13 +228,13 @@ class DialogContent extends Component<DialogContentSignature> {
           {{on "keydown" this.handleKeyDown}}
           ...attributes
         >
-          {{yield (if @setOpen @setOpen (fn))}}
+          {{yield}}
           {{#if this.showCloseButton}}
             <button
               data-slot="dialog-close"
               type="button"
               class="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
-              data-state={{if @open "open" "closed"}}
+              data-state={{if this.context.open "open" "closed"}}
               {{on "click" this.handleCloseClick}}
             >
               <XIcon />
@@ -248,7 +247,6 @@ class DialogContent extends Component<DialogContentSignature> {
   </template>
 }
 
-// Dialog Header Component
 interface DialogHeaderSignature {
   Element: HTMLDivElement;
   Args: {
@@ -269,7 +267,6 @@ const DialogHeader: TOC<DialogHeaderSignature> = <template>
   </div>
 </template>;
 
-// Dialog Footer Component
 interface DialogFooterSignature {
   Element: HTMLDivElement;
   Args: {
@@ -290,7 +287,6 @@ const DialogFooter: TOC<DialogFooterSignature> = <template>
   </div>
 </template>;
 
-// Dialog Title Component
 interface DialogTitleSignature {
   Element: HTMLHeadingElement;
   Args: {
@@ -311,7 +307,6 @@ const DialogTitle: TOC<DialogTitleSignature> = <template>
   </h2>
 </template>;
 
-// Dialog Description Component
 interface DialogDescriptionSignature {
   Element: HTMLParagraphElement;
   Args: {
