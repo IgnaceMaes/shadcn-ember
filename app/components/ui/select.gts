@@ -1,27 +1,42 @@
 import { tracked } from '@glimmer/tracking';
+import { cached } from '@glimmer/tracking';
 import Component from '@glimmer/component';
 import type { TOC } from '@ember/component/template-only';
-import type { ComponentLike, ModifierLike } from '@glint/template';
 import { on } from '@ember/modifier';
 import { modifier } from 'ember-modifier';
-import { hash, fn } from '@ember/helper';
+import type Owner from '@ember/owner';
+import { provide, consume } from 'ember-provide-consume-context';
 import onClickOutside from 'ember-click-outside/modifiers/on-click-outside';
-import { Popover } from 'ember-primitives';
+import {
+  computePosition,
+  flip,
+  shift,
+  offset,
+  autoUpdate,
+  type Placement,
+} from '@floating-ui/dom';
 import ChevronDown from '~icons/lucide/chevron-down';
 import ChevronUp from '~icons/lucide/chevron-up';
 import Check from '~icons/lucide/check';
 import { cn } from '@/lib/utils';
 
-const lockBodyScroll = modifier((element: Element, [isOpen]: [boolean]) => {
-  if (!isOpen) return;
+const SelectContext = 'select-context' as const;
 
-  const originalOverflow = document.body.style.overflow;
-  document.body.style.overflow = 'hidden';
+interface SelectContextValue {
+  value: string;
+  selectedLabel: string;
+  isOpen: boolean;
+  disabled: boolean;
+  toggle: () => void;
+  close: () => void;
+  selectValue: (value: string, label: string) => void;
+  triggerElement: HTMLElement | null;
+  setTriggerElement: (element: HTMLElement | null) => void;
+}
 
-  return () => {
-    document.body.style.overflow = originalOverflow;
-  };
-});
+interface ContextRegistry {
+  [SelectContext]: SelectContextValue;
+}
 
 interface SelectSignature {
   Args: {
@@ -31,38 +46,22 @@ interface SelectSignature {
     disabled?: boolean;
     name?: string;
     required?: boolean;
-    placement?:
-      | 'top'
-      | 'right'
-      | 'bottom'
-      | 'left'
-      | 'top-start'
-      | 'top-end'
-      | 'right-start'
-      | 'right-end'
-      | 'bottom-start'
-      | 'bottom-end'
-      | 'left-start'
-      | 'left-end';
-    offsetOptions?: number;
   };
   Blocks: {
-    default: [
-      {
-        Trigger: ComponentLike<SelectTriggerSignature>;
-        Value: ComponentLike<SelectValueSignature>;
-        Content: ComponentLike<SelectContentSignature>;
-        value: string;
-        selectValue: (value: string, label: string) => void;
-      },
-    ];
+    default: [];
   };
 }
 
 class Select extends Component<SelectSignature> {
   @tracked isOpen = false;
-  @tracked selectedValue = this.args.value ?? this.args.defaultValue ?? '';
+  @tracked selectedValue: string;
   @tracked selectedLabel = '';
+  triggerElement: HTMLElement | null = null;
+
+  constructor(owner: Owner, args: SelectSignature['Args']) {
+    super(owner, args);
+    this.selectedValue = args.value ?? args.defaultValue ?? '';
+  }
 
   get value() {
     return this.args.value ?? this.selectedValue;
@@ -85,39 +84,30 @@ class Select extends Component<SelectSignature> {
     this.args.onValueChange?.(value);
   };
 
+  setTriggerElement = (element: HTMLElement | null) => {
+    this.triggerElement = element;
+  };
+
+  @cached
+  @provide(SelectContext)
+  get context(): SelectContextValue {
+    return {
+      value: this.value,
+      selectedLabel: this.selectedLabel,
+      isOpen: this.isOpen,
+      disabled: this.args.disabled ?? false,
+      toggle: this.toggle,
+      close: this.close,
+      selectValue: this.selectValue,
+      triggerElement: this.triggerElement,
+      setTriggerElement: this.setTriggerElement,
+    };
+  }
+
   <template>
-    <Popover
-      @placement={{if @placement @placement "bottom-start"}}
-      @offsetOptions={{if @offsetOptions @offsetOptions 4}}
-      @flipOptions={{hash}}
-      @shiftOptions={{hash padding=8}}
-      {{lockBodyScroll this.isOpen}}
-      as |p|
-    >
-      {{yield
-        (hash
-          Trigger=(component
-            SelectTrigger
-            reference=p.reference
-            toggle=this.toggle
-            disabled=@disabled
-          )
-          Value=(component
-            SelectValue value=this.value label=this.selectedLabel
-          )
-          Content=(component
-            SelectContent
-            isOpen=this.isOpen
-            popoverContent=p.Content
-            close=this.close
-            selectValue=this.selectValue
-            selectedValue=this.value
-          )
-          value=this.value
-          selectValue=this.selectValue
-        )
-      }}
-    </Popover>
+    <div data-slot="select" class="relative">
+      {{yield}}
+    </div>
   </template>
 }
 
@@ -126,11 +116,6 @@ interface SelectTriggerSignature {
   Args: {
     class?: string;
     size?: 'sm' | 'default';
-    disabled?: boolean;
-    toggle?: () => void;
-    reference?: ModifierLike<{
-      Element: HTMLElement | SVGElement;
-    }>;
   };
   Blocks: {
     default: [];
@@ -138,9 +123,18 @@ interface SelectTriggerSignature {
 }
 
 class SelectTrigger extends Component<SelectTriggerSignature> {
+  @consume(SelectContext) context!: ContextRegistry[typeof SelectContext];
+
   get sizeClass() {
     return this.args.size === 'sm' ? 'h-8' : 'h-9';
   }
+
+  registerElement = modifier((element: HTMLElement) => {
+    this.context.setTriggerElement(element);
+    return () => {
+      this.context.setTriggerElement(null);
+    };
+  });
 
   <template>
     <button
@@ -153,9 +147,9 @@ class SelectTrigger extends Component<SelectTriggerSignature> {
         "*:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
         @class
       }}
-      disabled={{@disabled}}
-      {{@reference}}
-      {{on "click" (if @toggle @toggle (fn))}}
+      disabled={{this.context.disabled}}
+      {{this.registerElement}}
+      {{on "click" this.context.toggle}}
       ...attributes
     >
       {{yield}}
@@ -169,54 +163,53 @@ interface SelectValueSignature {
   Args: {
     class?: string;
     placeholder?: string;
-    value?: string;
-    label?: string;
   };
   Blocks: {
     default: [];
   };
 }
 
-const SelectValue: TOC<SelectValueSignature> = <template>
-  <span data-slot="select-value" class={{cn @class}} ...attributes>
-    {{#if (has-block)}}
-      {{yield}}
-    {{else if @label}}
-      {{@label}}
-    {{else if @value}}
-      {{@value}}
-    {{else}}
-      {{@placeholder}}
-    {{/if}}
-  </span>
-</template>;
+class SelectValue extends Component<SelectValueSignature> {
+  @consume(SelectContext) context!: ContextRegistry[typeof SelectContext];
+
+  <template>
+    <span data-slot="select-value" class={{cn @class}} ...attributes>
+      {{#if (has-block)}}
+        {{yield}}
+      {{else if this.context.selectedLabel}}
+        {{this.context.selectedLabel}}
+      {{else if this.context.value}}
+        {{this.context.value}}
+      {{else}}
+        {{@placeholder}}
+      {{/if}}
+    </span>
+  </template>
+}
 
 interface SelectContentSignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
     position?: 'popper' | 'item-aligned';
-    align?: 'center' | 'start' | 'end';
-    isOpen?: boolean;
-    close?: () => void;
-    selectValue?: (value: string, label: string) => void;
-    selectedValue?: string;
-    popoverContent?: ComponentLike<{
-      Element: HTMLDivElement;
-      Args: { as?: string; class?: string };
-      Blocks: { default: [] };
-    }>;
+    align?: 'start' | 'center' | 'end';
   };
   Blocks: {
-    default: [
-      {
-        Item: ComponentLike<SelectItemSignature>;
-      },
-    ];
+    default: [];
   };
 }
 
 class SelectContent extends Component<SelectContentSignature> {
+  @consume(SelectContext) context!: ContextRegistry[typeof SelectContext];
+
+  @tracked x = 0;
+  @tracked y = 0;
+  private cleanup?: () => void;
+
+  get destinationElement() {
+    return document.body;
+  }
+
   get positionClass() {
     return this.args.position === 'popper'
       ? 'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1'
@@ -224,38 +217,68 @@ class SelectContent extends Component<SelectContentSignature> {
   }
 
   handleClickOutside = () => {
-    this.args.close?.();
+    this.context.close();
   };
 
+  positionContent = modifier(
+    (
+      element: HTMLElement,
+      [triggerElement]: [HTMLElement | null | undefined]
+    ) => {
+      if (!triggerElement) return;
+
+      const align = this.args.align ?? 'start';
+      const placementMap: Record<string, Placement> = {
+        start: 'bottom-start',
+        center: 'bottom',
+        end: 'bottom-end',
+      };
+
+      const update = () => {
+        void computePosition(triggerElement, element, {
+          placement: placementMap[align] || 'bottom-start',
+          strategy: 'fixed',
+          middleware: [offset(4), flip(), shift({ padding: 8 })],
+        }).then(({ x, y }) => {
+          this.x = x;
+          this.y = y;
+        });
+      };
+
+      this.cleanup = autoUpdate(triggerElement, element, update);
+
+      return () => {
+        this.cleanup?.();
+      };
+    }
+  );
+
+  get positionStyle(): string {
+    return `position: fixed; left: ${this.x}px; top: ${this.y}px; z-index: 50;`;
+  }
+
   <template>
-    {{#if @isOpen}}
-      {{#let @popoverContent as |Content|}}
-        <Content
-          @as="div"
+    {{#if this.context.isOpen}}
+      {{#in-element this.destinationElement insertBefore=null}}
+        <div
           data-slot="select-content"
           class={{cn
-            "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-96 min-w-32 overflow-x-hidden overflow-y-auto rounded-md border shadow-md"
+            "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 max-h-96 min-w-32 overflow-x-hidden overflow-y-auto rounded-md border shadow-md"
             this.positionClass
             @class
           }}
-          data-state={{if @isOpen "open" "closed"}}
+          data-state={{if this.context.isOpen "open" "closed"}}
           role="listbox"
+          style={{this.positionStyle}}
+          {{this.positionContent this.context.triggerElement}}
           {{onClickOutside this.handleClickOutside}}
           ...attributes
         >
           <div class="p-1">
-            {{yield
-              (hash
-                Item=(component
-                  SelectItem
-                  selectValue=@selectValue
-                  selectedValue=@selectedValue
-                )
-              )
-            }}
+            {{yield}}
           </div>
-        </Content>
-      {{/let}}
+        </div>
+      {{/in-element}}
     {{/if}}
   </template>
 }
@@ -302,8 +325,6 @@ interface SelectItemSignature {
     class?: string;
     value: string;
     disabled?: boolean;
-    selectValue?: (value: string, label: string) => void;
-    selectedValue?: string;
   };
   Blocks: {
     default: [];
@@ -311,16 +332,18 @@ interface SelectItemSignature {
 }
 
 class SelectItem extends Component<SelectItemSignature> {
+  @consume(SelectContext) context!: ContextRegistry[typeof SelectContext];
+
   itemElement: HTMLDivElement | null = null;
 
   get isSelected() {
-    return this.args.value === this.args.selectedValue;
+    return this.args.value === this.context.value;
   }
 
   handleClick = () => {
-    if (!this.args.disabled && this.args.selectValue) {
+    if (!this.args.disabled) {
       const label = this.itemElement?.textContent?.trim() || this.args.value;
-      this.args.selectValue(this.args.value, label);
+      this.context.selectValue(this.args.value, label);
     }
   };
 

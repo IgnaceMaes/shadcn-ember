@@ -1,14 +1,18 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Popover } from '@/components/ui/popover';
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from '@/components/ui/popover';
 
 <template>
-  <Popover as |popover|>
-    <popover.Trigger>
+  <Popover>
+    <PopoverTrigger>
       <Button @variant="outline">Open popover</Button>
-    </popover.Trigger>
-    <popover.Content @class="w-80">
+    </PopoverTrigger>
+    <PopoverContent @class="w-80">
       <div class="grid gap-4">
         <div class="space-y-2">
           <h4 class="font-medium leading-none">Dimensions</h4>
@@ -35,6 +39,6 @@ import { Popover } from '@/components/ui/popover';
           </div>
         </div>
       </div>
-    </popover.Content>
+    </PopoverContent>
   </Popover>
 </template>

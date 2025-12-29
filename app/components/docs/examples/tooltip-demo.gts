@@ -1,13 +1,17 @@
 import { Button } from '@/components/ui/button';
-import { Tooltip } from '@/components/ui/tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 <template>
-  <Tooltip as |t|>
-    <t.Trigger>
+  <Tooltip>
+    <TooltipTrigger>
       <Button @variant="outline">Hover</Button>
-    </t.Trigger>
-    <t.Content>
+    </TooltipTrigger>
+    <TooltipContent>
       <p>Add to library</p>
-    </t.Content>
+    </TooltipContent>
   </Tooltip>
 </template>

@@ -1,20 +1,29 @@
 import { Button } from '@/components/ui/button';
-import { Dialog } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 <template>
-  <Dialog as |d|>
-    <d.Trigger>
+  <Dialog>
+    <DialogTrigger>
       <Button @variant="outline">Share</Button>
-    </d.Trigger>
-    <d.Content @class="sm:max-w-md">
-      <d.Header>
-        <d.Title>Share link</d.Title>
-        <d.Description>
+    </DialogTrigger>
+    <DialogContent @class="sm:max-w-md">
+      <DialogHeader>
+        <DialogTitle>Share link</DialogTitle>
+        <DialogDescription>
           Anyone who has this link will be able to view this.
-        </d.Description>
-      </d.Header>
+        </DialogDescription>
+      </DialogHeader>
       <div class="flex items-center gap-2">
         <div class="grid flex-1 gap-2">
           <Label @for="link" @class="sr-only">
@@ -27,13 +36,13 @@ import { Label } from '@/components/ui/label';
           />
         </div>
       </div>
-      <d.Footer @class="sm:justify-start">
-        <d.Close>
+      <DialogFooter @class="sm:justify-start">
+        <DialogClose>
           <Button type="button" @variant="secondary">
             Close
           </Button>
-        </d.Close>
-      </d.Footer>
-    </d.Content>
+        </DialogClose>
+      </DialogFooter>
+    </DialogContent>
   </Dialog>
 </template>

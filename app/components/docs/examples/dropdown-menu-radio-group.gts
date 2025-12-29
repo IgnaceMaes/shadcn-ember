@@ -3,9 +3,12 @@ import { tracked } from '@glimmer/tracking';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
+  DropdownMenuContent,
   DropdownMenuLabel,
+  DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
 export default class DropdownMenuRadioGroupDemo extends Component {
@@ -16,14 +19,14 @@ export default class DropdownMenuRadioGroupDemo extends Component {
   };
 
   <template>
-    <DropdownMenu as |dm|>
-      <dm.Trigger @asChild={{true}}>
+    <DropdownMenu>
+      <DropdownMenuTrigger @asChild={{true}}>
         <Button @variant="outline">Open</Button>
-      </dm.Trigger>
-      <dm.Content @class="w-56" as |c|>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent @class="w-56">
         <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <c.RadioGroup
+        <DropdownMenuRadioGroup
           @value={{this.position}}
           @onValueChange={{this.setPosition}}
           as |value setValue|
@@ -49,8 +52,8 @@ export default class DropdownMenuRadioGroupDemo extends Component {
           >
             Right
           </DropdownMenuRadioItem>
-        </c.RadioGroup>
-      </dm.Content>
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
     </DropdownMenu>
   </template>
 }

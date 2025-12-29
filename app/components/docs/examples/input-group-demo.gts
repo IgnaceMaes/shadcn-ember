@@ -4,7 +4,12 @@ import Plus from '~icons/lucide/plus';
 import ArrowUp from '~icons/lucide/arrow-up';
 import Search from '~icons/lucide/search';
 
-import { DropdownMenu, DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import {
   InputGroup,
   InputGroupAddon,
@@ -14,7 +19,11 @@ import {
   InputGroupTextarea,
 } from '@/components/ui/input-group';
 import { Separator } from '@/components/ui/separator';
-import { Tooltip } from '@/components/ui/tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 <template>
   <div class="grid w-full max-w-sm gap-6">
@@ -32,8 +41,8 @@ import { Tooltip } from '@/components/ui/tooltip';
         <InputGroupText>https://</InputGroupText>
       </InputGroupAddon>
       <InputGroupAddon @align="inline-end">
-        <Tooltip as |t|>
-          <t.Trigger>
+        <Tooltip>
+          <TooltipTrigger>
             <InputGroupButton
               @class="rounded-full"
               @size="icon-xs"
@@ -42,8 +51,8 @@ import { Tooltip } from '@/components/ui/tooltip';
             >
               <InfoCircle />
             </InputGroupButton>
-          </t.Trigger>
-          <t.Content>This is content in a tooltip.</t.Content>
+          </TooltipTrigger>
+          <TooltipContent>This is content in a tooltip.</TooltipContent>
         </Tooltip>
       </InputGroupAddon>
     </InputGroup>
@@ -59,11 +68,11 @@ import { Tooltip } from '@/components/ui/tooltip';
         >
           <Plus />
         </InputGroupButton>
-        <DropdownMenu as |d|>
-          <d.Trigger>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
             <InputGroupButton @variant="ghost">Auto</InputGroupButton>
-          </d.Trigger>
-          <d.Content
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
             {{! @side="top" }}
             @align="start"
             @class="[--radius:0.95rem]"
@@ -71,7 +80,7 @@ import { Tooltip } from '@/components/ui/tooltip';
             <DropdownMenuItem>Auto</DropdownMenuItem>
             <DropdownMenuItem>Agent</DropdownMenuItem>
             <DropdownMenuItem>Manual</DropdownMenuItem>
-          </d.Content>
+          </DropdownMenuContent>
         </DropdownMenu>
         <InputGroupText @class="ml-auto">52% used</InputGroupText>
         <Separator @orientation="vertical" @class="!h-4" />

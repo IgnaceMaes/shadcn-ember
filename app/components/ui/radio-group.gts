@@ -1,12 +1,22 @@
 import Component from '@glimmer/component';
-import type { ComponentLike } from '@glint/template';
 import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
-import { hash } from '@ember/helper';
+import { provide, consume } from 'ember-provide-consume-context';
 import { cn } from '@/lib/utils';
 
-// RadioGroup Root Component
+const RadioGroupContext = 'radio-group-context' as const;
+
+interface RadioGroupContextValue {
+  value: string;
+  setValue: (value: string) => void;
+  disabled?: boolean;
+}
+
+interface ContextRegistry {
+  [RadioGroupContext]: RadioGroupContextValue;
+}
+
 interface RadioGroupSignature {
   Element: HTMLDivElement;
   Args: {
@@ -17,57 +27,54 @@ interface RadioGroupSignature {
     class?: string;
   };
   Blocks: {
-    default: [
-      {
-        Item: ComponentLike<RadioGroupItemSignature>;
-      },
-    ];
+    default: [];
   };
 }
 
 class RadioGroup extends Component<RadioGroupSignature> {
-  @tracked internalValue: string;
+  @tracked currentValue: string;
 
   constructor(owner: Owner, args: RadioGroupSignature['Args']) {
     super(owner, args);
-    this.internalValue = args.value ?? args.defaultValue ?? '';
+    this.currentValue = args.value ?? args.defaultValue ?? '';
   }
 
   get value() {
-    return this.args.value ?? this.internalValue;
+    return this.args.value ?? this.currentValue;
   }
 
   setValue = (value: string) => {
     if (!this.args.disabled) {
-      this.internalValue = value;
+      this.currentValue = value;
       this.args.onValueChange?.(value);
     }
   };
 
+  @provide(RadioGroupContext)
+  get context(): RadioGroupContextValue {
+    return {
+      value: this.value,
+      setValue: this.setValue,
+      disabled: this.args.disabled,
+    };
+  }
+
   <template>
-    {{#let
-      (component RadioGroupItem currentValue=this.value setValue=this.setValue)
-      as |Item|
-    }}
-      <div
-        class={{cn "grid gap-3" @class}}
-        role="radiogroup"
-        data-slot="radio-group"
-        ...attributes
-      >
-        {{yield (hash Item=Item)}}
-      </div>
-    {{/let}}
+    <div
+      class={{cn "grid gap-3" @class}}
+      role="radiogroup"
+      data-slot="radio-group"
+      ...attributes
+    >
+      {{yield}}
+    </div>
   </template>
 }
 
-// RadioGroupItem Component
 interface RadioGroupItemSignature {
   Element: HTMLButtonElement;
   Args: {
     value: string;
-    currentValue?: string;
-    setValue?: (value: string) => void;
     disabled?: boolean;
     class?: string;
   };
@@ -77,13 +84,20 @@ interface RadioGroupItemSignature {
 }
 
 class RadioGroupItem extends Component<RadioGroupItemSignature> {
+  @consume(RadioGroupContext)
+  context!: ContextRegistry[typeof RadioGroupContext];
+
   get checked() {
-    return this.args.currentValue === this.args.value;
+    return this.context.value === this.args.value;
+  }
+
+  get isDisabled() {
+    return this.args.disabled || this.context.disabled;
   }
 
   handleClick = () => {
-    if (!this.args.disabled) {
-      this.args.setValue?.(this.args.value);
+    if (!this.isDisabled) {
+      this.context.setValue(this.args.value);
     }
   };
 
@@ -98,7 +112,7 @@ class RadioGroupItem extends Component<RadioGroupItemSignature> {
         "border-input text-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 aspect-square size-4 shrink-0 rounded-full border shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50"
         @class
       }}
-      disabled={{@disabled}}
+      disabled={{this.isDisabled}}
       {{on "click" this.handleClick}}
       ...attributes
     >

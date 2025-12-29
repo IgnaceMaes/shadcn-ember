@@ -1,11 +1,31 @@
 import Component from '@glimmer/component';
-import type { ComponentLike } from '@glint/template';
-import type { TOC } from '@ember/component/template-only';
 import { tracked } from '@glimmer/tracking';
-import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
+import type Owner from '@ember/owner';
+import { provide, consume } from 'ember-provide-consume-context';
 import ChevronDown from '~icons/lucide/chevron-down';
 import { cn } from '@/lib/utils';
+
+const AccordionContext = 'accordion-context' as const;
+const AccordionItemContext = 'accordion-item-context' as const;
+
+interface AccordionContextValue {
+  value: string | string[];
+  type: 'single' | 'multiple';
+  collapsible: boolean;
+  disabled: boolean;
+  toggle: (itemValue: string) => void;
+}
+
+interface AccordionItemContextValue {
+  value: string;
+  disabled: boolean;
+}
+
+interface ContextRegistry {
+  [AccordionContext]: AccordionContextValue;
+  [AccordionItemContext]: AccordionItemContextValue;
+}
 
 interface AccordionItemSignature {
   Element: HTMLDivElement;
@@ -15,14 +35,7 @@ interface AccordionItemSignature {
     disabled?: boolean;
   };
   Blocks: {
-    default: [
-      ComponentLike<{
-        Element: AccordionTriggerSignature['Element'];
-        Args: Omit<AccordionTriggerSignature['Args'], 'toggle'>;
-        Blocks: AccordionTriggerSignature['Blocks'];
-      }>,
-      ComponentLike<AccordionContentSignature>,
-    ];
+    default: [];
   };
 }
 
@@ -30,8 +43,6 @@ interface AccordionTriggerSignature {
   Element: HTMLButtonElement;
   Args: {
     class?: string;
-    isOpen?: boolean;
-    toggle: () => void;
   };
   Blocks: {
     default: [];
@@ -42,7 +53,6 @@ interface AccordionContentSignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
-    isOpen?: boolean;
   };
   Blocks: {
     default: [];
@@ -60,46 +70,115 @@ interface AccordionSignature {
     class?: string;
   };
   Blocks: {
-    default: [ComponentLike<AccordionItemSignature>];
+    default: [];
   };
 }
 
-const AccordionTrigger: TOC<AccordionTriggerSignature> = <template>
-  <h3 class="flex">
-    <button
-      type="button"
-      data-state={{if @isOpen "open" "closed"}}
-      class={{cn
-        "flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline text-left [&[data-state=open]>svg]:rotate-180"
-        @class
-      }}
-      {{on "click" @toggle}}
+class AccordionTrigger extends Component<AccordionTriggerSignature> {
+  @consume(AccordionContext)
+  accordionContext!: ContextRegistry[typeof AccordionContext];
+  @consume(AccordionItemContext)
+  itemContext!: ContextRegistry[typeof AccordionItemContext];
+
+  get isOpen() {
+    if (Array.isArray(this.accordionContext.value)) {
+      return this.accordionContext.value.includes(this.itemContext.value);
+    }
+    return this.accordionContext.value === this.itemContext.value;
+  }
+
+  handleClick = () => {
+    if (!this.itemContext.disabled && !this.accordionContext.disabled) {
+      this.accordionContext.toggle(this.itemContext.value);
+    }
+  };
+
+  <template>
+    <h3 class="flex">
+      <button
+        type="button"
+        data-state={{if this.isOpen "open" "closed"}}
+        class={{cn
+          "flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline text-left [&[data-state=open]>svg]:rotate-180"
+          @class
+        }}
+        {{on "click" this.handleClick}}
+        ...attributes
+      >
+        {{yield}}
+        <ChevronDown
+          class="size-4 shrink-0 text-muted-foreground transition-transform duration-200"
+        />
+      </button>
+    </h3>
+  </template>
+}
+
+class AccordionContent extends Component<AccordionContentSignature> {
+  @consume(AccordionContext)
+  accordionContext!: ContextRegistry[typeof AccordionContext];
+  @consume(AccordionItemContext)
+  itemContext!: ContextRegistry[typeof AccordionItemContext];
+
+  get isOpen() {
+    if (Array.isArray(this.accordionContext.value)) {
+      return this.accordionContext.value.includes(this.itemContext.value);
+    }
+    return this.accordionContext.value === this.itemContext.value;
+  }
+
+  <template>
+    <div
+      data-state={{if this.isOpen "open" "closed"}}
+      class="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm"
+      hidden={{unless this.isOpen true}}
+      ...attributes
+    >
+      <div class={{cn "pb-4 pt-0" @class}}>
+        {{yield}}
+      </div>
+    </div>
+  </template>
+}
+
+class AccordionItem extends Component<AccordionItemSignature> {
+  @consume(AccordionContext)
+  accordionContext!: ContextRegistry[typeof AccordionContext];
+
+  get isOpen() {
+    if (Array.isArray(this.accordionContext.value)) {
+      return this.accordionContext.value.includes(this.args.value);
+    }
+    return this.accordionContext.value === this.args.value;
+  }
+
+  @provide(AccordionItemContext)
+  get itemContext(): AccordionItemContextValue {
+    return {
+      value: this.args.value,
+      disabled: this.args.disabled ?? false,
+    };
+  }
+
+  <template>
+    <div
+      data-state={{if this.isOpen "open" "closed"}}
+      data-disabled={{if @disabled "true"}}
+      class={{cn "border-b last:border-b-0" @class}}
       ...attributes
     >
       {{yield}}
-      <ChevronDown
-        class="size-4 shrink-0 text-muted-foreground transition-transform duration-200"
-      />
-    </button>
-  </h3>
-</template>;
-
-const AccordionContent: TOC<AccordionContentSignature> = <template>
-  <div
-    data-state={{if @isOpen "open" "closed"}}
-    class="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm"
-    hidden={{unless @isOpen true}}
-    ...attributes
-  >
-    <div class={{cn "pb-4 pt-0" @class}}>
-      {{yield}}
     </div>
-  </div>
-</template>;
+  </template>
+}
 
 class Accordion extends Component<AccordionSignature> {
-  @tracked internalValue: string | string[] =
-    this.args.value ?? (this.args.type === 'multiple' ? [] : '');
+  @tracked internalValue: string | string[];
+
+  constructor(owner: Owner, args: AccordionSignature['Args']) {
+    super(owner, args);
+    this.internalValue = args.value ?? (args.type === 'multiple' ? [] : '');
+  }
 
   get value() {
     return this.args.value ?? this.internalValue;
@@ -109,21 +188,20 @@ class Accordion extends Component<AccordionSignature> {
     return this.args.type ?? 'single';
   }
 
+  get collapsible() {
+    return this.args.collapsible ?? false;
+  }
+
+  get disabled() {
+    return this.args.disabled ?? false;
+  }
+
   setValue = (newValue: string | string[]) => {
     this.internalValue = newValue;
     this.args.onValueChange?.(newValue);
   };
 
-  isOpen = (itemValue: string) => {
-    if (Array.isArray(this.value)) {
-      return this.value.includes(itemValue);
-    }
-    return this.value === itemValue;
-  };
-
-  toggle = (itemValue: string, disabled?: boolean) => {
-    if (disabled || this.args.disabled) return;
-
+  toggle = (itemValue: string) => {
     if (this.type === 'multiple' && Array.isArray(this.value)) {
       const isCurrentlyOpen = this.value.includes(itemValue);
       const newValue = isCurrentlyOpen
@@ -132,37 +210,27 @@ class Accordion extends Component<AccordionSignature> {
       this.setValue(newValue);
     } else {
       const isCurrentlyOpen = this.value === itemValue;
-      const newValue =
-        isCurrentlyOpen && this.args.collapsible ? '' : itemValue;
+      const newValue = isCurrentlyOpen && this.collapsible ? '' : itemValue;
       this.setValue(newValue);
     }
   };
 
-  Item = <template>
-    {{#let (this.isOpen @value) as |isOpen|}}
-      <div
-        data-state={{if isOpen "open" "closed"}}
-        data-disabled={{if @disabled "true"}}
-        class={{cn "border-b last:border-b-0" @class}}
-        ...attributes
-      >
-        {{yield
-          (component
-            AccordionTrigger
-            isOpen=isOpen
-            toggle=(fn this.toggle @value @disabled)
-          )
-          (component AccordionContent isOpen=isOpen)
-        }}
-      </div>
-    {{/let}}
-  </template> as ComponentLike<AccordionItemSignature>;
+  @provide(AccordionContext)
+  get context(): AccordionContextValue {
+    return {
+      value: this.value,
+      type: this.type,
+      collapsible: this.collapsible,
+      disabled: this.disabled,
+      toggle: this.toggle,
+    };
+  }
 
   <template>
     <div data-orientation="vertical" class={{@class}} ...attributes>
-      {{yield this.Item}}
+      {{yield}}
     </div>
   </template>
 }
 
-export { Accordion, AccordionTrigger, AccordionContent };
+export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };

@@ -18,7 +18,7 @@ npx embercli-shadcn@latest add select
 **Install the following dependencies:**
 
 ```bash
-pnpm add ember-primitives ember-click-outside
+pnpm add ember-click-outside
 ```
 
 **Copy and paste the select component into your project:**
@@ -40,15 +40,15 @@ import {
 ```
 
 ```hbs showLineNumbers
-<Select as |s|>
-  <s.Trigger @class="w-[180px]">
-    <s.Value @placeholder="Theme" />
-  </s.Trigger>
-  <s.Content as |c|>
-    <c.Item @value="light">Light</c.Item>
-    <c.Item @value="dark">Dark</c.Item>
-    <c.Item @value="system">System</c.Item>
-  </s.Content>
+<Select>
+  <SelectTrigger @class="w-[180px]">
+    <SelectValue @placeholder="Theme" />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem @value="light">Light</SelectItem>
+    <SelectItem @value="dark">Dark</SelectItem>
+    <SelectItem @value="system">System</SelectItem>
+  </SelectContent>
 </Select>
 ```
 

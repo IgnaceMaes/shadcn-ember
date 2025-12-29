@@ -2,7 +2,11 @@ import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import {
   DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
   DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import AlertTriangleIcon from '~icons/lucide/alert-triangle';
 import CheckIcon from '~icons/lucide/check';
@@ -16,47 +20,47 @@ import VolumeOffIcon from '~icons/lucide/volume-off';
 <template>
   <ButtonGroup>
     <Button @variant="outline">Follow</Button>
-    <DropdownMenu as |dm|>
-      <dm.Trigger @asChild={{true}}>
+    <DropdownMenu>
+      <DropdownMenuTrigger @asChild={{true}}>
         <Button @variant="outline" class="!pl-2">
           <ChevronDownIcon />
         </Button>
-      </dm.Trigger>
-      <dm.Content @class="[--radius:1rem]" as |c|>
-        <c.Group as |g|>
-          <g.Item>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent @class="[--radius:1rem]">
+        <DropdownMenuGroup>
+          <DropdownMenuItem>
             <VolumeOffIcon />
             Mute Conversation
-          </g.Item>
-          <g.Item>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
             <CheckIcon />
             Mark as Read
-          </g.Item>
-          <g.Item>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
             <AlertTriangleIcon />
             Report Conversation
-          </g.Item>
-          <g.Item>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
             <UserRoundXIcon />
             Block User
-          </g.Item>
-          <g.Item>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
             <ShareIcon />
             Share Conversation
-          </g.Item>
-          <g.Item>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
             <CopyIcon />
             Copy Conversation
-          </g.Item>
-        </c.Group>
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <c.Group as |g|>
-          <g.Item @class="text-destructive focus:text-destructive">
+        <DropdownMenuGroup>
+          <DropdownMenuItem @class="text-destructive focus:text-destructive">
             <TrashIcon />
             Delete Conversation
-          </g.Item>
-        </c.Group>
-      </dm.Content>
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+      </DropdownMenuContent>
     </DropdownMenu>
   </ButtonGroup>
 </template>

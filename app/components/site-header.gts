@@ -3,7 +3,11 @@ import PhNotches from 'ember-phosphor-icons/components/ph-notches';
 import { Button } from '@/components/ui/button';
 import { Kbd } from '@/components/ui/kbd';
 import { Separator } from '@/components/ui/separator';
-import { Tooltip } from '@/components/ui/tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import ThemeToggle from '@/components/theme-toggle';
 import CommandMenu from '@/components/command-menu';
 
@@ -66,18 +70,19 @@ import CommandMenu from '@/components/command-menu';
             </a>
           </Button>
           <Separator @orientation="vertical" @class="h-4" />
-          <Tooltip @placement="bottom" as |t|>
-            <t.Trigger>
+          <Tooltip>
+            <TooltipTrigger>
               <ThemeToggle />
-            </t.Trigger>
-            <t.Content
+            </TooltipTrigger>
+            <TooltipContent
               @class="top-full mt-2 bottom-auto mb-0 whitespace-nowrap"
+              @side="bottom"
             >
               Toggle theme
               <Kbd
                 @class="bg-background/20 text-background dark:bg-background/10"
               >D</Kbd>
-            </t.Content>
+            </TooltipContent>
           </Tooltip>
         </div>
       </div>

@@ -3,8 +3,11 @@ import { tracked } from '@glimmer/tracking';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
 export default class DropdownMenuCheckboxesDemo extends Component {
@@ -25,32 +28,32 @@ export default class DropdownMenuCheckboxesDemo extends Component {
   };
 
   <template>
-    <DropdownMenu as |dm|>
-      <dm.Trigger @asChild={{true}}>
+    <DropdownMenu>
+      <DropdownMenuTrigger @asChild={{true}}>
         <Button @variant="outline">Open</Button>
-      </dm.Trigger>
-      <dm.Content @class="w-56" as |c|>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent @class="w-56">
         <DropdownMenuLabel>Appearance</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <c.CheckboxItem
+        <DropdownMenuCheckboxItem
           @checked={{this.showStatusBar}}
           @onCheckedChange={{this.setShowStatusBar}}
         >
           Status Bar
-        </c.CheckboxItem>
-        <c.CheckboxItem
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
           @checked={{this.showActivityBar}}
           @onCheckedChange={{this.setShowActivityBar}}
         >
           Activity Bar
-        </c.CheckboxItem>
-        <c.CheckboxItem
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
           @checked={{this.showPanel}}
           @onCheckedChange={{this.setShowPanel}}
         >
           Panel
-        </c.CheckboxItem>
-      </dm.Content>
+        </DropdownMenuCheckboxItem>
+      </DropdownMenuContent>
     </DropdownMenu>
   </template>
 }

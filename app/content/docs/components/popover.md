@@ -18,7 +18,7 @@ npx embercli-shadcn@latest add popover
 **Install the following dependencies:**
 
 ```bash
-pnpm add ember-primitives ember-click-outside
+pnpm add ember-click-outside
 ```
 
 **Copy and paste the popover component into your project:**
@@ -30,12 +30,16 @@ pnpm add ember-primitives ember-click-outside
 ## Usage
 
 ```gts showLineNumbers
-import { Popover } from '@/components/ui/popover';
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from '@/components/ui/popover';
 ```
 
 ```hbs showLineNumbers
-<Popover as |popover|>
-  <popover.Trigger>Open</popover.Trigger>
-  <popover.Content>Place content for the popover here.</popover.Content>
+<Popover>
+  <PopoverTrigger>Open</PopoverTrigger>
+  <PopoverContent>Place content for the popover here.</PopoverContent>
 </Popover>
 ```

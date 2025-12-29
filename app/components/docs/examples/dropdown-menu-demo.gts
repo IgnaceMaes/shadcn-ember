@@ -1,65 +1,83 @@
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
 <template>
-  <DropdownMenu as |dm|>
-    <dm.Trigger @asChild={{true}}>
+  <DropdownMenu>
+    <DropdownMenuTrigger @asChild={{true}}>
       <Button @variant="outline">Open</Button>
-    </dm.Trigger>
-    <dm.Content @class="w-56" @align="start" as |c|>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent @class="w-56" @align="start">
       <DropdownMenuLabel>My Account</DropdownMenuLabel>
-      <c.Group as |g|>
-        <g.Item>
+      <DropdownMenuGroup>
+        <DropdownMenuItem>
           Profile
           <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-        </g.Item>
-        <g.Item>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
           Billing
           <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-        </g.Item>
-        <g.Item>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
           Settings
           <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-        </g.Item>
-        <g.Item>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
           Keyboard shortcuts
           <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
-        </g.Item>
-      </c.Group>
+        </DropdownMenuItem>
+      </DropdownMenuGroup>
       <DropdownMenuSeparator />
-      <c.Group as |g|>
-        <g.Item>Team</g.Item>
-        <g.Sub as |sub|>
-          <sub.Trigger>Invite users</sub.Trigger>
+      <DropdownMenuGroup>
+        <DropdownMenuItem>Team</DropdownMenuItem>
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
           <DropdownMenuPortal>
-            <sub.Content as |sc|>
-              <sc.Item>Email</sc.Item>
-              <sc.Item>Message</sc.Item>
+            <DropdownMenuSubContent>
+              <DropdownMenuItem>Email</DropdownMenuItem>
+              <DropdownMenuItem>Message</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <sc.Item>More...</sc.Item>
-            </sub.Content>
+              <DropdownMenuItem>More...</DropdownMenuItem>
+            </DropdownMenuSubContent>
           </DropdownMenuPortal>
-        </g.Sub>
-        <g.Item>
+        </DropdownMenuSub>
+        <DropdownMenuItem>
           New Team
           <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
-        </g.Item>
-      </c.Group>
+        </DropdownMenuItem>
+      </DropdownMenuGroup>
       <DropdownMenuSeparator />
-      <c.Item>GitHub</c.Item>
-      <c.Item>Support</c.Item>
-      <c.Item @disabled={{true}}>API</c.Item>
+      <DropdownMenuGroup>
+        <DropdownMenuItem>
+          Github
+          <DropdownMenuShortcut>⌘G</DropdownMenuShortcut>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          Support
+          <DropdownMenuShortcut>⌘H</DropdownMenuShortcut>
+        </DropdownMenuItem>
+        <DropdownMenuItem @disabled={{true}}>
+          API
+          <DropdownMenuShortcut>⌘A</DropdownMenuShortcut>
+        </DropdownMenuItem>
+      </DropdownMenuGroup>
       <DropdownMenuSeparator />
-      <c.Item>
+      <DropdownMenuItem>
         Log out
         <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-      </c.Item>
-    </dm.Content>
+      </DropdownMenuItem>
+    </DropdownMenuContent>
   </DropdownMenu>
 </template>

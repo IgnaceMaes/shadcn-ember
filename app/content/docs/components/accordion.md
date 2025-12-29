@@ -30,29 +30,34 @@ pnpm add ember-velcro
 ## Usage
 
 ```gts showLineNumbers
-import { Accordion } from '@/components/ui/accordion';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from '@/components/ui/accordion';
 ```
 
 ```hbs showLineNumbers
-<Accordion @type='single' @collapsible={{true}} as |Item|>
-  <Item @value='item-1' as |Trigger Content|>
-    <Trigger>Is it accessible?</Trigger>
-    <Content>Yes. It adheres to the WAI-ARIA design pattern.</Content>
-  </Item>
+<Accordion @type='single' @collapsible={{true}}>
+  <AccordionItem @value='item-1'>
+    <AccordionTrigger>Is it accessible?</AccordionTrigger>
+    <AccordionContent>Yes. It adheres to the WAI-ARIA design pattern.</AccordionContent>
+  </AccordionItem>
 
-  <Item @value='item-2' as |Trigger Content|>
-    <Trigger>Is it styled?</Trigger>
-    <Content>
+  <AccordionItem @value='item-2'>
+    <AccordionTrigger>Is it styled?</AccordionTrigger>
+    <AccordionContent>
       Yes. It comes with default styles that matches the other components'
       aesthetic.
-    </Content>
-  </Item>
+    </AccordionContent>
+  </AccordionItem>
 
-  <Item @value='item-3' as |Trigger Content|>
-    <Trigger>Is it animated?</Trigger>
-    <Content>
+  <AccordionItem @value='item-3'>
+    <AccordionTrigger>Is it animated?</AccordionTrigger>
+    <AccordionContent>
       Yes. It's animated by default, but you can disable it if you prefer.
-    </Content>
-  </Item>
+    </AccordionContent>
+  </AccordionItem>
 </Accordion>
 ```

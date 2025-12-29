@@ -4,7 +4,11 @@ import { on } from '@ember/modifier';
 import Check from '~icons/lucide/check';
 import Copy from '~icons/lucide/copy';
 import { Button } from '@/components/ui/button';
-import { Tooltip } from '@/components/ui/tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 
 interface CopyButtonSignature {
@@ -34,8 +38,8 @@ export default class CopyButton extends Component<CopyButtonSignature> {
   };
 
   <template>
-    <Tooltip as |t|>
-      <t.Trigger @class={{cn "absolute top-3 right-3 z-10" @class}}>
+    <Tooltip>
+      <TooltipTrigger @class={{cn "absolute top-3 right-3 z-10" @class}}>
         <Button
           data-slot="copy-button"
           data-copied={{this.hasCopied}}
@@ -50,14 +54,14 @@ export default class CopyButton extends Component<CopyButtonSignature> {
             <Copy />
           {{/if}}
         </Button>
-      </t.Trigger>
-      <t.Content>
+      </TooltipTrigger>
+      <TooltipContent>
         {{#if this.hasCopied}}
           Copied
         {{else}}
           {{if @tooltip @tooltip "Copy to Clipboard"}}
         {{/if}}
-      </t.Content>
+      </TooltipContent>
     </Tooltip>
   </template>
 }

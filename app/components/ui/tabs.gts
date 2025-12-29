@@ -2,9 +2,20 @@ import Component from '@glimmer/component';
 import type { TOC } from '@ember/component/template-only';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
-import { hash } from '@ember/helper';
 import type Owner from '@ember/owner';
+import { provide, consume } from 'ember-provide-consume-context';
 import { cn } from '@/lib/utils';
+
+const TabsContext = 'tabs-context' as const;
+
+interface TabsContextValue {
+  value: string;
+  setValue: (value: string) => void;
+}
+
+interface ContextRegistry {
+  [TabsContext]: TabsContextValue;
+}
 
 interface TabsSignature {
   Args: {
@@ -14,16 +25,7 @@ interface TabsSignature {
     class?: string;
   };
   Blocks: {
-    default: [
-      {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        List: any;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        Trigger: any;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        Content: any;
-      },
-    ];
+    default: [];
   };
   Element: HTMLDivElement;
 }
@@ -45,21 +47,21 @@ class Tabs extends Component<TabsSignature> {
     this.args.onValueChange?.(value);
   };
 
+  @provide(TabsContext)
+  get context(): TabsContextValue {
+    return {
+      value: this.value,
+      setValue: this.setValue,
+    };
+  }
+
   <template>
     <div
       data-slot="tabs"
       class={{cn "flex flex-col gap-2" @class}}
       ...attributes
     >
-      {{yield
-        (hash
-          List=(component TabsList)
-          Trigger=(component
-            TabsTrigger currentTabValue=this.value setValue=this.setValue
-          )
-          Content=(component TabsContent currentTabValue=this.value)
-        )
-      }}
+      {{yield}}
     </div>
   </template>
 }
@@ -93,8 +95,6 @@ interface TabsTriggerSignature {
     value: string;
     class?: string;
     disabled?: boolean;
-    currentTabValue?: string;
-    setValue?: (value: string) => void;
   };
   Blocks: {
     default: [];
@@ -103,13 +103,15 @@ interface TabsTriggerSignature {
 }
 
 class TabsTrigger extends Component<TabsTriggerSignature> {
+  @consume(TabsContext) context!: ContextRegistry[typeof TabsContext];
+
   get isActive() {
-    return this.args.value === this.args.currentTabValue;
+    return this.args.value === this.context.value;
   }
 
   handleClick = () => {
-    if (!this.args.disabled && this.args.setValue) {
-      this.args.setValue(this.args.value);
+    if (!this.args.disabled) {
+      this.context.setValue(this.args.value);
     }
   };
 
@@ -137,7 +139,6 @@ interface TabsContentSignature {
   Args: {
     value: string;
     class?: string;
-    currentTabValue?: string;
   };
   Blocks: {
     default: [];
@@ -146,8 +147,10 @@ interface TabsContentSignature {
 }
 
 class TabsContent extends Component<TabsContentSignature> {
+  @consume(TabsContext) context!: ContextRegistry[typeof TabsContext];
+
   get isActive() {
-    return this.args.value === this.args.currentTabValue;
+    return this.args.value === this.context.value;
   }
 
   <template>

@@ -4,8 +4,16 @@ import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import {
   DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import ArchiveIcon from '~icons/lucide/archive';
 import ArrowLeftIcon from '~icons/lucide/arrow-left';
@@ -37,44 +45,44 @@ export default class ButtonGroupDemo extends Component {
       </ButtonGroup>
       <ButtonGroup>
         <Button @variant="outline">Snooze</Button>
-        <DropdownMenu as |dm|>
-          <dm.Trigger @asChild={{true}}>
+        <DropdownMenu>
+          <DropdownMenuTrigger @asChild={{true}}>
             <Button @variant="outline" @size="icon" aria-label="More Options">
               <MoreHorizontalIcon />
             </Button>
-          </dm.Trigger>
-          <dm.Content @class="w-52" as |c|>
-            <c.Group as |g|>
-              <g.Item>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent @class="w-52">
+            <DropdownMenuGroup>
+              <DropdownMenuItem>
                 <MailCheckIcon />
                 Mark as Read
-              </g.Item>
-              <g.Item>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
                 <ArchiveIcon />
                 Archive
-              </g.Item>
-            </c.Group>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <c.Group as |g|>
-              <g.Item>
+            <DropdownMenuGroup>
+              <DropdownMenuItem>
                 <ClockIcon />
                 Snooze
-              </g.Item>
-              <g.Item>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
                 <CalendarPlusIcon />
                 Add to Calendar
-              </g.Item>
-              <g.Item>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
                 <ListFilterIcon />
                 Add to List
-              </g.Item>
-              <g.Sub as |sub|>
-                <sub.Trigger>
+              </DropdownMenuItem>
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>
                   <TagIcon />
                   Label As...
-                </sub.Trigger>
-                <sub.Content>
-                  <c.RadioGroup
+                </DropdownMenuSubTrigger>
+                <DropdownMenuSubContent>
+                  <DropdownMenuRadioGroup
                     @value={{this.label}}
                     @onValueChange={{this.handleLabelChange}}
                     as |value setValue|
@@ -100,18 +108,20 @@ export default class ButtonGroupDemo extends Component {
                     >
                       Other
                     </DropdownMenuRadioItem>
-                  </c.RadioGroup>
-                </sub.Content>
-              </g.Sub>
-            </c.Group>
+                  </DropdownMenuRadioGroup>
+                </DropdownMenuSubContent>
+              </DropdownMenuSub>
+            </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <c.Group as |g|>
-              <g.Item @class="text-destructive focus:text-destructive">
+            <DropdownMenuGroup>
+              <DropdownMenuItem
+                @class="text-destructive focus:text-destructive"
+              >
                 <Trash2Icon />
                 Trash
-              </g.Item>
-            </c.Group>
-          </dm.Content>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
         </DropdownMenu>
       </ButtonGroup>
     </ButtonGroup>

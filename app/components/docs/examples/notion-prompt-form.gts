@@ -24,7 +24,18 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command';
-import { DropdownMenu } from '@/components/ui/dropdown-menu';
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuCheckboxItem,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent,
+  DropdownMenuLabel,
+} from '@/components/ui/dropdown-menu';
 import { Field, FieldLabel } from '@/components/ui/field';
 import {
   InputGroup,
@@ -32,9 +43,17 @@ import {
   InputGroupButton,
   InputGroupTextarea,
 } from '@/components/ui/input-group';
-import { Popover } from '@/components/ui/popover';
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from '@/components/ui/popover';
 import { Switch } from '@/components/ui/switch';
-import { Tooltip } from '@/components/ui/tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 const SAMPLE_DATA = {
   mentionable: [
@@ -229,10 +248,10 @@ class NotionPromptForm extends Component {
             placeholder="Ask, search, or make anything..."
           />
           <InputGroupAddon @align="block-start">
-            <Popover as |p|>
-              <Tooltip as |t|>
-                <t.Trigger {{on "focusin" this.stopPropagation}}>
-                  <p.Trigger>
+            <Popover>
+              <Tooltip>
+                <TooltipTrigger {{on "focusin" this.stopPropagation}}>
+                  <PopoverTrigger>
                     <InputGroupButton
                       @variant="outline"
                       @size={{if this.hasMentions "icon-sm" "sm"}}
@@ -241,11 +260,11 @@ class NotionPromptForm extends Component {
                       <At />
                       {{#unless this.hasMentions}}Add context{{/unless}}
                     </InputGroupButton>
-                  </p.Trigger>
-                </t.Trigger>
-                <t.Content>Mention a person, page, or date</t.Content>
+                  </PopoverTrigger>
+                </TooltipTrigger>
+                <TooltipContent>Mention a person, page, or date</TooltipContent>
               </Tooltip>
-              <p.Content @class="p-0 [--radius:1.2rem]" @align="start">
+              <PopoverContent @class="p-0 [--radius:1.2rem]" @align="start">
                 <Command>
                   <CommandInput placeholder="Search pages..." />
                   <CommandList>
@@ -264,7 +283,7 @@ class NotionPromptForm extends Component {
                     {{/each-in}}
                   </CommandList>
                 </Command>
-              </p.Content>
+              </PopoverContent>
             </Popover>
             <div class="no-scrollbar -m-1.5 flex gap-1 overflow-y-auto p-1.5">
               {{#each this.mentionedItems as |item|}}
@@ -282,8 +301,8 @@ class NotionPromptForm extends Component {
             </div>
           </InputGroupAddon>
           <InputGroupAddon @align="block-end" @class="gap-1">
-            <Tooltip as |t|>
-              <t.Trigger>
+            <Tooltip>
+              <TooltipTrigger>
                 <InputGroupButton
                   @size="icon-sm"
                   @class="rounded-full"
@@ -292,17 +311,16 @@ class NotionPromptForm extends Component {
                 >
                   <Paperclip />
                 </InputGroupButton>
-              </t.Trigger>
-              <t.Content>Attach file</t.Content>
+              </TooltipTrigger>
+              <TooltipContent>Attach file</TooltipContent>
             </Tooltip>
             <DropdownMenu
               @open={{this.modelPopoverOpen}}
               @onOpenChange={{fn (mut this.modelPopoverOpen)}}
-              as |d|
             >
-              <Tooltip as |t|>
-                <t.Trigger>
-                  <d.Trigger>
+              <Tooltip>
+                <TooltipTrigger>
+                  <DropdownMenuTrigger>
                     <InputGroupButton
                       @size="sm"
                       @class="rounded-full"
@@ -310,13 +328,13 @@ class NotionPromptForm extends Component {
                     >
                       {{this.selectedModel.name}}
                     </InputGroupButton>
-                  </d.Trigger>
-                </t.Trigger>
-                <t.Content>Select AI model</t.Content>
+                  </DropdownMenuTrigger>
+                </TooltipTrigger>
+                <TooltipContent>Select AI model</TooltipContent>
               </Tooltip>
-              <d.Content @align="start" @class="[--radius:1rem]" as |c|>
+              <DropdownMenuContent @align="start" @class="[--radius:1rem]">
                 {{#each SAMPLE_DATA.models as |model|}}
-                  <c.CheckboxItem
+                  <DropdownMenuCheckboxItem
                     @checked={{this.isModelSelected model.name}}
                     @onCheckedChange={{fn this.selectModel model}}
                     @class="pl-2 *:[span:first-child]:right-2 *:[span:first-child]:left-auto"
@@ -330,16 +348,15 @@ class NotionPromptForm extends Component {
                         {{model.badge}}
                       </Badge>
                     {{/if}}
-                  </c.CheckboxItem>
+                  </DropdownMenuCheckboxItem>
                 {{/each}}
-              </d.Content>
+              </DropdownMenuContent>
             </DropdownMenu>
             <DropdownMenu
               @open={{this.scopeMenuOpen}}
               @onOpenChange={{fn (mut this.scopeMenuOpen)}}
-              as |d|
             >
-              <d.Trigger>
+              <DropdownMenuTrigger>
                 <InputGroupButton
                   @size="sm"
                   @class="rounded-full"
@@ -348,10 +365,10 @@ class NotionPromptForm extends Component {
                   <Globe />
                   All Sources
                 </InputGroupButton>
-              </d.Trigger>
-              <d.Content @align="end" @class="[--radius:1rem]" as |c|>
-                <c.Group as |g|>
-                  <g.Item
+              </DropdownMenuTrigger>
+              <DropdownMenuContent @align="end" @class="[--radius:1rem]">
+                <DropdownMenuGroup>
+                  <DropdownMenuItem
                     @onSelect={{this.noop}}
                     @asChild={{true}}
                     as |classes|
@@ -365,26 +382,26 @@ class NotionPromptForm extends Component {
                         @checked={{true}}
                       />
                     </label>
-                  </g.Item>
-                </c.Group>
-                <c.Item>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+                <DropdownMenuItem>
                   <Grid3x3 />
                   Apps and Integrations
-                </c.Item>
-                <c.Item>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
                   <PlusCircle />
                   All Sources I can access
-                </c.Item>
-                <c.Group as |g|>
-                  <g.Sub as |sub|>
-                    <sub.Trigger>
+                </DropdownMenuItem>
+                <DropdownMenuGroup>
+                  <DropdownMenuSub>
+                    <DropdownMenuSubTrigger>
                       <Avatar @class="size-4">
                         <AvatarImage @src="https://github.com/shadcn.png" />
                         <AvatarFallback>CN</AvatarFallback>
                       </Avatar>
                       shadcn
-                    </sub.Trigger>
-                    <sub.Content @class="w-72 p-0 [--radius:1rem]">
+                    </DropdownMenuSubTrigger>
+                    <DropdownMenuSubContent @class="w-72 p-0 [--radius:1rem]">
                       <Command>
                         <CommandInput
                           placeholder="Find or use knowledge in..."
@@ -411,23 +428,23 @@ class NotionPromptForm extends Component {
                           </CommandGroup>
                         </CommandList>
                       </Command>
-                    </sub.Content>
-                  </g.Sub>
-                  <g.Item>
+                    </DropdownMenuSubContent>
+                  </DropdownMenuSub>
+                  <DropdownMenuItem>
                     <BookOpen />
                     Help Center
-                  </g.Item>
-                </c.Group>
-                <c.Group as |g|>
-                  <g.Item>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+                <DropdownMenuGroup>
+                  <DropdownMenuItem>
                     <Plus />
                     Connect Apps
-                  </g.Item>
-                  <g.Label @class="text-muted-foreground text-xs">
+                  </DropdownMenuItem>
+                  <DropdownMenuLabel @class="text-muted-foreground text-xs">
                     We'll only search in the sources selected here.
-                  </g.Label>
-                </c.Group>
-              </d.Content>
+                  </DropdownMenuLabel>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
             </DropdownMenu>
             <InputGroupButton
               aria-label="Send"

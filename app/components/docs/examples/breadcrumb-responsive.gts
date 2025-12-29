@@ -8,7 +8,12 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { DropdownMenu } from '@/components/ui/dropdown-menu';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 <template>
   <Breadcrumb>
@@ -35,16 +40,16 @@ import { DropdownMenu } from '@/components/ui/dropdown-menu';
       </BreadcrumbItem>
       <BreadcrumbSeparator class="hidden md:block" />
       <BreadcrumbItem class="md:hidden">
-        <DropdownMenu as |dm|>
-          <dm.Trigger @class="flex items-center gap-1">
+        <DropdownMenu>
+          <DropdownMenuTrigger @class="flex items-center gap-1">
             <BreadcrumbEllipsis class="size-4" />
             <span class="sr-only">Toggle menu</span>
-          </dm.Trigger>
-          <dm.Content as |c|>
-            <c.Item>Documentation</c.Item>
-            <c.Item>Components</c.Item>
-            <c.Item>Breadcrumb</c.Item>
-          </dm.Content>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem>Documentation</DropdownMenuItem>
+            <DropdownMenuItem>Components</DropdownMenuItem>
+            <DropdownMenuItem>Breadcrumb</DropdownMenuItem>
+          </DropdownMenuContent>
         </DropdownMenu>
       </BreadcrumbItem>
       <BreadcrumbSeparator class="md:hidden" />

@@ -2,7 +2,13 @@ import type { TOC } from '@ember/component/template-only';
 import Component from '@glimmer/component';
 import { cn } from '@/lib/utils';
 import Search from '~icons/lucide/search';
-import { Dialog } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 interface CommandSignature {
   Element: HTMLDivElement;
@@ -55,12 +61,12 @@ class CommandDialog extends Component<CommandDialogSignature> {
   }
 
   <template>
-    <Dialog @open={{@open}} @onOpenChange={{@onOpenChange}} as |d|>
-      <d.Header class="sr-only">
-        <d.Title>{{this.title}}</d.Title>
-        <d.Description>{{this.description}}</d.Description>
-      </d.Header>
-      <d.Content
+    <Dialog @open={{@open}} @onOpenChange={{@onOpenChange}}>
+      <DialogHeader class="sr-only">
+        <DialogTitle>{{this.title}}</DialogTitle>
+        <DialogDescription>{{this.description}}</DialogDescription>
+      </DialogHeader>
+      <DialogContent
         @class={{cn "overflow-hidden p-0" @class}}
         @showCloseButton={{this.showCloseButton}}
       >
@@ -69,7 +75,7 @@ class CommandDialog extends Component<CommandDialogSignature> {
         >
           {{yield}}
         </Command>
-      </d.Content>
+      </DialogContent>
     </Dialog>
   </template>
 }

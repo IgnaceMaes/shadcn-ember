@@ -5,8 +5,18 @@ import Copy from '~icons/lucide/copy';
 import Check from '~icons/lucide/check';
 import ChevronDown from '~icons/lucide/chevron-down';
 import { Button } from '@/components/ui/button';
-import { DropdownMenu } from '@/components/ui/dropdown-menu';
-import { Popover } from '@/components/ui/popover';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverAnchor,
+} from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 
@@ -83,7 +93,7 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
   </template>;
 
   <template>
-    <Popover as |p|>
+    <Popover>
       <div
         class={{cn
           "bg-secondary group/buttons relative flex rounded-lg *:data-[slot=button]:focus-visible:relative *:data-[slot=button]:focus-visible:z-10"
@@ -91,7 +101,7 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
         }}
         ...attributes
       >
-        <p.Anchor />
+        <PopoverAnchor />
 
         <Button
           @variant="secondary"
@@ -107,8 +117,8 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
           Copy Page
         </Button>
 
-        <DropdownMenu as |dm|>
-          <dm.Trigger @class="hidden sm:flex">
+        <DropdownMenu>
+          <DropdownMenuTrigger @class="hidden sm:flex">
             <Button
               @variant="secondary"
               @size="sm"
@@ -116,10 +126,10 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
             >
               <ChevronDown class="rotate-180 sm:rotate-0" />
             </Button>
-          </dm.Trigger>
+          </DropdownMenuTrigger>
 
-          <dm.Content @align="end" @class="shadow-none min-w-48" as |c|>
-            <c.Item @asChild={{true}} as |itemClass|>
+          <DropdownMenuContent @align="end" @class="shadow-none min-w-48">
+            <DropdownMenuItem @asChild={{true}} as |itemClass|>
               <a
                 href={{this.markdownUrl}}
                 target="_blank"
@@ -129,9 +139,9 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
                 <this.MarkdownIcon />
                 View as Markdown
               </a>
-            </c.Item>
+            </DropdownMenuItem>
 
-            <c.Item @asChild={{true}} as |itemClass|>
+            <DropdownMenuItem @asChild={{true}} as |itemClass|>
               <a
                 href={{this.chatGptUrl}}
                 target="_blank"
@@ -141,9 +151,9 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
                 <this.ChatGptIcon />
                 Open in ChatGPT
               </a>
-            </c.Item>
+            </DropdownMenuItem>
 
-            <c.Item @asChild={{true}} as |itemClass|>
+            <DropdownMenuItem @asChild={{true}} as |itemClass|>
               <a
                 href={{this.claudeUrl}}
                 target="_blank"
@@ -153,8 +163,8 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
                 <this.ClaudeIcon />
                 Open in Claude
               </a>
-            </c.Item>
-          </dm.Content>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
         </DropdownMenu>
 
         <Separator
@@ -162,7 +172,7 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
           @class="!bg-foreground/10 absolute top-0 right-8 z-0 !h-8 peer-focus-visible:opacity-0 sm:right-7 sm:!h-7"
         />
 
-        <p.Trigger @class="flex sm:hidden">
+        <PopoverTrigger @class="flex sm:hidden">
           <Button
             @variant="secondary"
             @size="sm"
@@ -170,9 +180,9 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
           >
             <ChevronDown class="rotate-180 sm:rotate-0" />
           </Button>
-        </p.Trigger>
+        </PopoverTrigger>
 
-        <p.Content
+        <PopoverContent
           @class="bg-background/70 dark:bg-background/60 w-52 !origin-center rounded-lg p-1 shadow-sm backdrop-blur-sm"
           @align="start"
           @side="top"
@@ -230,7 +240,7 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
               Open in Claude
             </a>
           </Button>
-        </p.Content>
+        </PopoverContent>
       </div>
     </Popover>
   </template>

@@ -7,7 +7,7 @@ import {
   FieldSet,
   FieldTitle,
 } from '@/components/ui/field';
-import { RadioGroup } from '@/components/ui/radio-group';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 <template>
   <div class="w-full max-w-md">
@@ -19,7 +19,7 @@ import { RadioGroup } from '@/components/ui/radio-group';
         <FieldDescription>
           Select the compute environment for your cluster.
         </FieldDescription>
-        <RadioGroup @defaultValue="kubernetes" as |r|>
+        <RadioGroup @defaultValue="kubernetes">
           <FieldLabel @for="kubernetes-radio">
             <Field @orientation="horizontal">
               <FieldContent>
@@ -28,7 +28,7 @@ import { RadioGroup } from '@/components/ui/radio-group';
                   Run GPU workloads on a K8s configured cluster.
                 </FieldDescription>
               </FieldContent>
-              <r.Item @value="kubernetes" id="kubernetes-radio" />
+              <RadioGroupItem @value="kubernetes" id="kubernetes-radio" />
             </Field>
           </FieldLabel>
           <FieldLabel @for="vm-radio">
@@ -39,7 +39,7 @@ import { RadioGroup } from '@/components/ui/radio-group';
                   Access a VM configured cluster to run GPU workloads.
                 </FieldDescription>
               </FieldContent>
-              <r.Item @value="vm" id="vm-radio" />
+              <RadioGroupItem @value="vm" id="vm-radio" />
             </Field>
           </FieldLabel>
         </RadioGroup>
