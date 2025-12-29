@@ -1,11 +1,16 @@
-import { Accordion } from '@/components/ui/accordion';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from '@/components/ui/accordion';
 
 <template>
   <div class="w-full">
-    <Accordion @type="single" @collapsible={{true}} as |Item|>
-      <Item @value="item-1" as |Trigger Content|>
-        <Trigger>Product Information</Trigger>
-        <Content>
+    <Accordion @type="single" @collapsible={{true}}>
+      <AccordionItem @value="item-1">
+        <AccordionTrigger>Product Information</AccordionTrigger>
+        <AccordionContent>
           <div class="flex flex-col gap-4 text-balance">
             <p>
               Our flagship product combines cutting-edge technology with sleek
@@ -17,12 +22,12 @@ import { Accordion } from '@/components/ui/accordion';
               intuitive user interface designed for both beginners and experts.
             </p>
           </div>
-        </Content>
-      </Item>
+        </AccordionContent>
+      </AccordionItem>
 
-      <Item @value="item-2" as |Trigger Content|>
-        <Trigger>Shipping Details</Trigger>
-        <Content>
+      <AccordionItem @value="item-2">
+        <AccordionTrigger>Shipping Details</AccordionTrigger>
+        <AccordionContent>
           <div class="flex flex-col gap-4 text-balance">
             <p>
               We offer worldwide shipping through trusted courier partners.
@@ -34,12 +39,12 @@ import { Accordion } from '@/components/ui/accordion';
               shipment in real-time through our dedicated tracking portal.
             </p>
           </div>
-        </Content>
-      </Item>
+        </AccordionContent>
+      </AccordionItem>
 
-      <Item @value="item-3" as |Trigger Content|>
-        <Trigger>Return Policy</Trigger>
-        <Content>
+      <AccordionItem @value="item-3">
+        <AccordionTrigger>Return Policy</AccordionTrigger>
+        <AccordionContent>
           <div class="flex flex-col gap-4 text-balance">
             <p>
               We stand behind our products with a comprehensive 30-day return
@@ -52,8 +57,8 @@ import { Accordion } from '@/components/ui/accordion';
               item.
             </p>
           </div>
-        </Content>
-      </Item>
+        </AccordionContent>
+      </AccordionItem>
     </Accordion>
   </div>
 </template>
