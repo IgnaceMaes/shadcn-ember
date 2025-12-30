@@ -100,12 +100,15 @@ class Slider extends Component<SliderSignature> {
     this.args.onValueChange?.(newValue);
   };
 
-  handleThumbMouseDown = (index: number, event: MouseEvent) => {
+  handleThumbPointerDown = (index: number, event: PointerEvent) => {
     if (this.args.disabled) return;
 
     event.preventDefault();
     const slider = (event.currentTarget as HTMLElement).parentElement;
     if (!slider) return;
+
+    // Capture the pointer to receive all pointer events
+    (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
 
     const updateValue = (clientPos: number) => {
       const rect = slider.getBoundingClientRect();
@@ -128,20 +131,20 @@ class Slider extends Component<SliderSignature> {
       this.args.onValueChange?.(newValue);
     };
 
-    const handleMouseMove = (e: MouseEvent) => {
+    const handlePointerMove = (e: PointerEvent) => {
       updateValue(this.orientation === 'vertical' ? e.clientY : e.clientX);
     };
 
-    const handleMouseUp = () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+    const handlePointerUp = () => {
+      document.removeEventListener('pointermove', handlePointerMove);
+      document.removeEventListener('pointerup', handlePointerUp);
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('pointermove', handlePointerMove);
+    document.addEventListener('pointerup', handlePointerUp);
   };
 
-  handleTrackClick = (event: MouseEvent) => {
+  handleTrackClick = (event: PointerEvent) => {
     if (this.args.disabled) return;
 
     const target = event.currentTarget as HTMLElement;
@@ -193,7 +196,7 @@ class Slider extends Component<SliderSignature> {
         data-slot="slider-track"
         class="bg-muted relative grow overflow-hidden rounded-full data-[orientation=horizontal]:h-1.5 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5"
         data-orientation={{this.orientation}}
-        {{on "mousedown" this.handleTrackClick}}
+        {{on "pointerdown" this.handleTrackClick}}
       >
         <div
           data-slot="slider-range"
@@ -209,7 +212,7 @@ class Slider extends Component<SliderSignature> {
           class="border-primary ring-ring/50 absolute block size-4 shrink-0 rounded-full border bg-white shadow-sm transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 cursor-pointer"
           style={{this.thumbStyle index}}
           tabindex={{if @disabled "-1" "0"}}
-          {{on "mousedown" (fn this.handleThumbMouseDown index)}}
+          {{on "pointerdown" (fn this.handleThumbPointerDown index)}}
         ></div>
       {{/each}}
     </div>
