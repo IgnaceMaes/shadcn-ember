@@ -7,6 +7,7 @@ import ChevronDown from '~icons/lucide/chevron-down';
 import MarkdownIcon from '~icons/simple-icons/markdown';
 import ChatGptIcon from '~icons/simple-icons/openai';
 import ClaudeIcon from '~icons/simple-icons/claude';
+import CursorIcon from '~icons/simple-icons/cursor';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -64,6 +65,11 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
 
   get claudeUrl(): string {
     return getPromptUrl('https://claude.ai/new', this.args.url || '');
+  }
+
+  get cursorUrl(): string {
+    const prompt = `Read ${this.args.url || ''}.md`;
+    return `https://cursor.com/link/prompt?text=${encodeURIComponent(prompt)}`;
   }
 
   <template>
@@ -136,6 +142,18 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
               >
                 <ClaudeIcon />
                 Open in Claude
+              </a>
+            </DropdownMenuItem>
+
+            <DropdownMenuItem @asChild={{true}} as |itemClass|>
+              <a
+                href={{this.cursorUrl}}
+                target="_blank"
+                rel="noopener noreferrer"
+                class={{itemClass}}
+              >
+                <CursorIcon />
+                Open in Cursor
               </a>
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -212,6 +230,24 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
             >
               <ClaudeIcon />
               Open in Claude
+            </a>
+          </Button>
+
+          <Button
+            @variant="ghost"
+            @size="lg"
+            @asChild={{true}}
+            @class="*:[svg]:text-muted-foreground w-full justify-start text-base font-normal"
+            as |buttonClass|
+          >
+            <a
+              href={{this.cursorUrl}}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={{buttonClass}}
+            >
+              <CursorIcon />
+              Open in Cursor
             </a>
           </Button>
         </PopoverContent>
