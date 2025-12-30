@@ -122,11 +122,7 @@ const state = new FieldDemoState();
                 </FieldLabel>
                 <Select @onValueChange={{state.selectMonth}}>
                   <SelectTrigger id="checkout-exp-month">
-                    <SelectValue @placeholder="MM">
-                      {{#if state.expMonth}}
-                        {{state.expMonth}}
-                      {{/if}}
-                    </SelectValue>
+                    <SelectValue @placeholder="MM" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem @value="01">01</SelectItem>
@@ -150,11 +146,7 @@ const state = new FieldDemoState();
                 </FieldLabel>
                 <Select @onValueChange={{state.selectYear}}>
                   <SelectTrigger id="checkout-exp-year">
-                    <SelectValue @placeholder="YYYY">
-                      {{#if state.expYear}}
-                        {{state.expYear}}
-                      {{/if}}
-                    </SelectValue>
+                    <SelectValue @placeholder="YYYY" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem @value="2024">2024</SelectItem>
