@@ -332,24 +332,33 @@ class NotionPromptForm extends Component {
                 </TooltipTrigger>
                 <TooltipContent>Select AI model</TooltipContent>
               </Tooltip>
-              <DropdownMenuContent @align="start" @class="[--radius:1rem]">
-                {{#each SAMPLE_DATA.models as |model|}}
-                  <DropdownMenuCheckboxItem
-                    @checked={{this.isModelSelected model.name}}
-                    @onCheckedChange={{fn this.selectModel model}}
-                    @class="pl-2 *:[span:first-child]:right-2 *:[span:first-child]:left-auto"
-                  >
-                    {{model.name}}
-                    {{#if model.badge}}
-                      <Badge
-                        @variant="secondary"
-                        @class="h-5 rounded-sm bg-blue-100 px-1 text-xs text-blue-800 dark:bg-blue-900 dark:text-blue-100"
-                      >
-                        {{model.badge}}
-                      </Badge>
-                    {{/if}}
-                  </DropdownMenuCheckboxItem>
-                {{/each}}
+              <DropdownMenuContent
+                @side="top"
+                @align="start"
+                @class="[--radius:1rem]"
+              >
+                <DropdownMenuGroup @class="w-42">
+                  <DropdownMenuLabel @class="text-muted-foreground text-xs">
+                    Select Agent Mode
+                  </DropdownMenuLabel>
+                  {{#each SAMPLE_DATA.models as |model|}}
+                    <DropdownMenuCheckboxItem
+                      @checked={{this.isModelSelected model.name}}
+                      @onCheckedChange={{fn this.selectModel model}}
+                      @class="pl-2 *:[span:first-child]:right-2 *:[span:first-child]:left-auto"
+                    >
+                      {{model.name}}
+                      {{#if model.badge}}
+                        <Badge
+                          @variant="secondary"
+                          @class="h-5 rounded-sm bg-blue-100 px-1 text-xs text-blue-800 dark:bg-blue-900 dark:text-blue-100"
+                        >
+                          {{model.badge}}
+                        </Badge>
+                      {{/if}}
+                    </DropdownMenuCheckboxItem>
+                  {{/each}}
+                </DropdownMenuGroup>
               </DropdownMenuContent>
             </DropdownMenu>
             <DropdownMenu

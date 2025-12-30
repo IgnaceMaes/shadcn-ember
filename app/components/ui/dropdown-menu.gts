@@ -489,6 +489,7 @@ interface DropdownMenuContentSignature {
   Args: {
     class?: string;
     sideOffset?: number;
+    side?: 'top' | 'right' | 'bottom' | 'left';
     align?: 'start' | 'center' | 'end';
   };
   Blocks: {
@@ -537,16 +538,30 @@ class DropdownMenuContent extends Component<DropdownMenuContentSignature> {
     ) => {
       if (!triggerElement) return;
 
+      const side = this.args.side ?? 'bottom';
       const align = this.args.align ?? 'start';
+
       const placementMap: Record<string, Placement> = {
-        start: 'bottom-start',
-        center: 'bottom',
-        end: 'bottom-end',
+        'top-start': 'top-start',
+        'top-center': 'top',
+        'top-end': 'top-end',
+        'right-start': 'right-start',
+        'right-center': 'right',
+        'right-end': 'right-end',
+        'bottom-start': 'bottom-start',
+        'bottom-center': 'bottom',
+        'bottom-end': 'bottom-end',
+        'left-start': 'left-start',
+        'left-center': 'left',
+        'left-end': 'left-end',
       };
+
+      const placementKey = `${side}-${align}`;
+      const placement = placementMap[placementKey] || 'bottom-start';
 
       const update = () => {
         void computePosition(triggerElement, element, {
-          placement: placementMap[align] || 'bottom-start',
+          placement,
           strategy: 'fixed',
           middleware: [offset(8), flip(), shift({ padding: 8 })],
         }).then(({ x, y }) => {
@@ -576,6 +591,7 @@ class DropdownMenuContent extends Component<DropdownMenuContentSignature> {
           @class
         }}
         data-state={{if this.menuContext.isOpen "open" "closed"}}
+        data-side={{@side}}
         data-align={{@align}}
         role="menu"
         style={{this.positionStyle}}
