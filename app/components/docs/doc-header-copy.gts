@@ -19,7 +19,6 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-  PopoverAnchor,
 } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
@@ -81,8 +80,6 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
         }}
         ...attributes
       >
-        <PopoverAnchor />
-
         <Button
           @variant="secondary"
           @size="sm"
@@ -175,7 +172,7 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
         </PopoverTrigger>
 
         <PopoverContent
-          @class="bg-background/70 dark:bg-background/60 w-52 !origin-center rounded-lg p-1 shadow-sm backdrop-blur-sm"
+          @class="bg-background w-52 !origin-center rounded-lg p-1 shadow-sm"
           @align="start"
           @side="top"
         >
