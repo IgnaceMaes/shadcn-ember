@@ -147,7 +147,10 @@ class Slider extends Component<SliderSignature> {
   handleTrackClick = (event: PointerEvent) => {
     if (this.args.disabled) return;
 
+    event.preventDefault();
     const target = event.currentTarget as HTMLElement;
+
+    // Calculate initial value and find closest thumb
     const rect = target.getBoundingClientRect();
     let percentage: number;
 
@@ -174,10 +177,47 @@ class Slider extends Component<SliderSignature> {
       }
     }
 
+    // Set initial value
     const newValue = [...this.values];
     newValue[closestIndex] = clampedValue;
     this.internalValue = newValue;
     this.args.onValueChange?.(newValue);
+
+    // Start drag operation
+    (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
+
+    const updateValue = (clientPos: number) => {
+      const rect = target.getBoundingClientRect();
+      let percentage: number;
+
+      if (this.orientation === 'vertical') {
+        percentage = 1 - (clientPos - rect.top) / rect.height;
+      } else {
+        percentage = (clientPos - rect.left) / rect.width;
+      }
+
+      percentage = Math.max(0, Math.min(1, percentage));
+      const rawValue = this.min + percentage * (this.max - this.min);
+      const steppedValue = Math.round(rawValue / this.step) * this.step;
+      const clampedValue = Math.max(this.min, Math.min(this.max, steppedValue));
+
+      const newValue = [...this.values];
+      newValue[closestIndex] = clampedValue;
+      this.internalValue = newValue;
+      this.args.onValueChange?.(newValue);
+    };
+
+    const handlePointerMove = (e: PointerEvent) => {
+      updateValue(this.orientation === 'vertical' ? e.clientY : e.clientX);
+    };
+
+    const handlePointerUp = () => {
+      document.removeEventListener('pointermove', handlePointerMove);
+      document.removeEventListener('pointerup', handlePointerUp);
+    };
+
+    document.addEventListener('pointermove', handlePointerMove);
+    document.addEventListener('pointerup', handlePointerUp);
   };
 
   <template>
