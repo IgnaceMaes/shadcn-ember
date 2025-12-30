@@ -623,7 +623,7 @@ class DropdownMenuItem extends Component<DropdownMenuItemSignature> {
     {{#if @asChild}}
       {{yield
         (cn
-          "focus:bg-accent focus:text-accent-foreground hover:bg-accent hover:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive! [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 transition-colors"
+          "focus:bg-accent focus:text-accent-foreground hover:bg-accent hover:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive! [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
           @class
         )
       }}
@@ -633,7 +633,7 @@ class DropdownMenuItem extends Component<DropdownMenuItemSignature> {
         data-inset={{@inset}}
         data-variant={{@variant}}
         class={{cn
-          "focus:bg-accent focus:text-accent-foreground hover:bg-accent hover:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive! [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 transition-colors"
+          "focus:bg-accent focus:text-accent-foreground hover:bg-accent hover:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive! [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
           @class
         }}
         role="menuitem"
@@ -661,6 +661,13 @@ interface DropdownMenuCheckboxItemSignature {
 }
 
 class DropdownMenuCheckboxItem extends Component<DropdownMenuCheckboxItemSignature> {
+  @consume(DropdownMenuContext)
+  menuContext!: ContextRegistry[typeof DropdownMenuContext];
+
+  handleMouseEnter = () => {
+    this.menuContext.closeAllSubmenus?.();
+  };
+
   handleClick = () => {
     this.args.onCheckedChange?.(!this.args.checked);
   };
@@ -670,11 +677,12 @@ class DropdownMenuCheckboxItem extends Component<DropdownMenuCheckboxItemSignatu
     <div
       data-slot="dropdown-menu-checkbox-item"
       class={{cn
-        "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
+        "focus:bg-accent focus:text-accent-foreground hover:bg-accent hover:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
         @class
       }}
       role="menuitemcheckbox"
       aria-checked={{@checked}}
+      {{on "mouseenter" this.handleMouseEnter}}
       {{on "click" this.handleClick}}
       ...attributes
     >
@@ -704,9 +712,16 @@ interface DropdownMenuRadioItemSignature {
 }
 
 class DropdownMenuRadioItem extends Component<DropdownMenuRadioItemSignature> {
+  @consume(DropdownMenuContext)
+  menuContext!: ContextRegistry[typeof DropdownMenuContext];
+
   get checked() {
     return this.args.currentValue === this.args.value;
   }
+
+  handleMouseEnter = () => {
+    this.menuContext.closeAllSubmenus?.();
+  };
 
   handleClick = () => {
     this.args.setValue?.(this.args.value);
@@ -717,11 +732,12 @@ class DropdownMenuRadioItem extends Component<DropdownMenuRadioItemSignature> {
     <div
       data-slot="dropdown-menu-radio-item"
       class={{cn
-        "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
+        "focus:bg-accent focus:text-accent-foreground hover:bg-accent hover:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
         @class
       }}
       role="menuitemradio"
       aria-checked={{this.checked}}
+      {{on "mouseenter" this.handleMouseEnter}}
       {{on "click" this.handleClick}}
       ...attributes
     >
