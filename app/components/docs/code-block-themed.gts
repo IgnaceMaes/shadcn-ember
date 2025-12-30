@@ -8,6 +8,7 @@ import JsonIcon from '~icons/vscode-icons/file-type-json';
 import TypeScriptIcon from '~icons/vscode-icons/file-type-typescript';
 import JavaScriptIcon from '~icons/vscode-icons/file-type-js';
 import CssIcon from '~icons/vscode-icons/file-type-css';
+import AstroIcon from '~icons/vscode-icons/file-type-astro';
 import type ThemeService from '@/services/theme';
 import type { ComponentLike } from '@glint/template';
 
@@ -42,6 +43,7 @@ export default class CodeBlockThemed extends Component<CodeBlockThemedSignature>
     if (lang === 'javascript' || lang === 'js')
       return JavaScriptIcon as ComponentLike;
     if (lang === 'css') return CssIcon as ComponentLike;
+    if (lang === 'astro') return AstroIcon as ComponentLike;
     return undefined;
   }
 
