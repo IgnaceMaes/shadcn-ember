@@ -76,7 +76,7 @@ export default class DropdownMenuDialogDemo extends Component {
           </Field>
         </FieldGroup>
         <DialogFooter>
-          <DialogClose @asChild={{true}}>
+          <DialogClose>
             <Button @variant="outline">Cancel</Button>
           </DialogClose>
           <Button type="submit">Create</Button>
@@ -116,7 +116,7 @@ export default class DropdownMenuDialogDemo extends Component {
           </Field>
         </FieldGroup>
         <DialogFooter>
-          <DialogClose @asChild={{true}}>
+          <DialogClose>
             <Button @variant="outline">Cancel</Button>
           </DialogClose>
           <Button type="submit">Send Invite</Button>
