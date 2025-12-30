@@ -44,7 +44,7 @@ export default class CopyButton extends Component<CopyButtonSignature> {
           data-slot="copy-button"
           data-copied={{this.hasCopied}}
           @variant={{if @variant @variant "ghost"}}
-          @class="size-7 opacity-70 hover:opacity-100 focus-visible:opacity-100"
+          @class="size-7 hover:opacity-100 focus-visible:opacity-100 bg-code"
           {{on "click" this.copyToClipboard}}
         >
           <span class="sr-only">Copy</span>
