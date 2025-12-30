@@ -23,6 +23,7 @@ import { Switch } from '@/components/ui/switch';
 
 export default class AppearanceSettings extends Component {
   @tracked gpuCount = 8;
+  @tracked wallpaperTinting = true;
 
   handleGpuAdjustment = (adjustment: number) => {
     this.gpuCount = Math.max(1, Math.min(99, this.gpuCount + adjustment));
@@ -42,6 +43,10 @@ export default class AppearanceSettings extends Component {
   get isMaxGpu() {
     return this.gpuCount >= 99;
   }
+
+  handleWallpaperTintingChange = (checked: boolean) => {
+    this.wallpaperTinting = checked;
+  };
 
   <template>
     <FieldSet>
@@ -131,7 +136,11 @@ export default class AppearanceSettings extends Component {
               Allow the wallpaper to be tinted.
             </FieldDescription>
           </FieldContent>
-          <Switch id="tinting" @checked={{true}} />
+          <Switch
+            id="tinting"
+            @checked={{this.wallpaperTinting}}
+            @onCheckedChange={{this.handleWallpaperTintingChange}}
+          />
         </Field>
       </FieldGroup>
     </FieldSet>

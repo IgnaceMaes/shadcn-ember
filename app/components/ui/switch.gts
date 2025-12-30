@@ -14,7 +14,7 @@ interface SwitchSignature {
 }
 
 class Switch extends Component<SwitchSignature> {
-  @tracked internalChecked = this.args.checked ?? false;
+  @tracked internalChecked = false;
 
   get isChecked() {
     return this.args.checked ?? this.internalChecked;
