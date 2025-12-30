@@ -37,6 +37,37 @@ export default defineConfig({
 
 ```
 
+## Configure icons
+
+shadcn-ember uses `unplugin-icons` for icon support. Install the dependencies:
+
+```bash
+pnpm add -D unplugin-icons @iconify-json/lucide
+```
+
+Add the plugin to your `astro.config.mjs`:
+
+```typescript title="astro.config.mjs" {4,9} showLineNumbers
+import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from "astro/config";
+import { ember } from "ember-astro";
+import Icons from "unplugin-icons/vite";
+
+// https://astro.build/config
+export default defineConfig({
+  vite: {
+    plugins: [ember(), tailwindcss(), Icons({ compiler: "astro" })],
+  },
+});
+
+```
+
+Import icons like this:
+
+```typescript
+import Check from '~icons/lucide/check';
+```
+
 ## Edit tsconfig.json file
 
 Add the following code to the `tsconfig.json` file to resolve paths:
