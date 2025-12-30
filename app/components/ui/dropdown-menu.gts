@@ -3,6 +3,7 @@ import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
 import { cached } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
+import { htmlSafe } from '@ember/template';
 import { modifier } from 'ember-modifier';
 import { provide, consume } from 'ember-provide-consume-context';
 import { cn } from '@/lib/utils';
@@ -452,8 +453,10 @@ class DropdownMenuSubContent extends Component<DropdownMenuSubContentSignature> 
     }
   );
 
-  get positionStyle(): string {
-    return `position: fixed; left: ${this.x}px; top: ${this.y}px; z-index: 50;`;
+  get positionStyle() {
+    return htmlSafe(
+      `position: fixed; left: ${this.x}px; top: ${this.y}px; z-index: 50;`
+    );
   }
 
   handleMouseEnter = () => {
@@ -577,8 +580,10 @@ class DropdownMenuContent extends Component<DropdownMenuContentSignature> {
     }
   );
 
-  get positionStyle(): string {
-    return `position: fixed; left: ${this.x}px; top: ${this.y}px; z-index: 50;`;
+  get positionStyle() {
+    return htmlSafe(
+      `position: fixed; left: ${this.x}px; top: ${this.y}px; z-index: 50;`
+    );
   }
 
   <template>

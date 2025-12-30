@@ -3,6 +3,7 @@ import { cached } from '@glimmer/tracking';
 import Component from '@glimmer/component';
 import type { TOC } from '@ember/component/template-only';
 import { on } from '@ember/modifier';
+import { htmlSafe } from '@ember/template';
 import { modifier } from 'ember-modifier';
 import type Owner from '@ember/owner';
 import { provide, consume } from 'ember-provide-consume-context';
@@ -253,8 +254,10 @@ class SelectContent extends Component<SelectContentSignature> {
     }
   );
 
-  get positionStyle(): string {
-    return `position: fixed; left: ${this.x}px; top: ${this.y}px; z-index: 50;`;
+  get positionStyle() {
+    return htmlSafe(
+      `position: fixed; left: ${this.x}px; top: ${this.y}px; z-index: 50;`
+    );
   }
 
   <template>

@@ -4,6 +4,7 @@ import type { TOC } from '@ember/component/template-only';
 import { tracked } from '@glimmer/tracking';
 import { cached } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
+import { htmlSafe } from '@ember/template';
 import { modifier } from 'ember-modifier';
 import { provide, consume } from 'ember-provide-consume-context';
 import { cn } from '@/lib/utils';
@@ -244,12 +245,14 @@ class TooltipContent extends Component<TooltipContentSignature> {
     };
   });
 
-  get positionStyle(): string {
-    return `position: fixed; left: ${this.x}px; top: ${this.y}px; z-index: 50;`;
+  get positionStyle() {
+    return htmlSafe(
+      `position: fixed; left: ${this.x}px; top: ${this.y}px; z-index: 50;`
+    );
   }
 
-  get arrowStyle(): string {
-    return `left: ${this.arrowX}px; top: ${this.arrowY}px;`;
+  get arrowStyle() {
+    return htmlSafe(`left: ${this.arrowX}px; top: ${this.arrowY}px;`);
   }
 
   <template>
