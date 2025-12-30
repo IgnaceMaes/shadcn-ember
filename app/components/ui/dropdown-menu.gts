@@ -8,7 +8,6 @@ import { provide, consume } from 'ember-provide-consume-context';
 import { cn } from '@/lib/utils';
 import Check from '~icons/lucide/check';
 import ChevronRight from '~icons/lucide/chevron-right';
-import Circle from '~icons/lucide/circle';
 import onClickOutside from 'ember-click-outside/modifiers/on-click-outside';
 import type { TOC } from '@ember/component/template-only';
 import {
@@ -763,7 +762,11 @@ class DropdownMenuRadioItem extends Component<DropdownMenuRadioItemSignature> {
         class="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center"
       >
         {{#if this.checked}}
-          <Circle class="size-2 fill-current" />
+          <span class="relative flex items-center justify-center">
+            <span
+              class="bg-primary absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+            />
+          </span>
         {{/if}}
       </span>
       {{yield}}
