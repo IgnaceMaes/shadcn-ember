@@ -11,6 +11,7 @@ import CssIcon from '~icons/vscode-icons/file-type-css';
 import AstroIcon from '~icons/vscode-icons/file-type-astro';
 import type ThemeService from '@/services/theme';
 import type { ComponentLike } from '@glint/template';
+import { eq, or } from 'ember-truth-helpers';
 
 interface CodeBlockThemedSignature {
   Args: {
@@ -84,11 +85,26 @@ export default class CodeBlockThemed extends Component<CodeBlockThemedSignature>
                 />
               {{else if this.iconComponent}}
                 {{#let this.iconComponent as |Icon|}}
-                  <span
-                    class="size-3 text-white dark:text-black [&_path]:fill-current! [&_circle]:fill-current! [&_rect]:fill-current!"
-                  >
-                    <Icon />
-                  </span>
+                  {{#if
+                    (or
+                      (eq @language "typescript")
+                      (eq @language "ts")
+                      (eq @language "javascript")
+                      (eq @language "js")
+                    )
+                  }}
+                    <span
+                      class="size-3 text-white dark:text-black [&_path]:fill-current! [&_circle]:fill-current! [&_rect]:fill-current!"
+                    >
+                      <Icon />
+                    </span>
+                  {{else}}
+                    <span
+                      class="flex size-3.5 items-center justify-center text-white dark:text-black [&_path]:fill-current! [&_circle]:fill-current! [&_rect]:fill-current!"
+                    >
+                      <Icon />
+                    </span>
+                  {{/if}}
                 {{/let}}
               {{/if}}
             </div>
