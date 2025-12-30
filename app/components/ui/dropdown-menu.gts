@@ -686,6 +686,7 @@ class DropdownMenuCheckboxItem extends Component<DropdownMenuCheckboxItemSignatu
 
   handleClick = () => {
     this.args.onCheckedChange?.(!this.args.checked);
+    this.menuContext.setOpen(false);
   };
 
   <template>
@@ -741,6 +742,7 @@ class DropdownMenuRadioItem extends Component<DropdownMenuRadioItemSignature> {
 
   handleClick = () => {
     this.args.setValue?.(this.args.value);
+    this.menuContext.setOpen(false);
   };
 
   <template>
