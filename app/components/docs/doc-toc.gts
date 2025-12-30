@@ -20,45 +20,41 @@ interface DocTocSignature {
 export default class DocToc extends Component<DocTocSignature> {
   @tracked activeId: string | null = null;
 
-  observeTocHeadings = modifier(
-    (element: Element, [items]: [TocItem[]]) => {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          // Find the first intersecting entry that's near the top of the viewport
-          const intersecting = entries
-            .filter((entry) => entry.isIntersecting)
-            .sort(
-              (a, b) => a.boundingClientRect.top - b.boundingClientRect.top
-            );
+  observeTocHeadings = modifier((element: Element, [items]: [TocItem[]]) => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Find the first intersecting entry that's near the top of the viewport
+        const intersecting = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
 
-          if (intersecting.length > 0) {
-            const topEntry = intersecting[0];
-            if (topEntry) {
-              this.activeId = topEntry.target.id;
-            }
+        if (intersecting.length > 0) {
+          const topEntry = intersecting[0];
+          if (topEntry) {
+            this.activeId = topEntry.target.id;
           }
-        },
-        {
-          rootMargin: '-100px 0px -66% 0px',
-          threshold: 0,
         }
-      );
+      },
+      {
+        rootMargin: '-100px 0px -66% 0px',
+        threshold: 0,
+      }
+    );
 
-      // Observe all heading elements
-      requestAnimationFrame(() => {
-        items.forEach((item) => {
-          const headingElement = document.getElementById(item.id);
-          if (headingElement) {
-            observer.observe(headingElement);
-          }
-        });
+    // Observe all heading elements
+    requestAnimationFrame(() => {
+      items.forEach((item) => {
+        const headingElement = document.getElementById(item.id);
+        if (headingElement) {
+          observer.observe(headingElement);
+        }
       });
+    });
 
-      return () => {
-        observer.disconnect();
-      };
-    }
-  );
+    return () => {
+      observer.disconnect();
+    };
+  });
 
   <template>
     <div
