@@ -1,6 +1,8 @@
 import Component from '@glimmer/component';
-import type { ComponentLike } from '@glint/template';
+
 import ComponentPreviewRender from './component-preview-render.gts';
+
+import type { ComponentLike } from '@glint/template';
 
 // Load all example components
 const components = import.meta.glob<{ default: ComponentLike }>(

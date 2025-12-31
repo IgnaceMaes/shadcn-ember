@@ -1,5 +1,3 @@
-import ChevronDown from '~icons/lucide/chevron-down';
-import MoreHorizontal from '~icons/lucide/more-horizontal';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,6 +10,9 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from '@/components/ui/input-group';
+
+import ChevronDown from '~icons/lucide/chevron-down';
+import MoreHorizontal from '~icons/lucide/more-horizontal';
 
 <template>
   <div class="grid w-full max-w-sm gap-4">

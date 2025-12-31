@@ -1,10 +1,12 @@
-import Component from '@glimmer/component';
-import type { TOC } from '@ember/component/template-only';
 import { on } from '@ember/modifier';
-import { cn } from '@/lib/utils';
+import Component from '@glimmer/component';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { cn } from '@/lib/utils';
+
+import type { TOC } from '@ember/component/template-only';
 
 interface InputGroupSignature {
   Element: HTMLDivElement;

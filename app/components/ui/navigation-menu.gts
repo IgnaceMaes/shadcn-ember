@@ -1,5 +1,6 @@
-import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
+
+import type { TOC } from '@ember/component/template-only';
 
 // Note: This is a placeholder/simplified version of the NavigationMenu component
 // Full implementation would require more complex state management and positioning

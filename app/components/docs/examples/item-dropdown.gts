@@ -1,5 +1,7 @@
-import { Button } from '@/components/ui/button';
+import { array } from '@ember/helper';
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +15,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
-import { array } from '@ember/helper';
+
 import ChevronDownIcon from '~icons/lucide/chevron-down';
 
 const people = [

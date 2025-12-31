@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { modifier } from 'ember-modifier';
 import { eq } from 'ember-truth-helpers';
+
 import { Button } from '@/components/ui/button';
 
 export interface TocItem {

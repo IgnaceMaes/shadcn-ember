@@ -1,8 +1,7 @@
+import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { on } from '@ember/modifier';
-import Check from '~icons/lucide/check';
-import Copy from '~icons/lucide/copy';
+
 import { Button } from '@/components/ui/button';
 import {
   Tooltip,
@@ -10,6 +9,9 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
+
+import Check from '~icons/lucide/check';
+import Copy from '~icons/lucide/copy';
 
 interface CopyButtonSignature {
   Args: {

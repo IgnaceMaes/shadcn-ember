@@ -1,9 +1,10 @@
-import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { guidFor } from '@ember/object/internals';
-import type Owner from '@ember/owner';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 import { provide, consume } from 'ember-provide-consume-context';
+
+import type Owner from '@ember/owner';
 
 const CollapsibleContext = 'collapsible-context' as const;
 

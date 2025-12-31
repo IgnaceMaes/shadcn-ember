@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+
 import { cn } from '@/lib/utils';
 
 type Variant = 'default' | 'secondary' | 'destructive' | 'outline';

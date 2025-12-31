@@ -1,4 +1,5 @@
 import { Badge } from '@/components/ui/badge';
+
 import BadgeCheck from '~icons/lucide/badge-check';
 
 <template>

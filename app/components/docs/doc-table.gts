@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import { eq } from 'ember-truth-helpers';
+
 import { DocCode, DocStrong, DocLink } from './index';
 
 interface ProcessedNode {

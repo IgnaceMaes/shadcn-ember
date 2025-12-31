@@ -1,6 +1,7 @@
-import Component from '@glimmer/component';
-import { service } from '@ember/service';
 import { LinkTo } from '@ember/routing';
+import { service } from '@ember/service';
+import Component from '@glimmer/component';
+
 import type RouterService from '@ember/routing/router-service';
 
 interface Signature {

@@ -1,5 +1,6 @@
-import EmberRouter from '@embroider/router';
 import { next } from '@ember/runloop';
+import EmberRouter from '@embroider/router';
+
 import config from 'shadcn-ember/config/environment';
 
 export default class Router extends EmberRouter {

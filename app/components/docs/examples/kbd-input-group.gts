@@ -1,10 +1,11 @@
-import SearchIcon from '~icons/lucide/search';
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
 } from '@/components/ui/input-group';
 import { Kbd } from '@/components/ui/kbd';
+
+import SearchIcon from '~icons/lucide/search';
 
 <template>
   <div class="flex w-full max-w-xs flex-col gap-6">

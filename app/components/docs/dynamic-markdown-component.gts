@@ -1,5 +1,6 @@
-import type { TOC } from '@ember/component/template-only';
 import { get } from '@ember/helper';
+
+import type { TOC } from '@ember/component/template-only';
 import type { ComponentLike } from '@glint/template';
 
 interface Signature {

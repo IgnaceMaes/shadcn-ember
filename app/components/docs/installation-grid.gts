@@ -1,7 +1,9 @@
 import { LinkTo } from '@ember/routing';
+
 import type { TOC } from '@ember/component/template-only';
-import ViteIcon from '~icons/simple-icons/vite';
+
 import AstroIcon from '~icons/simple-icons/astro';
+import ViteIcon from '~icons/simple-icons/vite';
 
 const InstallationGrid: TOC<{ Element: HTMLDivElement }> = <template>
   <div class="mt-8 grid gap-4 sm:grid-cols-2 sm:gap-6" ...attributes>

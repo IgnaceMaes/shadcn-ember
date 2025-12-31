@@ -1,6 +1,8 @@
-import type { TOC } from '@ember/component/template-only';
-import ChevronDown from '~icons/lucide/chevron-down';
 import { cn } from '@/lib/utils';
+
+import type { TOC } from '@ember/component/template-only';
+
+import ChevronDown from '~icons/lucide/chevron-down';
 
 interface NativeSelectSignature {
   Element: HTMLSelectElement;

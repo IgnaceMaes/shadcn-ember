@@ -11,6 +11,7 @@ import {
   InputGroupInput,
 } from '@/components/ui/input-group';
 import { Kbd } from '@/components/ui/kbd';
+
 import Search from '~icons/lucide/search';
 
 <template>

@@ -1,10 +1,7 @@
 import DocLinkTo from '@/components/docs/doc-link-to';
-
-// Icons
-import ArrowRight from '~icons/lucide/arrow-right';
-
-// UI Components
 import { Button } from '@/components/ui/button';
+
+import ArrowRight from '~icons/lucide/arrow-right';
 
 <template>
   <div class="min-h-screen bg-background">

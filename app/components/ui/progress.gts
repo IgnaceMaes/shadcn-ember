@@ -1,5 +1,6 @@
-import Component from '@glimmer/component';
 import { htmlSafe } from '@ember/template';
+import Component from '@glimmer/component';
+
 import { cn } from '@/lib/utils';
 
 interface ProgressSignature {

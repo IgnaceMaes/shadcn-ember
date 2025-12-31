@@ -1,4 +1,3 @@
-import SlashIcon from '~icons/lucide/slash';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,6 +6,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
+
+import SlashIcon from '~icons/lucide/slash';
 
 <template>
   <Breadcrumb>

@@ -1,6 +1,8 @@
-import type { TOC } from '@ember/component/template-only';
-import Loader2 from '~icons/lucide/loader-2';
 import { cn } from '@/lib/utils';
+
+import type { TOC } from '@ember/component/template-only';
+
+import Loader2 from '~icons/lucide/loader-2';
 
 interface SpinnerSignature {
   Element: HTMLOrSVGElement;

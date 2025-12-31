@@ -1,5 +1,6 @@
-import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
+
+import type { TOC } from '@ember/component/template-only';
 
 interface SkeletonSignature {
   Element: HTMLDivElement;

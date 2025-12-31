@@ -1,9 +1,6 @@
+import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { on } from '@ember/modifier';
-
-import InfoIcon from '~icons/lucide/info';
-import StarIcon from '~icons/lucide/star';
 
 import {
   InputGroup,
@@ -17,6 +14,9 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from '@/components/ui/popover';
+
+import InfoIcon from '~icons/lucide/info';
+import StarIcon from '~icons/lucide/star';
 
 export default class InputGroupButtonExample extends Component {
   @tracked isFavorite = false;

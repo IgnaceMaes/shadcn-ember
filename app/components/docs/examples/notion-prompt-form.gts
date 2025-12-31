@@ -1,18 +1,8 @@
-import { tracked } from '@glimmer/tracking';
-import Component from '@glimmer/component';
 import { fn } from '@ember/helper';
 import { get } from '@ember/helper';
 import { on } from '@ember/modifier';
-
-import At from '~icons/lucide/at-sign';
-import ArrowUp from '~icons/lucide/arrow-up';
-import Paperclip from '~icons/lucide/paperclip';
-import X from '~icons/lucide/x';
-import Globe from '~icons/lucide/globe';
-import Grid3x3 from '~icons/lucide/grid-3x3';
-import BookOpen from '~icons/lucide/book-open';
-import Plus from '~icons/lucide/plus';
-import PlusCircle from '~icons/lucide/plus-circle';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -54,6 +44,16 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+
+import ArrowUp from '~icons/lucide/arrow-up';
+import At from '~icons/lucide/at-sign';
+import BookOpen from '~icons/lucide/book-open';
+import Globe from '~icons/lucide/globe';
+import Grid3x3 from '~icons/lucide/grid-3x3';
+import Paperclip from '~icons/lucide/paperclip';
+import Plus from '~icons/lucide/plus';
+import PlusCircle from '~icons/lucide/plus-circle';
+import X from '~icons/lucide/x';
 
 const SAMPLE_DATA = {
   mentionable: [

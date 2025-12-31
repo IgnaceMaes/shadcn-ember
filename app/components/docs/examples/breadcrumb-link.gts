@@ -1,4 +1,5 @@
 import { LinkTo } from '@ember/routing';
+
 import {
   Breadcrumb,
   BreadcrumbItem,

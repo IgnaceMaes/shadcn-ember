@@ -1,11 +1,14 @@
-import Component from '@glimmer/component';
 import { service } from '@ember/service';
+import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { CodeBlock } from 'ember-shiki';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+
 import CopyButton from '@/components/docs/copy-button';
-import Terminal from '~icons/lucide/terminal';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+
 import type ThemeService from '@/services/theme';
+
+import Terminal from '~icons/lucide/terminal';
 
 interface PackageManagerCommandSignature {
   Args: {

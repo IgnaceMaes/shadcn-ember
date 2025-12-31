@@ -1,10 +1,12 @@
-import Component from '@glimmer/component';
-import type Owner from '@ember/owner';
-import { tracked } from '@glimmer/tracking';
+import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { htmlSafe } from '@ember/template';
-import { fn } from '@ember/helper';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+
 import { cn } from '@/lib/utils';
+
+import type Owner from '@ember/owner';
 
 interface SliderSignature {
   Element: HTMLDivElement;

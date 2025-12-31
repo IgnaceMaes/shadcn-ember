@@ -1,13 +1,16 @@
+import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import onClickOutside from 'ember-click-outside/modifiers/on-click-outside';
+
+import { cn } from '@/lib/utils';
+
 import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
-import { tracked } from '@glimmer/tracking';
-import { on } from '@ember/modifier';
-import { cn } from '@/lib/utils';
+
 import Check from '~icons/lucide/check';
 import ChevronRight from '~icons/lucide/chevron-right';
 import Circle from '~icons/lucide/circle';
-import onClickOutside from 'ember-click-outside/modifiers/on-click-outside';
 
 // ContextMenu Root Component
 interface ContextMenuSignature {

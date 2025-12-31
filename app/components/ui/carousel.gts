@@ -1,8 +1,11 @@
-import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
+
+import { Button } from './button.gts';
+
+import type { TOC } from '@ember/component/template-only';
+
 import ChevronLeft from '~icons/lucide/chevron-left';
 import ChevronRight from '~icons/lucide/chevron-right';
-import { Button } from './button.gts';
 
 // Note: This is a simplified placeholder for the Carousel component
 // Full implementation would require embla-carousel or similar library

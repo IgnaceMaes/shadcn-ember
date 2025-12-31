@@ -1,10 +1,14 @@
 import Component from '@glimmer/component';
-import type { TOC } from '@ember/component/template-only';
+
 import { cn } from '@/lib/utils';
+
+import { buttonVariants } from './button.gts';
+
+import type { TOC } from '@ember/component/template-only';
+
 import ChevronLeft from '~icons/lucide/chevron-left';
 import ChevronRight from '~icons/lucide/chevron-right';
 import MoreHorizontal from '~icons/lucide/more-horizontal';
-import { buttonVariants } from './button.gts';
 
 // Pagination Root Component
 interface PaginationSignature {

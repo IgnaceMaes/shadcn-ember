@@ -1,5 +1,6 @@
-import type { TOC } from '@ember/component/template-only';
 import { ToastProvider, ToastViewport } from './toast.gts';
+
+import type { TOC } from '@ember/component/template-only';
 
 interface ToasterSignature {
   Element: never;

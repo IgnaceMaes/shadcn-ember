@@ -22,6 +22,7 @@ import ember from 'eslint-plugin-ember/recommended';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import qunit from 'eslint-plugin-qunit';
 import n from 'eslint-plugin-n';
+import importPlugin from 'eslint-plugin-import';
 
 import babelParser from '@babel/eslint-parser';
 
@@ -73,6 +74,35 @@ export default ts.config(
         ...globals.browser,
       },
     },
+    plugins: {
+      import: importPlugin,
+    },
+    settings: {
+      'import/resolver': {
+        typescript: true,
+        node: true,
+      },
+      'import/internal-regex': '^(@/|shadcn-ember/)',
+    },
+    rules: {
+      'import/order': [
+        'error',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            ['parent', 'sibling', 'index'],
+            'type',
+          ],
+          'newlines-between': 'always',
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
+        },
+      ],
+    },
   },
   {
     files: ['**/*.{ts,gts}'],
@@ -80,7 +110,36 @@ export default ts.config(
       parser: ember.parser,
       parserOptions: parserOptions.esm.ts,
     },
+    plugins: {
+      import: importPlugin,
+    },
+    settings: {
+      'import/resolver': {
+        typescript: true,
+        node: true,
+      },
+      'import/internal-regex': '^(@/|shadcn-ember/)',
+    },
     extends: [...ts.configs.recommendedTypeChecked, ember.configs.gts],
+    rules: {
+      'import/order': [
+        'error',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            ['parent', 'sibling', 'index'],
+            'type',
+          ],
+          'newlines-between': 'always',
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
+        },
+      ],
+    },
   },
   {
     files: ['tests/**/*-test.{js,gjs,ts,gts}'],

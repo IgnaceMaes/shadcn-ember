@@ -1,10 +1,14 @@
-import Component from '@glimmer/component';
 import { service } from '@ember/service';
-import type RouterService from '@ember/routing/router-service';
+import Component from '@glimmer/component';
+
+import { getAdjacentPages, type AdjacentPages } from '@/lib/docs-navigation';
 import { cn } from '@/lib/utils';
+
 import DocHeaderCopy from './doc-header-copy';
 import DocLinkTo from './doc-link-to';
-import { getAdjacentPages, type AdjacentPages } from '@/lib/docs-navigation';
+
+import type RouterService from '@ember/routing/router-service';
+
 import ArrowLeft from '~icons/lucide/arrow-left';
 import ArrowRight from '~icons/lucide/arrow-right';
 

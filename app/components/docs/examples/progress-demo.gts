@@ -1,6 +1,8 @@
-import { tracked } from '@glimmer/tracking';
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+
 import { Progress } from '@/components/ui/progress';
+
 import type Owner from '@ember/owner';
 
 export default class ProgressDemo extends Component {

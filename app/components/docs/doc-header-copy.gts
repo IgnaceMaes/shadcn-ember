@@ -1,13 +1,7 @@
+import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { on } from '@ember/modifier';
-import Copy from '~icons/lucide/copy';
-import Check from '~icons/lucide/check';
-import ChevronDown from '~icons/lucide/chevron-down';
-import MarkdownIcon from '~icons/simple-icons/markdown';
-import ChatGptIcon from '~icons/simple-icons/openai';
-import ClaudeIcon from '~icons/simple-icons/claude';
-import CursorIcon from '~icons/simple-icons/cursor';
+
 import { Button } from '@/components/ui/button';
 import {
   ButtonGroup,
@@ -20,6 +14,14 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
+
+import Check from '~icons/lucide/check';
+import ChevronDown from '~icons/lucide/chevron-down';
+import Copy from '~icons/lucide/copy';
+import ClaudeIcon from '~icons/simple-icons/claude';
+import CursorIcon from '~icons/simple-icons/cursor';
+import MarkdownIcon from '~icons/simple-icons/markdown';
+import ChatGptIcon from '~icons/simple-icons/openai';
 
 interface DocHeaderCopySignature {
   Element: HTMLDivElement;

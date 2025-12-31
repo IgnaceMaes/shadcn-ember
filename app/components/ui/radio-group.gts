@@ -1,9 +1,11 @@
-import Component from '@glimmer/component';
-import type Owner from '@ember/owner';
-import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 import { provide, consume } from 'ember-provide-consume-context';
+
 import { cn } from '@/lib/utils';
+
+import type Owner from '@ember/owner';
 
 const RadioGroupContext = 'radio-group-context' as const;
 

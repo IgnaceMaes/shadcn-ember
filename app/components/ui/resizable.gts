@@ -1,6 +1,9 @@
 import Component from '@glimmer/component';
-import type { TOC } from '@ember/component/template-only';
+
 import { cn } from '@/lib/utils';
+
+import type { TOC } from '@ember/component/template-only';
+
 import GripVertical from '~icons/lucide/grip-vertical';
 
 // Note: This is a simplified version of the Resizable component

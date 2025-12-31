@@ -1,8 +1,10 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import type Owner from '@ember/owner';
+
 import { Field, FieldDescription, FieldTitle } from '@/components/ui/field';
 import { Slider } from '@/components/ui/slider';
+
+import type Owner from '@ember/owner';
 
 class FieldSlider extends Component {
   @tracked value = [200, 800];

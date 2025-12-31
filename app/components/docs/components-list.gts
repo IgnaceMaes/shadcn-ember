@@ -1,9 +1,10 @@
-import DocLinkTo from './doc-link-to';
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+
+import DocLinkTo from './doc-link-to';
 
 // Import all markdown files to see which components have pages
 const markdownFiles = import.meta.glob<string>(

@@ -1,4 +1,3 @@
-import LoaderIcon from '~icons/lucide/loader';
 import {
   InputGroup,
   InputGroupAddon,
@@ -6,6 +5,8 @@ import {
   InputGroupText,
 } from '@/components/ui/input-group';
 import { Spinner } from '@/components/ui/spinner';
+
+import LoaderIcon from '~icons/lucide/loader';
 
 <template>
   <div class="grid w-full max-w-sm gap-4">

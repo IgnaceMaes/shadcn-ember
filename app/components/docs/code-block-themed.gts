@@ -1,17 +1,20 @@
-import Component from '@glimmer/component';
 import { service } from '@ember/service';
+import Component from '@glimmer/component';
 import { CodeBlock } from 'ember-shiki';
-import CopyButton from '@/components/docs/copy-button';
-import glimmerTsLight from '@/assets/images/glimmer-ts-light.svg';
+import { eq, or } from 'ember-truth-helpers';
+
 import glimmerTsDark from '@/assets/images/glimmer-ts-dark.svg';
-import JsonIcon from '~icons/vscode-icons/file-type-json';
-import TypeScriptIcon from '~icons/vscode-icons/file-type-typescript';
-import JavaScriptIcon from '~icons/vscode-icons/file-type-js';
-import CssIcon from '~icons/vscode-icons/file-type-css';
-import AstroIcon from '~icons/vscode-icons/file-type-astro';
+import glimmerTsLight from '@/assets/images/glimmer-ts-light.svg';
+import CopyButton from '@/components/docs/copy-button';
+
 import type ThemeService from '@/services/theme';
 import type { ComponentLike } from '@glint/template';
-import { eq, or } from 'ember-truth-helpers';
+
+import AstroIcon from '~icons/vscode-icons/file-type-astro';
+import CssIcon from '~icons/vscode-icons/file-type-css';
+import JavaScriptIcon from '~icons/vscode-icons/file-type-js';
+import JsonIcon from '~icons/vscode-icons/file-type-json';
+import TypeScriptIcon from '~icons/vscode-icons/file-type-typescript';
 
 interface CodeBlockThemedSignature {
   Args: {

@@ -1,10 +1,18 @@
-import Component from '@glimmer/component';
 import { concat } from '@ember/helper';
-import { eq } from 'ember-truth-helpers';
+import Component from '@glimmer/component';
 import { pageTitle } from 'ember-page-title';
-import { unified } from 'unified';
-import remarkParse from 'remark-parse';
+import { eq } from 'ember-truth-helpers';
 import remarkGfm from 'remark-gfm';
+import remarkParse from 'remark-parse';
+import { unified } from 'unified';
+
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Separator } from '@/components/ui/separator';
+import { parseFrontmatter, type Frontmatter } from '@/lib/frontmatter';
+
+import CodeBlockThemed from './code-block-themed';
+import DocTable from './doc-table';
+import DynamicMarkdownComponent from './dynamic-markdown-component';
 import {
   DocParagraph,
   DocStrong,
@@ -18,17 +26,13 @@ import {
   DocCode,
   DocHeading,
 } from './index';
-import { Separator } from '@/components/ui/separator';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import Info from '~icons/lucide/info';
-import CodeBlockThemed from './code-block-themed';
-import PackageManagerCommand from './package-manager-command';
-import DynamicMarkdownComponent from './dynamic-markdown-component';
-import DocTable from './doc-table';
 import * as DocsComponents from './index';
-import type { ComponentLike } from '@glint/template';
+import PackageManagerCommand from './package-manager-command';
+
 import type { TocItem } from './doc-toc';
-import { parseFrontmatter, type Frontmatter } from '@/lib/frontmatter';
+import type { ComponentLike } from '@glint/template';
+
+import Info from '~icons/lucide/info';
 
 // Type definitions for markdown AST nodes
 interface MdastNode {

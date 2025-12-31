@@ -1,7 +1,9 @@
 import Component from '@glimmer/component';
-import type { TOC } from '@ember/component/template-only';
 import { cva } from 'class-variance-authority';
+
 import { cn } from '@/lib/utils';
+
+import type { TOC } from '@ember/component/template-only';
 
 interface EmptySignature {
   Element: HTMLDivElement;

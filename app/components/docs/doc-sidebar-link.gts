@@ -1,7 +1,10 @@
-import Component from '@glimmer/component';
 import { service } from '@ember/service';
-import DocLinkTo from './doc-link-to';
+import Component from '@glimmer/component';
+
 import { cn } from '@/lib/utils';
+
+import DocLinkTo from './doc-link-to';
+
 import type RouterService from '@ember/routing/router-service';
 
 interface DocSidebarLinkSignature {

@@ -7,6 +7,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
+
 import ShieldAlertIcon from '~icons/lucide/shield-alert';
 
 <template>

@@ -1,5 +1,6 @@
-import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
+
+import type { TOC } from '@ember/component/template-only';
 
 // Note: This is a placeholder for the Calendar component
 // Full implementation would require a date picker library like react-day-picker

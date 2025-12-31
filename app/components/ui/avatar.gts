@@ -1,9 +1,11 @@
-import Component from '@glimmer/component';
-import type { TOC } from '@ember/component/template-only';
-import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 import { eq } from 'ember-truth-helpers';
+
 import { cn } from '@/lib/utils';
+
+import type { TOC } from '@ember/component/template-only';
 
 interface AvatarSignature {
   Element: HTMLDivElement;

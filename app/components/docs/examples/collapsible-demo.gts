@@ -1,12 +1,14 @@
-import { tracked } from '@glimmer/tracking';
-import Component from '@glimmer/component';
 import { on } from '@ember/modifier';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+
 import { Button } from '@/components/ui/button';
 import {
   Collapsible,
   CollapsibleTrigger,
   CollapsibleContent,
 } from '@/components/ui/collapsible';
+
 import ChevronsUpDown from '~icons/lucide/chevrons-up-down';
 
 export default class CollapsibleDemo extends Component {

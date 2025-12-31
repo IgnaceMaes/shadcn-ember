@@ -1,10 +1,13 @@
+import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { on } from '@ember/modifier';
-import type Owner from '@ember/owner';
 import { provide, consume } from 'ember-provide-consume-context';
-import ChevronDown from '~icons/lucide/chevron-down';
+
 import { cn } from '@/lib/utils';
+
+import type Owner from '@ember/owner';
+
+import ChevronDown from '~icons/lucide/chevron-down';
 
 const AccordionContext = 'accordion-context' as const;
 const AccordionItemContext = 'accordion-item-context' as const;

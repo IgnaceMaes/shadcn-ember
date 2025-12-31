@@ -1,14 +1,12 @@
-import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
-import { modifier } from 'ember-modifier';
-import onKey from 'ember-keyboard/helpers/on-key';
 import RouterService from '@ember/routing/router-service';
 import { service } from '@ember/service';
-import { cn } from '@/lib/utils';
-import { docsNavigation } from '@/lib/docs-navigation';
-import type { DocNavItem } from '@/lib/docs-navigation';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import onKey from 'ember-keyboard/helpers/on-key';
+import { modifier } from 'ember-modifier';
+
 import { Button } from '@/components/ui/button';
 import {
   CommandDialog,
@@ -19,9 +17,14 @@ import {
   CommandList,
 } from '@/components/ui/command';
 import { Kbd } from '@/components/ui/kbd';
+import { docsNavigation } from '@/lib/docs-navigation';
+import { cn } from '@/lib/utils';
+
+import type { DocNavItem } from '@/lib/docs-navigation';
+
 import ArrowRight from '~icons/lucide/arrow-right';
-import CornerDownLeft from '~icons/lucide/corner-down-left';
 import CircleDashed from '~icons/lucide/circle-dashed';
+import CornerDownLeft from '~icons/lucide/corner-down-left';
 
 interface CommandMenuSignature {
   Element: HTMLDivElement;

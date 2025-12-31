@@ -1,7 +1,5 @@
-import type { TOC } from '@ember/component/template-only';
 import Component from '@glimmer/component';
-import { cn } from '@/lib/utils';
-import Search from '~icons/lucide/search';
+
 import {
   Dialog,
   DialogContent,
@@ -9,6 +7,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { cn } from '@/lib/utils';
+
+import type { TOC } from '@ember/component/template-only';
+
+import Search from '~icons/lucide/search';
 
 interface CommandSignature {
   Element: HTMLDivElement;

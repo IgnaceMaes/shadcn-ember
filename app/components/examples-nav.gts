@@ -1,15 +1,17 @@
-import Component from '@glimmer/component';
-import type { TOC } from '@ember/component/template-only';
-import { service } from '@ember/service';
-import type RouterService from '@ember/routing/router-service';
 import { hash } from '@ember/helper';
-import { cn } from '@/lib/utils';
+import { service } from '@ember/service';
+import Component from '@glimmer/component';
+
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { cn } from '@/lib/utils';
+
+import type { TOC } from '@ember/component/template-only';
+import type RouterService from '@ember/routing/router-service';
 
 interface Example {
   name: string;

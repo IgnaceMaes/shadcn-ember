@@ -1,5 +1,6 @@
-import Bookmark from '~icons/lucide/bookmark';
 import { Toggle } from '@/components/ui/toggle';
+
+import Bookmark from '~icons/lucide/bookmark';
 
 <template>
   <Toggle

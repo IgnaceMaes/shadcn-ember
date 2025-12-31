@@ -1,14 +1,18 @@
-import Component from '@glimmer/component';
-import { service } from '@ember/service';
-import type RouterService from '@ember/routing/router-service';
 import { array } from '@ember/helper';
-import { cn } from '@/lib/utils';
-import DocToc, { type TocItem } from './doc-toc';
-import DocLinkTo from './doc-link-to';
+import { service } from '@ember/service';
+import Component from '@glimmer/component';
+import { or } from 'ember-truth-helpers';
+
 import { getAdjacentPages, type AdjacentPages } from '@/lib/docs-navigation';
+import { cn } from '@/lib/utils';
+
+import DocLinkTo from './doc-link-to';
+import DocToc, { type TocItem } from './doc-toc';
+
+import type RouterService from '@ember/routing/router-service';
+
 import ArrowLeft from '~icons/lucide/arrow-left';
 import ArrowRight from '~icons/lucide/arrow-right';
-import { or } from 'ember-truth-helpers';
 
 interface DocPageSignature {
   Element: HTMLDivElement;

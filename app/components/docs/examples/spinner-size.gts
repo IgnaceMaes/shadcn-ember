@@ -1,5 +1,6 @@
-import type { TOC } from '@ember/component/template-only';
 import { Spinner } from '@/components/ui/spinner';
+
+import type { TOC } from '@ember/component/template-only';
 
 const SpinnerSize: TOC<{ Element: HTMLDivElement }> = <template>
   <div class="flex items-center gap-6">

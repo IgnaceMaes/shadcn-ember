@@ -1,5 +1,5 @@
-import loadConfigFromMeta from '@embroider/config-meta-loader';
 import { assert } from '@ember/debug';
+import loadConfigFromMeta from '@embroider/config-meta-loader';
 
 const config = loadConfigFromMeta('shadcn-ember') as unknown;
 

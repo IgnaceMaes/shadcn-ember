@@ -1,6 +1,7 @@
-import Component from '@glimmer/component';
-import { service } from '@ember/service';
 import RouterService from '@ember/routing/router-service';
+import { service } from '@ember/service';
+import Component from '@glimmer/component';
+
 import { MarkdownRenderer } from '@/components/docs';
 
 interface Signature {

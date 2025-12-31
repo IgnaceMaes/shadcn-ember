@@ -1,14 +1,5 @@
-import Component from '@glimmer/component';
-import type Owner from '@ember/owner';
-import type { TOC } from '@ember/component/template-only';
-import { tracked } from '@glimmer/tracking';
-import { cached } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { htmlSafe } from '@ember/template';
-import { modifier } from 'ember-modifier';
-import onClickOutside from 'ember-click-outside/modifiers/on-click-outside';
-import { provide, consume } from 'ember-provide-consume-context';
-import { cn } from '@/lib/utils';
 import {
   computePosition,
   flip,
@@ -17,6 +8,17 @@ import {
   autoUpdate,
   type Placement,
 } from '@floating-ui/dom';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { cached } from '@glimmer/tracking';
+import onClickOutside from 'ember-click-outside/modifiers/on-click-outside';
+import { modifier } from 'ember-modifier';
+import { provide, consume } from 'ember-provide-consume-context';
+
+import { cn } from '@/lib/utils';
+
+import type { TOC } from '@ember/component/template-only';
+import type Owner from '@ember/owner';
 
 const PopoverContext = 'popover-context' as const;
 

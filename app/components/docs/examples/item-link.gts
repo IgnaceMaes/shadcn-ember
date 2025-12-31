@@ -5,6 +5,7 @@ import {
   ItemDescription,
   ItemTitle,
 } from '@/components/ui/item';
+
 import ChevronRightIcon from '~icons/lucide/chevron-right';
 import ExternalLinkIcon from '~icons/lucide/external-link';
 

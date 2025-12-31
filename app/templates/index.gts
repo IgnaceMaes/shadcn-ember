@@ -1,33 +1,32 @@
+import { service } from '@ember/service';
+import Component from '@glimmer/component';
+
 import DocLinkTo from '@/components/docs/doc-link-to';
-
-// Icons
-import ArrowRight from '~icons/lucide/arrow-right';
-
-// UI Components
-import { Button } from '@/components/ui/button';
-import FieldDemo from '@/components/docs/examples/field-demo';
-import FieldSlider from '@/components/docs/examples/field-slider';
-import EmptyAvatarGroup from 'shadcn-ember/components/docs/examples/empty-avatar-group';
-import SpinnerBadge from '@/components/docs/examples/spinner-badge';
-import ButtonGroupInputGroup from 'shadcn-ember/components/docs/examples/button-group-input-group';
-import InputGroupDemo from '@/components/docs/examples/input-group-demo';
-import InputGroupButton from '@/components/docs/examples/input-group-button';
-import ItemDemo from '@/components/docs/examples/item-demo';
-import { FieldSeparator } from 'shadcn-ember/components/ui/field';
 import AppearanceSettings from '@/components/docs/examples/appearance-settings';
-import NotionPromptForm from '@/components/docs/examples/notion-prompt-form';
 import ButtonGroupDemo from '@/components/docs/examples/button-group-demo';
-import FieldCheckboxDemo from '@/components/docs/examples/field-checkbox-demo';
 import ButtonGroupNested from '@/components/docs/examples/button-group-nested';
 import ButtonGroupPopover from '@/components/docs/examples/button-group-popover';
+import FieldCheckboxDemo from '@/components/docs/examples/field-checkbox-demo';
+import FieldDemo from '@/components/docs/examples/field-demo';
 import FieldHear from '@/components/docs/examples/field-hear';
+import FieldSlider from '@/components/docs/examples/field-slider';
+import InputGroupButton from '@/components/docs/examples/input-group-button';
+import InputGroupDemo from '@/components/docs/examples/input-group-demo';
+import ItemDemo from '@/components/docs/examples/item-demo';
+import NotionPromptForm from '@/components/docs/examples/notion-prompt-form';
+import SpinnerBadge from '@/components/docs/examples/spinner-badge';
 import SpinnerEmpty from '@/components/docs/examples/spinner-empty';
+import ThemeSelector from '@/components/theme-selector';
+import { Button } from '@/components/ui/button';
+import ButtonGroupInputGroup from 'shadcn-ember/components/docs/examples/button-group-input-group';
+import EmptyAvatarGroup from 'shadcn-ember/components/docs/examples/empty-avatar-group';
 import { ExamplesNav } from 'shadcn-ember/components/examples-nav';
 import { PageNav } from 'shadcn-ember/components/page-nav';
-import ThemeSelector from '@/components/theme-selector';
-import Component from '@glimmer/component';
-import { service } from '@ember/service';
+import { FieldSeparator } from 'shadcn-ember/components/ui/field';
+
 import type ThemeService from '@/services/theme';
+
+import ArrowRight from '~icons/lucide/arrow-right';
 
 class IndexRoute extends Component {
   @service declare theme: ThemeService;

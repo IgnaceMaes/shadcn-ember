@@ -1,6 +1,8 @@
 import Component from '@glimmer/component';
-import DocLinkTo from './doc-link-to';
+
 import { cn } from '@/lib/utils';
+
+import DocLinkTo from './doc-link-to';
 
 interface DocLinkSignature {
   Element: HTMLAnchorElement;

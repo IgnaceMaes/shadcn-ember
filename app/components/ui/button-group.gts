@@ -1,6 +1,7 @@
 import Component from '@glimmer/component';
-import { cn } from '@/lib/utils';
+
 import { Separator } from '@/components/ui/separator';
+import { cn } from '@/lib/utils';
 
 type Orientation = 'horizontal' | 'vertical';
 

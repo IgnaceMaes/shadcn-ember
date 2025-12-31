@@ -1,6 +1,7 @@
-import type { TOC } from '@ember/component/template-only';
 import { Item, ItemContent, ItemMedia, ItemTitle } from '@/components/ui/item';
 import { Spinner } from '@/components/ui/spinner';
+
+import type { TOC } from '@ember/component/template-only';
 
 const SpinnerDemo: TOC<{ Element: HTMLDivElement }> = <template>
   <div class="flex w-full max-w-xs flex-col gap-4 [--radius:1rem]">

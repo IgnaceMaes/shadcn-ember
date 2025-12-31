@@ -1,7 +1,7 @@
-import Component from '@glimmer/component';
 import { service } from '@ember/service';
-import { THEMES } from '@/lib/themes';
-import { cn } from '@/lib/utils';
+import Component from '@glimmer/component';
+
+import { CopyCodeButton } from '@/components/theme-customizer';
 import { Label } from '@/components/ui/label';
 import {
   Select,
@@ -10,7 +10,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { CopyCodeButton } from '@/components/theme-customizer';
+import { THEMES } from '@/lib/themes';
+import { cn } from '@/lib/utils';
+
 import type ThemeService from '@/services/theme';
 
 interface ThemeSelectorSignature {

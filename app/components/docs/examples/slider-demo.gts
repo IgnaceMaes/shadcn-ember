@@ -1,5 +1,6 @@
-import { Slider } from '@/components/ui/slider';
 import { array } from '@ember/helper';
+
+import { Slider } from '@/components/ui/slider';
 
 <template>
   <Slider

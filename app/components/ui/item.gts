@@ -1,7 +1,9 @@
 import Component from '@glimmer/component';
-import type { TOC } from '@ember/component/template-only';
-import { cn } from '@/lib/utils';
+
 import { Separator } from '@/components/ui/separator';
+import { cn } from '@/lib/utils';
+
+import type { TOC } from '@ember/component/template-only';
 
 type ItemVariant = 'default' | 'outline' | 'muted';
 type ItemSize = 'default' | 'sm';

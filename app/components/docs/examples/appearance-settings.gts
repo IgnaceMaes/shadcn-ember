@@ -1,9 +1,8 @@
-import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
-import Minus from '~icons/lucide/minus';
-import Plus from '~icons/lucide/plus';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import {
@@ -20,6 +19,9 @@ import {
 import { Input } from '@/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Switch } from '@/components/ui/switch';
+
+import Minus from '~icons/lucide/minus';
+import Plus from '~icons/lucide/plus';
 
 export default class AppearanceSettings extends Component {
   @tracked gpuCount = 8;

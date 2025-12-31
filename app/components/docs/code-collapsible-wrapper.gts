@@ -1,7 +1,7 @@
+import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { on } from '@ember/modifier';
-import { cn } from '@/lib/utils';
+
 import { Button } from '@/components/ui/button';
 import {
   Collapsible,
@@ -9,6 +9,7 @@ import {
   CollapsibleContent,
 } from '@/components/ui/collapsible';
 import { Separator } from '@/components/ui/separator';
+import { cn } from '@/lib/utils';
 
 interface Signature {
   Element: HTMLDivElement;

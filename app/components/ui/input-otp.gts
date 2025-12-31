@@ -1,5 +1,7 @@
-import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
+
+import type { TOC } from '@ember/component/template-only';
+
 import Minus from '~icons/lucide/minus';
 
 // Note: This is a placeholder for the InputOTP component

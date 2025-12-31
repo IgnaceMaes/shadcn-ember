@@ -1,4 +1,3 @@
-import Link2 from '~icons/lucide/link-2';
 import { ButtonGroup, ButtonGroupText } from '@/components/ui/button-group';
 import {
   InputGroup,
@@ -6,6 +5,8 @@ import {
   InputGroupInput,
 } from '@/components/ui/input-group';
 import { Label } from '@/components/ui/label';
+
+import Link2 from '~icons/lucide/link-2';
 
 <template>
   <div class="grid w-full max-w-sm gap-6">

@@ -1,4 +1,3 @@
-import Info from '~icons/lucide/info';
 import {
   InputGroup,
   InputGroupAddon,
@@ -11,6 +10,8 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+
+import Info from '~icons/lucide/info';
 
 <template>
   <div class="grid w-full max-w-sm gap-4">

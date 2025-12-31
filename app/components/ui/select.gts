@@ -1,13 +1,5 @@
-import { tracked } from '@glimmer/tracking';
-import { cached } from '@glimmer/tracking';
-import Component from '@glimmer/component';
-import type { TOC } from '@ember/component/template-only';
 import { on } from '@ember/modifier';
 import { htmlSafe } from '@ember/template';
-import { modifier } from 'ember-modifier';
-import type Owner from '@ember/owner';
-import { provide, consume } from 'ember-provide-consume-context';
-import onClickOutside from 'ember-click-outside/modifiers/on-click-outside';
 import {
   computePosition,
   flip,
@@ -16,10 +8,21 @@ import {
   autoUpdate,
   type Placement,
 } from '@floating-ui/dom';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { cached } from '@glimmer/tracking';
+import onClickOutside from 'ember-click-outside/modifiers/on-click-outside';
+import { modifier } from 'ember-modifier';
+import { provide, consume } from 'ember-provide-consume-context';
+
+import { cn } from '@/lib/utils';
+
+import type { TOC } from '@ember/component/template-only';
+import type Owner from '@ember/owner';
+
+import Check from '~icons/lucide/check';
 import ChevronDown from '~icons/lucide/chevron-down';
 import ChevronUp from '~icons/lucide/chevron-up';
-import Check from '~icons/lucide/check';
-import { cn } from '@/lib/utils';
 
 const SelectContext = 'select-context' as const;
 

@@ -3,6 +3,7 @@ import {
   NativeSelect,
   NativeSelectOption,
 } from '@/components/ui/native-select';
+
 import DollarSign from '~icons/lucide/dollar-sign';
 
 <template>

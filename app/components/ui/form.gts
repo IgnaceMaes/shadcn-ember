@@ -1,6 +1,8 @@
-import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
+
 import { Label } from './label.gts';
+
+import type { TOC } from '@ember/component/template-only';
 
 // Note: This is a placeholder for the Form component
 // Full implementation would require react-hook-form or a similar form library

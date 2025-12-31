@@ -1,9 +1,12 @@
-import Component from '@glimmer/component';
-import type { TOC } from '@ember/component/template-only';
-import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 import { provide, consume } from 'ember-provide-consume-context';
+
 import { cn } from '@/lib/utils';
+
+import type { TOC } from '@ember/component/template-only';
+
 import XIcon from '~icons/lucide/x';
 
 const DialogContext = 'dialog-context' as const;

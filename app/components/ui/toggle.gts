@@ -1,8 +1,10 @@
-import Component from '@glimmer/component';
-import type Owner from '@ember/owner';
-import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+
 import { cn } from '@/lib/utils';
+
+import type Owner from '@ember/owner';
 
 type Variant = 'default' | 'outline';
 type Size = 'default' | 'sm' | 'lg';

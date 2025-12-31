@@ -1,6 +1,7 @@
 import Service from '@ember/service';
-import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
+
+import type Owner from '@ember/owner';
 
 type Theme = 'dark' | 'light' | 'system';
 

@@ -1,9 +1,3 @@
-import Check from '~icons/lucide/check';
-import InfoCircle from '~icons/lucide/info';
-import Plus from '~icons/lucide/plus';
-import ArrowUp from '~icons/lucide/arrow-up';
-import Search from '~icons/lucide/search';
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,6 +18,12 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+
+import ArrowUp from '~icons/lucide/arrow-up';
+import Check from '~icons/lucide/check';
+import InfoCircle from '~icons/lucide/info';
+import Plus from '~icons/lucide/plus';
+import Search from '~icons/lucide/search';
 
 <template>
   <div class="grid w-full max-w-sm gap-6">

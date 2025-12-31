@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
   Item,
   ItemActions,
@@ -8,6 +8,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
+
 import Plus from '~icons/lucide/plus';
 
 <template>

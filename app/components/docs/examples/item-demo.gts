@@ -1,5 +1,3 @@
-import BadgeCheck from '~icons/lucide/badge-check';
-import ChevronRight from '~icons/lucide/chevron-right';
 import { Button } from '@/components/ui/button';
 import {
   Item,
@@ -9,6 +7,9 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
+
+import BadgeCheck from '~icons/lucide/badge-check';
+import ChevronRight from '~icons/lucide/chevron-right';
 
 <template>
   <div class="flex w-full max-w-md flex-col gap-6">

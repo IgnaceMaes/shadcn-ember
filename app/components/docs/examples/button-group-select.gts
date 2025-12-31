@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { Input } from '@/components/ui/input';
@@ -9,6 +10,7 @@ import {
   SelectItem,
   SelectTrigger,
 } from '@/components/ui/select';
+
 import ArrowRightIcon from '~icons/lucide/arrow-right';
 
 const CURRENCIES = [

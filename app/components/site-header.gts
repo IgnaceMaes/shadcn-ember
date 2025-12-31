@@ -1,5 +1,8 @@
-import DocLinkTo from '@/components/docs/doc-link-to';
 import PhNotches from 'ember-phosphor-icons/components/ph-notches';
+
+import CommandMenu from '@/components/command-menu';
+import DocLinkTo from '@/components/docs/doc-link-to';
+import ThemeToggle from '@/components/theme-toggle';
 import { Button } from '@/components/ui/button';
 import { Kbd } from '@/components/ui/kbd';
 import { Separator } from '@/components/ui/separator';
@@ -8,8 +11,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import ThemeToggle from '@/components/theme-toggle';
-import CommandMenu from '@/components/command-menu';
+
 import Github from '~icons/simple-icons/github';
 
 <template>

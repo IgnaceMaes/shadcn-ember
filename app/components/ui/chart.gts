@@ -1,5 +1,6 @@
-import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
+
+import type { TOC } from '@ember/component/template-only';
 
 // Note: This is a placeholder for the Chart component
 // Full implementation would require recharts or a similar charting library

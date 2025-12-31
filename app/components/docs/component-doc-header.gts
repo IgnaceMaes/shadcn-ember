@@ -1,6 +1,8 @@
-import type { TOC } from '@ember/component/template-only';
-import { Separator } from '@/components/ui/separator';
 import { or } from 'ember-truth-helpers';
+
+import { Separator } from '@/components/ui/separator';
+
+import type { TOC } from '@ember/component/template-only';
 
 interface Signature {
   Args: {

@@ -1,6 +1,9 @@
 import Component from '@glimmer/component';
-import type { TOC } from '@ember/component/template-only';
+
 import { cn } from '@/lib/utils';
+
+import type { TOC } from '@ember/component/template-only';
+
 import X from '~icons/lucide/x';
 
 type Variant = 'default' | 'destructive';

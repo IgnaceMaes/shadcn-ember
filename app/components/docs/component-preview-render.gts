@@ -1,10 +1,12 @@
-import Component from '@glimmer/component';
 import { service } from '@ember/service';
+import Component from '@glimmer/component';
 import { CodeBlock } from 'ember-shiki';
+
+import CopyButton from '@/components/docs/copy-button';
+import { cn } from '@/lib/utils';
+
 import type ThemeService from '@/services/theme';
 import type { ComponentLike } from '@glint/template';
-import { cn } from '@/lib/utils';
-import CopyButton from '@/components/docs/copy-button';
 
 // Load all example components and their raw source code
 const components = import.meta.glob<{ default: ComponentLike }>(

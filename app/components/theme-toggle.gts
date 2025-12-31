@@ -1,9 +1,11 @@
-import Component from '@glimmer/component';
-import { service } from '@ember/service';
-import type ThemeService from '@/services/theme';
-import { Button } from '@/components/ui/button';
 import { on } from '@ember/modifier';
+import { service } from '@ember/service';
+import Component from '@glimmer/component';
 import onKey from 'ember-keyboard/helpers/on-key';
+
+import { Button } from '@/components/ui/button';
+
+import type ThemeService from '@/services/theme';
 
 interface ThemeToggleSignature {
   Element: HTMLButtonElement;

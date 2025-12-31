@@ -1,6 +1,8 @@
 import Component from '@glimmer/component';
-import type { TOC } from '@ember/component/template-only';
+
 import { cn } from '@/lib/utils';
+
+import type { TOC } from '@ember/component/template-only';
 
 // ScrollArea Root Component
 interface ScrollAreaSignature {

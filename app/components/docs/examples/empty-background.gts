@@ -7,8 +7,9 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from '@/components/ui/empty';
-import RefreshCcw from '~icons/lucide/refresh-ccw';
+
 import Bell from '~icons/lucide/bell';
+import RefreshCcw from '~icons/lucide/refresh-ccw';
 
 <template>
   <Empty @class="from-muted/50 to-background h-full bg-gradient-to-b from-30%">

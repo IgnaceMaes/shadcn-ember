@@ -1,7 +1,9 @@
+import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { on } from '@ember/modifier';
+
 import { cn } from '@/lib/utils';
+
 import Check from '~icons/lucide/check';
 
 interface CheckboxSignature {

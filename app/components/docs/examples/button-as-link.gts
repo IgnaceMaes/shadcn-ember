@@ -1,4 +1,5 @@
 import { LinkTo } from '@ember/routing';
+
 import { Button } from '@/components/ui/button';
 
 <template>

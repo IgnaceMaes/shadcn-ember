@@ -1,7 +1,9 @@
+import { cn } from '@/lib/utils';
+
 import type { TOC } from '@ember/component/template-only';
+
 import ChevronRight from '~icons/lucide/chevron-right';
 import MoreHorizontal from '~icons/lucide/more-horizontal';
-import { cn } from '@/lib/utils';
 
 interface BreadcrumbSignature {
   Element: HTMLElement;

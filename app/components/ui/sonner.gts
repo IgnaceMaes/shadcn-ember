@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+
 import { cn } from '@/lib/utils';
 
 // Sonner/Toaster placeholder component

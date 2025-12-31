@@ -1,6 +1,7 @@
-import { tracked } from '@glimmer/tracking';
-import Component from '@glimmer/component';
 import { on } from '@ember/modifier';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+
 import { Button } from '@/components/ui/button';
 import {
   Field,

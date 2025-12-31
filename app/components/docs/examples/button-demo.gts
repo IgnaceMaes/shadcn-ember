@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+
 import ArrowUpIcon from '~icons/lucide/arrow-up';
 
 <template>

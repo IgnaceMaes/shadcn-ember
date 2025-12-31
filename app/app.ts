@@ -1,10 +1,11 @@
 import '@glint/ember-tsc/types';
 import Application from '@ember/application';
-import compatModules from '@embroider/virtual/compat-modules';
-import Resolver from 'ember-resolver';
-import loadInitializers from 'ember-load-initializers';
-import config from 'shadcn-ember/config/environment';
 import setupInspector from '@embroider/legacy-inspector-support/ember-source-4.12';
+import compatModules from '@embroider/virtual/compat-modules';
+import loadInitializers from 'ember-load-initializers';
+import Resolver from 'ember-resolver';
+
+import config from 'shadcn-ember/config/environment';
 import './app.css';
 
 // if (macroCondition(isDevelopingApp())) {

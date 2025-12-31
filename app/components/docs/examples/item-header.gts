@@ -1,3 +1,5 @@
+import { array } from '@ember/helper';
+
 import {
   Item,
   ItemContent,
@@ -6,7 +8,6 @@ import {
   ItemHeader,
   ItemTitle,
 } from '@/components/ui/item';
-import { array } from '@ember/helper';
 
 const models = [
   {

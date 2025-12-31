@@ -1,5 +1,7 @@
+import { fn } from '@ember/helper';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -22,8 +24,8 @@ import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+
 import MoreHorizontal from '~icons/lucide/more-horizontal';
-import { fn } from '@ember/helper';
 
 export default class DropdownMenuDialogDemo extends Component {
   @tracked showNewDialog = false;

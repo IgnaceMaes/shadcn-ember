@@ -1,5 +1,3 @@
-import type { TOC } from '@ember/component/template-only';
-import ArrowUp from '~icons/lucide/arrow-up';
 import {
   InputGroup,
   InputGroupAddon,
@@ -8,6 +6,10 @@ import {
   InputGroupTextarea,
 } from '@/components/ui/input-group';
 import { Spinner } from '@/components/ui/spinner';
+
+import type { TOC } from '@ember/component/template-only';
+
+import ArrowUp from '~icons/lucide/arrow-up';
 
 const SpinnerInputGroup: TOC<{ Element: HTMLDivElement }> = <template>
   <div class="flex w-full max-w-md flex-col gap-4">

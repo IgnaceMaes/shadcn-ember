@@ -1,7 +1,3 @@
-import Copy from '~icons/lucide/copy';
-import CornerDownLeft from '~icons/lucide/corner-down-left';
-import Refresh from '~icons/lucide/refresh-cw';
-import FileCode from '~icons/lucide/file-code-2';
 import {
   InputGroup,
   InputGroupAddon,
@@ -9,6 +5,11 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from '@/components/ui/input-group';
+
+import Copy from '~icons/lucide/copy';
+import CornerDownLeft from '~icons/lucide/corner-down-left';
+import FileCode from '~icons/lucide/file-code-2';
+import Refresh from '~icons/lucide/refresh-cw';
 
 <template>
   <div class="grid w-full max-w-md gap-4">

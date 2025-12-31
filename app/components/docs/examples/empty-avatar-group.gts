@@ -8,6 +8,7 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from '@/components/ui/empty';
+
 import Plus from '~icons/lucide/plus';
 
 <template>

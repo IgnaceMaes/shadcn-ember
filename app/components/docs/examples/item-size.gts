@@ -7,6 +7,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
+
 import BadgeCheckIcon from '~icons/lucide/badge-check';
 import ChevronRightIcon from '~icons/lucide/chevron-right';
 

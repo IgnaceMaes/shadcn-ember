@@ -1,6 +1,7 @@
-import { tracked } from '@glimmer/tracking';
-import Component from '@glimmer/component';
 import { fn } from '@ember/helper';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+
 import { Card, CardContent } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import {

@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+
 import CodeBlockThemed from './code-block-themed';
 import CodeCollapsibleWrapper from './code-collapsible-wrapper';
 
