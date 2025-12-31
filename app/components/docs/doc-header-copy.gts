@@ -53,7 +53,11 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
   };
 
   get markdownUrl(): string {
-    return `${this.args.url || ''}.md`;
+    const url = this.args.url || '';
+    if (url === '/docs' || url === 'docs') {
+      return '/docs/index.md';
+    }
+    return `${url}.md`;
   }
 
   get chatGptUrl(): string {
