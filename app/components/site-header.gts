@@ -13,15 +13,17 @@ import CommandMenu from '@/components/command-menu';
 
 <template>
   <header class="bg-background sticky top-0 z-50 w-full">
-    <div class="container-wrapper px-6">
-      <div class="flex h-14 items-center">
-        <DocLinkTo @route="index">
+    <div class="container-wrapper 3xl:fixed:px-0 px-6">
+      <div
+        class="3xl:fixed:container flex h-(--header-height) items-center **:data-[slot=separator]:!h-4"
+      >
+        <DocLinkTo @route="index" class="hidden lg:flex">
           <Button @variant="ghost" @size="icon" class="size-8">
             <PhNotches @weight="bold" class="text-[#E04E39]" />
             <span class="sr-only">shadcn-ember</span>
           </Button>
         </DocLinkTo>
-        <nav class="items-center gap-0 hidden lg:flex">
+        <nav class="hidden items-center gap-0 lg:flex">
           <DocLinkTo
             @route="docs"
             class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 h-8 rounded-md gap-1.5 has-[>svg]:px-2.5 px-2.5 relative"
@@ -45,18 +47,22 @@ import CommandMenu from '@/components/command-menu';
           <div class="hidden w-full flex-1 md:flex md:w-auto md:flex-none">
             <CommandMenu />
           </div>
-          <Separator @orientation="vertical" class="ml-2 h-4 hidden lg:block" />
+          <Separator
+            @orientation="vertical"
+            class="ml-2 hidden lg:block"
+          />
           <Button
             @variant="ghost"
             @size="sm"
             class="h-8 gap-1.5 rounded-md px-3 has-[>svg]:px-2.5 shadow-none"
             @asChild={{true}}
+            as |class|
           >
             <a
               href="https://github.com/IgnaceMaes/shadcn-ember"
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-1.5"
+              class={{class}}
             >
               <svg viewBox="0 0 438.549 438.549" class="h-4 w-4">
                 <path
@@ -69,7 +75,7 @@ import CommandMenu from '@/components/command-menu';
               </span>
             </a>
           </Button>
-          <Separator @orientation="vertical" @class="h-4" />
+          <Separator @orientation="vertical" />
           <Tooltip>
             <TooltipTrigger>
               <ThemeToggle />
