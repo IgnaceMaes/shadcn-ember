@@ -27,9 +27,11 @@ interface SelectContextValue {
   value: string;
   selectedLabel: string;
   isOpen: boolean;
+  isRendered: boolean;
   disabled: boolean;
   toggle: () => void;
   close: () => void;
+  finishClose: () => void;
   selectValue: (value: string, label: string) => void;
   triggerElement: HTMLElement | null;
   setTriggerElement: (element: HTMLElement | null) => void;
@@ -55,6 +57,7 @@ interface SelectSignature {
 
 class Select extends Component<SelectSignature> {
   @tracked isOpen = false;
+  @tracked isRendered = false;
   @tracked selectedValue: string;
   @tracked selectedLabel = '';
   triggerElement: HTMLElement | null = null;
@@ -70,7 +73,12 @@ class Select extends Component<SelectSignature> {
 
   toggle = () => {
     if (!this.args.disabled) {
-      this.isOpen = !this.isOpen;
+      if (this.isOpen) {
+        this.close();
+      } else {
+        this.isRendered = true;
+        this.isOpen = true;
+      }
     }
   };
 
@@ -78,10 +86,16 @@ class Select extends Component<SelectSignature> {
     this.isOpen = false;
   };
 
+  finishClose = () => {
+    if (!this.isOpen) {
+      this.isRendered = false;
+    }
+  };
+
   selectValue = (value: string, label: string) => {
     this.selectedValue = value;
     this.selectedLabel = label;
-    this.isOpen = false;
+    this.close();
     this.args.onValueChange?.(value);
   };
 
@@ -96,9 +110,11 @@ class Select extends Component<SelectSignature> {
       value: this.value,
       selectedLabel: this.selectedLabel,
       isOpen: this.isOpen,
+      isRendered: this.isRendered,
       disabled: this.args.disabled ?? false,
       toggle: this.toggle,
       close: this.close,
+      finishClose: this.finishClose,
       selectValue: this.selectValue,
       triggerElement: this.triggerElement,
       setTriggerElement: this.setTriggerElement,
@@ -221,6 +237,12 @@ class SelectContent extends Component<SelectContentSignature> {
     this.context.close();
   };
 
+  handleAnimationEnd = (event: AnimationEvent) => {
+    if (event.target === event.currentTarget && !this.context.isOpen) {
+      this.context.finishClose();
+    }
+  };
+
   positionContent = modifier(
     (
       element: HTMLElement,
@@ -261,7 +283,7 @@ class SelectContent extends Component<SelectContentSignature> {
   }
 
   <template>
-    {{#if this.context.isOpen}}
+    {{#if this.context.isRendered}}
       {{#in-element this.destinationElement insertBefore=null}}
         <div
           data-slot="select-content"
@@ -275,6 +297,7 @@ class SelectContent extends Component<SelectContentSignature> {
           style={{this.positionStyle}}
           {{this.positionContent this.context.triggerElement}}
           {{onClickOutside this.handleClickOutside}}
+          {{on "animationend" this.handleAnimationEnd}}
           ...attributes
         >
           <div class="p-1">
