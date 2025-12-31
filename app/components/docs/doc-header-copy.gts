@@ -15,11 +15,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 
@@ -72,183 +67,93 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
   }
 
   <template>
-    <Popover>
-      <div
-        class={{cn
-          "bg-secondary group/buttons relative flex rounded-lg *:data-[slot=button]:focus-visible:relative *:data-[slot=button]:focus-visible:z-10"
-          @class
-        }}
-        ...attributes
+    <div
+      class={{cn
+        "bg-secondary group/buttons relative flex rounded-lg *:data-[slot=button]:focus-visible:relative *:data-[slot=button]:focus-visible:z-10"
+        @class
+      }}
+      ...attributes
+    >
+      <Button
+        @variant="secondary"
+        @size="sm"
+        @class="h-8 shadow-none md:h-7 md:text-[0.8rem]"
+        {{on "click" this.copyPage}}
       >
-        <Button
-          @variant="secondary"
-          @size="sm"
-          @class="h-8 shadow-none md:h-7 md:text-[0.8rem]"
-          {{on "click" this.copyPage}}
-        >
-          {{#if this.copied}}
-            <Check />
-          {{else}}
-            <Copy />
-          {{/if}}
-          Copy Page
-        </Button>
+        {{#if this.copied}}
+          <Check />
+        {{else}}
+          <Copy />
+        {{/if}}
+        Copy Page
+      </Button>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger @class="hidden sm:flex">
-            <Button
-              @variant="secondary"
-              @size="sm"
-              @class="peer -ml-0.5 size-8 shadow-none md:size-7 md:text-[0.8rem]"
-            >
-              <ChevronDown class="rotate-180 sm:rotate-0" />
-            </Button>
-          </DropdownMenuTrigger>
+      <Separator
+        @orientation="vertical"
+        @class="!bg-foreground/10 absolute top-0 right-8 z-0 !h-8 peer-focus-visible:opacity-0 sm:right-7 sm:!h-7"
+      />
 
-          <DropdownMenuContent @align="end" @class="shadow-none min-w-48">
-            <DropdownMenuItem @asChild={{true}} as |itemClass|>
-              <a
-                href={{this.markdownUrl}}
-                target="_blank"
-                rel="noopener noreferrer"
-                class={{itemClass}}
-              >
-                <MarkdownIcon />
-                View as Markdown
-              </a>
-            </DropdownMenuItem>
-
-            <DropdownMenuItem @asChild={{true}} as |itemClass|>
-              <a
-                href={{this.chatGptUrl}}
-                target="_blank"
-                rel="noopener noreferrer"
-                class={{itemClass}}
-              >
-                <ChatGptIcon />
-                Open in ChatGPT
-              </a>
-            </DropdownMenuItem>
-
-            <DropdownMenuItem @asChild={{true}} as |itemClass|>
-              <a
-                href={{this.claudeUrl}}
-                target="_blank"
-                rel="noopener noreferrer"
-                class={{itemClass}}
-              >
-                <ClaudeIcon />
-                Open in Claude
-              </a>
-            </DropdownMenuItem>
-
-            <DropdownMenuItem @asChild={{true}} as |itemClass|>
-              <a
-                href={{this.cursorUrl}}
-                target="_blank"
-                rel="noopener noreferrer"
-                class={{itemClass}}
-              >
-                <CursorIcon />
-                Open in Cursor
-              </a>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-        <Separator
-          @orientation="vertical"
-          @class="!bg-foreground/10 absolute top-0 right-8 z-0 !h-8 peer-focus-visible:opacity-0 sm:right-7 sm:!h-7"
-        />
-
-        <PopoverTrigger @class="flex sm:hidden">
+      <DropdownMenu>
+        <DropdownMenuTrigger>
           <Button
             @variant="secondary"
             @size="sm"
             @class="peer -ml-0.5 size-8 shadow-none md:size-7 md:text-[0.8rem]"
           >
-            <ChevronDown class="rotate-180 sm:rotate-0" />
+            <ChevronDown />
           </Button>
-        </PopoverTrigger>
+        </DropdownMenuTrigger>
 
-        <PopoverContent
-          @class="bg-background w-52 !origin-center rounded-lg p-1 shadow-sm"
-          @align="start"
-          @side="top"
-        >
-          <Button
-            @variant="ghost"
-            @size="lg"
-            @asChild={{true}}
-            @class="*:[svg]:text-muted-foreground w-full justify-start text-base font-normal"
-            as |buttonClass|
-          >
+        <DropdownMenuContent @align="end" @class="min-w-48">
+          <DropdownMenuItem @asChild={{true}} as |itemClass|>
             <a
               href={{this.markdownUrl}}
               target="_blank"
               rel="noopener noreferrer"
-              class={{buttonClass}}
+              class={{itemClass}}
             >
               <MarkdownIcon />
               View as Markdown
             </a>
-          </Button>
+          </DropdownMenuItem>
 
-          <Button
-            @variant="ghost"
-            @size="lg"
-            @asChild={{true}}
-            @class="*:[svg]:text-muted-foreground w-full justify-start text-base font-normal"
-            as |buttonClass|
-          >
+          <DropdownMenuItem @asChild={{true}} as |itemClass|>
             <a
               href={{this.chatGptUrl}}
               target="_blank"
               rel="noopener noreferrer"
-              class={{buttonClass}}
+              class={{itemClass}}
             >
               <ChatGptIcon />
               Open in ChatGPT
             </a>
-          </Button>
+          </DropdownMenuItem>
 
-          <Button
-            @variant="ghost"
-            @size="lg"
-            @asChild={{true}}
-            @class="*:[svg]:text-muted-foreground w-full justify-start text-base font-normal"
-            as |buttonClass|
-          >
+          <DropdownMenuItem @asChild={{true}} as |itemClass|>
             <a
               href={{this.claudeUrl}}
               target="_blank"
               rel="noopener noreferrer"
-              class={{buttonClass}}
+              class={{itemClass}}
             >
               <ClaudeIcon />
               Open in Claude
             </a>
-          </Button>
+          </DropdownMenuItem>
 
-          <Button
-            @variant="ghost"
-            @size="lg"
-            @asChild={{true}}
-            @class="*:[svg]:text-muted-foreground w-full justify-start text-base font-normal"
-            as |buttonClass|
-          >
+          <DropdownMenuItem @asChild={{true}} as |itemClass|>
             <a
               href={{this.cursorUrl}}
               target="_blank"
               rel="noopener noreferrer"
-              class={{buttonClass}}
+              class={{itemClass}}
             >
               <CursorIcon />
               Open in Cursor
             </a>
-          </Button>
-        </PopoverContent>
-      </div>
-    </Popover>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   </template>
 }
