@@ -41,8 +41,8 @@ import {
       <BreadcrumbItem>
         <BreadcrumbLink @asChild={{true}}>
           <LinkTo
-            @route="docs.catch-all"
             @model="components"
+            @route="docs.catch-all"
           >Components</LinkTo>
         </BreadcrumbLink>
       </BreadcrumbItem>

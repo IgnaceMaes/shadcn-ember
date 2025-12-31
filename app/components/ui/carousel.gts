@@ -74,8 +74,8 @@ interface CarouselPreviousSignature {
 
 const CarouselPrevious: TOC<CarouselPreviousSignature> = <template>
   <Button
-    @variant="outline"
     @size="icon"
+    @variant="outline"
     class={{cn
       "absolute h-8 w-8 rounded-full left-4 top-1/2 -translate-y-1/2"
       @class
@@ -100,8 +100,8 @@ interface CarouselNextSignature {
 
 const CarouselNext: TOC<CarouselNextSignature> = <template>
   <Button
-    @variant="outline"
     @size="icon"
+    @variant="outline"
     class={{cn
       "absolute h-8 w-8 rounded-full right-4 top-1/2 -translate-y-1/2"
       @class

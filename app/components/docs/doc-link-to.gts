@@ -41,7 +41,7 @@ export default class DocLinkTo extends Component<Signature> {
         {{yield}}
       </LinkTo>
     {{else}}
-      <LinkTo @route="docs.catch-all" @model={{this.pathModel}} ...attributes>
+      <LinkTo @model={{this.pathModel}} @route="docs.catch-all" ...attributes>
         {{yield}}
       </LinkTo>
     {{/if}}

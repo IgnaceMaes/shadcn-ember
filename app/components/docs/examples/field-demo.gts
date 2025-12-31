@@ -83,9 +83,9 @@ const state = new FieldDemoState();
               <Input
                 id="checkout-card-name"
                 placeholder="John Doe"
+                required
                 value={{state.cardName}}
                 {{on "input" state.updateCardName}}
-                required
               />
             </Field>
             <div class="grid grid-cols-3 gap-4">
@@ -96,9 +96,9 @@ const state = new FieldDemoState();
                 <Input
                   id="checkout-card-number"
                   placeholder="1234 5678 9012 3456"
+                  required
                   value={{state.cardNumber}}
                   {{on "input" state.updateCardNumber}}
-                  required
                 />
                 <FieldDescription>
                   Enter your 16-digit number.
@@ -109,9 +109,9 @@ const state = new FieldDemoState();
                 <Input
                   id="checkout-cvv"
                   placeholder="123"
+                  required
                   value={{state.cvv}}
                   {{on "input" state.updateCvv}}
-                  required
                 />
               </Field>
             </div>
@@ -170,11 +170,11 @@ const state = new FieldDemoState();
           <FieldGroup>
             <Field @orientation="horizontal">
               <Checkbox
-                id="checkout-same-as-shipping"
                 @checked={{state.sameAsShipping}}
                 @onCheckedChange={{state.toggleSameAsShipping}}
+                id="checkout-same-as-shipping"
               />
-              <FieldLabel @for="checkout-same-as-shipping" @class="font-normal">
+              <FieldLabel @class="font-normal" @for="checkout-same-as-shipping">
                 Same as shipping address
               </FieldLabel>
             </Field>

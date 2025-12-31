@@ -23,13 +23,13 @@ import {
         <Button @size="sm">Enable</Button>
       </ItemActions>
     </Item>
-    <Item @variant="outline" @size="sm" @asChild={{true}} as |item|>
+    <Item @asChild={{true}} @size="sm" @variant="outline" as |item|>
       <a
-        href="#"
+        class={{item.class}}
+        data-size={{item.size}}
         data-slot={{item.slot}}
         data-variant={{item.variant}}
-        data-size={{item.size}}
-        class={{item.class}}
+        href="#"
       >
         <ItemMedia>
           <BadgeCheck class="size-5" />

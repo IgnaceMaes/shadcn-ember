@@ -239,7 +239,7 @@ class NotionPromptForm extends Component {
   <template>
     <form class="[--radius:1.2rem]" {{on "submit" this.handleSubmit}}>
       <Field>
-        <FieldLabel @for="notion-prompt" @class="sr-only">
+        <FieldLabel @class="sr-only" @for="notion-prompt">
           Prompt
         </FieldLabel>
         <InputGroup>
@@ -253,9 +253,9 @@ class NotionPromptForm extends Component {
                 <TooltipTrigger {{on "focusin" this.stopPropagation}}>
                   <PopoverTrigger>
                     <InputGroupButton
-                      @variant="outline"
-                      @size={{if this.hasMentions "icon-sm" "sm"}}
                       @class="rounded-full transition-transform"
+                      @size={{if this.hasMentions "icon-sm" "sm"}}
+                      @variant="outline"
                     >
                       <At />
                       {{#unless this.hasMentions}}Add context{{/unless}}
@@ -264,7 +264,7 @@ class NotionPromptForm extends Component {
                 </TooltipTrigger>
                 <TooltipContent>Mention a person, page, or date</TooltipContent>
               </Tooltip>
-              <PopoverContent @class="p-0 [--radius:1.2rem]" @align="start">
+              <PopoverContent @align="start" @class="p-0 [--radius:1.2rem]">
                 <Command>
                   <CommandInput placeholder="Search pages..." />
                   <CommandList>
@@ -288,9 +288,9 @@ class NotionPromptForm extends Component {
             <div class="no-scrollbar -m-1.5 flex gap-1 overflow-y-auto p-1.5">
               {{#each this.mentionedItems as |item|}}
                 <InputGroupButton
+                  @class="rounded-full !pl-2"
                   @size="sm"
                   @variant="secondary"
-                  @class="rounded-full !pl-2"
                   {{on "click" (fn this.removeMention item.title)}}
                 >
                   <MentionableIcon @item={{item}} />
@@ -304,8 +304,8 @@ class NotionPromptForm extends Component {
             <Tooltip>
               <TooltipTrigger>
                 <InputGroupButton
-                  @size="icon-sm"
                   @class="rounded-full"
+                  @size="icon-sm"
                   @variant="ghost"
                   aria-label="Attach file"
                 >
@@ -315,15 +315,15 @@ class NotionPromptForm extends Component {
               <TooltipContent>Attach file</TooltipContent>
             </Tooltip>
             <DropdownMenu
-              @open={{this.modelPopoverOpen}}
               @onOpenChange={{fn (mut this.modelPopoverOpen)}}
+              @open={{this.modelPopoverOpen}}
             >
               <Tooltip>
                 <TooltipTrigger>
                   <DropdownMenuTrigger>
                     <InputGroupButton
-                      @size="sm"
                       @class="rounded-full"
+                      @size="sm"
                       @variant="ghost"
                     >
                       {{this.selectedModel.name}}
@@ -333,9 +333,9 @@ class NotionPromptForm extends Component {
                 <TooltipContent>Select AI model</TooltipContent>
               </Tooltip>
               <DropdownMenuContent
-                @side="top"
                 @align="start"
                 @class="[--radius:1rem]"
+                @side="top"
               >
                 <DropdownMenuGroup @class="w-42">
                   <DropdownMenuLabel @class="text-muted-foreground text-xs">
@@ -344,14 +344,14 @@ class NotionPromptForm extends Component {
                   {{#each SAMPLE_DATA.models as |model|}}
                     <DropdownMenuCheckboxItem
                       @checked={{this.isModelSelected model.name}}
-                      @onCheckedChange={{fn this.selectModel model}}
                       @class="pl-2 *:[span:first-child]:right-2 *:[span:first-child]:left-auto"
+                      @onCheckedChange={{fn this.selectModel model}}
                     >
                       {{model.name}}
                       {{#if model.badge}}
                         <Badge
-                          @variant="secondary"
                           @class="h-5 rounded-sm bg-blue-100 px-1 text-xs text-blue-800 dark:bg-blue-900 dark:text-blue-100"
+                          @variant="secondary"
                         >
                           {{model.badge}}
                         </Badge>
@@ -362,13 +362,13 @@ class NotionPromptForm extends Component {
               </DropdownMenuContent>
             </DropdownMenu>
             <DropdownMenu
-              @open={{this.scopeMenuOpen}}
               @onOpenChange={{fn (mut this.scopeMenuOpen)}}
+              @open={{this.scopeMenuOpen}}
             >
               <DropdownMenuTrigger>
                 <InputGroupButton
-                  @size="sm"
                   @class="rounded-full"
+                  @size="sm"
                   @variant="ghost"
                 >
                   <Globe />
@@ -378,17 +378,17 @@ class NotionPromptForm extends Component {
               <DropdownMenuContent @align="end" @class="[--radius:1rem]">
                 <DropdownMenuGroup>
                   <DropdownMenuItem
-                    @onSelect={{this.noop}}
                     @asChild={{true}}
+                    @onSelect={{this.noop}}
                     as |classes|
                   >
-                    <label for="web-search" class={{classes}}>
+                    <label class={{classes}} for="web-search">
                       <Globe />
                       Web Search
                       <Switch
-                        id="web-search"
-                        @class="ml-auto"
                         @checked={{true}}
+                        @class="ml-auto"
+                        id="web-search"
                       />
                     </label>
                   </DropdownMenuItem>
@@ -456,10 +456,10 @@ class NotionPromptForm extends Component {
               </DropdownMenuContent>
             </DropdownMenu>
             <InputGroupButton
-              aria-label="Send"
               @class="ml-auto rounded-full"
-              @variant="default"
               @size="icon-sm"
+              @variant="default"
+              aria-label="Send"
             >
               <ArrowUp />
             </InputGroupButton>

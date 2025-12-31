@@ -45,7 +45,7 @@ class Badge extends Component<BadgeSignature> {
     {{#if @asChild}}
       {{yield this.classes}}
     {{else}}
-      <span data-slot="badge" class={{this.classes}} ...attributes>
+      <span class={{this.classes}} data-slot="badge" ...attributes>
         {{yield}}
       </span>
     {{/if}}

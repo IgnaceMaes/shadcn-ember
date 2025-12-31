@@ -14,12 +14,12 @@ import {
   <div class="grid w-full max-w-md gap-4">
     <InputGroup>
       <InputGroupTextarea
-        placeholder="console.log('Hello, world!');"
         @class="min-h-[200px]"
+        placeholder="console.log('Hello, world!');"
       />
       <InputGroupAddon @align="block-end" @class="border-t">
         <InputGroupText>Line 1, Column 1</InputGroupText>
-        <InputGroupButton @size="sm" @class="ml-auto" @variant="default">
+        <InputGroupButton @class="ml-auto" @size="sm" @variant="default">
           Run
           <CornerDownLeft />
         </InputGroupButton>
@@ -32,7 +32,7 @@ import {
         <InputGroupButton @class="ml-auto" @size="icon-xs">
           <Refresh />
         </InputGroupButton>
-        <InputGroupButton @variant="ghost" @size="icon-xs">
+        <InputGroupButton @size="icon-xs" @variant="ghost">
           <Copy />
         </InputGroupButton>
       </InputGroupAddon>

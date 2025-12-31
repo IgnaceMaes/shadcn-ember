@@ -35,14 +35,14 @@ class ThemeSelector extends Component<ThemeSelectorSignature> {
 
   <template>
     <div class={{cn "flex items-center gap-2" @className}} ...attributes>
-      <Label @for="theme-selector" @class="sr-only">
+      <Label @class="sr-only" @for="theme-selector">
         Theme
       </Label>
-      <Select @value={{this.value}} @onValueChange={{this.setActiveTheme}}>
+      <Select @onValueChange={{this.setActiveTheme}} @value={{this.value}}>
         <SelectTrigger
-          id="theme-selector"
-          @size="sm"
           @class="bg-secondary text-secondary-foreground border-secondary justify-start shadow-none *:data-[slot=select-value]:w-12"
+          @size="sm"
+          id="theme-selector"
         >
           <span class="font-medium">Theme:</span>
           <SelectValue @placeholder="Select a theme" />
@@ -50,15 +50,15 @@ class ThemeSelector extends Component<ThemeSelectorSignature> {
         <SelectContent @align="end">
           {{#each THEMES as |theme|}}
             <SelectItem
-              @value={{theme.name}}
               @class="data-[state=checked]:opacity-50"
+              @value={{theme.name}}
             >
               {{theme.label}}
             </SelectItem>
           {{/each}}
         </SelectContent>
       </Select>
-      <CopyCodeButton @variant="secondary" @size="icon-sm" />
+      <CopyCodeButton @size="icon-sm" @variant="secondary" />
     </div>
   </template>
 }

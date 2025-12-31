@@ -41,10 +41,10 @@ export default class CopyButton extends Component<CopyButtonSignature> {
     <Tooltip>
       <TooltipTrigger @class={{cn "absolute top-3 right-3 z-10" @class}}>
         <Button
-          data-slot="copy-button"
-          data-copied={{this.hasCopied}}
-          @variant={{if @variant @variant "ghost"}}
           @class="size-7 hover:opacity-100 focus-visible:opacity-100 bg-code"
+          @variant={{if @variant @variant "ghost"}}
+          data-copied={{this.hasCopied}}
+          data-slot="copy-button"
           {{on "click" this.copyToClipboard}}
         >
           <span class="sr-only">Copy</span>

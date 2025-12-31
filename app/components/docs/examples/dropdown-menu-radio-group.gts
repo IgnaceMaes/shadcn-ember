@@ -27,28 +27,28 @@ export default class DropdownMenuRadioGroupDemo extends Component {
         <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup
-          @value={{this.position}}
           @onValueChange={{this.setPosition}}
+          @value={{this.position}}
           as |value setValue|
         >
           <DropdownMenuRadioItem
-            @value="top"
             @currentValue={{value}}
             @setValue={{setValue}}
+            @value="top"
           >
             Top
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem
-            @value="bottom"
             @currentValue={{value}}
             @setValue={{setValue}}
+            @value="bottom"
           >
             Bottom
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem
-            @value="right"
             @currentValue={{value}}
             @setValue={{setValue}}
+            @value="right"
           >
             Right
           </DropdownMenuRadioItem>

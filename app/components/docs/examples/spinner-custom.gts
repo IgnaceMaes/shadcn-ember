@@ -11,9 +11,9 @@ interface CustomSpinnerSignature {
 
 const CustomSpinner: TOC<CustomSpinnerSignature> = <template>
   <Loader
-    role="status"
     aria-label="Loading"
     class={{cn "size-4 animate-spin" @class}}
+    role="status"
     ...attributes
   />
 </template>;

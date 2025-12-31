@@ -39,7 +39,7 @@ const people = [
   <div class="flex min-h-64 w-full max-w-md flex-col items-center gap-6">
     <DropdownMenu>
       <DropdownMenuTrigger @asChild={{true}}>
-        <Button @variant="outline" @size="sm" @class="w-fit">
+        <Button @class="w-fit" @size="sm" @variant="outline">
           Select
           <ChevronDownIcon />
         </Button>
@@ -48,10 +48,10 @@ const people = [
         {{#each (array people) as |persons|}}
           {{#each persons as |person|}}
             <DropdownMenuItem @class="p-0">
-              <Item @size="sm" @class="w-full p-2">
+              <Item @class="w-full p-2" @size="sm">
                 <ItemMedia>
                   <Avatar @class="size-8">
-                    <AvatarImage @src={{person.avatar}} @class="grayscale" />
+                    <AvatarImage @class="grayscale" @src={{person.avatar}} />
                     <AvatarFallback>{{person.username}}</AvatarFallback>
                   </Avatar>
                 </ItemMedia>

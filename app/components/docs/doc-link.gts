@@ -36,8 +36,8 @@ export default class DocLink extends Component<DocLinkSignature> {
       </DocLinkTo>
     {{else}}
       <a
-        href={{@href}}
         class={{cn "font-medium underline underline-offset-4" @class}}
+        href={{@href}}
         rel="noopener noreferrer"
         target="_blank"
         ...attributes

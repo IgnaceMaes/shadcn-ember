@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input';
       <FieldGroup>
         <Field>
           <FieldLabel @for="username">Username</FieldLabel>
-          <Input id="username" type="text" placeholder="Max Leiter" />
+          <Input id="username" placeholder="Max Leiter" type="text" />
           <FieldDescription>
             Choose a unique username for your account.
           </FieldDescription>
@@ -23,7 +23,7 @@ import { Input } from '@/components/ui/input';
           <FieldDescription>
             Must be at least 8 characters long.
           </FieldDescription>
-          <Input id="password" type="password" placeholder="••••••••" />
+          <Input id="password" placeholder="••••••••" type="password" />
         </Field>
       </FieldGroup>
     </FieldSet>

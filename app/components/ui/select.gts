@@ -122,7 +122,7 @@ class Select extends Component<SelectSignature> {
   }
 
   <template>
-    <div data-slot="select" class="relative">
+    <div class="relative" data-slot="select">
       {{yield}}
     </div>
   </template>
@@ -155,18 +155,18 @@ class SelectTrigger extends Component<SelectTriggerSignature> {
 
   <template>
     <button
-      type="button"
-      data-slot="select-trigger"
-      data-size={{if @size @size "default"}}
       class={{cn
         "border-input data-placeholder:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:hover:bg-input/50 flex w-fit items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50"
         this.sizeClass
         "*:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
         @class
       }}
+      data-size={{if @size @size "default"}}
+      data-slot="select-trigger"
       disabled={{this.context.disabled}}
-      {{this.registerElement}}
+      type="button"
       {{on "click" this.context.toggle}}
+      {{this.registerElement}}
       ...attributes
     >
       {{yield}}
@@ -190,7 +190,7 @@ class SelectValue extends Component<SelectValueSignature> {
   @consume(SelectContext) context!: ContextRegistry[typeof SelectContext];
 
   <template>
-    <span data-slot="select-value" class={{cn @class}} ...attributes>
+    <span class={{cn @class}} data-slot="select-value" ...attributes>
       {{#if (has-block)}}
         {{yield}}
       {{else if this.context.selectedLabel}}
@@ -286,18 +286,18 @@ class SelectContent extends Component<SelectContentSignature> {
     {{#if this.context.isRendered}}
       {{#in-element this.destinationElement insertBefore=null}}
         <div
-          data-slot="select-content"
           class={{cn
             "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 max-h-96 min-w-32 overflow-x-hidden overflow-y-auto rounded-md border shadow-md"
             this.positionClass
             @class
           }}
+          data-slot="select-content"
           data-state={{if this.context.isOpen "open" "closed"}}
           role="listbox"
           style={{this.positionStyle}}
-          {{this.positionContent this.context.triggerElement}}
-          {{onClickOutside this.handleClickOutside}}
           {{on "animationend" this.handleAnimationEnd}}
+          {{onClickOutside this.handleClickOutside}}
+          {{this.positionContent this.context.triggerElement}}
           ...attributes
         >
           <div class="p-1">
@@ -320,7 +320,7 @@ interface SelectGroupSignature {
 }
 
 const SelectGroup: TOC<SelectGroupSignature> = <template>
-  <div data-slot="select-group" class={{cn @class}} ...attributes>
+  <div class={{cn @class}} data-slot="select-group" ...attributes>
     {{yield}}
   </div>
 </template>;
@@ -337,8 +337,8 @@ interface SelectLabelSignature {
 
 const SelectLabel: TOC<SelectLabelSignature> = <template>
   <div
-    data-slot="select-label"
     class={{cn "text-muted-foreground px-2 py-1.5 text-xs" @class}}
+    data-slot="select-label"
     ...attributes
   >
     {{yield}}
@@ -380,20 +380,20 @@ class SelectItem extends Component<SelectItemSignature> {
   <template>
     {{! template-lint-disable require-mandatory-role-attributes require-presentational-children }}
     <div
-      role="option"
-      data-slot="select-item"
       class={{cn
         "focus:bg-accent focus:text-accent-foreground hover:bg-accent hover:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2"
         @class
       }}
       data-disabled={{if @disabled "true"}}
-      {{this.registerElement}}
+      data-slot="select-item"
+      role="option"
       {{on "click" this.handleClick}}
+      {{this.registerElement}}
       ...attributes
     >
       <span
-        data-slot="select-item-indicator"
         class="absolute right-2 flex size-3.5 items-center justify-center"
+        data-slot="select-item-indicator"
       >
         {{#if this.isSelected}}
           <Check class="size-4" />
@@ -413,8 +413,8 @@ interface SelectSeparatorSignature {
 
 const SelectSeparator: TOC<SelectSeparatorSignature> = <template>
   <div
-    data-slot="select-separator"
     class={{cn "bg-border pointer-events-none -mx-1 my-1 h-px" @class}}
+    data-slot="select-separator"
     ...attributes
   ></div>
 </template>;
@@ -428,8 +428,8 @@ interface SelectScrollUpButtonSignature {
 
 const SelectScrollUpButton: TOC<SelectScrollUpButtonSignature> = <template>
   <div
-    data-slot="select-scroll-up-button"
     class={{cn "flex cursor-default items-center justify-center py-1" @class}}
+    data-slot="select-scroll-up-button"
     ...attributes
   >
     <ChevronUp class="size-4" />
@@ -445,8 +445,8 @@ interface SelectScrollDownButtonSignature {
 
 const SelectScrollDownButton: TOC<SelectScrollDownButtonSignature> = <template>
   <div
-    data-slot="select-scroll-down-button"
     class={{cn "flex cursor-default items-center justify-center py-1" @class}}
+    data-slot="select-scroll-down-button"
     ...attributes
   >
     <ChevronDown class="size-4" />

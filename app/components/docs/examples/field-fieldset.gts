@@ -18,16 +18,16 @@ import { Input } from '@/components/ui/input';
       <FieldGroup>
         <Field>
           <FieldLabel @for="street">Street Address</FieldLabel>
-          <Input id="street" type="text" placeholder="123 Main St" />
+          <Input id="street" placeholder="123 Main St" type="text" />
         </Field>
         <div class="grid grid-cols-2 gap-4">
           <Field>
             <FieldLabel @for="city">City</FieldLabel>
-            <Input id="city" type="text" placeholder="New York" />
+            <Input id="city" placeholder="New York" type="text" />
           </Field>
           <Field>
             <FieldLabel @for="zip">Postal Code</FieldLabel>
-            <Input id="zip" type="text" placeholder="90502" />
+            <Input id="zip" placeholder="90502" type="text" />
           </Field>
         </div>
       </FieldGroup>

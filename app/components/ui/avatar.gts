@@ -17,11 +17,11 @@ interface AvatarSignature {
 
 const Avatar: TOC<AvatarSignature> = <template>
   <div
-    data-slot="avatar"
     class={{cn
       "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"
       @class
     }}
+    data-slot="avatar"
     ...attributes
   >
     {{yield}}
@@ -56,11 +56,11 @@ class AvatarImage extends Component<AvatarImageSignature> {
   <template>
     {{#unless (eq this.loadingStatus "error")}}
       <img
-        src={{@src}}
         alt={{if @alt @alt ""}}
         class={{cn "aspect-square h-full w-full" @class}}
-        {{on "load" this.handleLoad}}
+        src={{@src}}
         {{on "error" this.handleError}}
+        {{on "load" this.handleLoad}}
         ...attributes
       />
     {{/unless}}

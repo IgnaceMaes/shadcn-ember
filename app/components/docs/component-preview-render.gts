@@ -62,16 +62,16 @@ export default class ComponentPreviewRender extends Component<ComponentPreviewSi
     >
       <div data-slot="preview">
         <div
-          data-align={{this.align}}
           class={{cn
             "preview flex w-full justify-center data-[align=center]:items-center data-[align=end]:items-end data-[align=start]:items-start h-[450px] p-10"
             @class
           }}
+          data-align={{this.align}}
         >
           <@component />
         </div>
       </div>
-      <div data-slot="code" class="border-t">
+      <div class="border-t" data-slot="code">
         {{! template-lint-disable no-inline-styles }}
         <div
           class="relative [&_pre]:max-h-[400px] [&_pre]:!m-0 [&_pre]:!rounded-none"
@@ -79,11 +79,11 @@ export default class ComponentPreviewRender extends Component<ComponentPreviewSi
         >
           <CopyButton @value={{this.code}} />
           <CodeBlock
-            @language="gts"
             @code={{this.code}}
+            @language="gts"
+            @showCopyButton={{false}}
             @showLineNumbers={{this.showLineNumbers}}
             @theme={{this.theme.codeBlockTheme}}
-            @showCopyButton={{false}}
             style="--ember-shiki-padding-x: 1rem; --ember-shiki-padding-y: 0.875rem; --ember-shiki-border-radius: 0; --ember-shiki-background-color: transparent; --ember-shiki-line-height: 1.6; --ember-shiki-font-size: 0.875rem;"
           />
         </div>

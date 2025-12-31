@@ -35,12 +35,12 @@ class FieldSlider extends Component {
           <span class="font-medium tabular-nums">{{this.maxValue}}</span>).
         </FieldDescription>
         <Slider
-          @value={{this.value}}
-          @onValueChange={{this.handleValueChange}}
+          @class="mt-2 w-full"
           @max={{1000}}
           @min={{0}}
+          @onValueChange={{this.handleValueChange}}
           @step={{10}}
-          @class="mt-2 w-full"
+          @value={{this.value}}
           aria-label="Price Range"
         />
       </Field>

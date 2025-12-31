@@ -21,9 +21,9 @@ import {
         <DropdownMenu>
           <DropdownMenuTrigger>
             <InputGroupButton
+              @size="icon-xs"
               @variant="ghost"
               aria-label="More"
-              @size="icon-xs"
             >
               <MoreHorizontal />
             </InputGroupButton>
@@ -42,7 +42,7 @@ import {
       <InputGroupAddon @align="inline-end">
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <InputGroupButton @variant="ghost" @class="!pr-1.5 text-xs">
+            <InputGroupButton @class="!pr-1.5 text-xs" @variant="ghost">
               Search In...
               <ChevronDown class="size-3" />
             </InputGroupButton>

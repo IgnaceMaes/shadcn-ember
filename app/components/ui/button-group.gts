@@ -64,10 +64,10 @@ class ButtonGroup extends Component<ButtonGroupSignature> {
 
   <template>
     <div
-      role="group"
-      data-slot="button-group"
-      data-orientation={{if @orientation @orientation "horizontal"}}
       class={{this.classes}}
+      data-orientation={{if @orientation @orientation "horizontal"}}
+      data-slot="button-group"
+      role="group"
       ...attributes
     >
       {{yield}}
@@ -104,9 +104,9 @@ class ButtonGroupSeparator extends Component<ButtonGroupSeparatorSignature> {
 
   <template>
     <Separator
-      data-slot="button-group-separator"
-      @orientation={{if @orientation @orientation "vertical"}}
       @class={{this.classes}}
+      @orientation={{if @orientation @orientation "vertical"}}
+      data-slot="button-group-separator"
       ...attributes
     />
   </template>

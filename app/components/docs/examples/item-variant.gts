@@ -17,7 +17,7 @@ import {
         </ItemDescription>
       </ItemContent>
       <ItemActions>
-        <Button @variant="outline" @size="sm">
+        <Button @size="sm" @variant="outline">
           Open
         </Button>
       </ItemActions>
@@ -30,7 +30,7 @@ import {
         </ItemDescription>
       </ItemContent>
       <ItemActions>
-        <Button @variant="outline" @size="sm">
+        <Button @size="sm" @variant="outline">
           Open
         </Button>
       </ItemActions>
@@ -43,7 +43,7 @@ import {
         </ItemDescription>
       </ItemContent>
       <ItemActions>
-        <Button @variant="outline" @size="sm">
+        <Button @size="sm" @variant="outline">
           Open
         </Button>
       </ItemActions>

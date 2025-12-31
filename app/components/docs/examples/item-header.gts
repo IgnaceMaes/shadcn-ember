@@ -41,11 +41,11 @@ const models = [
           <Item @variant="outline">
             <ItemHeader>
               <img
-                src={{model.image}}
                 alt={{model.name}}
-                width="128"
-                height="128"
                 class="aspect-square w-full rounded-sm object-cover"
+                height="128"
+                src={{model.image}}
+                width="128"
               />
             </ItemHeader>
             <ItemContent>

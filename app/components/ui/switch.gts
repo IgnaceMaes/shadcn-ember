@@ -50,20 +50,20 @@ class Switch extends Component<SwitchSignature> {
 
   <template>
     <button
-      type="button"
-      role="switch"
       aria-checked={{if this.isChecked "true" "false"}}
-      data-state={{if this.isChecked "checked" "unchecked"}}
-      data-slot="switch"
-      disabled={{@disabled}}
       class={{this.rootClasses}}
+      data-slot="switch"
+      data-state={{if this.isChecked "checked" "unchecked"}}
+      disabled={{@disabled}}
+      role="switch"
+      type="button"
       {{on "click" this.handleClick}}
       ...attributes
     >
       <span
-        data-state={{if this.isChecked "checked" "unchecked"}}
-        data-slot="switch-thumb"
         class={{this.thumbClasses}}
+        data-slot="switch-thumb"
+        data-state={{if this.isChecked "checked" "unchecked"}}
       ></span>
     </button>
   </template>

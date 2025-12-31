@@ -482,13 +482,13 @@ export default class MarkdownRenderer extends Component<Signature> {
 
     <DocPage @tocItems={{this.tocItems}}>
       <DocHeader
-        @title={{if this.frontmatter.title this.frontmatter.title ""}}
         @description={{if
           this.frontmatter.description
           this.frontmatter.description
           ""
         }}
         @markdown={{@markdown}}
+        @title={{if this.frontmatter.title this.frontmatter.title ""}}
       />
 
       <DocContent>
@@ -547,11 +547,11 @@ export default class MarkdownRenderer extends Component<Signature> {
               />
             {{else}}
               <CodeBlockThemed
-                @language={{if node.language node.language "text"}}
                 @code={{if node.content node.content ""}}
-                @title={{node.title}}
-                @showLineNumbers={{node.showLineNumbers}}
                 @highlightLines={{node.highlightLines}}
+                @language={{if node.language node.language "text"}}
+                @showLineNumbers={{node.showLineNumbers}}
+                @title={{node.title}}
               />
             {{/if}}
           {{/if}}
@@ -604,8 +604,8 @@ export default class MarkdownRenderer extends Component<Signature> {
             {{else if (eq node.depth 3)}}
               {{#let (this.getHeadingText node.children) as |title|}}
                 <h3
-                  id={{this.toKebabCase title}}
                   class="font-heading mt-12 scroll-m-28 text-lg font-medium tracking-tight [&+p]:!mt-4 *:[code]:text-xl"
+                  id={{this.toKebabCase title}}
                 >
                   {{#each node.children as |inline|}}
                     {{#if (eq inline.type "text")}}{{inline.content}}{{/if}}

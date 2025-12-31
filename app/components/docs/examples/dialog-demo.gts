@@ -33,7 +33,7 @@ export default class DialogDemo extends Component {
   };
 
   <template>
-    <Dialog @open={{this.isOpen}} @onOpenChange={{this.setIsOpen}}>
+    <Dialog @onOpenChange={{this.setIsOpen}} @open={{this.isOpen}}>
       <form {{on "submit" this.handleSubmit}}>
         <DialogTrigger>
           <Button @variant="outline">Open Dialog</Button>

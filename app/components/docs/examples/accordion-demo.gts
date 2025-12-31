@@ -7,7 +7,7 @@ import {
 
 <template>
   <div class="w-full">
-    <Accordion @type="single" @collapsible={{true}}>
+    <Accordion @collapsible={{true}} @type="single">
       <AccordionItem @value="item-1">
         <AccordionTrigger>Product Information</AccordionTrigger>
         <AccordionContent>

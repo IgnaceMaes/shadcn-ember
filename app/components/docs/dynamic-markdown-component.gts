@@ -22,11 +22,11 @@ export default <template>
   {{#let @props as |p|}}
     {{component
       @component
-      name=(if p (get p "name"))
+      align=(if p (get p "align"))
       class=(if p (get p "class"))
       className=(if p (get p "className"))
       description=(if p (get p "description"))
-      align=(if p (get p "align"))
+      name=(if p (get p "name"))
       title=(if p (get p "title"))
       value=(if p (get p "value"))
     }}

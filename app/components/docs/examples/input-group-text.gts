@@ -22,7 +22,7 @@ import {
       <InputGroupAddon>
         <InputGroupText>https://</InputGroupText>
       </InputGroupAddon>
-      <InputGroupInput placeholder="example.com" @class="!pl-0.5" />
+      <InputGroupInput @class="!pl-0.5" placeholder="example.com" />
       <InputGroupAddon @align="inline-end">
         <InputGroupText>.com</InputGroupText>
       </InputGroupAddon>

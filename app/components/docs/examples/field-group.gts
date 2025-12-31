@@ -19,8 +19,8 @@ import {
         </FieldDescription>
         <FieldGroup data-slot="checkbox-group">
           <Field @orientation="horizontal">
-            <Checkbox id="push" @checked={{true}} @disabled={{true}} />
-            <FieldLabel @for="push" @class="font-normal">
+            <Checkbox @checked={{true}} @disabled={{true}} id="push" />
+            <FieldLabel @class="font-normal" @for="push">
               Push notifications
             </FieldLabel>
           </Field>
@@ -36,13 +36,13 @@ import {
         <FieldGroup data-slot="checkbox-group">
           <Field @orientation="horizontal">
             <Checkbox id="push-tasks" />
-            <FieldLabel @for="push-tasks" @class="font-normal">
+            <FieldLabel @class="font-normal" @for="push-tasks">
               Push notifications
             </FieldLabel>
           </Field>
           <Field @orientation="horizontal">
             <Checkbox id="email-tasks" />
-            <FieldLabel @for="email-tasks" @class="font-normal">
+            <FieldLabel @class="font-normal" @for="email-tasks">
               Email notifications
             </FieldLabel>
           </Field>

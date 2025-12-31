@@ -40,11 +40,11 @@ export default class DropdownMenuDialogDemo extends Component {
   <template>
     <DropdownMenu>
       <DropdownMenuTrigger @asChild={{true}}>
-        <Button @variant="outline" @size="icon-sm" aria-label="Open menu">
+        <Button @size="icon-sm" @variant="outline" aria-label="Open menu">
           <MoreHorizontal />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent @class="w-40" @align="end">
+      <DropdownMenuContent @align="end" @class="w-40">
         <DropdownMenuLabel>File Actions</DropdownMenuLabel>
         <DropdownMenuGroup>
           <DropdownMenuItem @onSelect={{fn this.setShowNewDialog true}}>
@@ -59,8 +59,8 @@ export default class DropdownMenuDialogDemo extends Component {
     </DropdownMenu>
 
     <Dialog
-      @open={{this.showNewDialog}}
       @onOpenChange={{this.setShowNewDialog}}
+      @open={{this.showNewDialog}}
     >
       <DialogContent @class="sm:max-w-[425px]">
         <DialogHeader>
@@ -85,8 +85,8 @@ export default class DropdownMenuDialogDemo extends Component {
     </Dialog>
 
     <Dialog
-      @open={{this.showShareDialog}}
       @onOpenChange={{this.setShowShareDialog}}
+      @open={{this.showShareDialog}}
     >
       <DialogContent @class="sm:max-w-[425px]">
         <DialogHeader>
@@ -99,11 +99,11 @@ export default class DropdownMenuDialogDemo extends Component {
           <Field>
             <Label for="email">Email Address</Label>
             <Input
+              autocomplete="off"
               id="email"
               name="email"
-              type="email"
               placeholder="shadcn@vercel.com"
-              autocomplete="off"
+              type="email"
             />
           </Field>
           <Field>

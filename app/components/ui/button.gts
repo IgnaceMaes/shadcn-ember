@@ -71,12 +71,12 @@ class Button extends Component<ButtonSignature> {
       {{yield this.classes}}
     {{else}}
       <button
+        class={{this.classes}}
+        data-size={{if @size @size "default"}}
         data-slot="button"
         data-variant={{if @variant @variant "default"}}
-        data-size={{if @size @size "default"}}
-        class={{this.classes}}
-        type={{if @type @type "button"}}
         disabled={{@disabled}}
+        type={{if @type @type "button"}}
         ...attributes
       >
         {{yield}}

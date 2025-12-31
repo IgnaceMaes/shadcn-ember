@@ -58,9 +58,9 @@ interface ItemGroupSignature {
 
 const ItemGroup: TOC<ItemGroupSignature> = <template>
   <div
-    role="list"
-    data-slot="item-group"
     class={{cn "group/item-group flex flex-col" @class}}
+    data-slot="item-group"
+    role="list"
     ...attributes
   >
     {{yield}}
@@ -79,9 +79,9 @@ interface ItemSeparatorSignature {
 
 const ItemSeparator: TOC<ItemSeparatorSignature> = <template>
   <Separator
-    data-slot="item-separator"
-    @orientation="horizontal"
     @class={{cn "my-0" @class}}
+    @orientation="horizontal"
+    data-slot="item-separator"
     ...attributes
   />
 </template>;
@@ -133,10 +133,10 @@ class Item extends Component<ItemSignature> {
       {{yield this.yieldedContext}}
     {{else}}
       <div
+        class={{this.classes}}
+        data-size={{this.size}}
         data-slot="item"
         data-variant={{this.variant}}
-        data-size={{this.size}}
-        class={{this.classes}}
         ...attributes
       >
         {{yield this.yieldedContext}}
@@ -167,9 +167,9 @@ class ItemMedia extends Component<ItemMediaSignature> {
 
   <template>
     <div
+      class={{this.classes}}
       data-slot="item-media"
       data-variant={{this.variant}}
-      class={{this.classes}}
       ...attributes
     >
       {{yield}}
@@ -189,11 +189,11 @@ interface ItemContentSignature {
 
 const ItemContent: TOC<ItemContentSignature> = <template>
   <div
-    data-slot="item-content"
     class={{cn
       "flex flex-1 flex-col gap-1 [&+[data-slot=item-content]]:flex-none"
       @class
     }}
+    data-slot="item-content"
     ...attributes
   >
     {{yield}}
@@ -212,11 +212,11 @@ interface ItemTitleSignature {
 
 const ItemTitle: TOC<ItemTitleSignature> = <template>
   <div
-    data-slot="item-title"
     class={{cn
       "flex w-fit items-center gap-2 text-sm leading-snug font-medium"
       @class
     }}
+    data-slot="item-title"
     ...attributes
   >
     {{yield}}
@@ -235,11 +235,11 @@ interface ItemDescriptionSignature {
 
 const ItemDescription: TOC<ItemDescriptionSignature> = <template>
   <p
-    data-slot="item-description"
     class={{cn
       "text-muted-foreground line-clamp-2 text-sm leading-normal font-normal text-balance [&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4"
       @class
     }}
+    data-slot="item-description"
     ...attributes
   >
     {{yield}}
@@ -258,8 +258,8 @@ interface ItemActionsSignature {
 
 const ItemActions: TOC<ItemActionsSignature> = <template>
   <div
-    data-slot="item-actions"
     class={{cn "flex items-center gap-2" @class}}
+    data-slot="item-actions"
     ...attributes
   >
     {{yield}}
@@ -278,8 +278,8 @@ interface ItemHeaderSignature {
 
 const ItemHeader: TOC<ItemHeaderSignature> = <template>
   <div
-    data-slot="item-header"
     class={{cn "flex basis-full items-center justify-between gap-2" @class}}
+    data-slot="item-header"
     ...attributes
   >
     {{yield}}
@@ -298,8 +298,8 @@ interface ItemFooterSignature {
 
 const ItemFooter: TOC<ItemFooterSignature> = <template>
   <div
-    data-slot="item-footer"
     class={{cn "flex basis-full items-center justify-between gap-2" @class}}
+    data-slot="item-footer"
     ...attributes
   >
     {{yield}}

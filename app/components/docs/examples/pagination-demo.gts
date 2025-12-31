@@ -18,7 +18,7 @@ import {
         <PaginationLink href="#">1</PaginationLink>
       </PaginationItem>
       <PaginationItem>
-        <PaginationLink href="#" @isActive={{true}}>
+        <PaginationLink @isActive={{true}} href="#">
           2
         </PaginationLink>
       </PaginationItem>

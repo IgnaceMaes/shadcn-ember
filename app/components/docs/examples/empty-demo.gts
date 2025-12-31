@@ -29,13 +29,13 @@ import FolderCode from '~icons/lucide/folder-code';
       </div>
     </EmptyContent>
     <Button
-      @variant="link"
+      @asChild={{true}}
       @class="text-muted-foreground"
       @size="sm"
-      @asChild={{true}}
+      @variant="link"
       as |classes|
     >
-      <a href="#" class={{classes}}>
+      <a class={{classes}} href="#">
         Learn More
         <ArrowUpRight />
       </a>

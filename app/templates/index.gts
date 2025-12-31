@@ -43,8 +43,8 @@ class IndexRoute extends Component {
             >
               <DocLinkTo @route="docs.changelog">
                 <Button
-                  @variant="ghost"
                   @class="rounded-full border border-transparent px-2 py-0.5 h-auto text-xs font-medium gap-1 hover:bg-secondary/90 bg-transparent [&>svg]:size-3"
+                  @variant="ghost"
                 >
                   <span
                     class="flex size-2 rounded-full bg-[#E04E39]"

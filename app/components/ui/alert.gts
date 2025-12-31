@@ -54,7 +54,7 @@ class Alert extends Component<AlertSignature> {
   }
 
   <template>
-    <div data-slot="alert" role="alert" class={{this.className}} ...attributes>
+    <div class={{this.className}} data-slot="alert" role="alert" ...attributes>
       {{yield}}
     </div>
   </template>
@@ -69,7 +69,7 @@ class AlertTitle extends Component<AlertTitleSignature> {
   }
 
   <template>
-    <div data-slot="alert-title" class={{this.className}} ...attributes>
+    <div class={{this.className}} data-slot="alert-title" ...attributes>
       {{yield}}
     </div>
   </template>
@@ -84,7 +84,7 @@ class AlertDescription extends Component<AlertDescriptionSignature> {
   }
 
   <template>
-    <div data-slot="alert-description" class={{this.className}} ...attributes>
+    <div class={{this.className}} data-slot="alert-description" ...attributes>
       {{yield}}
     </div>
   </template>

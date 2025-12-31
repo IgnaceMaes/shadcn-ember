@@ -62,19 +62,19 @@ class FieldHear extends Component {
                 @class="flex flex-row flex-wrap gap-2 [--radius:9999rem]"
               >
                 {{#each options as |option|}}
-                  <FieldLabel @for={{option.value}} @class="!w-fit">
+                  <FieldLabel @class="!w-fit" @for={{option.value}}>
                     <Field
-                      @orientation="horizontal"
                       @class="gap-1.5 overflow-hidden !px-3 !py-1.5 transition-all duration-100 ease-linear group-has-data-[state=checked]/field-label:!px-2"
+                      @orientation="horizontal"
                     >
                       <Checkbox
-                        id={{option.value}}
                         @checked={{this.isChecked option.value}}
+                        @class="-ml-6 -translate-x-1 rounded-full transition-all duration-100 ease-linear data-[state=checked]:ml-0 data-[state=checked]:translate-x-0"
                         @onCheckedChange={{fn
                           this.handleCheckedChange
                           option.value
                         }}
-                        @class="-ml-6 -translate-x-1 rounded-full transition-all duration-100 ease-linear data-[state=checked]:ml-0 data-[state=checked]:translate-x-0"
+                        id={{option.value}}
                       />
                       <FieldTitle>{{option.label}}</FieldTitle>
                     </Field>

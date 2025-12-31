@@ -46,8 +46,8 @@ export default class DocTable extends Component<Signature> {
             <tr class="m-0 border-b">
               {{#each this.headerRow.children as |cell index|}}
                 <th
-                  class="px-4 py-2 text-left font-bold [[align=center]]:text-center [[align=right]]:text-right"
                   align={{this.getAlignment index}}
+                  class="px-4 py-2 text-left font-bold [[align=center]]:text-center [[align=right]]:text-right"
                 >
                   {{#each cell.children as |inline|}}
                     {{#if (eq inline.type "text")}}{{inline.content}}{{/if}}
@@ -71,8 +71,8 @@ export default class DocTable extends Component<Signature> {
             <tr class="m-0 border-b">
               {{#each row.children as |cell index|}}
                 <td
-                  class="px-4 py-2 text-left whitespace-nowrap [[align=center]]:text-center [[align=right]]:text-right"
                   align={{this.getAlignment index}}
+                  class="px-4 py-2 text-left whitespace-nowrap [[align=center]]:text-center [[align=right]]:text-right"
                 >
                   {{#each cell.children as |inline|}}
                     {{#if (eq inline.type "text")}}{{inline.content}}{{/if}}

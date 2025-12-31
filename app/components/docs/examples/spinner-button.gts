@@ -8,11 +8,11 @@ const SpinnerButton: TOC<{ Element: HTMLDivElement }> = <template>
       <Spinner />
       Loading...
     </Button>
-    <Button @variant="outline" @disabled={{true}} @size="sm">
+    <Button @disabled={{true}} @size="sm" @variant="outline">
       <Spinner />
       Please wait
     </Button>
-    <Button @variant="secondary" @disabled={{true}} @size="sm">
+    <Button @disabled={{true}} @size="sm" @variant="secondary">
       <Spinner />
       Processing
     </Button>

@@ -20,9 +20,9 @@ import {
         <Tooltip>
           <TooltipTrigger>
             <InputGroupButton
+              @size="icon-xs"
               @variant="ghost"
               aria-label="Info"
-              @size="icon-xs"
             >
               <Info />
             </InputGroupButton>
@@ -40,9 +40,9 @@ import {
         <Tooltip>
           <TooltipTrigger>
             <InputGroupButton
+              @size="icon-xs"
               @variant="ghost"
               aria-label="Help"
-              @size="icon-xs"
             >
               <HelpCircle />
             </InputGroupButton>
@@ -60,9 +60,9 @@ import {
         <TooltipTrigger>
           <InputGroupAddon>
             <InputGroupButton
+              @size="icon-xs"
               @variant="ghost"
               aria-label="Help"
-              @size="icon-xs"
             >
               <HelpCircle />
             </InputGroupButton>

@@ -22,7 +22,7 @@ import Bell from '~icons/lucide/bell';
       </EmptyDescription>
     </EmptyHeader>
     <EmptyContent>
-      <Button @variant="outline" @size="sm">
+      <Button @size="sm" @variant="outline">
         <RefreshCcw />
         Refresh
       </Button>

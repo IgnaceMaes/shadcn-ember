@@ -26,19 +26,19 @@ import { Label } from '@/components/ui/label';
       </DialogHeader>
       <div class="flex items-center gap-2">
         <div class="grid flex-1 gap-2">
-          <Label @for="link" @class="sr-only">
+          <Label @class="sr-only" @for="link">
             Link
           </Label>
           <Input
             id="link"
-            value="https://ui.shadcn.com/docs/installation"
             readonly
+            value="https://ui.shadcn.com/docs/installation"
           />
         </div>
       </div>
       <DialogFooter @class="sm:justify-start">
         <DialogClose>
-          <Button type="button" @variant="secondary">
+          <Button @variant="secondary" type="button">
             Close
           </Button>
         </DialogClose>

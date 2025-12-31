@@ -31,10 +31,10 @@ export default class ComponentSource extends Component<Signature> {
   <template>
     <CodeCollapsibleWrapper>
       <CodeBlockThemed
-        @language="gts"
         @code={{this.sourceCode}}
-        @title={{if @title @title this.defaultTitle}}
+        @language="gts"
         @showLineNumbers={{true}}
+        @title={{if @title @title this.defaultTitle}}
       />
     </CodeCollapsibleWrapper>
   </template>

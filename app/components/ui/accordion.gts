@@ -96,12 +96,12 @@ class AccordionTrigger extends Component<AccordionTriggerSignature> {
   <template>
     <h3 class="flex">
       <button
-        type="button"
-        data-state={{if this.isOpen "open" "closed"}}
         class={{cn
           "flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline text-left [&[data-state=open]>svg]:rotate-180"
           @class
         }}
+        data-state={{if this.isOpen "open" "closed"}}
+        type="button"
         {{on "click" this.handleClick}}
         ...attributes
       >
@@ -129,8 +129,8 @@ class AccordionContent extends Component<AccordionContentSignature> {
 
   <template>
     <div
-      data-state={{if this.isOpen "open" "closed"}}
       class="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm"
+      data-state={{if this.isOpen "open" "closed"}}
       hidden={{unless this.isOpen true}}
       ...attributes
     >
@@ -162,9 +162,9 @@ class AccordionItem extends Component<AccordionItemSignature> {
 
   <template>
     <div
-      data-state={{if this.isOpen "open" "closed"}}
-      data-disabled={{if @disabled "true"}}
       class={{cn "border-b last:border-b-0" @class}}
+      data-disabled={{if @disabled "true"}}
+      data-state={{if this.isOpen "open" "closed"}}
       ...attributes
     >
       {{yield}}
@@ -227,7 +227,7 @@ class Accordion extends Component<AccordionSignature> {
   }
 
   <template>
-    <div data-orientation="vertical" class={{@class}} ...attributes>
+    <div class={{@class}} data-orientation="vertical" ...attributes>
       {{yield}}
     </div>
   </template>

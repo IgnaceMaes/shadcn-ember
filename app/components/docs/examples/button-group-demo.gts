@@ -35,7 +35,7 @@ export default class ButtonGroupDemo extends Component {
   <template>
     <ButtonGroup>
       <ButtonGroup class="hidden sm:flex">
-        <Button @variant="outline" @size="icon" aria-label="Go Back">
+        <Button @size="icon" @variant="outline" aria-label="Go Back">
           <ArrowLeftIcon />
         </Button>
       </ButtonGroup>
@@ -47,7 +47,7 @@ export default class ButtonGroupDemo extends Component {
         <Button @variant="outline">Snooze</Button>
         <DropdownMenu>
           <DropdownMenuTrigger @asChild={{true}}>
-            <Button @variant="outline" @size="icon" aria-label="More Options">
+            <Button @size="icon" @variant="outline" aria-label="More Options">
               <MoreHorizontalIcon />
             </Button>
           </DropdownMenuTrigger>
@@ -83,28 +83,28 @@ export default class ButtonGroupDemo extends Component {
                 </DropdownMenuSubTrigger>
                 <DropdownMenuSubContent>
                   <DropdownMenuRadioGroup
-                    @value={{this.label}}
                     @onValueChange={{this.handleLabelChange}}
+                    @value={{this.label}}
                     as |value setValue|
                   >
                     <DropdownMenuRadioItem
-                      @value="personal"
                       @currentValue={{value}}
                       @setValue={{setValue}}
+                      @value="personal"
                     >
                       Personal
                     </DropdownMenuRadioItem>
                     <DropdownMenuRadioItem
-                      @value="work"
                       @currentValue={{value}}
                       @setValue={{setValue}}
+                      @value="work"
                     >
                       Work
                     </DropdownMenuRadioItem>
                     <DropdownMenuRadioItem
-                      @value="other"
                       @currentValue={{value}}
                       @setValue={{setValue}}
+                      @value="other"
                     >
                       Other
                     </DropdownMenuRadioItem>

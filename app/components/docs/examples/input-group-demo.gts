@@ -36,7 +36,7 @@ import {
     </InputGroup>
 
     <InputGroup>
-      <InputGroupInput placeholder="example.com" @class="!pl-1" />
+      <InputGroupInput @class="!pl-1" placeholder="example.com" />
       <InputGroupAddon>
         <InputGroupText>https://</InputGroupText>
       </InputGroupAddon>
@@ -61,9 +61,9 @@ import {
       <InputGroupTextarea placeholder="Ask, Search or Chat..." />
       <InputGroupAddon @align="block-end">
         <InputGroupButton
-          @variant="outline"
           @class="rounded-full"
           @size="icon-xs"
+          @variant="outline"
           aria-label="Add"
         >
           <Plus />
@@ -83,11 +83,11 @@ import {
           </DropdownMenuContent>
         </DropdownMenu>
         <InputGroupText @class="ml-auto">52% used</InputGroupText>
-        <Separator @orientation="vertical" @class="!h-4" />
+        <Separator @class="!h-4" @orientation="vertical" />
         <InputGroupButton
-          @variant="default"
           @class="rounded-full"
           @size="icon-xs"
+          @variant="default"
         >
           <ArrowUp />
           <span class="sr-only">Send</span>

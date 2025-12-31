@@ -75,7 +75,7 @@ class ExamplesNav extends Component<ExamplesNavSignature> {
       <ScrollArea @class="max-w-[96%] md:max-w-[600px] lg:max-w-none">
         <div class="flex items-center">
           <ExampleLink
-            @example={{hash name="Examples" href="/" code="" hidden=false}}
+            @example={{hash code="" hidden=false href="/" name="Examples"}}
             @isActive={{this.isActive "/"}}
           />
           {{#each examples as |example|}}
@@ -85,7 +85,7 @@ class ExamplesNav extends Component<ExamplesNavSignature> {
             />
           {{/each}}
         </div>
-        <ScrollBar @orientation="horizontal" @class="invisible" />
+        <ScrollBar @class="invisible" @orientation="horizontal" />
       </ScrollArea>
     </div>
   </template>
@@ -121,9 +121,9 @@ const ExampleLink: TOC<ExampleLinkSignature> = <template>
       </Tooltip>
     {{else}}
       <a
-        href={{@example.href}}
         class="text-muted-foreground hover:text-primary data-[active=true]:text-primary flex h-7 items-center justify-center px-4 text-center text-base font-medium transition-colors"
         data-active={{if @isActive "true" "false"}}
+        href={{@example.href}}
         ...attributes
       >
         {{@example.name}}

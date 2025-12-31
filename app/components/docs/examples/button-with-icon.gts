@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import GitBranch from '~icons/lucide/git-branch';
 
 <template>
-  <Button @variant="outline" @size="sm">
+  <Button @size="sm" @variant="outline">
     <GitBranch />
     New Branch
   </Button>

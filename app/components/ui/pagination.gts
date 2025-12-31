@@ -19,10 +19,10 @@ interface PaginationSignature {
 
 const Pagination: TOC<PaginationSignature> = <template>
   <nav
-    role="navigation"
     aria-label="pagination"
-    data-slot="pagination"
     class={{cn "mx-auto flex w-full justify-center" @class}}
+    data-slot="pagination"
+    role="navigation"
     ...attributes
   >
     {{yield}}
@@ -42,8 +42,8 @@ interface PaginationContentSignature {
 
 const PaginationContent: TOC<PaginationContentSignature> = <template>
   <ul
-    data-slot="pagination-content"
     class={{cn "flex flex-row items-center gap-1" @class}}
+    data-slot="pagination-content"
     ...attributes
   >
     {{yield}}
@@ -90,10 +90,10 @@ class PaginationLink extends Component<PaginationLinkSignature> {
   <template>
     {{! template-lint-disable link-href-attributes }}
     <a
-      class={{this.classes}}
       aria-current={{if @isActive "page"}}
-      data-slot="pagination-link"
+      class={{this.classes}}
       data-active={{@isActive}}
+      data-slot="pagination-link"
       ...attributes
     >
       {{yield}}
@@ -114,8 +114,8 @@ interface PaginationPreviousSignature {
 
 const PaginationPrevious: TOC<PaginationPreviousSignature> = <template>
   <PaginationLink
-    aria-label="Go to previous page"
     @size="default"
+    aria-label="Go to previous page"
     class={{cn "gap-1 px-2.5 sm:pl-2.5" @class}}
     ...attributes
   >
@@ -137,8 +137,8 @@ interface PaginationNextSignature {
 
 const PaginationNext: TOC<PaginationNextSignature> = <template>
   <PaginationLink
-    aria-label="Go to next page"
     @size="default"
+    aria-label="Go to next page"
     class={{cn "gap-1 px-2.5 sm:pr-2.5" @class}}
     ...attributes
   >
@@ -161,8 +161,8 @@ interface PaginationEllipsisSignature {
 const PaginationEllipsis: TOC<PaginationEllipsisSignature> = <template>
   <span
     aria-hidden="true"
-    data-slot="pagination-ellipsis"
     class={{cn "flex size-9 items-center justify-center" @class}}
+    data-slot="pagination-ellipsis"
     ...attributes
   >
     <MoreHorizontal class="size-4" />

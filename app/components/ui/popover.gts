@@ -134,20 +134,20 @@ class PopoverTrigger extends Component<PopoverTriggerSignature> {
         data-slot="popover-trigger"
         role="button"
         tabindex="0"
-        {{this.registerElement}}
         {{on "click" this.handleClick}}
         {{on "keydown" this.handleClick}}
+        {{this.registerElement}}
         ...attributes
       >
         {{yield}}
       </span>
     {{else}}
       <button
-        type="button"
         class={{cn @class}}
         data-slot="popover-trigger"
-        {{this.registerElement}}
+        type="button"
         {{on "click" this.handleClick}}
+        {{this.registerElement}}
         ...attributes
       >
         {{yield}}
@@ -167,7 +167,7 @@ interface PopoverAnchorSignature {
 }
 
 const PopoverAnchor: TOC<PopoverAnchorSignature> = <template>
-  <div data-slot="popover-anchor" class={{cn @class}} ...attributes>
+  <div class={{cn @class}} data-slot="popover-anchor" ...attributes>
     {{yield}}
   </div>
 </template>;
@@ -256,18 +256,18 @@ class PopoverContent extends Component<PopoverContentSignature> {
   <template>
     {{#if this.context.isRendered}}
       <div
-        data-slot="popover-content"
         class={{cn
           "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-72 origin-(--radix-popover-content-transform-origin) rounded-md border p-4 shadow-md outline-hidden"
           @class
         }}
-        data-state={{if this.context.open "open" "closed"}}
-        data-side={{if @side @side "bottom"}}
         data-align={{if @align @align "center"}}
+        data-side={{if @side @side "bottom"}}
+        data-slot="popover-content"
+        data-state={{if this.context.open "open" "closed"}}
         style={{this.positionStyle}}
-        {{this.positionContent}}
-        {{onClickOutside this.handleClickOutside}}
         {{on "animationend" this.handleAnimationEnd}}
+        {{onClickOutside this.handleClickOutside}}
+        {{this.positionContent}}
         ...attributes
       >
         {{yield}}

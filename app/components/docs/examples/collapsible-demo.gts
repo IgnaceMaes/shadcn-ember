@@ -18,8 +18,8 @@ export default class CollapsibleDemo extends Component {
 
   <template>
     <Collapsible
-      @open={{this.isOpen}}
       @onOpenChange={{this.setIsOpen}}
+      @open={{this.isOpen}}
       class="flex w-[350px] flex-col gap-2"
     >
       <div class="flex items-center justify-between gap-4 px-4">
@@ -28,15 +28,15 @@ export default class CollapsibleDemo extends Component {
         </h4>
         <CollapsibleTrigger @asChild={{true}} as |triggerProps|>
           <Button
-            @variant="ghost"
             @size="icon"
-            class="size-8"
-            {{on "click" triggerProps.onClick}}
+            @variant="ghost"
             aria-controls={{triggerProps.aria-controls}}
             aria-expanded={{triggerProps.aria-expanded}}
-            data-state={{triggerProps.data-state}}
+            class="size-8"
             data-disabled={{triggerProps.data-disabled}}
+            data-state={{triggerProps.data-state}}
             disabled={{triggerProps.disabled}}
+            {{on "click" triggerProps.onClick}}
           >
             <ChevronsUpDown />
             <span class="sr-only">Toggle</span>

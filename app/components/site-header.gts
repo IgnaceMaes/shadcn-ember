@@ -19,7 +19,7 @@ import Github from '~icons/simple-icons/github';
         class="3xl:fixed:container flex h-(--header-height) items-center **:data-[slot=separator]:!h-4"
       >
         <DocLinkTo @route="index" class="hidden lg:flex">
-          <Button @variant="ghost" @size="icon" class="size-8">
+          <Button @size="icon" @variant="ghost" class="size-8">
             <PhNotches @weight="bold" class="text-[#E04E39]" />
             <span class="sr-only">shadcn-ember</span>
           </Button>
@@ -50,17 +50,17 @@ import Github from '~icons/simple-icons/github';
           </div>
           <Separator @orientation="vertical" class="ml-2 hidden lg:block" />
           <Button
-            @variant="ghost"
-            @size="sm"
-            class="h-8 gap-1.5 rounded-md px-3 has-[>svg]:px-2.5 shadow-none"
             @asChild={{true}}
+            @size="sm"
+            @variant="ghost"
+            class="h-8 gap-1.5 rounded-md px-3 has-[>svg]:px-2.5 shadow-none"
             as |class|
           >
             <a
-              href="https://github.com/IgnaceMaes/shadcn-ember"
-              target="_blank"
-              rel="noopener noreferrer"
               class={{class}}
+              href="https://github.com/IgnaceMaes/shadcn-ember"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               <Github class="h-4 w-4" />
               <span class="text-muted-foreground w-fit text-xs tabular-nums">

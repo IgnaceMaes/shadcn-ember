@@ -20,7 +20,7 @@ import {
     </InputGroup>
 
     <InputGroup>
-      <InputGroupInput type="email" placeholder="Enter your email" />
+      <InputGroupInput placeholder="Enter your email" type="email" />
       <InputGroupAddon>
         <Mail />
       </InputGroupAddon>

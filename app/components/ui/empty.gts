@@ -15,11 +15,11 @@ interface EmptySignature {
 
 const Empty: TOC<EmptySignature> = <template>
   <div
-    data-slot="empty"
     class={{cn
       "flex min-w-0 flex-1 flex-col items-center justify-center gap-6 rounded-lg border-dashed p-6 text-center text-balance md:p-12"
       @class
     }}
+    data-slot="empty"
     ...attributes
   >
     {{yield}}
@@ -38,8 +38,8 @@ interface EmptyHeaderSignature {
 
 const EmptyHeader: TOC<EmptyHeaderSignature> = <template>
   <div
-    data-slot="empty-header"
     class={{cn "flex max-w-sm flex-col items-center gap-2 text-center" @class}}
+    data-slot="empty-header"
     ...attributes
   >
     {{yield}}
@@ -82,9 +82,9 @@ class EmptyMedia extends Component<EmptyMediaSignature> {
 
   <template>
     <div
+      class={{this.classes}}
       data-slot="empty-icon"
       data-variant={{if @variant @variant "default"}}
-      class={{this.classes}}
       ...attributes
     >
       {{yield}}
@@ -104,8 +104,8 @@ interface EmptyTitleSignature {
 
 const EmptyTitle: TOC<EmptyTitleSignature> = <template>
   <div
-    data-slot="empty-title"
     class={{cn "text-lg font-medium tracking-tight" @class}}
+    data-slot="empty-title"
     ...attributes
   >
     {{yield}}
@@ -124,11 +124,11 @@ interface EmptyDescriptionSignature {
 
 const EmptyDescription: TOC<EmptyDescriptionSignature> = <template>
   <div
-    data-slot="empty-description"
     class={{cn
       "text-muted-foreground [&>a:hover]:text-primary text-sm/relaxed [&>a]:underline [&>a]:underline-offset-4"
       @class
     }}
+    data-slot="empty-description"
     ...attributes
   >
     {{yield}}
@@ -147,11 +147,11 @@ interface EmptyContentSignature {
 
 const EmptyContent: TOC<EmptyContentSignature> = <template>
   <div
-    data-slot="empty-content"
     class={{cn
       "flex w-full max-w-sm min-w-0 flex-col items-center gap-4 text-sm text-balance"
       @class
     }}
+    data-slot="empty-content"
     ...attributes
   >
     {{yield}}

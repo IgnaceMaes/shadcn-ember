@@ -13,8 +13,8 @@ interface SkeletonSignature {
 
 const Skeleton: TOC<SkeletonSignature> = <template>
   <div
-    data-slot="skeleton"
     class={{cn "bg-accent animate-pulse rounded-md" @class}}
+    data-slot="skeleton"
     ...attributes
   >
     {{yield}}

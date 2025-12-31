@@ -87,11 +87,11 @@ class ToggleGroup extends Component<ToggleGroupSignature> {
         (hash
           Item=(component
             ToggleGroupItem
-            toggleValue=this.toggleValue
-            isPressed=this.isPressed
-            variant=@variant
-            size=@size
             disabled=@disabled
+            isPressed=this.isPressed
+            size=@size
+            toggleValue=this.toggleValue
+            variant=@variant
           )
         )
       }}
@@ -135,11 +135,11 @@ class ToggleGroupItem extends Component<ToggleGroupItemSignature> {
 
   <template>
     <button
-      type="button"
-      class={{this.classes}}
-      disabled={{@disabled}}
-      data-state={{if this.pressed "on" "off"}}
       aria-pressed={{this.pressed}}
+      class={{this.classes}}
+      data-state={{if this.pressed "on" "off"}}
+      disabled={{@disabled}}
+      type="button"
       {{on "click" this.handleClick}}
       ...attributes
     >

@@ -116,7 +116,7 @@ class DropdownMenu extends Component<DropdownMenuSignature> {
   }
 
   <template>
-    <div data-slot="dropdown-menu" class="relative">
+    <div class="relative" data-slot="dropdown-menu">
       {{yield}}
     </div>
   </template>
@@ -155,20 +155,20 @@ class DropdownMenuTrigger extends Component<DropdownMenuTriggerSignature> {
         data-slot="dropdown-menu-trigger"
         role="button"
         tabindex="0"
-        {{this.registerElement}}
         {{on "click" this.handleClick}}
         {{on "keydown" this.handleClick}}
+        {{this.registerElement}}
         ...attributes
       >
         {{yield}}
       </span>
     {{else}}
       <button
-        type="button"
         class={{cn @class}}
         data-slot="dropdown-menu-trigger"
-        {{this.registerElement}}
+        type="button"
         {{on "click" this.handleClick}}
+        {{this.registerElement}}
         ...attributes
       >
         {{yield}}
@@ -235,9 +235,9 @@ class DropdownMenuGroup extends Component<DropdownMenuGroupSignature> {
 
   <template>
     <div
-      role="group"
-      data-slot="dropdown-menu-group"
       class={{cn @class}}
+      data-slot="dropdown-menu-group"
+      role="group"
       ...attributes
     >
       {{yield}}
@@ -368,9 +368,9 @@ class DropdownMenuRadioGroup extends Component<DropdownMenuRadioGroupSignature> 
 
   <template>
     <div
-      role="radiogroup"
-      data-slot="dropdown-menu-radio-group"
       class={{cn @class}}
+      data-slot="dropdown-menu-radio-group"
+      role="radiogroup"
       ...attributes
     >
       {{yield this.value this.setValue}}
@@ -406,15 +406,15 @@ class DropdownMenuSubTrigger extends Component<DropdownMenuSubTriggerSignature> 
 
   <template>
     <div
-      data-slot="dropdown-menu-sub-trigger"
-      data-inset={{@inset}}
-      data-state={{if this.context.isOpen "open" "closed"}}
       class={{cn
         "focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
         @class
       }}
-      {{this.registerElement}}
+      data-inset={{@inset}}
+      data-slot="dropdown-menu-sub-trigger"
+      data-state={{if this.context.isOpen "open" "closed"}}
       {{on "mouseenter" this.handleMouseEnter}}
+      {{this.registerElement}}
       ...attributes
     >
       {{yield}}
@@ -507,19 +507,19 @@ class DropdownMenuSubContent extends Component<DropdownMenuSubContentSignature> 
     {{#if this.subContext.isRendered}}
       {{#in-element this.destinationElement insertBefore=null}}
         <div
-          data-slot="dropdown-menu-sub-content"
-          data-side="right"
-          data-align="start"
           class={{cn
             "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-[9999] min-w-32 origin-(--radix-dropdown-menu-content-transform-origin) overflow-hidden rounded-md border p-1 shadow-lg"
             @class
           }}
+          data-align="start"
+          data-side="right"
+          data-slot="dropdown-menu-sub-content"
           data-state={{if this.subContext.isOpen "open" "closed"}}
           role="menu"
           style={{this.positionStyle}}
-          {{this.positionSubmenu this.subContext.triggerElement}}
-          {{on "mouseenter" this.handleMouseEnter}}
           {{on "animationend" this.handleAnimationEnd}}
+          {{on "mouseenter" this.handleMouseEnter}}
+          {{this.positionSubmenu this.subContext.triggerElement}}
           ...attributes
         >
           {{yield}}
@@ -643,19 +643,19 @@ class DropdownMenuContent extends Component<DropdownMenuContentSignature> {
     {{#if this.context.isRendered}}
       {{#in-element this.destinationElement insertBefore=null}}
         <div
-          data-slot="dropdown-menu-content"
           class={{cn
             "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-[9999] max-h-(--radix-dropdown-menu-content-available-height) min-w-32 origin-(--radix-dropdown-menu-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border p-1 shadow-md"
             @class
           }}
-          data-state={{if this.menuContext.isOpen "open" "closed"}}
-          data-side={{@side}}
           data-align={{@align}}
+          data-side={{@side}}
+          data-slot="dropdown-menu-content"
+          data-state={{if this.menuContext.isOpen "open" "closed"}}
           role="menu"
           style={{this.positionStyle}}
-          {{this.positionContent this.menuContext.triggerElement}}
-          {{onClickOutside this.handleClickOutside}}
           {{on "animationend" this.handleAnimationEnd}}
+          {{onClickOutside this.handleClickOutside}}
+          {{this.positionContent this.menuContext.triggerElement}}
           ...attributes
         >
           {{yield}}
@@ -705,17 +705,17 @@ class DropdownMenuItem extends Component<DropdownMenuItemSignature> {
       }}
     {{else}}
       <div
-        data-slot="dropdown-menu-item"
-        data-inset={{@inset}}
-        data-variant={{@variant}}
         class={{cn
           "focus:bg-accent focus:text-accent-foreground hover:bg-accent hover:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive! [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
           @class
         }}
-        role="menuitem"
         data-disabled={{@disabled}}
-        {{on "mouseenter" this.handleMouseEnter}}
+        data-inset={{@inset}}
+        data-slot="dropdown-menu-item"
+        data-variant={{@variant}}
+        role="menuitem"
         {{on "click" this.handleClick}}
+        {{on "mouseenter" this.handleMouseEnter}}
         ...attributes
       >
         {{yield}}
@@ -752,15 +752,15 @@ class DropdownMenuCheckboxItem extends Component<DropdownMenuCheckboxItemSignatu
   <template>
     {{! template-lint-disable require-presentational-children }}
     <div
-      data-slot="dropdown-menu-checkbox-item"
+      aria-checked={{@checked}}
       class={{cn
         "focus:bg-accent focus:text-accent-foreground hover:bg-accent hover:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
         @class
       }}
+      data-slot="dropdown-menu-checkbox-item"
       role="menuitemcheckbox"
-      aria-checked={{@checked}}
-      {{on "mouseenter" this.handleMouseEnter}}
       {{on "click" this.handleClick}}
+      {{on "mouseenter" this.handleMouseEnter}}
       ...attributes
     >
       <span
@@ -808,15 +808,15 @@ class DropdownMenuRadioItem extends Component<DropdownMenuRadioItemSignature> {
   <template>
     {{! template-lint-disable require-presentational-children }}
     <div
-      data-slot="dropdown-menu-radio-item"
+      aria-checked={{this.checked}}
       class={{cn
         "focus:bg-accent focus:text-accent-foreground hover:bg-accent hover:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
         @class
       }}
+      data-slot="dropdown-menu-radio-item"
       role="menuitemradio"
-      aria-checked={{this.checked}}
-      {{on "mouseenter" this.handleMouseEnter}}
       {{on "click" this.handleClick}}
+      {{on "mouseenter" this.handleMouseEnter}}
       ...attributes
     >
       <span
@@ -856,9 +856,9 @@ class DropdownMenuLabel extends Component<DropdownMenuLabelSignature> {
 
   <template>
     <div
-      data-slot="dropdown-menu-label"
-      data-inset={{@inset}}
       class={{cn "px-2 py-1.5 text-sm font-medium data-inset:pl-8" @class}}
+      data-inset={{@inset}}
+      data-slot="dropdown-menu-label"
       {{on "mouseenter" this.handleMouseEnter}}
       ...attributes
     >
@@ -879,8 +879,8 @@ interface DropdownMenuSeparatorSignature {
 
 const DropdownMenuSeparator: TOC<DropdownMenuSeparatorSignature> = <template>
   <div
-    data-slot="dropdown-menu-separator"
     class={{cn "bg-border -mx-1 my-1 h-px" @class}}
+    data-slot="dropdown-menu-separator"
     role="separator"
     ...attributes
   ></div>
@@ -898,8 +898,8 @@ interface DropdownMenuShortcutSignature {
 
 const DropdownMenuShortcut: TOC<DropdownMenuShortcutSignature> = <template>
   <span
-    data-slot="dropdown-menu-shortcut"
     class={{cn "text-muted-foreground ml-auto text-xs tracking-widest" @class}}
+    data-slot="dropdown-menu-shortcut"
     ...attributes
   >
     {{yield}}

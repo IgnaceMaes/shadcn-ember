@@ -35,21 +35,21 @@ const music = [
     <ItemGroup @class="gap-4">
       {{#each (array music) as |songs|}}
         {{#each songs as |song|}}
-          <Item @variant="outline" @asChild={{true}} as |item|>
+          <Item @asChild={{true}} @variant="outline" as |item|>
             <a
-              href="#"
+              class={{item.class}}
+              data-size={{item.size}}
               data-slot={{item.slot}}
               data-variant={{item.variant}}
-              data-size={{item.size}}
-              class={{item.class}}
+              href="#"
             >
               <ItemMedia @variant="image">
                 <img
-                  src="https://avatar.vercel.sh/{{song.title}}"
                   alt={{song.title}}
-                  width="32"
-                  height="32"
                   class="object-cover grayscale"
+                  height="32"
+                  src="https://avatar.vercel.sh/{{song.title}}"
+                  width="32"
                 />
               </ItemMedia>
               <ItemContent>

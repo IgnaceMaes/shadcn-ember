@@ -157,26 +157,26 @@ class TooltipTrigger extends Component<TooltipTriggerSignature> {
   <template>
     {{#if @asChild}}
       <span
-        data-slot="tooltip-trigger"
         class={{cn "inline-block" @class}}
-        {{this.registerElement}}
+        data-slot="tooltip-trigger"
+        {{on "blur" this.handleBlur}}
+        {{on "focus" this.handleFocus}}
         {{on "mouseenter" this.handleMouseEnter}}
         {{on "mouseleave" this.handleMouseLeave}}
-        {{on "focus" this.handleFocus}}
-        {{on "blur" this.handleBlur}}
+        {{this.registerElement}}
         ...attributes
       >
         {{yield}}
       </span>
     {{else}}
       <span
-        data-slot="tooltip-trigger"
         class={{cn "inline-block" @class}}
-        {{this.registerElement}}
+        data-slot="tooltip-trigger"
+        {{on "blur" this.handleBlur}}
+        {{on "focus" this.handleFocus}}
         {{on "mouseenter" this.handleMouseEnter}}
         {{on "mouseleave" this.handleMouseLeave}}
-        {{on "focus" this.handleFocus}}
-        {{on "blur" this.handleBlur}}
+        {{this.registerElement}}
         ...attributes
       >
         {{yield}}
@@ -284,18 +284,18 @@ class TooltipContent extends Component<TooltipContentSignature> {
   <template>
     {{#if this.context.isRendered}}
       <div
-        data-slot="tooltip-content"
         class={{cn
           "z-50 overflow-hidden rounded-md bg-foreground px-3 py-1.5 text-xs text-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
           @class
         }}
-        data-side={{if @side @side "top"}}
         data-align={{if @align @align "center"}}
+        data-side={{if @side @side "top"}}
+        data-slot="tooltip-content"
         data-state={{if this.context.isOpen "open" "closed"}}
-        style={{this.positionStyle}}
         role="tooltip"
-        {{this.positionContent}}
+        style={{this.positionStyle}}
         {{on "animationend" this.handleAnimationEnd}}
+        {{this.positionContent}}
         ...attributes
       >
         {{yield}}

@@ -29,9 +29,9 @@ export default class ComponentPreview extends Component<Signature> {
   <template>
     {{#if this.componentInstance}}
       <ComponentPreviewRender
-        @component={{this.componentInstance}}
         @align={{@align}}
         @class={{@class}}
+        @component={{this.componentInstance}}
       />
     {{else}}
       <div class="text-destructive">

@@ -12,13 +12,13 @@ import ChevronDownIcon from '~icons/lucide/chevron-down';
 
 <template>
   <ButtonGroup>
-    <Button @variant="outline" @size="sm">
+    <Button @size="sm" @variant="outline">
       <BotIcon />
       Copilot
     </Button>
     <Popover>
       <PopoverTrigger @asChild={{true}}>
-        <Button @variant="outline" @size="icon-sm" aria-label="Open Popover">
+        <Button @size="icon-sm" @variant="outline" aria-label="Open Popover">
           <ChevronDownIcon />
         </Button>
       </PopoverTrigger>
@@ -29,8 +29,8 @@ import ChevronDownIcon from '~icons/lucide/chevron-down';
         <Separator />
         <div class="p-4 text-sm *:[p:not(:last-child)]:mb-2">
           <Textarea
-            placeholder="Describe your task in natural language."
             class="mb-4 resize-none"
+            placeholder="Describe your task in natural language."
           />
           <p class="font-medium">Start a new task with Copilot</p>
           <p class="text-muted-foreground">

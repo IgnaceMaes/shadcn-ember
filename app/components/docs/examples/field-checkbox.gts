@@ -22,28 +22,28 @@ import {
         </FieldDescription>
         <FieldGroup @class="gap-3">
           <Field @orientation="horizontal">
-            <Checkbox id="finder-pref-hard-disks" @checked={{true}} />
-            <FieldLabel @for="finder-pref-hard-disks" @class="font-normal">
+            <Checkbox @checked={{true}} id="finder-pref-hard-disks" />
+            <FieldLabel @class="font-normal" @for="finder-pref-hard-disks">
               Hard disks
             </FieldLabel>
           </Field>
           <Field @orientation="horizontal">
             <Checkbox id="finder-pref-external-disks" />
-            <FieldLabel @for="finder-pref-external-disks" @class="font-normal">
+            <FieldLabel @class="font-normal" @for="finder-pref-external-disks">
               External disks
             </FieldLabel>
           </Field>
           <Field @orientation="horizontal">
             <Checkbox id="finder-pref-cds-dvds" />
-            <FieldLabel @for="finder-pref-cds-dvds" @class="font-normal">
+            <FieldLabel @class="font-normal" @for="finder-pref-cds-dvds">
               CDs, DVDs, and iPods
             </FieldLabel>
           </Field>
           <Field @orientation="horizontal">
             <Checkbox id="finder-pref-connected-servers" />
             <FieldLabel
-              @for="finder-pref-connected-servers"
               @class="font-normal"
+              @for="finder-pref-connected-servers"
             >
               Connected servers
             </FieldLabel>
@@ -52,7 +52,7 @@ import {
       </FieldSet>
       <FieldSeparator />
       <Field @orientation="horizontal">
-        <Checkbox id="finder-pref-sync-folders" @checked={{true}} />
+        <Checkbox @checked={{true}} id="finder-pref-sync-folders" />
         <FieldContent>
           <FieldLabel @for="finder-pref-sync-folders">
             Sync Desktop & Documents folders

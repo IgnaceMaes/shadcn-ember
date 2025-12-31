@@ -72,9 +72,9 @@ class Collapsible extends Component<CollapsibleSignature> {
 
   <template>
     <div
+      data-disabled={{if this.disabled "" undefined}}
       data-slot="collapsible"
       data-state={{this.dataState}}
-      data-disabled={{if this.disabled "" undefined}}
       ...attributes
     >
       {{yield}}
@@ -128,14 +128,14 @@ class CollapsibleTrigger extends Component<CollapsibleTriggerSignature> {
       {{yield this.triggerProps}}
     {{else}}
       <button
-        type="button"
         aria-controls={{this.context.contentId}}
         aria-expanded={{if this.context.open "true" "false"}}
-        data-state={{this.dataState}}
-        data-slot="collapsible-trigger"
-        data-disabled={{if this.context.disabled "" undefined}}
-        disabled={{this.context.disabled}}
         class={{@class}}
+        data-disabled={{if this.context.disabled "" undefined}}
+        data-slot="collapsible-trigger"
+        data-state={{this.dataState}}
+        disabled={{this.context.disabled}}
+        type="button"
         {{on "click" this.context.onOpenToggle}}
         ...attributes
       >
@@ -170,12 +170,12 @@ class CollapsibleContent extends Component<CollapsibleContentSignature> {
 
   <template>
     <div
-      id={{this.context.contentId}}
-      data-state={{this.dataState}}
-      data-slot="collapsible-content"
-      data-disabled={{if this.context.disabled "" undefined}}
-      hidden={{unless this.isOpen true}}
       class={{@class}}
+      data-disabled={{if this.context.disabled "" undefined}}
+      data-slot="collapsible-content"
+      data-state={{this.dataState}}
+      hidden={{unless this.isOpen true}}
+      id={{this.context.contentId}}
       ...attributes
     >
       {{#if this.isOpen}}

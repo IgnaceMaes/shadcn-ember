@@ -26,9 +26,9 @@ import Plus from '~icons/lucide/plus';
       </ItemContent>
       <ItemActions>
         <Button
+          @class="rounded-full"
           @size="icon-sm"
           @variant="outline"
-          @class="rounded-full"
           aria-label="Invite"
         >
           <Plus />
@@ -41,20 +41,20 @@ import Plus from '~icons/lucide/plus';
           class="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:grayscale"
         >
           <Avatar class="hidden sm:flex">
-            <AvatarImage @src="https://github.com/shadcn.png" @alt="@shadcn" />
+            <AvatarImage @alt="@shadcn" @src="https://github.com/shadcn.png" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
           <Avatar class="hidden sm:flex">
             <AvatarImage
-              @src="https://github.com/maxleiter.png"
               @alt="@maxleiter"
+              @src="https://github.com/maxleiter.png"
             />
             <AvatarFallback>LR</AvatarFallback>
           </Avatar>
           <Avatar>
             <AvatarImage
-              @src="https://github.com/evilrabbit.png"
               @alt="@evilrabbit"
+              @src="https://github.com/evilrabbit.png"
             />
             <AvatarFallback>ER</AvatarFallback>
           </Avatar>

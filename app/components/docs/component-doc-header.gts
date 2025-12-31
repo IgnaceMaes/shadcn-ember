@@ -34,20 +34,20 @@ export default <template>
       <div class="flex items-center gap-2 pt-2">
         {{#if @docsUrl}}
           <a
-            href={{@docsUrl}}
-            target="_blank"
-            rel="noopener noreferrer"
             class="text-sm underline underline-offset-4"
+            href={{@docsUrl}}
+            rel="noopener noreferrer"
+            target="_blank"
           >
             Docs
           </a>
         {{/if}}
         {{#if @apiUrl}}
           <a
-            href={{@apiUrl}}
-            target="_blank"
-            rel="noopener noreferrer"
             class="text-sm underline underline-offset-4"
+            href={{@apiUrl}}
+            rel="noopener noreferrer"
+            target="_blank"
           >
             API Reference
           </a>

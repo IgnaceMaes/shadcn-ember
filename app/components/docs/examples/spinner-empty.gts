@@ -22,7 +22,7 @@ const SpinnerEmpty: TOC<{ Element: HTMLDivElement }> = <template>
       </EmptyDescription>
     </EmptyHeader>
     <EmptyContent>
-      <Button @variant="outline" @size="sm">
+      <Button @size="sm" @variant="outline">
         Cancel
       </Button>
     </EmptyContent>

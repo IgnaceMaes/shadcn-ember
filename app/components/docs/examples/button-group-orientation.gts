@@ -9,10 +9,10 @@ import PlusIcon from '~icons/lucide/plus';
     aria-label="Media controls"
     class="h-fit"
   >
-    <Button @variant="outline" @size="icon">
+    <Button @size="icon" @variant="outline">
       <PlusIcon />
     </Button>
-    <Button @variant="outline" @size="icon">
+    <Button @size="icon" @variant="outline">
       <MinusIcon />
     </Button>
   </ButtonGroup>

@@ -3,11 +3,11 @@ import { Kbd } from '@/components/ui/kbd';
 
 <template>
   <div class="flex flex-wrap items-center gap-4">
-    <Button @variant="outline" @size="sm" @class="pr-2">
+    <Button @class="pr-2" @size="sm" @variant="outline">
       Accept
       <Kbd>⏎</Kbd>
     </Button>
-    <Button @variant="outline" @size="sm" @class="pr-2">
+    <Button @class="pr-2" @size="sm" @variant="outline">
       Cancel
       <Kbd>Esc</Kbd>
     </Button>

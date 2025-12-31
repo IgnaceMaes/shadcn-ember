@@ -74,8 +74,8 @@ class HoverCardTrigger extends Component<HoverCardTriggerSignature> {
         </div>
       {{else}}
         <button
-          type="button"
           class={{cn @class}}
+          type="button"
           {{on "mouseenter" this.handleMouseEnter}}
           {{on "mouseleave" this.handleMouseLeave}}
           ...attributes

@@ -13,7 +13,7 @@ import { docsSidebar } from '@/lib/docs-navigation';
       <:sidebar>
         <DocSidebar>
           {{#each docsSidebar as |section|}}
-            <DocSidebarGroup @title={{section.title}} @listClass="gap-1">
+            <DocSidebarGroup @listClass="gap-1" @title={{section.title}}>
               {{#each section.items as |item|}}
                 {{#if item.href}}
                   <DocSidebarLink @href={{item.href}}>

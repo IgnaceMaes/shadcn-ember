@@ -178,8 +178,8 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
 
     <div class={{cn @class}} ...attributes>
       <Button
-        @variant="outline"
         @size="sm"
+        @variant="outline"
         class="relative h-8 w-full justify-start pl-3 font-normal shadow-none sm:pr-12 md:w-48 lg:w-56 xl:w-64 text-foreground dark:bg-card hover:bg-muted/50"
         {{on "click" (fn this.setOpen true)}}
       >
@@ -191,12 +191,12 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
       </Button>
 
       <CommandDialog
-        @open={{this.isOpen}}
-        @onOpenChange={{this.setOpen}}
-        @title="Search documentation..."
-        @description="Search for a command to run..."
-        @showCloseButton={{false}}
         @class="rounded-xl border-none bg-clip-padding p-2 pb-11 shadow-2xl ring-4 ring-neutral-200/80 dark:bg-neutral-900 dark:ring-neutral-800"
+        @description="Search for a command to run..."
+        @onOpenChange={{this.setOpen}}
+        @open={{this.isOpen}}
+        @showCloseButton={{false}}
+        @title="Search documentation..."
       >
         {{! Dialog-specific keyboard shortcuts - only active when dialog is open }}
         {{#if this.isOpen}}
@@ -206,10 +206,10 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
         {{/if}}
 
         <CommandInput
-          @placeholder="Search documentation..."
           @class="bg-input/50 border-input rounded-md border !h-9"
-          {{this.focusOnInsert}}
+          @placeholder="Search documentation..."
           {{on "input" this.handleSearchChange}}
+          {{this.focusOnInsert}}
         />
 
         <CommandList @class="no-scrollbar min-h-80 scroll-pt-2 scroll-pb-1.5">
@@ -223,8 +223,8 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
 
           {{#if (this.filterItems this.pageItems)}}
             <CommandGroup
-              @heading="Pages"
               @class="!p-0 [&_[data-cmdk-group-heading]]:scroll-mt-16 [&_[data-cmdk-group-heading]]:!p-3 [&_[data-cmdk-group-heading]]:!pb-1"
+              @heading="Pages"
             >
               {{#each (this.filterItems this.pageItems) as |item|}}
                 <CommandItem

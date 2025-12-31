@@ -21,7 +21,7 @@ import Cloud from '~icons/lucide/cloud';
       </EmptyDescription>
     </EmptyHeader>
     <EmptyContent>
-      <Button @variant="outline" @size="sm">
+      <Button @size="sm" @variant="outline">
         Upload Files
       </Button>
     </EmptyContent>

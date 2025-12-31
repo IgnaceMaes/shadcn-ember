@@ -18,8 +18,6 @@ interface InputGroupSignature {
 
 const InputGroup: TOC<InputGroupSignature> = <template>
   <div
-    data-slot="input-group"
-    role="group"
     class={{cn
       "group/input-group border-input dark:bg-input/30 relative flex w-full items-center rounded-md border shadow-xs transition-[color,box-shadow] outline-none"
       "h-9 min-w-0 has-[>textarea]:h-auto"
@@ -31,6 +29,8 @@ const InputGroup: TOC<InputGroupSignature> = <template>
       "has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40"
       @class
     }}
+    data-slot="input-group"
+    role="group"
     ...attributes
   >
     {{yield}}
@@ -82,14 +82,14 @@ class InputGroupAddon extends Component<InputGroupAddonSignature> {
   <template>
     {{! template-lint-disable no-invalid-interactive }}
     <div
-      role="group"
-      data-slot="input-group-addon"
-      data-align={{@align}}
       class={{cn
         "text-muted-foreground flex h-auto cursor-text items-center justify-center gap-2 py-1.5 text-sm font-medium select-none [&>svg:not([class*='size-'])]:size-4 [&>kbd]:rounded-[calc(var(--radius)-5px)] group-data-[disabled=true]/input-group:opacity-50"
         this.alignClasses
         @class
       }}
+      data-align={{@align}}
+      data-slot="input-group-addon"
+      role="group"
       {{on "click" this.handleClick}}
       ...attributes
     >
@@ -133,14 +133,14 @@ class InputGroupButton extends Component<InputGroupButtonSignature> {
 
   <template>
     <Button
-      @type={{if @type @type "button"}}
-      data-size={{@size}}
-      @variant={{if @variant @variant "ghost"}}
       @class={{cn
         "text-sm shadow-none flex gap-2 items-center"
         this.sizeClasses
         @class
       }}
+      @type={{if @type @type "button"}}
+      @variant={{if @variant @variant "ghost"}}
+      data-size={{@size}}
       ...attributes
     >
       {{yield}}
@@ -180,11 +180,11 @@ interface InputGroupInputSignature {
 
 const InputGroupInput: TOC<InputGroupInputSignature> = <template>
   <Input
-    data-slot="input-group-control"
     @class={{cn
       "flex-1 rounded-none border-0 bg-transparent shadow-none focus-visible:ring-0 dark:bg-transparent"
       @class
     }}
+    data-slot="input-group-control"
     ...attributes
   />
 </template>;
@@ -198,11 +198,11 @@ interface InputGroupTextareaSignature {
 
 const InputGroupTextarea: TOC<InputGroupTextareaSignature> = <template>
   <Textarea
-    data-slot="input-group-control"
     @class={{cn
       "flex-1 resize-none rounded-none border-0 bg-transparent py-3 shadow-none focus-visible:ring-0 dark:bg-transparent"
       @class
     }}
+    data-slot="input-group-control"
     ...attributes
   />
 </template>;

@@ -20,12 +20,12 @@ export default class CodeTabs extends Component<Signature> {
   <template>
     <div ...attributes>
       <Tabs
-        @value={{this.selectedTab}}
         @onValueChange={{this.handleValueChange}}
+        @value={{this.selectedTab}}
       >
         {{yield
           (hash
-            TabsList=TabsList TabsTrigger=TabsTrigger TabsContent=TabsContent
+            TabsContent=TabsContent TabsList=TabsList TabsTrigger=TabsTrigger
           )
         }}
       </Tabs>

@@ -24,16 +24,16 @@ import {
     <InputGroup>
       <InputGroupInput id="email-2" placeholder="shadcn@vercel.com" />
       <InputGroupAddon @align="block-start">
-        <Label for="email-2" @class="text-foreground">
+        <Label @class="text-foreground" for="email-2">
           Email
         </Label>
         <Tooltip>
           <TooltipTrigger>
             <InputGroupButton
-              @variant="ghost"
-              aria-label="Help"
               @class="ml-auto rounded-full"
               @size="icon-xs"
+              @variant="ghost"
+              aria-label="Help"
             >
               <Info />
             </InputGroupButton>

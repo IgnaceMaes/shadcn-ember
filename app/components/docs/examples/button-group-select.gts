@@ -37,8 +37,8 @@ export default class ButtonGroupSelect extends Component {
     <ButtonGroup>
       <ButtonGroup>
         <Select
-          @value={{this.currency}}
           @onValueChange={{this.handleCurrencyChange}}
+          @value={{this.currency}}
         >
           <SelectTrigger class="font-mono">{{this.currency}}</SelectTrigger>
           <SelectContent @class="min-w-24">
@@ -50,10 +50,10 @@ export default class ButtonGroupSelect extends Component {
             {{/each}}
           </SelectContent>
         </Select>
-        <Input placeholder="10.00" pattern="[0-9]*" />
+        <Input pattern="[0-9]*" placeholder="10.00" />
       </ButtonGroup>
       <ButtonGroup>
-        <Button aria-label="Send" @size="icon" @variant="outline">
+        <Button @size="icon" @variant="outline" aria-label="Send">
           <ArrowRightIcon />
         </Button>
       </ButtonGroup>

@@ -68,8 +68,8 @@ export default class AppearanceSettings extends Component {
                 </FieldContent>
                 <RadioGroupItem
                   @value="kubernetes"
-                  id="kubernetes-r2h"
                   aria-label="Kubernetes"
+                  id="kubernetes-r2h"
                 />
               </Field>
             </FieldLabel>
@@ -84,8 +84,8 @@ export default class AppearanceSettings extends Component {
                 </FieldContent>
                 <RadioGroupItem
                   @value="vm"
-                  id="vm-z4k"
                   aria-label="Virtual Machine"
+                  id="vm-z4k"
                 />
               </Field>
             </FieldLabel>
@@ -99,29 +99,29 @@ export default class AppearanceSettings extends Component {
           </FieldContent>
           <ButtonGroup>
             <Input
+              @class="h-8 !w-14 font-mono"
               id="number-of-gpus-f6l"
+              maxlength="3"
+              size="3"
               value={{this.gpuCount}}
               {{on "input" this.handleGpuInputChange}}
-              size="3"
-              @class="h-8 !w-14 font-mono"
-              maxlength="3"
             />
             <Button
-              @variant="outline"
-              @size="icon-sm"
-              type="button"
-              aria-label="Decrement"
               @disabled={{this.isMinGpu}}
+              @size="icon-sm"
+              @variant="outline"
+              aria-label="Decrement"
+              type="button"
               {{on "click" (fn this.handleGpuAdjustment -1)}}
             >
               <Minus />
             </Button>
             <Button
-              @variant="outline"
-              @size="icon-sm"
-              type="button"
-              aria-label="Increment"
               @disabled={{this.isMaxGpu}}
+              @size="icon-sm"
+              @variant="outline"
+              aria-label="Increment"
+              type="button"
               {{on "click" (fn this.handleGpuAdjustment 1)}}
             >
               <Plus />
@@ -137,9 +137,9 @@ export default class AppearanceSettings extends Component {
             </FieldDescription>
           </FieldContent>
           <Switch
-            id="tinting"
             @checked={{this.wallpaperTinting}}
             @onCheckedChange={{this.handleWallpaperTintingChange}}
+            id="tinting"
           />
         </Field>
       </FieldGroup>

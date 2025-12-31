@@ -19,7 +19,7 @@ import {
     <DropdownMenuTrigger @asChild={{true}}>
       <Button @variant="outline">Open</Button>
     </DropdownMenuTrigger>
-    <DropdownMenuContent @class="w-56" @align="start">
+    <DropdownMenuContent @align="start" @class="w-56">
       <DropdownMenuLabel>My Account</DropdownMenuLabel>
       <DropdownMenuGroup>
         <DropdownMenuItem>

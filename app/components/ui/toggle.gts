@@ -76,12 +76,12 @@ class Toggle extends Component<ToggleSignature> {
 
   <template>
     <button
-      type="button"
-      data-slot="toggle"
-      class={{this.classes}}
-      disabled={{@disabled}}
-      data-state={{if this.pressed "on" "off"}}
       aria-pressed={{this.pressed}}
+      class={{this.classes}}
+      data-slot="toggle"
+      data-state={{if this.pressed "on" "off"}}
+      disabled={{@disabled}}
+      type="button"
       {{on "click" this.handleClick}}
       ...attributes
     >

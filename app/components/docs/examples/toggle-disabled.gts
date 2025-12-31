@@ -2,7 +2,7 @@ import Underline from '~icons/lucide/underline';
 import { Toggle } from '@/components/ui/toggle';
 
 <template>
-  <Toggle aria-label="Toggle underline" @disabled={{true}}>
+  <Toggle @disabled={{true}} aria-label="Toggle underline">
     <Underline />
   </Toggle>
 </template>

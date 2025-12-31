@@ -76,9 +76,9 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
   <template>
     <ButtonGroup @class={{cn "bg-secondary rounded-lg" @class}} ...attributes>
       <Button
-        @variant="secondary"
-        @size="sm"
         @class="h-8 shadow-none md:h-7 md:text-[0.8rem]"
+        @size="sm"
+        @variant="secondary"
         {{on "click" this.copyPage}}
       >
         {{#if this.copied}}
@@ -94,9 +94,9 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Button
-            @variant="secondary"
-            @size="sm"
             @class="size-8 shadow-none md:size-7 md:text-[0.8rem]"
+            @size="sm"
+            @variant="secondary"
           >
             <ChevronDown class="rotate-180 md:rotate-0" />
           </Button>
@@ -105,10 +105,10 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
         <DropdownMenuContent @align="end" @class="min-w-48">
           <DropdownMenuItem @asChild={{true}} as |itemClass|>
             <a
-              href={{this.markdownUrl}}
-              target="_blank"
-              rel="noopener noreferrer"
               class={{itemClass}}
+              href={{this.markdownUrl}}
+              rel="noopener noreferrer"
+              target="_blank"
             >
               <MarkdownIcon />
               View as Markdown
@@ -117,10 +117,10 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
 
           <DropdownMenuItem @asChild={{true}} as |itemClass|>
             <a
-              href={{this.chatGptUrl}}
-              target="_blank"
-              rel="noopener noreferrer"
               class={{itemClass}}
+              href={{this.chatGptUrl}}
+              rel="noopener noreferrer"
+              target="_blank"
             >
               <ChatGptIcon />
               Open in ChatGPT
@@ -129,10 +129,10 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
 
           <DropdownMenuItem @asChild={{true}} as |itemClass|>
             <a
-              href={{this.claudeUrl}}
-              target="_blank"
-              rel="noopener noreferrer"
               class={{itemClass}}
+              href={{this.claudeUrl}}
+              rel="noopener noreferrer"
+              target="_blank"
             >
               <ClaudeIcon />
               Open in Claude
@@ -141,10 +141,10 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
 
           <DropdownMenuItem @asChild={{true}} as |itemClass|>
             <a
-              href={{this.cursorUrl}}
-              target="_blank"
-              rel="noopener noreferrer"
               class={{itemClass}}
+              href={{this.cursorUrl}}
+              rel="noopener noreferrer"
+              target="_blank"
             >
               <CursorIcon />
               Open in Cursor

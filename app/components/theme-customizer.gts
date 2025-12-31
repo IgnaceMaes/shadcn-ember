@@ -41,9 +41,9 @@ class CopyCodeButton extends Component<CopyCodeButtonSignature> {
     <Tooltip>
       <TooltipTrigger>
         <Button
-          @variant={{if @variant @variant "ghost"}}
-          @size={{if @size @size "icon"}}
           @class={{cn "size-7" @class}}
+          @size={{if @size @size "icon"}}
+          @variant={{if @variant @variant "ghost"}}
           {{on "click" this.copyToClipboard}}
         >
           <span class="sr-only">Copy theme code</span>

@@ -222,34 +222,34 @@ class Slider extends Component<SliderSignature> {
 
   <template>
     <div
-      data-slot="slider"
-      data-disabled={{if @disabled "true"}}
-      data-orientation={{this.orientation}}
       class={{cn
         "relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-44 data-[orientation=vertical]:w-auto data-[orientation=vertical]:flex-col"
         @class
       }}
+      data-disabled={{if @disabled "true"}}
+      data-orientation={{this.orientation}}
+      data-slot="slider"
       ...attributes
     >
       {{! template-lint-disable no-invalid-interactive no-pointer-down-event-binding }}
       <div
-        data-slot="slider-track"
         class="bg-muted relative grow overflow-hidden rounded-full data-[orientation=horizontal]:h-1.5 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5"
         data-orientation={{this.orientation}}
+        data-slot="slider-track"
         {{on "pointerdown" this.handleTrackClick}}
       >
         <div
-          data-slot="slider-range"
-          data-orientation={{this.orientation}}
           class="bg-primary absolute data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full"
+          data-orientation={{this.orientation}}
+          data-slot="slider-range"
           style={{this.rangeStyle}}
         ></div>
       </div>
       {{#each this.values as |val index|}}
         {{! template-lint-disable no-pointer-down-event-binding }}
         <div
-          data-slot="slider-thumb"
           class="border-primary ring-ring/50 absolute block size-4 shrink-0 rounded-full border bg-white shadow-sm transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 cursor-pointer"
+          data-slot="slider-thumb"
           style={{this.thumbStyle index}}
           tabindex={{if @disabled "-1" "0"}}
           {{on "pointerdown" (fn this.handleThumbPointerDown index)}}

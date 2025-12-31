@@ -73,10 +73,10 @@ export default class DocToc extends Component<DocTocSignature> {
             </p>
             {{#each @items as |item|}}
               <a
-                href="#{{item.id}}"
                 class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
                 data-active={{if (eq this.activeId item.id) "true" "false"}}
                 data-depth={{item.depth}}
+                href="#{{item.id}}"
               >
                 {{item.title}}
               </a>
@@ -104,10 +104,10 @@ export default class DocToc extends Component<DocTocSignature> {
             Contribute on GitHub
           </Button>
           <a
-            href="https://github.com/IgnaceMaes/shadcn-ember"
-            target="_blank"
-            rel="noopener noreferrer"
             class="absolute inset-0"
+            href="https://github.com/IgnaceMaes/shadcn-ember"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <span class="sr-only">Contribute on GitHub</span>
           </a>

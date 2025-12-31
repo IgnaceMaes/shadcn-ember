@@ -10,21 +10,21 @@ import { Spinner } from '@/components/ui/spinner';
 <template>
   <div class="grid w-full max-w-sm gap-4">
     <InputGroup data-disabled>
-      <InputGroupInput placeholder="Searching..." disabled />
+      <InputGroupInput disabled placeholder="Searching..." />
       <InputGroupAddon @align="inline-end">
         <Spinner />
       </InputGroupAddon>
     </InputGroup>
 
     <InputGroup data-disabled>
-      <InputGroupInput placeholder="Processing..." disabled />
+      <InputGroupInput disabled placeholder="Processing..." />
       <InputGroupAddon>
         <Spinner />
       </InputGroupAddon>
     </InputGroup>
 
     <InputGroup data-disabled>
-      <InputGroupInput placeholder="Saving changes..." disabled />
+      <InputGroupInput disabled placeholder="Saving changes..." />
       <InputGroupAddon @align="inline-end">
         <InputGroupText>Saving...</InputGroupText>
         <Spinner />
@@ -32,7 +32,7 @@ import { Spinner } from '@/components/ui/spinner';
     </InputGroup>
 
     <InputGroup data-disabled>
-      <InputGroupInput placeholder="Refreshing data..." disabled />
+      <InputGroupInput disabled placeholder="Refreshing data..." />
       <InputGroupAddon>
         <LoaderIcon class="animate-spin" />
       </InputGroupAddon>

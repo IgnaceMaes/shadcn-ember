@@ -41,7 +41,7 @@ const people = [
           <Item>
             <ItemMedia>
               <Avatar>
-                <AvatarImage @src={{person.avatar}} @class="grayscale" />
+                <AvatarImage @class="grayscale" @src={{person.avatar}} />
                 <AvatarFallback>{{person.username}}</AvatarFallback>
               </Avatar>
             </ItemMedia>
@@ -50,7 +50,7 @@ const people = [
               <ItemDescription>{{person.email}}</ItemDescription>
             </ItemContent>
             <ItemActions>
-              <Button @variant="ghost" @size="icon" @class="rounded-full">
+              <Button @class="rounded-full" @size="icon" @variant="ghost">
                 <PlusIcon />
               </Button>
             </ItemActions>

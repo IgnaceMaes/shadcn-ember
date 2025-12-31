@@ -22,11 +22,11 @@ interface CommandSignature {
 
 const Command: TOC<CommandSignature> = <template>
   <div
-    data-slot="command"
     class={{cn
       "bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md"
       @class
     }}
+    data-slot="command"
     ...attributes
   >
     {{yield}}
@@ -61,7 +61,7 @@ class CommandDialog extends Component<CommandDialogSignature> {
   }
 
   <template>
-    <Dialog @open={{@open}} @onOpenChange={{@onOpenChange}}>
+    <Dialog @onOpenChange={{@onOpenChange}} @open={{@open}}>
       <DialogHeader class="sr-only">
         <DialogTitle>{{this.title}}</DialogTitle>
         <DialogDescription>{{this.description}}</DialogDescription>
@@ -94,18 +94,18 @@ interface CommandInputSignature {
 
 const CommandInput: TOC<CommandInputSignature> = <template>
   <div
-    data-slot="command-input-wrapper"
     class={{cn "flex h-9 items-center gap-2 border-b px-3" @class}}
+    data-slot="command-input-wrapper"
   >
     <Search class="size-4 shrink-0 opacity-50" />
     <input
-      data-slot="command-input"
-      type="text"
       class={{cn
         "placeholder:text-muted-foreground flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50"
         @inputClass
       }}
+      data-slot="command-input"
       placeholder={{@placeholder}}
+      type="text"
       ...attributes
     />
   </div>
@@ -123,11 +123,11 @@ interface CommandListSignature {
 
 const CommandList: TOC<CommandListSignature> = <template>
   <div
-    data-slot="command-list"
     class={{cn
       "max-h-[300px] scroll-py-1 overflow-x-hidden overflow-y-auto"
       @class
     }}
+    data-slot="command-list"
     ...attributes
   >
     {{yield}}
@@ -146,8 +146,8 @@ interface CommandEmptySignature {
 
 const CommandEmpty: TOC<CommandEmptySignature> = <template>
   <div
-    data-slot="command-empty"
     class={{cn "py-6 text-center text-sm" @class}}
+    data-slot="command-empty"
     ...attributes
   >
     {{yield}}
@@ -167,11 +167,11 @@ interface CommandGroupSignature {
 
 const CommandGroup: TOC<CommandGroupSignature> = <template>
   <div
-    data-slot="command-group"
     class={{cn
       "text-foreground [&_[data-cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 [&_[data-cmdk-group-heading]]:px-2 [&_[data-cmdk-group-heading]]:py-1.5 [&_[data-cmdk-group-heading]]:text-xs [&_[data-cmdk-group-heading]]:font-medium"
       @class
     }}
+    data-slot="command-group"
     ...attributes
   >
     {{#if @heading}}
@@ -193,8 +193,8 @@ interface CommandSeparatorSignature {
 
 const CommandSeparator: TOC<CommandSeparatorSignature> = <template>
   <div
-    data-slot="command-separator"
     class={{cn "bg-border -mx-1 h-px" @class}}
+    data-slot="command-separator"
     ...attributes
   ></div>
 </template>;
@@ -212,12 +212,12 @@ interface CommandItemSignature {
 
 const CommandItem: TOC<CommandItemSignature> = <template>
   <div
-    data-slot="command-item"
     class={{cn
       "data-[selected=true]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
       @class
     }}
     data-disabled={{@disabled}}
+    data-slot="command-item"
     ...attributes
   >
     {{yield}}
@@ -236,8 +236,8 @@ interface CommandShortcutSignature {
 
 const CommandShortcut: TOC<CommandShortcutSignature> = <template>
   <span
-    data-slot="command-shortcut"
     class={{cn "text-muted-foreground ml-auto text-xs tracking-widest" @class}}
+    data-slot="command-shortcut"
     ...attributes
   >
     {{yield}}

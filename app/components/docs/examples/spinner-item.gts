@@ -23,7 +23,7 @@ const SpinnerItem: TOC<{ Element: HTMLDivElement }> = <template>
         <ItemDescription>129 MB / 1000 MB</ItemDescription>
       </ItemContent>
       <ItemActions @class="hidden sm:flex">
-        <Button @variant="outline" @size="sm">
+        <Button @size="sm" @variant="outline">
           Cancel
         </Button>
       </ItemActions>

@@ -9,16 +9,16 @@
         >
           Built by
           <a
-            href="https://x.com/shadcn"
-            target="_blank"
-            rel="noopener noreferrer"
             class="font-medium underline underline-offset-4"
+            href="https://x.com/shadcn"
+            rel="noopener noreferrer"
+            target="_blank"
           >shadcn</a>. Ported to Ember by
           <a
-            href="https://github.com/IgnaceMaes"
-            target="_blank"
-            rel="noopener noreferrer"
             class="font-medium underline underline-offset-4"
+            href="https://github.com/IgnaceMaes"
+            rel="noopener noreferrer"
+            target="_blank"
           >Ignace Maes</a>.
         </div>
       </div>

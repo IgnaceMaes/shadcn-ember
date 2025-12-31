@@ -44,16 +44,16 @@ const handleSubmit = (event: Event) => {
               </FieldDescription>
             </FieldContent>
             <Textarea
+              class="min-h-[100px] resize-none sm:min-w-[300px]"
               id="message"
               placeholder="Hello, world!"
               required
-              class="min-h-[100px] resize-none sm:min-w-[300px]"
             />
           </Field>
           <FieldSeparator />
           <Field @orientation="responsive">
             <Button type="submit">Submit</Button>
-            <Button type="button" @variant="outline">
+            <Button @variant="outline" type="button">
               Cancel
             </Button>
           </Field>

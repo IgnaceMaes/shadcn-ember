@@ -6,21 +6,21 @@ import ArrowRightIcon from '~icons/lucide/arrow-right';
 <template>
   <ButtonGroup>
     <ButtonGroup>
-      <Button @variant="outline" @size="sm">
+      <Button @size="sm" @variant="outline">
         1
       </Button>
-      <Button @variant="outline" @size="sm">
+      <Button @size="sm" @variant="outline">
         2
       </Button>
-      <Button @variant="outline" @size="sm">
+      <Button @size="sm" @variant="outline">
         3
       </Button>
     </ButtonGroup>
     <ButtonGroup>
-      <Button @variant="outline" @size="icon-sm" aria-label="Previous">
+      <Button @size="icon-sm" @variant="outline" aria-label="Previous">
         <ArrowLeftIcon />
       </Button>
-      <Button @variant="outline" @size="icon-sm" aria-label="Next">
+      <Button @size="icon-sm" @variant="outline" aria-label="Next">
         <ArrowRightIcon />
       </Button>
     </ButtonGroup>

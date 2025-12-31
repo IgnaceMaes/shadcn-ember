@@ -93,12 +93,12 @@ class MenubarTrigger extends Component<MenubarTriggerSignature> {
 
   <template>
     <button
-      type="button"
       class={{cn
         "flex cursor-default select-none items-center rounded-sm px-3 py-1 text-sm font-medium outline-none focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground"
         @class
       }}
       data-state={{if @isOpen "open" "closed"}}
+      type="button"
       {{on "click" this.handleClick}}
       ...attributes
     >
@@ -162,8 +162,8 @@ const MenubarItem: TOC<MenubarItemSignature> = <template>
       (if @inset "pl-8")
       @class
     }}
-    role="menuitem"
     data-disabled={{@disabled}}
+    role="menuitem"
     ...attributes
   >
     {{yield}}
@@ -182,7 +182,7 @@ interface MenubarGroupSignature {
 }
 
 const MenubarGroup: TOC<MenubarGroupSignature> = <template>
-  <div role="group" class={{cn @class}} ...attributes>
+  <div class={{cn @class}} role="group" ...attributes>
     {{yield}}
   </div>
 </template>;
@@ -231,7 +231,7 @@ class MenubarRadioGroup extends Component<MenubarRadioGroupSignature> {
   };
 
   <template>
-    <div role="radiogroup" class={{cn @class}} ...attributes>
+    <div class={{cn @class}} role="radiogroup" ...attributes>
       {{yield this.value this.setValue}}
     </div>
   </template>
@@ -335,12 +335,12 @@ interface MenubarCheckboxItemSignature {
 const MenubarCheckboxItem: TOC<MenubarCheckboxItemSignature> = <template>
   {{! template-lint-disable require-presentational-children }}
   <div
+    aria-checked={{@checked}}
     class={{cn
       "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground"
       @class
     }}
     role="menuitemcheckbox"
-    aria-checked={{@checked}}
     ...attributes
   >
     <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
@@ -368,12 +368,12 @@ interface MenubarRadioItemSignature {
 const MenubarRadioItem: TOC<MenubarRadioItemSignature> = <template>
   {{! template-lint-disable require-presentational-children }}
   <div
+    aria-checked={{@checked}}
     class={{cn
       "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground"
       @class
     }}
     role="menuitemradio"
-    aria-checked={{@checked}}
     ...attributes
   >
     <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">

@@ -113,7 +113,7 @@ export default class PackageManagerCommand extends Component<PackageManagerComma
       class="relative overflow-hidden rounded-lg [&_pre]:max-h-none [&_pre]:m-0! [&_pre]:rounded-none! mt-4"
       style="--shiki-dark: #e1e4e8; --shiki-light: #1f2328; --shiki-dark-bg: #24292e; --shiki-light-bg: var(--surface); background-color: var(--surface);"
     >
-      <CopyButton @value={{this.currentCommand}} @class="!top-1.5 !right-2" />
+      <CopyButton @class="!top-1.5 !right-2" @value={{this.currentCommand}} />
       <Tabs @defaultValue="pnpm" @onValueChange={{this.handleTabChange}}>
         <div
           class="border-border/50 flex items-center gap-2 border-b px-3 py-1"
@@ -127,26 +127,26 @@ export default class PackageManagerCommand extends Component<PackageManagerComma
             @class="text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-none bg-transparent p-0"
           >
             <TabsTrigger
-              @value="pnpm"
               @class="dark:data-[state=active]:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring dark:data-[state=active]:border-input dark:data-[state=active]:bg-input/30 text-foreground dark:text-muted-foreground inline-flex flex-1 items-center justify-center gap-1.5 rounded-md px-2 py-1 text-sm font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 data-[state=active]:bg-accent data-[state=active]:border-input h-7 border border-transparent pt-0.5 data-[state=active]:shadow-none"
+              @value="pnpm"
             >
               pnpm
             </TabsTrigger>
             <TabsTrigger
-              @value="npm"
               @class="dark:data-[state=active]:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring dark:data-[state=active]:border-input dark:data-[state=active]:bg-input/30 text-foreground dark:text-muted-foreground inline-flex flex-1 items-center justify-center gap-1.5 rounded-md px-2 py-1 text-sm font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 data-[state=active]:bg-accent data-[state=active]:border-input h-7 border border-transparent pt-0.5 data-[state=active]:shadow-none"
+              @value="npm"
             >
               npm
             </TabsTrigger>
             <TabsTrigger
-              @value="yarn"
               @class="dark:data-[state=active]:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring dark:data-[state=active]:border-input dark:data-[state=active]:bg-input/30 text-foreground dark:text-muted-foreground inline-flex flex-1 items-center justify-center gap-1.5 rounded-md px-2 py-1 text-sm font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 data-[state=active]:bg-accent data-[state=active]:border-input h-7 border border-transparent pt-0.5 data-[state=active]:shadow-none"
+              @value="yarn"
             >
               yarn
             </TabsTrigger>
             <TabsTrigger
-              @value="bun"
               @class="dark:data-[state=active]:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring dark:data-[state=active]:border-input dark:data-[state=active]:bg-input/30 text-foreground dark:text-muted-foreground inline-flex flex-1 items-center justify-center gap-1.5 rounded-md px-2 py-1 text-sm font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 data-[state=active]:bg-accent data-[state=active]:border-input h-7 border border-transparent pt-0.5 data-[state=active]:shadow-none"
+              @value="bun"
             >
               bun
             </TabsTrigger>
@@ -154,12 +154,12 @@ export default class PackageManagerCommand extends Component<PackageManagerComma
         </div>
         <div class="no-scrollbar overflow-x-auto">
           <TabsContent
+            @class="flex-1 outline-none mt-0 px-4 py-3.5"
             @value="pnpm"
-            @class="flex-1 outline-none mt-0 px-4 py-3.5"
           >
             <CodeBlock
-              @language="bash"
               @code={{this.pnpmCommand}}
+              @language="bash"
               @showCopyButton={{false}}
               @showLineNumbers={{false}}
               @theme={{this.theme.codeBlockTheme}}
@@ -167,12 +167,12 @@ export default class PackageManagerCommand extends Component<PackageManagerComma
             />
           </TabsContent>
           <TabsContent
+            @class="flex-1 outline-none mt-0 px-4 py-3.5"
             @value="npm"
-            @class="flex-1 outline-none mt-0 px-4 py-3.5"
           >
             <CodeBlock
-              @language="bash"
               @code={{this.npmCommand}}
+              @language="bash"
               @showCopyButton={{false}}
               @showLineNumbers={{false}}
               @theme={{this.theme.codeBlockTheme}}
@@ -180,12 +180,12 @@ export default class PackageManagerCommand extends Component<PackageManagerComma
             />
           </TabsContent>
           <TabsContent
+            @class="flex-1 outline-none mt-0 px-4 py-3.5"
             @value="yarn"
-            @class="flex-1 outline-none mt-0 px-4 py-3.5"
           >
             <CodeBlock
-              @language="bash"
               @code={{this.yarnCommand}}
+              @language="bash"
               @showCopyButton={{false}}
               @showLineNumbers={{false}}
               @theme={{this.theme.codeBlockTheme}}
@@ -193,13 +193,13 @@ export default class PackageManagerCommand extends Component<PackageManagerComma
             />
           </TabsContent>
           <TabsContent
-            @value="bun"
             @class="flex-1 outline-none mt-0 px-4 py-3.5"
+            @value="bun"
           >
             <CodeBlock
+              @code={{this.bunCommand}}
               @language="bash"
               @showCopyButton={{false}}
-              @code={{this.bunCommand}}
               @showLineNumbers={{false}}
               @theme={{this.theme.codeBlockTheme}}
               style="--ember-shiki-padding-x: 0; --ember-shiki-padding-y: 0; --ember-shiki-border-radius: 0; --ember-shiki-background-color: transparent; --ember-shiki-line-height: 1.5; --ember-shiki-font-size: 0.875rem;"

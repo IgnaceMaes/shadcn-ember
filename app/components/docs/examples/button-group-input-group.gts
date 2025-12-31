@@ -27,31 +27,31 @@ export default class ButtonGroupInputGroup extends Component {
   <template>
     <ButtonGroup class="[--radius:9999rem]">
       <ButtonGroup>
-        <Button @variant="outline" @size="icon" aria-label="Add">
+        <Button @size="icon" @variant="outline" aria-label="Add">
           <PlusIcon />
         </Button>
       </ButtonGroup>
       <ButtonGroup class="flex-1">
         <InputGroup>
           <InputGroupInput
+            disabled={{this.voiceEnabled}}
             placeholder={{if
               this.voiceEnabled
               "Record and send audio..."
               "Send a message..."
             }}
-            disabled={{this.voiceEnabled}}
           />
           <InputGroupAddon @align="inline-end">
             <Tooltip>
               <TooltipTrigger>
                 <InputGroupButton
-                  {{on "click" this.toggleVoice}}
-                  data-active={{this.voiceEnabled}}
-                  class="data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
-                  aria-pressed={{this.voiceEnabled}}
                   @size="icon-xs"
                   @variant="ghost"
                   aria-label="Voice Mode"
+                  aria-pressed={{this.voiceEnabled}}
+                  class="data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
+                  data-active={{this.voiceEnabled}}
+                  {{on "click" this.toggleVoice}}
                 >
                   <AudioLinesIcon />
                 </InputGroupButton>

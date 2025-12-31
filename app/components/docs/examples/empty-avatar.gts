@@ -16,8 +16,8 @@ import {
       <EmptyMedia @variant="default">
         <Avatar @class="size-12">
           <AvatarImage
-            @src="https://github.com/shadcn.png"
             @class="grayscale"
+            @src="https://github.com/shadcn.png"
           />
           <AvatarFallback>LR</AvatarFallback>
         </Avatar>

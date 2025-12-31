@@ -79,9 +79,9 @@ export default class CodeBlockThemed extends Component<CodeBlockThemedSignature>
             >
               {{#if this.iconSrc}}
                 <img
-                  src={{this.iconSrc}}
                   alt={{@language}}
                   class="size-3.5 text-white dark:text-black"
+                  src={{this.iconSrc}}
                 />
               {{else if this.iconComponent}}
                 {{#let this.iconComponent as |Icon|}}
@@ -112,14 +112,14 @@ export default class CodeBlockThemed extends Component<CodeBlockThemedSignature>
           {{@title}}
         </div>
       {{/if}}
-      <CopyButton @value={{@code}} @class={{if @title "!top-1.5 !right-2"}} />
+      <CopyButton @class={{if @title "!top-1.5 !right-2"}} @value={{@code}} />
       <CodeBlock
-        @language={{@language}}
         @code={{@code}}
-        @showLineNumbers={{if @showLineNumbers @showLineNumbers false}}
+        @language={{@language}}
         @lineHighlights={{this.lineHighlights}}
-        @theme={{this.theme.codeBlockTheme}}
         @showCopyButton={{false}}
+        @showLineNumbers={{if @showLineNumbers @showLineNumbers false}}
+        @theme={{this.theme.codeBlockTheme}}
       />
     </div>
   </template>

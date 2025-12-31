@@ -29,31 +29,31 @@ import { Label } from '@/components/ui/label';
             <Label @for="email">Email</Label>
             <Input
               id="email"
-              type="email"
               placeholder="m@example.com"
               required
+              type="email"
             />
           </div>
           <div class="grid gap-2">
             <div class="flex items-center">
               <Label @for="password">Password</Label>
               <a
-                href="#"
                 class="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                href="#"
               >
                 Forgot your password?
               </a>
             </div>
-            <Input id="password" type="password" required />
+            <Input id="password" required type="password" />
           </div>
         </div>
       </form>
     </CardContent>
     <CardFooter @class="flex-col gap-2">
-      <Button type="submit" @class="w-full">
+      <Button @class="w-full" type="submit">
         Login
       </Button>
-      <Button @variant="outline" @class="w-full">
+      <Button @class="w-full" @variant="outline">
         Login with Google
       </Button>
     </CardFooter>

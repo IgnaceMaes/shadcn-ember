@@ -11,8 +11,8 @@ import BadgeCheck from '~icons/lucide/badge-check';
     </div>
     <div class="flex w-full flex-wrap gap-2">
       <Badge
-        @variant="secondary"
         @class="bg-blue-500 text-white dark:bg-blue-600"
+        @variant="secondary"
       >
         <BadgeCheck />
         Verified

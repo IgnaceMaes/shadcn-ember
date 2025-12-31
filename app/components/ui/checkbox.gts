@@ -60,20 +60,20 @@ class Checkbox extends Component<CheckboxSignature> {
   <template>
     {{! template-lint-disable require-presentational-children }}
     <button
-      type="button"
-      role="checkbox"
       aria-checked={{if this.isChecked "true" "false"}}
+      class={{this.rootClasses}}
       data-state={{if this.isChecked "checked" "unchecked"}}
       disabled={{@disabled}}
-      class={{this.rootClasses}}
+      role="checkbox"
+      type="button"
       {{on "click" this.handleClick}}
       ...attributes
     >
       {{#if this.isChecked}}
         <span
-          data-state="checked"
-          class={{this.indicatorClasses}}
           aria-hidden="true"
+          class={{this.indicatorClasses}}
+          data-state="checked"
         >
           <Check class="size-3.5" />
         </span>

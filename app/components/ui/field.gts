@@ -25,7 +25,7 @@ class FieldSet extends Component<FieldSetSignature> {
   }
 
   <template>
-    <fieldset data-slot="field-set" class={{this.classes}} ...attributes>
+    <fieldset class={{this.classes}} data-slot="field-set" ...attributes>
       {{yield}}
     </fieldset>
   </template>
@@ -59,9 +59,9 @@ class FieldLegend extends Component<FieldLegendSignature> {
 
   <template>
     <legend
+      class={{this.classes}}
       data-slot="field-legend"
       data-variant={{this.variant}}
-      class={{this.classes}}
       ...attributes
     >
       {{yield}}
@@ -89,7 +89,7 @@ class FieldGroup extends Component<FieldGroupSignature> {
   }
 
   <template>
-    <div data-slot="field-group" class={{this.classes}} ...attributes>
+    <div class={{this.classes}} data-slot="field-group" ...attributes>
       {{yield}}
     </div>
   </template>
@@ -149,11 +149,11 @@ class Field extends Component<FieldSignature> {
 
   <template>
     <div
-      role="group"
-      data-slot="field"
-      data-orientation={{this.orientation}}
-      data-invalid={{this.invalid}}
       class={{this.classes}}
+      data-invalid={{this.invalid}}
+      data-orientation={{this.orientation}}
+      data-slot="field"
+      role="group"
       ...attributes
     >
       {{yield}}
@@ -181,7 +181,7 @@ class FieldContent extends Component<FieldContentSignature> {
   }
 
   <template>
-    <div data-slot="field-content" class={{this.classes}} ...attributes>
+    <div class={{this.classes}} data-slot="field-content" ...attributes>
       {{yield}}
     </div>
   </template>
@@ -211,9 +211,9 @@ class FieldLabel extends Component<FieldLabelSignature> {
 
   <template>
     <Label
-      data-slot="field-label"
       @class={{this.classes}}
       @for={{@for}}
+      data-slot="field-label"
       ...attributes
     >
       {{yield}}
@@ -241,7 +241,7 @@ class FieldTitle extends Component<FieldTitleSignature> {
   }
 
   <template>
-    <div data-slot="field-label" class={{this.classes}} ...attributes>
+    <div class={{this.classes}} data-slot="field-label" ...attributes>
       {{yield}}
     </div>
   </template>
@@ -269,7 +269,7 @@ class FieldDescription extends Component<FieldDescriptionSignature> {
   }
 
   <template>
-    <p data-slot="field-description" class={{this.classes}} ...attributes>
+    <p class={{this.classes}} data-slot="field-description" ...attributes>
       {{yield}}
     </p>
   </template>
@@ -288,12 +288,12 @@ interface FieldSeparatorSignature {
 
 const FieldSeparator: TOC<FieldSeparatorSignature> = <template>
   <div
-    data-slot="field-separator"
-    data-content={{has-block}}
     class={{cn
       "relative -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2"
       @class
     }}
+    data-content={{has-block}}
+    data-slot="field-separator"
     ...attributes
   >
     <Separator @class="absolute inset-0 top-1/2" />
@@ -357,18 +357,18 @@ class FieldError extends Component<FieldErrorSignature> {
   <template>
     {{#if (has-block)}}
       <div
-        role="alert"
-        data-slot="field-error"
         class={{this.classes}}
+        data-slot="field-error"
+        role="alert"
         ...attributes
       >
         {{yield}}
       </div>
     {{else if this.uniqueErrors}}
       <div
-        role="alert"
-        data-slot="field-error"
         class={{this.classes}}
+        data-slot="field-error"
+        role="alert"
         ...attributes
       >
         {{#if this.isSingleError}}

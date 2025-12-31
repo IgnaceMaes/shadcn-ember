@@ -21,16 +21,16 @@ class Progress extends Component<ProgressSignature> {
 
   <template>
     <div
-      data-slot="progress"
       class={{cn
         "bg-primary/20 relative h-2 w-full overflow-hidden rounded-full"
         @class
       }}
+      data-slot="progress"
       ...attributes
     >
       <div
-        data-slot="progress-indicator"
         class="bg-primary h-full w-full flex-1 transition-all"
+        data-slot="progress-indicator"
         style={{this.indicatorStyle}}
       ></div>
     </div>

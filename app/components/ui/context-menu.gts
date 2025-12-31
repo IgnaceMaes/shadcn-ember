@@ -87,7 +87,7 @@ interface ContextMenuGroupSignature {
 }
 
 const ContextMenuGroup: TOC<ContextMenuGroupSignature> = <template>
-  <div role="group" class={{cn @class}} ...attributes>
+  <div class={{cn @class}} role="group" ...attributes>
     {{yield}}
   </div>
 </template>;
@@ -168,7 +168,7 @@ class ContextMenuRadioGroup extends Component<ContextMenuRadioGroupSignature> {
   };
 
   <template>
-    <div role="radiogroup" class={{cn @class}} ...attributes>
+    <div class={{cn @class}} role="radiogroup" ...attributes>
       {{yield this.value this.setValue}}
     </div>
   </template>
@@ -283,8 +283,8 @@ const ContextMenuItem: TOC<ContextMenuItemSignature> = <template>
       (if @inset "pl-8")
       @class
     }}
-    role="menuitem"
     data-disabled={{@disabled}}
+    role="menuitem"
     ...attributes
   >
     {{yield}}
@@ -312,12 +312,12 @@ class ContextMenuCheckboxItem extends Component<ContextMenuCheckboxItemSignature
   <template>
     {{! template-lint-disable require-presentational-children }}
     <div
+      aria-checked={{@checked}}
       class={{cn
         "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
         @class
       }}
       role="menuitemcheckbox"
-      aria-checked={{@checked}}
       {{on "click" this.handleClick}}
       ...attributes
     >
@@ -359,12 +359,12 @@ class ContextMenuRadioItem extends Component<ContextMenuRadioItemSignature> {
   <template>
     {{! template-lint-disable require-presentational-children }}
     <div
+      aria-checked={{this.checked}}
       class={{cn
         "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
         @class
       }}
       role="menuitemradio"
-      aria-checked={{this.checked}}
       {{on "click" this.handleClick}}
       ...attributes
     >
