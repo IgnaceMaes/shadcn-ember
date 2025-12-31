@@ -99,7 +99,7 @@ class Popover extends Component<PopoverSignature> {
     <div data-slot="popover">
       {{yield}}
     </div>
-  </template>o
+  </template>
 }
 
 interface PopoverTriggerSignature {
