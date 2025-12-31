@@ -97,7 +97,7 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
             @size="sm"
             @class="size-8 shadow-none md:size-7 md:text-[0.8rem]"
           >
-            <ChevronDown />
+            <ChevronDown class="rotate-180 md:rotate-0" />
           </Button>
         </DropdownMenuTrigger>
 
