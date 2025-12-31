@@ -11,7 +11,8 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "vite build",
+    "build": "pnpm copy:content && vite build",
+    "copy:content": "cp -r app/content/docs public/docs",
     "format": "prettier . --cache --write",
     "lint": "concurrently \"npm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",
     "lint:css": "stylelint \"**/*.css\"",
