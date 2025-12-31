@@ -10,12 +10,15 @@ import ClaudeIcon from '~icons/simple-icons/claude';
 import CursorIcon from '~icons/simple-icons/cursor';
 import { Button } from '@/components/ui/button';
 import {
+  ButtonGroup,
+  ButtonGroupSeparator,
+} from '@/components/ui/button-group';
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 
 interface DocHeaderCopySignature {
@@ -67,11 +70,8 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
   }
 
   <template>
-    <div
-      class={{cn
-        "bg-secondary group/buttons relative flex rounded-lg *:data-[slot=button]:focus-visible:relative *:data-[slot=button]:focus-visible:z-10"
-        @class
-      }}
+    <ButtonGroup
+      @class={{cn "bg-secondary rounded-lg" @class}}
       ...attributes
     >
       <Button
@@ -88,17 +88,14 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
         Copy Page
       </Button>
 
-      <Separator
-        @orientation="vertical"
-        @class="!bg-foreground/10 absolute top-0 right-8 z-0 !h-8 peer-focus-visible:opacity-0 sm:right-7 sm:!h-7"
-      />
+      <ButtonGroupSeparator @class="!bg-foreground/10" />
 
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Button
             @variant="secondary"
             @size="sm"
-            @class="peer -ml-0.5 size-8 shadow-none md:size-7 md:text-[0.8rem]"
+            @class="size-8 shadow-none md:size-7 md:text-[0.8rem]"
           >
             <ChevronDown />
           </Button>
@@ -154,6 +151,6 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-    </div>
+    </ButtonGroup>
   </template>
 }
