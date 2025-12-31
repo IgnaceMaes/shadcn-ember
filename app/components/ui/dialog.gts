@@ -11,7 +11,9 @@ const DialogContext = 'dialog-context' as const;
 
 interface DialogContextValue {
   open: boolean;
+  isRendered: boolean;
   setOpen: (open: boolean) => void;
+  finishClose: () => void;
 }
 
 interface ContextRegistry {
@@ -32,6 +34,7 @@ interface DialogSignature {
 
 class Dialog extends Component<DialogSignature> {
   @tracked isOpen: boolean;
+  @tracked isRendered = false;
 
   constructor(owner: Owner, args: DialogSignature['Args']) {
     super(owner, args);
@@ -43,15 +46,28 @@ class Dialog extends Component<DialogSignature> {
   }
 
   setOpen = (open: boolean) => {
-    this.isOpen = open;
+    if (open) {
+      this.isRendered = true;
+      this.isOpen = true;
+    } else {
+      this.isOpen = false;
+    }
     this.args.onOpenChange?.(open);
+  };
+
+  finishClose = () => {
+    if (!this.isOpen) {
+      this.isRendered = false;
+    }
   };
 
   @provide(DialogContext)
   get context(): DialogContextValue {
     return {
       open: this.open,
+      isRendered: this.isRendered,
       setOpen: this.setOpen,
+      finishClose: this.finishClose,
     };
   }
 
@@ -127,6 +143,12 @@ class DialogOverlay extends Component<DialogOverlaySignature> {
     this.context.setOpen(false);
   };
 
+  handleAnimationEnd = (event: AnimationEvent) => {
+    if (event.target === event.currentTarget && !this.context.open) {
+      this.context.finishClose();
+    }
+  };
+
   <template>
     <div
       data-slot="dialog-overlay"
@@ -138,6 +160,7 @@ class DialogOverlay extends Component<DialogOverlaySignature> {
       role="button"
       tabindex="0"
       {{on "click" this.handleClick}}
+      {{on "animationend" this.handleAnimationEnd}}
       ...attributes
     ></div>
   </template>
@@ -210,8 +233,14 @@ class DialogContent extends Component<DialogContentSignature> {
     }
   };
 
+  handleAnimationEnd = (event: AnimationEvent) => {
+    if (event.target === event.currentTarget && !this.context.open) {
+      this.context.finishClose();
+    }
+  };
+
   <template>
-    {{#if this.context.open}}
+    {{#if this.context.isRendered}}
       <DialogPortal>
         <DialogOverlay />
         <div
@@ -226,6 +255,7 @@ class DialogContent extends Component<DialogContentSignature> {
           tabindex="-1"
           {{on "click" this.handleOverlayClick}}
           {{on "keydown" this.handleKeyDown}}
+          {{on "animationend" this.handleAnimationEnd}}
           ...attributes
         >
           {{yield}}
