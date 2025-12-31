@@ -70,10 +70,7 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
   }
 
   <template>
-    <ButtonGroup
-      @class={{cn "bg-secondary rounded-lg" @class}}
-      ...attributes
-    >
+    <ButtonGroup @class={{cn "bg-secondary rounded-lg" @class}} ...attributes>
       <Button
         @variant="secondary"
         @size="sm"
