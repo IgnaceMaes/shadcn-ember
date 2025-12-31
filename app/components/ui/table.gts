@@ -1,7 +1,6 @@
 import type { TOC } from '@ember/component/template-only';
 import { cn } from '@/lib/utils';
 
-// Table Root Component
 interface TableSignature {
   Element: HTMLTableElement;
   Args: {
@@ -13,14 +12,17 @@ interface TableSignature {
 }
 
 const Table: TOC<TableSignature> = <template>
-  <div class="relative w-full overflow-auto">
-    <table class={{cn "w-full caption-bottom text-sm" @class}} ...attributes>
+  <div data-slot="table-container" class="relative w-full overflow-x-auto">
+    <table
+      data-slot="table"
+      class={{cn "w-full caption-bottom text-sm" @class}}
+      ...attributes
+    >
       {{yield}}
     </table>
   </div>
 </template>;
 
-// TableHeader Component
 interface TableHeaderSignature {
   Element: HTMLTableSectionElement;
   Args: {
@@ -32,7 +34,11 @@ interface TableHeaderSignature {
 }
 
 const TableHeader: TOC<TableHeaderSignature> = <template>
-  <thead class={{cn "[&_tr]:border-b" @class}} ...attributes>
+  <thead
+    data-slot="table-header"
+    class={{cn "[&_tr]:border-b" @class}}
+    ...attributes
+  >
     {{yield}}
   </thead>
 </template>;
@@ -49,12 +55,15 @@ interface TableBodySignature {
 }
 
 const TableBody: TOC<TableBodySignature> = <template>
-  <tbody class={{cn "[&_tr:last-child]:border-0" @class}} ...attributes>
+  <tbody
+    data-slot="table-body"
+    class={{cn "[&_tr:last-child]:border-0" @class}}
+    ...attributes
+  >
     {{yield}}
   </tbody>
 </template>;
 
-// TableFooter Component
 interface TableFooterSignature {
   Element: HTMLTableSectionElement;
   Args: {
@@ -67,8 +76,9 @@ interface TableFooterSignature {
 
 const TableFooter: TOC<TableFooterSignature> = <template>
   <tfoot
+    data-slot="table-footer"
     class={{cn
-      "border-t bg-muted/50 font-medium [&>tr]:last:border-b-0"
+      "bg-muted/50 border-t font-medium [&>tr]:last:border-b-0"
       @class
     }}
     ...attributes
@@ -90,8 +100,9 @@ interface TableRowSignature {
 
 const TableRow: TOC<TableRowSignature> = <template>
   <tr
+    data-slot="table-row"
     class={{cn
-      "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+      "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
       @class
     }}
     ...attributes
@@ -100,7 +111,6 @@ const TableRow: TOC<TableRowSignature> = <template>
   </tr>
 </template>;
 
-// TableHead Component
 interface TableHeadSignature {
   Element: HTMLTableCellElement;
   Args: {
@@ -113,8 +123,9 @@ interface TableHeadSignature {
 
 const TableHead: TOC<TableHeadSignature> = <template>
   <th
+    data-slot="table-head"
     class={{cn
-      "h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
+      "text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
       @class
     }}
     ...attributes
@@ -123,7 +134,6 @@ const TableHead: TOC<TableHeadSignature> = <template>
   </th>
 </template>;
 
-// TableCell Component
 interface TableCellSignature {
   Element: HTMLTableCellElement;
   Args: {
@@ -136,8 +146,9 @@ interface TableCellSignature {
 
 const TableCell: TOC<TableCellSignature> = <template>
   <td
+    data-slot="table-cell"
     class={{cn
-      "p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
+      "p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
       @class
     }}
     ...attributes
@@ -146,7 +157,6 @@ const TableCell: TOC<TableCellSignature> = <template>
   </td>
 </template>;
 
-// TableCaption Component
 interface TableCaptionSignature {
   Element: HTMLTableCaptionElement;
   Args: {
@@ -159,7 +169,8 @@ interface TableCaptionSignature {
 
 const TableCaption: TOC<TableCaptionSignature> = <template>
   <caption
-    class={{cn "mt-4 text-sm text-muted-foreground" @class}}
+    data-slot="table-caption"
+    class={{cn "text-muted-foreground mt-4 text-sm" @class}}
     ...attributes
   >
     {{yield}}
