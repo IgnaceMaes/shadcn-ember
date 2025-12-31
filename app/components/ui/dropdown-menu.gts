@@ -26,7 +26,9 @@ const DropdownMenuSubContext = 'dropdown-menu-sub-context' as const;
 
 interface DropdownMenuContextValue {
   isOpen: boolean;
+  isRendered: boolean;
   setOpen: (open: boolean) => void;
+  finishClose: () => void;
   triggerElement: HTMLElement | null;
   setTriggerElement: (element: HTMLElement | null) => void;
   closeAllSubmenus?: () => void;
@@ -41,7 +43,9 @@ interface DropdownMenuGroupContextValue {
 
 interface DropdownMenuSubContextValue {
   isOpen: boolean;
+  isRendered: boolean;
   setOpen: (open: boolean) => void;
+  finishClose: () => void;
   triggerElement: HTMLElement | null;
   setTriggerElement: (element: HTMLElement | null) => void;
   parentSetOpen: (open: boolean) => void;
@@ -66,6 +70,7 @@ interface DropdownMenuSignature {
 
 class DropdownMenu extends Component<DropdownMenuSignature> {
   @tracked isOpen: boolean;
+  @tracked isRendered = false;
   triggerElement: HTMLElement | null = null;
 
   constructor(owner: Owner, args: DropdownMenuSignature['Args']) {
@@ -78,8 +83,19 @@ class DropdownMenu extends Component<DropdownMenuSignature> {
   }
 
   setOpen = (open: boolean) => {
-    this.isOpen = open;
+    if (open) {
+      this.isRendered = true;
+      this.isOpen = true;
+    } else {
+      this.isOpen = false;
+    }
     this.args.onOpenChange?.(open);
+  };
+
+  finishClose = () => {
+    if (!this.isOpen) {
+      this.isRendered = false;
+    }
   };
 
   setTriggerElement = (element: HTMLElement | null) => {
@@ -91,7 +107,9 @@ class DropdownMenu extends Component<DropdownMenuSignature> {
   get context(): DropdownMenuContextValue {
     return {
       isOpen: this.open,
+      isRendered: this.isRendered,
       setOpen: this.setOpen,
+      finishClose: this.finishClose,
       triggerElement: this.triggerElement,
       setTriggerElement: this.setTriggerElement,
     };
@@ -255,6 +273,7 @@ class DropdownMenuSub extends Component<DropdownMenuSubSignature> {
   groupContext!: ContextRegistry[typeof DropdownMenuGroupContext];
 
   @tracked isOpen: boolean;
+  @tracked isRendered = false;
   triggerElement: HTMLElement | null = null;
   private unregister?: () => void;
 
@@ -279,9 +298,18 @@ class DropdownMenuSub extends Component<DropdownMenuSubSignature> {
   setOpen = (open: boolean) => {
     if (open) {
       this.groupContext.closeAllSubmenus();
+      this.isRendered = true;
+      this.isOpen = true;
+    } else {
+      this.isOpen = false;
     }
-    this.isOpen = open;
     this.args.onOpenChange?.(open);
+  };
+
+  finishClose = () => {
+    if (!this.isOpen) {
+      this.isRendered = false;
+    }
   };
 
   setTriggerElement = (element: HTMLElement | null) => {
@@ -293,7 +321,9 @@ class DropdownMenuSub extends Component<DropdownMenuSubSignature> {
   get context(): DropdownMenuSubContextValue {
     return {
       isOpen: this.open,
+      isRendered: this.isRendered,
       setOpen: this.setOpen,
+      finishClose: this.finishClose,
       triggerElement: this.triggerElement,
       setTriggerElement: this.setTriggerElement,
       parentSetOpen: this.groupContext.setOpen,
@@ -467,8 +497,14 @@ class DropdownMenuSubContent extends Component<DropdownMenuSubContentSignature> 
     // Keep the submenu open when hovering over it
   };
 
+  handleAnimationEnd = (event: AnimationEvent) => {
+    if (event.target === event.currentTarget && !this.subContext.isOpen) {
+      this.subContext.finishClose();
+    }
+  };
+
   <template>
-    {{#if this.subContext.isOpen}}
+    {{#if this.subContext.isRendered}}
       {{#in-element this.destinationElement insertBefore=null}}
         <div
           data-slot="dropdown-menu-sub-content"
@@ -483,6 +519,7 @@ class DropdownMenuSubContent extends Component<DropdownMenuSubContentSignature> 
           style={{this.positionStyle}}
           {{this.positionSubmenu this.subContext.triggerElement}}
           {{on "mouseenter" this.handleMouseEnter}}
+          {{on "animationend" this.handleAnimationEnd}}
           ...attributes
         >
           {{yield}}
@@ -543,6 +580,12 @@ class DropdownMenuContent extends Component<DropdownMenuContentSignature> {
     this.menuContext.setOpen(false);
   };
 
+  handleAnimationEnd = (event: AnimationEvent) => {
+    if (event.target === event.currentTarget && !this.menuContext.isOpen) {
+      this.menuContext.finishClose();
+    }
+  };
+
   positionContent = modifier(
     (
       element: HTMLElement,
@@ -597,7 +640,7 @@ class DropdownMenuContent extends Component<DropdownMenuContentSignature> {
   }
 
   <template>
-    {{#if this.menuContext.isOpen}}
+    {{#if this.context.isRendered}}
       {{#in-element this.destinationElement insertBefore=null}}
         <div
           data-slot="dropdown-menu-content"
@@ -612,6 +655,7 @@ class DropdownMenuContent extends Component<DropdownMenuContentSignature> {
           style={{this.positionStyle}}
           {{this.positionContent this.menuContext.triggerElement}}
           {{onClickOutside this.handleClickOutside}}
+          {{on "animationend" this.handleAnimationEnd}}
           ...attributes
         >
           {{yield}}
