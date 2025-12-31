@@ -189,7 +189,7 @@ class PopoverContent extends Component<PopoverContentSignature> {
   @consume(PopoverContext) context!: ContextRegistry[typeof PopoverContext];
   @tracked x = 0;
   @tracked y = 0;
-  private cleanup?: () => void;
+  cleanup?: () => void;
 
   handleClickOutside = () => {
     this.context.setOpen(false);

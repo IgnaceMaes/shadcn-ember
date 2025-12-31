@@ -192,8 +192,8 @@ class DropdownMenuGroup extends Component<DropdownMenuGroupSignature> {
   menuContext!: ContextRegistry[typeof DropdownMenuContext];
 
   @tracked currentOpenSubmenu: symbol | null = null;
-  private submenuCloseCallbacks: Set<() => void> = new Set();
-  private unregister?: () => void;
+  submenuCloseCallbacks: Set<() => void> = new Set();
+  unregister?: () => void;
 
   constructor(owner: Owner, args: DropdownMenuGroupSignature['Args']) {
     super(owner, args);
@@ -275,7 +275,7 @@ class DropdownMenuSub extends Component<DropdownMenuSubSignature> {
   @tracked isOpen: boolean;
   @tracked isRendered = false;
   triggerElement: HTMLElement | null = null;
-  private unregister?: () => void;
+  unregister?: () => void;
 
   constructor(owner: Owner, args: DropdownMenuSubSignature['Args']) {
     super(owner, args);
@@ -442,7 +442,7 @@ class DropdownMenuSubContent extends Component<DropdownMenuSubContentSignature> 
 
   @tracked x = 0;
   @tracked y = 0;
-  private cleanup?: () => void;
+  cleanup?: () => void;
 
   get destinationElement() {
     return document.body;
@@ -548,8 +548,8 @@ class DropdownMenuContent extends Component<DropdownMenuContentSignature> {
 
   @tracked x = 0;
   @tracked y = 0;
-  private cleanup?: () => void;
-  private groupCloseCallbacks: Set<() => void> = new Set();
+  cleanup?: () => void;
+  groupCloseCallbacks: Set<() => void> = new Set();
 
   get destinationElement() {
     return document.body;

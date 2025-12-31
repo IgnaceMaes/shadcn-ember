@@ -39,7 +39,7 @@ Help me understand how to use it. Be ready to explain concepts, give examples, o
 export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
   @tracked copied = false;
 
-  private showCopiedFeedback = () => {
+  showCopiedFeedback = () => {
     this.copied = true;
     setTimeout(() => {
       this.copied = false;

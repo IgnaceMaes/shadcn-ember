@@ -204,8 +204,8 @@ class TooltipContent extends Component<TooltipContentSignature> {
   @tracked y = 0;
   @tracked arrowX = 0;
   @tracked arrowY = 0;
-  private cleanup?: () => void;
-  private arrowElement: HTMLElement | null = null;
+  cleanup?: () => void;
+  arrowElement: HTMLElement | null = null;
 
   positionContent = modifier((element: HTMLElement) => {
     const triggerElement = this.context.triggerElement;

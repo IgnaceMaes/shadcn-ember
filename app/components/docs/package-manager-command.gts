@@ -39,7 +39,7 @@ export default class PackageManagerCommand extends Component<PackageManagerComma
     }
   }
 
-  private convertCommand(manager: 'pnpm' | 'npm' | 'yarn' | 'bun'): string {
+  convertCommand(manager: 'pnpm' | 'npm' | 'yarn' | 'bun'): string {
     const cmd = this.args.command.trim();
 
     // If it's already using a specific package manager, return as is

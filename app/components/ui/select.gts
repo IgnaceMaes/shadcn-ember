@@ -221,7 +221,7 @@ class SelectContent extends Component<SelectContentSignature> {
 
   @tracked x = 0;
   @tracked y = 0;
-  private cleanup?: () => void;
+  cleanup?: () => void;
 
   get destinationElement() {
     return document.body;

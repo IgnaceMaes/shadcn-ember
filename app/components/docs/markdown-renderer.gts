@@ -168,7 +168,7 @@ export default class MarkdownRenderer extends Component<Signature> {
     return this.extractTocItems(this.processedContent);
   }
 
-  private extractTocItems(nodes: ProcessedNode[]): TocItem[] {
+  extractTocItems(nodes: ProcessedNode[]): TocItem[] {
     const items: TocItem[] = [];
 
     nodes.forEach((node) => {
@@ -182,7 +182,7 @@ export default class MarkdownRenderer extends Component<Signature> {
     return items;
   }
 
-  private toKebabCase(text: string): string {
+  toKebabCase(text: string): string {
     return text
       .trim()
       .toLowerCase()
@@ -191,13 +191,13 @@ export default class MarkdownRenderer extends Component<Signature> {
       .replace(/-+/g, '-');
   }
 
-  private processNodes(nodes: MdastNode[]): ProcessedNode[] {
+  processNodes(nodes: MdastNode[]): ProcessedNode[] {
     return nodes
       .map((node) => this.processNode(node))
       .filter(Boolean) as ProcessedNode[];
   }
 
-  private processNode(node: MdastNode): ProcessedNode | null {
+  processNode(node: MdastNode): ProcessedNode | null {
     switch (node.type) {
       case 'paragraph':
         return {
@@ -327,7 +327,7 @@ export default class MarkdownRenderer extends Component<Signature> {
     }
   }
 
-  private processInlineNode(node: MdastNode): ProcessedNode | null {
+  processInlineNode(node: MdastNode): ProcessedNode | null {
     switch (node.type) {
       case 'strong':
         return {
@@ -360,14 +360,14 @@ export default class MarkdownRenderer extends Component<Signature> {
     }
   }
 
-  private processInlineNodes(nodes: MdastNode[]): ProcessedNode[] {
+  processInlineNodes(nodes: MdastNode[]): ProcessedNode[] {
     return nodes
       .map((node) => this.processInlineNode(node))
       .filter(Boolean) as ProcessedNode[];
   }
 
   // Helper to check if code block is a bash command with npm/npx
-  private isNpmCommand(codeNode: Code): boolean {
+  isNpmCommand(codeNode: Code): boolean {
     if (!codeNode.lang || !['bash', 'sh', 'shell'].includes(codeNode.lang)) {
       return false;
     }
@@ -377,7 +377,7 @@ export default class MarkdownRenderer extends Component<Signature> {
   }
 
   // Parse code block meta string for title, showLineNumbers, and line highlights
-  private parseCodeMeta(meta: string | null | undefined): {
+  parseCodeMeta(meta: string | null | undefined): {
     title?: string;
     showLineNumbers: boolean;
     highlightLines?: number[];
@@ -440,7 +440,7 @@ export default class MarkdownRenderer extends Component<Signature> {
   }
 
   // Helper to extract text from nodes recursively
-  private getHeadingText = (children: ProcessedNode[] | undefined): string => {
+  getHeadingText = (children: ProcessedNode[] | undefined): string => {
     if (!children) return '';
 
     return children
@@ -455,7 +455,7 @@ export default class MarkdownRenderer extends Component<Signature> {
   };
 
   // Parse component props from HTML string
-  private parseComponentProps(html: string): Record<string, string> {
+  parseComponentProps(html: string): Record<string, string> {
     const props: Record<string, string> = {};
     // Match attributes like name="value" or name='value' or name={value}
     const attrRegex = /(\w+)=(?:"([^"]*)"|'([^']*)'|\{([^}]*)\})/g;
