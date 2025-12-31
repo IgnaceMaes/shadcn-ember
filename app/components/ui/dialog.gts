@@ -2,7 +2,6 @@ import Component from '@glimmer/component';
 import type { TOC } from '@ember/component/template-only';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
-import type Owner from '@ember/owner';
 import { provide, consume } from 'ember-provide-consume-context';
 import { cn } from '@/lib/utils';
 import XIcon from '~icons/lucide/x';
@@ -33,21 +32,20 @@ interface DialogSignature {
 }
 
 class Dialog extends Component<DialogSignature> {
-  @tracked isOpen: boolean;
-  @tracked isRendered = false;
-
-  constructor(owner: Owner, args: DialogSignature['Args']) {
-    super(owner, args);
-    this.isOpen = args.open ?? false;
-  }
+  @tracked isOpen = false;
+  @tracked isOpenOrClosing = false;
 
   get open() {
     return this.args.open ?? this.isOpen;
   }
 
+  get isRendered() {
+    return this.open || this.isOpenOrClosing;
+  }
+
   setOpen = (open: boolean) => {
     if (open) {
-      this.isRendered = true;
+      this.isOpenOrClosing = true;
       this.isOpen = true;
     } else {
       this.isOpen = false;
@@ -56,8 +54,8 @@ class Dialog extends Component<DialogSignature> {
   };
 
   finishClose = () => {
-    if (!this.isOpen) {
-      this.isRendered = false;
+    if (!this.open) {
+      this.isOpenOrClosing = false;
     }
   };
 
