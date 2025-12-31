@@ -21,8 +21,10 @@ import {
 const PopoverContext = 'popover-context' as const;
 
 interface PopoverContextValue {
-  isOpen: boolean;
+  open: boolean;
+  isRendered: boolean;
   setOpen: (open: boolean) => void;
+  finishClose: () => void;
   triggerElement: HTMLElement | null;
   setTriggerElement: (element: HTMLElement | null) => void;
 }
@@ -43,21 +45,37 @@ interface PopoverSignature {
 }
 
 class Popover extends Component<PopoverSignature> {
-  @tracked currentOpen: boolean;
+  @tracked isOpen = false;
+  @tracked isOpenOrClosing = false;
   triggerElement: HTMLElement | null = null;
 
   constructor(owner: Owner, args: PopoverSignature['Args']) {
     super(owner, args);
-    this.currentOpen = args.open ?? args.defaultOpen ?? false;
+    this.isOpen = args.open ?? args.defaultOpen ?? false;
   }
 
-  get isOpen() {
-    return this.args.open ?? this.currentOpen;
+  get open() {
+    return this.args.open ?? this.isOpen;
+  }
+
+  get isRendered() {
+    return this.open || this.isOpenOrClosing;
   }
 
   setOpen = (open: boolean) => {
-    this.currentOpen = open;
+    if (open) {
+      this.isOpenOrClosing = true;
+      this.isOpen = true;
+    } else {
+      this.isOpen = false;
+    }
     this.args.onOpenChange?.(open);
+  };
+
+  finishClose = () => {
+    if (!this.open) {
+      this.isOpenOrClosing = false;
+    }
   };
 
   setTriggerElement = (element: HTMLElement | null) => {
@@ -68,8 +86,10 @@ class Popover extends Component<PopoverSignature> {
   @provide(PopoverContext)
   get context(): PopoverContextValue {
     return {
-      isOpen: this.isOpen,
+      open: this.open,
+      isRendered: this.isRendered,
       setOpen: this.setOpen,
+      finishClose: this.finishClose,
       triggerElement: this.triggerElement,
       setTriggerElement: this.setTriggerElement,
     };
@@ -79,7 +99,7 @@ class Popover extends Component<PopoverSignature> {
     <div data-slot="popover">
       {{yield}}
     </div>
-  </template>
+  </template>o
 }
 
 interface PopoverTriggerSignature {
@@ -97,7 +117,7 @@ class PopoverTrigger extends Component<PopoverTriggerSignature> {
   @consume(PopoverContext) context!: ContextRegistry[typeof PopoverContext];
 
   handleClick = () => {
-    const newOpen = !this.context.isOpen;
+    const newOpen = !this.context.open;
     this.context.setOpen(newOpen);
   };
 
@@ -221,6 +241,12 @@ class PopoverContent extends Component<PopoverContentSignature> {
     };
   });
 
+  handleAnimationEnd = (event: AnimationEvent) => {
+    if (event.target === event.currentTarget && !this.context.open) {
+      this.context.finishClose();
+    }
+  };
+
   get positionStyle() {
     return htmlSafe(
       `position: fixed; left: ${this.x}px; top: ${this.y}px; z-index: 50;`
@@ -228,19 +254,20 @@ class PopoverContent extends Component<PopoverContentSignature> {
   }
 
   <template>
-    {{#if this.context.isOpen}}
+    {{#if this.context.isRendered}}
       <div
         data-slot="popover-content"
         class={{cn
           "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-72 origin-(--radix-popover-content-transform-origin) rounded-md border p-4 shadow-md outline-hidden"
           @class
         }}
-        data-state={{if this.context.isOpen "open" "closed"}}
+        data-state={{if this.context.open "open" "closed"}}
         data-side={{if @side @side "bottom"}}
         data-align={{if @align @align "center"}}
         style={{this.positionStyle}}
         {{this.positionContent}}
         {{onClickOutside this.handleClickOutside}}
+        {{on "animationend" this.handleAnimationEnd}}
         ...attributes
       >
         {{yield}}
