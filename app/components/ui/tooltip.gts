@@ -22,7 +22,9 @@ const TooltipContext = 'tooltip-context' as const;
 
 interface TooltipContextValue {
   isOpen: boolean;
+  isRendered: boolean;
   setOpen: (open: boolean) => void;
+  finishClose: () => void;
   triggerElement: HTMLElement | null;
   setTriggerElement: (element: HTMLElement | null) => void;
 }
@@ -59,6 +61,7 @@ interface TooltipSignature {
 
 class Tooltip extends Component<TooltipSignature> {
   @tracked currentOpen: boolean;
+  @tracked isOpenOrClosing = false;
   triggerElement: HTMLElement | null = null;
 
   constructor(owner: Owner, args: TooltipSignature['Args']) {
@@ -70,9 +73,24 @@ class Tooltip extends Component<TooltipSignature> {
     return this.args.open ?? this.currentOpen;
   }
 
+  get isRendered() {
+    return this.isOpen || this.isOpenOrClosing;
+  }
+
   setOpen = (open: boolean) => {
-    this.currentOpen = open;
+    if (open) {
+      this.isOpenOrClosing = true;
+      this.currentOpen = true;
+    } else {
+      this.currentOpen = false;
+    }
     this.args.onOpenChange?.(open);
+  };
+
+  finishClose = () => {
+    if (!this.isOpen) {
+      this.isOpenOrClosing = false;
+    }
   };
 
   setTriggerElement = (element: HTMLElement | null) => {
@@ -84,7 +102,9 @@ class Tooltip extends Component<TooltipSignature> {
   get context(): TooltipContextValue {
     return {
       isOpen: this.isOpen,
+      isRendered: this.isRendered,
       setOpen: this.setOpen,
+      finishClose: this.finishClose,
       triggerElement: this.triggerElement,
       setTriggerElement: this.setTriggerElement,
     };
@@ -255,19 +275,27 @@ class TooltipContent extends Component<TooltipContentSignature> {
     return htmlSafe(`left: ${this.arrowX}px; top: ${this.arrowY}px;`);
   }
 
+  handleAnimationEnd = (event: AnimationEvent) => {
+    if (event.target === event.currentTarget && !this.context.isOpen) {
+      this.context.finishClose();
+    }
+  };
+
   <template>
-    {{#if this.context.isOpen}}
+    {{#if this.context.isRendered}}
       <div
         data-slot="tooltip-content"
         class={{cn
-          "z-50 overflow-hidden rounded-md bg-foreground px-3 py-1.5 text-xs text-background animate-in fade-in-0 zoom-in-95"
+          "z-50 overflow-hidden rounded-md bg-foreground px-3 py-1.5 text-xs text-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
           @class
         }}
         data-side={{if @side @side "top"}}
         data-align={{if @align @align "center"}}
+        data-state={{if this.context.isOpen "open" "closed"}}
         style={{this.positionStyle}}
         role="tooltip"
         {{this.positionContent}}
+        {{on "animationend" this.handleAnimationEnd}}
         ...attributes
       >
         {{yield}}
