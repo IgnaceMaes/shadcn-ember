@@ -34,11 +34,11 @@ export default class DialogDemo extends Component {
 
   <template>
     <Dialog @open={{this.isOpen}} @onOpenChange={{this.setIsOpen}}>
-      <DialogTrigger>
-        <Button @variant="outline">Open Dialog</Button>
-      </DialogTrigger>
-      <DialogContent @class="sm:max-w-[425px]">
-        <form {{on "submit" this.handleSubmit}}>
+      <form {{on "submit" this.handleSubmit}}>
+        <DialogTrigger>
+          <Button @variant="outline">Open Dialog</Button>
+        </DialogTrigger>
+        <DialogContent @class="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Edit profile</DialogTitle>
             <DialogDescription>
@@ -61,8 +61,8 @@ export default class DialogDemo extends Component {
             </DialogClose>
             <Button type="submit">Save changes</Button>
           </DialogFooter>
-        </form>
-      </DialogContent>
+        </DialogContent>
+      </form>
     </Dialog>
   </template>
 }
