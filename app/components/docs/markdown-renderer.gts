@@ -60,6 +60,8 @@ interface Heading extends MdastNode {
 
 interface List extends MdastNode {
   type: 'list';
+  ordered?: boolean;
+  start?: number | null;
   children: ListItem[];
 }
 
@@ -144,6 +146,8 @@ interface ProcessedNode {
   highlightLines?: number[];
   align?: ('left' | 'right' | 'center' | null)[];
   alertType?: 'info' | 'note' | 'warning' | 'tip' | 'caution';
+  ordered?: boolean;
+  start?: number;
 }
 
 interface Signature {
@@ -214,11 +218,15 @@ export default class MarkdownRenderer extends Component<Signature> {
           depth: (node as Heading).depth,
           children: this.processInlineNodes((node as Heading).children),
         };
-      case 'list':
+      case 'list': {
+        const listNode = node as List;
         return {
           type: 'list',
-          children: this.processNodes((node as List).children),
+          ordered: listNode.ordered,
+          start: listNode.start ?? undefined,
+          children: this.processNodes(listNode.children),
         };
+      }
       case 'listItem':
         return {
           type: 'listItem',
@@ -626,7 +634,7 @@ export default class MarkdownRenderer extends Component<Signature> {
             {{/if}}
           {{/if}}
           {{#if (eq node.type "list")}}
-            <DocList>
+            <DocList @ordered={{node.ordered}} @start={{node.start}}>
               {{#each node.children as |listItem|}}
                 <DocListItem>
                   {{#each listItem.children as |itemChild|}}
@@ -665,7 +673,11 @@ export default class MarkdownRenderer extends Component<Signature> {
                       {{/each}}
                     {{/if}}
                     {{#if (eq itemChild.type "list")}}
-                      <DocList @class="my-0">
+                      <DocList
+                        @class="my-2 ml-8"
+                        @ordered={{itemChild.ordered}}
+                        @start={{itemChild.start}}
+                      >
                         {{#each itemChild.children as |nestedListItem|}}
                           <DocListItem>
                             {{#each nestedListItem.children as |nestedItemChild|}}

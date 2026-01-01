@@ -3,9 +3,11 @@ import { cn } from '@/lib/utils';
 import type { TOC } from '@ember/component/template-only';
 
 interface DocListSignature {
-  Element: HTMLUListElement;
+  Element: HTMLUListElement | HTMLOListElement;
   Args: {
     class?: string;
+    ordered?: boolean;
+    start?: number;
   };
   Blocks: {
     default: [];
@@ -13,9 +15,19 @@ interface DocListSignature {
 }
 
 export const DocList: TOC<DocListSignature> = <template>
-  <ul class={{cn "my-6 ml-6 list-disc" @class}} ...attributes>
-    {{yield}}
-  </ul>
+  {{#if @ordered}}
+    <ol
+      class={{cn "my-6 ml-6 list-decimal" @class}}
+      start={{@start}}
+      ...attributes
+    >
+      {{yield}}
+    </ol>
+  {{else}}
+    <ul class={{cn "my-6 ml-6 list-disc" @class}} ...attributes>
+      {{yield}}
+    </ul>
+  {{/if}}
 </template>;
 
 interface DocListItemSignature {
