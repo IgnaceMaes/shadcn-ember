@@ -44,32 +44,32 @@ export default class CommandDialogDemo extends Component {
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup @heading="Suggestions">
-            <CommandItem>
+            <CommandItem @value="calendar">
               <Calendar />
               <span>Calendar</span>
             </CommandItem>
-            <CommandItem>
+            <CommandItem @value="emoji">
               <Smile />
               <span>Search Emoji</span>
             </CommandItem>
-            <CommandItem>
+            <CommandItem @value="calculator">
               <Calculator />
               <span>Calculator</span>
             </CommandItem>
           </CommandGroup>
           <CommandSeparator />
           <CommandGroup @heading="Settings">
-            <CommandItem>
+            <CommandItem @value="profile">
               <User />
               <span>Profile</span>
               <CommandShortcut>⌘P</CommandShortcut>
             </CommandItem>
-            <CommandItem>
+            <CommandItem @value="billing">
               <CreditCard />
               <span>Billing</span>
               <CommandShortcut>⌘B</CommandShortcut>
             </CommandItem>
-            <CommandItem>
+            <CommandItem @value="settings">
               <Settings />
               <span>Settings</span>
               <CommandShortcut>⌘S</CommandShortcut>

@@ -5,7 +5,6 @@ import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import onKey from 'ember-keyboard/helpers/on-key';
-import { modifier } from 'ember-modifier';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -19,8 +18,6 @@ import {
 import { Kbd } from '@/components/ui/kbd';
 import { docsNavigation } from '@/lib/docs-navigation';
 import { cn } from '@/lib/utils';
-
-import type { DocNavItem } from '@/lib/docs-navigation';
 
 import ArrowRight from '~icons/lucide/arrow-right';
 import CircleDashed from '~icons/lucide/circle-dashed';
@@ -39,9 +36,6 @@ interface CommandMenuSignature {
 export default class CommandMenu extends Component<CommandMenuSignature> {
   @service declare router: RouterService;
   @tracked isOpen = false;
-  @tracked searchValue = '';
-  @tracked selectedType: 'page' | 'component' | null = null;
-  @tracked selectedIndex = 0;
 
   navItems = docsNavigation;
   componentItems = docsNavigation.filter((item) =>
@@ -57,11 +51,6 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
 
   setOpen = (open: boolean) => {
     this.isOpen = open;
-    if (!open) {
-      this.searchValue = '';
-      this.selectedType = null;
-      this.selectedIndex = 0;
-    }
   };
 
   routeExists(route: string): boolean {
@@ -79,100 +68,10 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
     if (this.routeExists(route)) {
       this.router.transitionTo(route);
     } else {
-      // Convert route to path for catch-all route
       const path = route.replace(/^docs\./, '').replace(/\./g, '/');
       this.router.transitionTo('docs.catch-all', path);
     }
   };
-
-  handleSearchChange = (event: Event) => {
-    const target = event.target as HTMLInputElement;
-    this.searchValue = target.value;
-    this.selectedIndex = 0;
-  };
-
-  handleItemHighlight = (item: DocNavItem, isComponent: boolean) => {
-    this.selectedType = isComponent ? 'component' : 'page';
-    const index = this.allItems.indexOf(item);
-    if (index !== -1) {
-      this.selectedIndex = index;
-    }
-  };
-
-  filterItems = (items: DocNavItem[]) => {
-    if (!this.searchValue.trim()) {
-      return items;
-    }
-
-    const search = this.searchValue.toLowerCase();
-    return items.filter(
-      (item) =>
-        item.title.toLowerCase().includes(search) ||
-        item.route.toLowerCase().includes(search)
-    );
-  };
-
-  get hasResults() {
-    const filteredPages = this.filterItems(this.pageItems);
-    const filteredComponents = this.filterItems(this.componentItems);
-    return filteredPages.length > 0 || filteredComponents.length > 0;
-  }
-
-  get allItems() {
-    return [
-      ...this.filterItems(this.pageItems),
-      ...this.filterItems(this.componentItems),
-    ];
-  }
-
-  navigateDown = (event: KeyboardEvent) => {
-    const allItems = this.allItems;
-    if (allItems.length === 0) return;
-    event.preventDefault();
-    this.selectedIndex = Math.min(this.selectedIndex + 1, allItems.length - 1);
-    this.scrollToSelectedItem();
-  };
-
-  navigateUp = (event: KeyboardEvent) => {
-    const allItems = this.allItems;
-    if (allItems.length === 0) return;
-    event.preventDefault();
-    this.selectedIndex = Math.max(this.selectedIndex - 1, 0);
-    this.scrollToSelectedItem();
-  };
-
-  selectItem = (event: KeyboardEvent) => {
-    const allItems = this.allItems;
-    if (allItems.length === 0) return;
-    event.preventDefault();
-    const selectedItem = allItems[this.selectedIndex];
-    if (selectedItem) {
-      this.handleSelect(selectedItem.route);
-    }
-  };
-
-  isItemSelected = (item: DocNavItem) => {
-    return this.allItems[this.selectedIndex] === item;
-  };
-
-  scrollToSelectedItem = () => {
-    // Use setTimeout to ensure DOM has updated with new selection state
-    setTimeout(() => {
-      const selectedElement = document.querySelector(
-        '[data-slot="command-item"][data-selected="true"]'
-      );
-      if (selectedElement) {
-        selectedElement.scrollIntoView({
-          block: 'nearest',
-          behavior: 'instant',
-        });
-      }
-    }, 0);
-  };
-
-  focusOnInsert = modifier((element: HTMLInputElement) => {
-    element.focus();
-  });
 
   <template>
     {{! Global keyboard shortcuts }}
@@ -201,73 +100,48 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
         @showCloseButton={{false}}
         @title="Search documentation..."
       >
-        {{! Dialog-specific keyboard shortcuts - only active when dialog is open }}
-        {{#if this.isOpen}}
-          {{onKey "ArrowDown" this.navigateDown}}
-          {{onKey "ArrowUp" this.navigateUp}}
-          {{onKey "Enter" this.selectItem}}
-        {{/if}}
-
         <CommandInput
           @class="bg-input/50 border-input rounded-md border !h-9"
           @placeholder="Search documentation..."
-          {{on "input" this.handleSearchChange}}
-          {{this.focusOnInsert}}
         />
 
         <CommandList @class="no-scrollbar min-h-80 scroll-pt-2 scroll-pb-1.5">
-          {{#unless this.hasResults}}
-            <CommandEmpty
-              @class="text-muted-foreground py-12 text-center text-sm"
-            >
-              No results found.
-            </CommandEmpty>
-          {{/unless}}
+          <CommandEmpty
+            @class="text-muted-foreground py-12 text-center text-sm"
+          >
+            No results found.
+          </CommandEmpty>
 
-          {{#if (this.filterItems this.pageItems)}}
-            <CommandGroup
-              @class="!p-0 [&_[data-cmdk-group-heading]]:scroll-mt-16 [&_[data-cmdk-group-heading]]:!p-3 [&_[data-cmdk-group-heading]]:!pb-1"
-              @heading="Pages"
-            >
-              {{#each (this.filterItems this.pageItems) as |item|}}
-                <CommandItem
-                  @class="data-[selected=true]:border-input data-[selected=true]:bg-input/50 hover:data-[selected=true]:bg-input/70 h-9 rounded-md border border-transparent !px-3 font-medium"
-                  data-selected={{if (this.isItemSelected item) "true" "false"}}
-                  {{on "click" (fn this.handleSelect item.route)}}
-                  {{on
-                    "mouseenter"
-                    (fn this.handleItemHighlight item false)
-                    passive=true
-                  }}
-                >
-                  <ArrowRight />
-                  {{item.title}}
-                </CommandItem>
-              {{/each}}
-            </CommandGroup>
-          {{/if}}
+          <CommandGroup
+            @class="!p-0 [&_[data-cmdk-group-heading]]:scroll-mt-16 [&_[data-cmdk-group-heading]]:!p-3 [&_[data-cmdk-group-heading]]:!pb-1"
+            @heading="Pages"
+          >
+            {{#each this.pageItems as |item|}}
+              <CommandItem
+                @class="data-[selected=true]:border-input data-[selected=true]:bg-input/50 hover:data-[selected=true]:bg-input/70 h-9 rounded-md border border-transparent !px-3 font-medium"
+                @onSelect={{fn this.handleSelect item.route}}
+                @value={{item.route}}
+              >
+                <ArrowRight />
+                {{item.title}}
+              </CommandItem>
+            {{/each}}
+          </CommandGroup>
 
-          {{#if (this.filterItems this.componentItems)}}
-            <CommandGroup @heading="Components">
-              {{#each (this.filterItems this.componentItems) as |item|}}
-                <CommandItem
-                  @class="data-[selected=true]:border-input data-[selected=true]:bg-input/50 hover:data-[selected=true]:bg-input/70 h-9 rounded-md border border-transparent !px-3 font-medium"
-                  data-selected={{if (this.isItemSelected item) "true" "false"}}
-                  {{on "click" (fn this.handleSelect item.route)}}
-                  {{on
-                    "mouseenter"
-                    (fn this.handleItemHighlight item true)
-                    passive=true
-                  }}
-                >
-                  <CircleDashed
-                    class="border-muted-foreground aspect-square size-4 rounded-full border border-dashed"
-                  />
-                  {{item.title}}
-                </CommandItem>
-              {{/each}}
-            </CommandGroup>
-          {{/if}}
+          <CommandGroup @heading="Components">
+            {{#each this.componentItems as |item|}}
+              <CommandItem
+                @class="data-[selected=true]:border-input data-[selected=true]:bg-input/50 hover:data-[selected=true]:bg-input/70 h-9 rounded-md border border-transparent !px-3 font-medium"
+                @onSelect={{fn this.handleSelect item.route}}
+                @value={{item.route}}
+              >
+                <CircleDashed
+                  class="border-muted-foreground aspect-square size-4 rounded-full border border-dashed"
+                />
+                {{item.title}}
+              </CommandItem>
+            {{/each}}
+          </CommandGroup>
         </CommandList>
 
         <div
@@ -279,9 +153,7 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
             >
               <CornerDownLeft />
             </kbd>
-            {{#if this.selectedType}}
-              Go to Page
-            {{/if}}
+            Go to Page
           </div>
         </div>
       </CommandDialog>
