@@ -48,8 +48,7 @@ import { LinkTo } from '@ember/routing';
 
 - No unnecessary code comments in ui component source files
 - Use only named exports in ui component source files (no default exports) and do a single export at the bottom of the file
-- When needing to pass context from a root ui component to a related sub-component: yield the subcomponent to link them together.
-- When typing components in a yield, use `ComponentLike<ExampleSignature>` from `import type { ComponentLike } from '@glint/template';`
+- When needing to pass context from a root ui component to a related sub-component: use ember context (via `ember-provide-consume-context`)
 - When importing other ui components, always use the absolute path starting with `@/components/ui/`
 - Use camelCase for yielded variables (e.g. `as |c|`)
 - In code examples, simply use the implicit default <template> export (no need for explicit one)
