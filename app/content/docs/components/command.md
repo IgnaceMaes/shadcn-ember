@@ -3,7 +3,7 @@ title: Command
 description: Fast, composable, unstyled command menu for Ember.
 ---
 
-<ComponentPreview name="command-demo" description="A command menu" class="[&_.preview>div]:max-w-[450px]" align="start" />
+<ComponentPreview name="command-demo" description="A command menu" class="[&>div]:max-w-[450px]" align="start" />
 
 ## About
 
