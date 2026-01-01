@@ -413,8 +413,11 @@ class NotionPromptForm extends Component {
                     </DropdownMenuSubTrigger>
                     <DropdownMenuSubContent @class="w-72 p-0 [--radius:1rem]">
                       <Command>
+                        {{! template-lint-disable no-pointer-down-event-binding }}
                         <CommandInput
                           placeholder="Find or use knowledge in..."
+                          {{on "click" this.stopPropagation}}
+                          {{on "pointerdown" this.stopPropagation}}
                         />
                         <CommandList>
                           <CommandEmpty>No knowledge found</CommandEmpty>
