@@ -9,8 +9,7 @@ import {
   type Placement,
 } from '@floating-ui/dom';
 import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
-import { cached } from '@glimmer/tracking';
+import { tracked, cached } from '@glimmer/tracking';
 import onClickOutside from 'ember-click-outside/modifiers/on-click-outside';
 import { modifier } from 'ember-modifier';
 import { provide, consume } from 'ember-provide-consume-context';
