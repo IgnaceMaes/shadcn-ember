@@ -680,7 +680,10 @@ export default class MarkdownRenderer extends Component<Signature> {
                       >
                         {{#each itemChild.children as |nestedListItem|}}
                           <DocListItem>
-                            {{#each nestedListItem.children as |nestedItemChild|}}
+                            {{#each
+                              nestedListItem.children
+                              as |nestedItemChild|
+                            }}
                               {{#if (eq nestedItemChild.type "paragraph")}}
                                 {{#each nestedItemChild.children as |inline|}}
                                   {{#if
