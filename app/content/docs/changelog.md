@@ -8,9 +8,9 @@ order: 10
 
 I'm excited to announce the initial release of shadcn-ember!
 
-In the recent years, significant work was made to modernize Ember and shape the Polaris edition. Vite has become the default build system, speeding up builds and unlocking a gigantic ecosystem of tools now compatible. Template tag components were introduced, solving component ergonomics. First-class TypeScript support with native types are available. And with Glint (built upon Volar.js) there is end-to-end type safety from templates to TypeScript. All of this makes Ember a solid foundation for building modern, ambitious web applications.
+In the recent years, significant work was made to modernize Ember and shape the [Polaris edition](https://emberjs.com/editions/polaris/). [Vite](https://vite.dev/) has become the default build system, speeding up builds and unlocking a gigantic ecosystem of tools now compatible. Template tag components were introduced, solving component ergonomics. First-class TypeScript support with native types are available. And with [Glint](https://typed-ember.gitbook.io/glint) (built upon [Volar.js](https://volarjs.dev/)) there is end-to-end type safety from templates to TypeScript. All of this makes Ember a solid foundation for building modern, ambitious web applications.
 
-Yet, when starting a new Ember project, I felt like there was still something missing. While there are great component libraries available, they often come with their own design systems, or are not aligned with the modern Ember way of building components. Inspired by the success of `shadcn/ui` in the React ecosystem, I decided to create `shadcn-ember`, bringing the same design principles and component specs to Ember.
+Yet, when starting a new Ember project, I felt like there was still something missing. While there are great component libraries available, they often come with their own design systems, or are not aligned with the modern Ember way of building components. Inspired by the success of [shadcn/ui](https://ui.shadcn.com/) in the React ecosystem, I decided to create `shadcn-ember`, bringing the same design principles and component specs to Ember.
 
 ### Key design decisions
 
