@@ -20,6 +20,7 @@ The following design decisions are taken intentionally, and will be maintained g
    - By keeping component specs aligned, maintenance and updates are more straightforward.
    - Easier access to other shadcn ecosystem tools and resources, with minimal adjustments needed.
    - Extensions and customizations can be part of separate libraries, without affecting the core.
+   - AI coding tools can better assist engineers due to prior shadcn/ui knowledge.
 2. Compatibility with modern Ember only
    - While recognizing there exist numerous legacy Ember applications, this library focuses on leveraging the latest Ember features to ease maintenance and reduce complexity.
    - With minimal adaptations, components could be backported to older setups by end users.
