@@ -628,10 +628,10 @@ export default class MarkdownRenderer extends Component<Signature> {
           {{#if (eq node.type "list")}}
             <DocList>
               {{#each node.children as |listItem|}}
-                {{#each listItem.children as |para|}}
-                  {{#if (eq para.type "paragraph")}}
-                    <DocListItem>
-                      {{#each para.children as |inline|}}
+                <DocListItem>
+                  {{#each listItem.children as |itemChild|}}
+                    {{#if (eq itemChild.type "paragraph")}}
+                      {{#each itemChild.children as |inline|}}
                         {{#if (eq inline.type "text")}}{{inline.content}}{{/if}}
                         {{#if (eq inline.type "inlineCode")}}<DocCode
                           >{{inline.content}}</DocCode>{{/if}}
@@ -663,9 +663,57 @@ export default class MarkdownRenderer extends Component<Signature> {
                           </DocLink>
                         {{/if}}
                       {{/each}}
-                    </DocListItem>
-                  {{/if}}
-                {{/each}}
+                    {{/if}}
+                    {{#if (eq itemChild.type "list")}}
+                      <DocList @class="my-0">
+                        {{#each itemChild.children as |nestedListItem|}}
+                          <DocListItem>
+                            {{#each nestedListItem.children as |nestedItemChild|}}
+                              {{#if (eq nestedItemChild.type "paragraph")}}
+                                {{#each nestedItemChild.children as |inline|}}
+                                  {{#if
+                                    (eq inline.type "text")
+                                  }}{{inline.content}}{{/if}}
+                                  {{#if (eq inline.type "inlineCode")}}<DocCode
+                                    >{{inline.content}}</DocCode>{{/if}}
+                                  {{#if (eq inline.type "strong")}}
+                                    <DocStrong>
+                                      {{#each inline.children as |child|}}
+                                        {{#if
+                                          (eq child.type "text")
+                                        }}{{child.content}}{{/if}}
+                                      {{/each}}
+                                    </DocStrong>
+                                  {{/if}}
+                                  {{#if (eq inline.type "emphasis")}}
+                                    <DocEmphasis>
+                                      {{#each inline.children as |child|}}
+                                        {{#if
+                                          (eq child.type "text")
+                                        }}{{child.content}}{{/if}}
+                                      {{/each}}
+                                    </DocEmphasis>
+                                  {{/if}}
+                                  {{#if (eq inline.type "link")}}
+                                    <DocLink
+                                      @href={{if inline.url inline.url ""}}
+                                    >
+                                      {{#each inline.children as |child|}}
+                                        {{#if
+                                          (eq child.type "text")
+                                        }}{{child.content}}{{/if}}
+                                      {{/each}}
+                                    </DocLink>
+                                  {{/if}}
+                                {{/each}}
+                              {{/if}}
+                            {{/each}}
+                          </DocListItem>
+                        {{/each}}
+                      </DocList>
+                    {{/if}}
+                  {{/each}}
+                </DocListItem>
               {{/each}}
             </DocList>
           {{/if}}
