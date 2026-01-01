@@ -273,7 +273,8 @@ class NotionPromptForm extends Component {
                       <CommandGroup @heading={{this.getGroupHeading type}}>
                         {{#each items as |item|}}
                           <CommandItem
-                            {{on "click" (fn this.addMention item.title)}}
+                            @onSelect={{this.addMention}}
+                            @value={{item.title}}
                           >
                             <MentionableIcon @item={{item}} />
                             {{item.title}}
@@ -419,7 +420,7 @@ class NotionPromptForm extends Component {
                           <CommandEmpty>No knowledge found</CommandEmpty>
                           <CommandGroup>
                             {{#each this.userItems as |user|}}
-                              <CommandItem>
+                              <CommandItem @value={{user.title}}>
                                 <Avatar @class="size-4">
                                   <AvatarImage @src={{user.image}} />
                                   <AvatarFallback>{{get

@@ -236,9 +236,11 @@ class CommandInput extends Component<CommandInputSignature> {
   };
 
   focusInput = modifier((element: HTMLInputElement) => {
-    const isInDialog = element.closest('[data-slot="dialog-content"]');
+    const isInDialogOrPopover =
+      element.closest('[data-slot="dialog-content"]') ||
+      element.closest('[data-slot="popover-content"]');
 
-    if (isInDialog) {
+    if (isInDialogOrPopover) {
       requestAnimationFrame(() => {
         element.focus();
       });
@@ -417,7 +419,7 @@ interface CommandItemComponentSignature {
     disabled?: boolean;
     value: string;
     keywords?: string[];
-    onSelect?: () => void;
+    onSelect?: (value: string) => void;
   };
   Blocks: {
     default: [];
@@ -468,7 +470,7 @@ class CommandItem extends Component<CommandItemComponentSignature> {
 
   handleClick = () => {
     if (!this.args.disabled && this.args.onSelect) {
-      this.args.onSelect();
+      this.args.onSelect(this.args.value);
     }
   };
 
