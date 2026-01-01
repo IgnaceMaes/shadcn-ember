@@ -20,7 +20,7 @@ import Github from '~icons/simple-icons/github';
       <div
         class="3xl:fixed:container flex h-(--header-height) items-center **:data-[slot=separator]:!h-4"
       >
-        <DocLinkTo @route="index" class="hidden lg:flex">
+        <DocLinkTo @route="index" class="flex">
           <Button @size="icon" @variant="ghost" class="size-8">
             <PhNotches @weight="bold" class="text-[#E04E39]" />
             <span class="sr-only">shadcn-ember</span>
