@@ -75,65 +75,6 @@ import {
 
 To show the command menu in a dialog, use the `<CommandDialog />` component.
 
-```gts showLineNumbers
-import { tracked } from '@glimmer/tracking';
-import Component from '@glimmer/component';
-import { on } from '@ember/modifier';
-import {
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-  CommandShortcut,
-} from '@/components/ui/command';
-import Calendar from '~icons/lucide/calendar';
-import Smile from '~icons/lucide/smile';
-import Calculator from '~icons/lucide/calculator';
-
-export default class CommandMenu extends Component {
-  @tracked open = false;
-
-  handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
-      e.preventDefault();
-      this.open = !this.open;
-    }
-  };
-
-  <template>
-    {{! template-lint-disable no-invalid-interactive }}
-    <div {{on "keydown" this.handleKeyDown}}>
-      <CommandDialog
-        @open={{this.open}}
-        @onOpenChange={{(fn (mut this.open))}}
-      >
-        <CommandInput @placeholder="Type a command or search..." />
-        <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup @heading="Suggestions">
-            <CommandItem>
-              <Calendar />
-              <span>Calendar</span>
-            </CommandItem>
-            <CommandItem>
-              <Smile />
-              <span>Search Emoji</span>
-            </CommandItem>
-            <CommandItem>
-              <Calculator />
-              <span>Calculator</span>
-            </CommandItem>
-          </CommandGroup>
-        </CommandList>
-      </CommandDialog>
-    </div>
-  </template>
-}
-```
-
 ### Combobox
 
 You can use the `<Command />` component as a combobox. See the [Combobox](/docs/components/combobox) page for more information.

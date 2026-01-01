@@ -1,4 +1,3 @@
-import { fn } from '@ember/helper';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import onKey from 'ember-keyboard/helpers/on-key';
