@@ -22,6 +22,12 @@ import Search from '~icons/lucide/search';
 const CommandContext = 'command-context' as const;
 const CommandGroupContext = 'command-group-context' as const;
 
+interface CommandItemData {
+  value: string;
+  keywords: string[];
+  isVisible: () => boolean;
+}
+
 interface CommandContextValue {
   search: string;
   setSearch: (value: string) => void;
@@ -30,24 +36,8 @@ interface CommandContextValue {
   allGroups: CommandGroupContextValue[];
 }
 
-class CommandItemInstance {
-  value: string;
-  keywords: string[];
-  checkVisibility: () => boolean;
-
-  constructor(
-    value: string,
-    keywords: string[],
-    checkVisibility: () => boolean
-  ) {
-    this.value = value;
-    this.keywords = keywords;
-    this.checkVisibility = checkVisibility;
-  }
-}
-
 interface CommandGroupContextValue {
-  items: CommandItemInstance[];
+  items: CommandItemData[];
 }
 
 interface ContextRegistry {
@@ -55,7 +45,7 @@ interface ContextRegistry {
   [CommandGroupContext]: CommandGroupContextValue;
 }
 
-interface CommandSignature {
+interface CommandRootSignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
@@ -65,88 +55,85 @@ interface CommandSignature {
   };
 }
 
-class Command extends Component<CommandSignature> {
+class Command extends Component<CommandRootSignature> {
   @tracked search = '';
   @tracked selectedValue: string | null = null;
   allGroups = new TrackedArray<CommandGroupContextValue>();
 
-  setSearch = (value: string) => {
-    this.search = value;
-    // Auto-select first visible item after search updates
-    requestAnimationFrame(() => {
-      this.selectFirstVisibleItem();
-    });
-  };
-
-  selectFirstVisibleItem = () => {
-    // Find first visible item from tracked data
+  get firstVisibleItem(): string | null {
     for (const group of this.allGroups) {
       for (const item of group.items) {
-        if (item.checkVisibility()) {
-          this.selectedValue = item.value;
-          return;
+        if (item.isVisible()) {
+          return item.value;
         }
       }
     }
-    // No visible items
-    this.selectedValue = null;
-  };
+    return null;
+  }
 
-  initializeSelection = modifier(() => {
-    // Wait for all groups and items to register
+  setSearch = (value: string) => {
+    this.search = value;
     requestAnimationFrame(() => {
-      this.selectFirstVisibleItem();
+      this.selectedValue = this.firstVisibleItem;
     });
-  });
+  };
 
   setSelectedValue = (value: string | null) => {
     this.selectedValue = value;
   };
 
+  initializeSelection = modifier(() => {
+    requestAnimationFrame(() => {
+      this.selectedValue = this.firstVisibleItem;
+    });
+  });
+
   handleKeyDown = (event: KeyboardEvent) => {
-    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-      event.preventDefault();
-      // Find all visible command items
-      const currentTarget = event.currentTarget as HTMLElement;
-      const items = Array.from(
-        currentTarget.querySelectorAll<HTMLElement>(
-          '[data-slot="command-item"]:not([hidden])'
-        )
-      );
+    const key = event.key;
 
-      if (items.length === 0) return;
+    if (key !== 'ArrowDown' && key !== 'ArrowUp' && key !== 'Enter') {
+      return;
+    }
 
-      const currentIndex = items.findIndex(
-        (item) => item.getAttribute('data-selected') === 'true'
-      );
+    event.preventDefault();
 
-      let newIndex: number;
-      if (event.key === 'ArrowDown') {
-        newIndex =
-          currentIndex === -1
-            ? 0
-            : Math.min(currentIndex + 1, items.length - 1);
-      } else {
-        newIndex = currentIndex === -1 ? 0 : Math.max(currentIndex - 1, 0);
-      }
-
-      const newItem = items[newIndex];
-      const value = newItem?.getAttribute('data-value');
-      if (value && newItem) {
-        this.selectedValue = value;
-        // Scroll into view
-        newItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-      }
-    } else if (event.key === 'Enter') {
-      event.preventDefault();
-      // Find the selected item and trigger its click
+    if (key === 'Enter') {
       const currentTarget = event.currentTarget as HTMLElement;
       const selectedItem = currentTarget.querySelector<HTMLElement>(
         '[data-slot="command-item"][data-selected="true"]'
       );
-      if (selectedItem) {
-        selectedItem.click();
-      }
+      selectedItem?.click();
+      return;
+    }
+
+    const currentTarget = event.currentTarget as HTMLElement;
+    const items = Array.from(
+      currentTarget.querySelectorAll<HTMLElement>(
+        '[data-slot="command-item"]:not([hidden])'
+      )
+    );
+
+    if (items.length === 0) return;
+
+    const currentIndex = items.findIndex(
+      (item) => item.getAttribute('data-selected') === 'true'
+    );
+
+    const newIndex =
+      key === 'ArrowDown'
+        ? currentIndex === -1
+          ? 0
+          : Math.min(currentIndex + 1, items.length - 1)
+        : currentIndex === -1
+          ? 0
+          : Math.max(currentIndex - 1, 0);
+
+    const newItem = items[newIndex];
+    const value = newItem?.getAttribute('data-value');
+
+    if (value && newItem) {
+      this.selectedValue = value;
+      newItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
   };
 
@@ -245,16 +232,13 @@ class CommandInput extends Component<CommandInputSignature> {
 
   handleInput = (event: Event) => {
     const target = event.target as HTMLInputElement;
-    if (this.context) {
-      this.context.setSearch(target.value);
-    }
+    this.context.setSearch(target.value);
   };
 
   focusInput = modifier((element: HTMLInputElement) => {
-    // Check if we're inside a dialog by looking for dialog content
     const isInDialog = element.closest('[data-slot="dialog-content"]');
+
     if (isInDialog) {
-      // Use requestAnimationFrame to ensure the dialog is fully rendered
       requestAnimationFrame(() => {
         element.focus();
       });
@@ -323,9 +307,8 @@ class CommandEmpty extends Component<CommandEmptySignature> {
   @consume(CommandContext) context!: ContextRegistry[typeof CommandContext];
 
   get hasVisibleItems(): boolean {
-    if (!this.context?.allGroups) return false;
-    return this.context.allGroups.some(group =>
-      group.items.some(item => item.checkVisibility())
+    return this.context.allGroups.some((group) =>
+      group.items.some((item) => item.isVisible())
     );
   }
 
@@ -354,27 +337,28 @@ interface CommandGroupSignature {
 }
 
 class CommandGroup extends Component<CommandGroupSignature> {
-  @consume(CommandContext) declare commandContext?: ContextRegistry[typeof CommandContext];
-  items = new TrackedArray<CommandItemInstance>();
+  @consume(CommandContext)
+  declare commandContext?: ContextRegistry[typeof CommandContext];
+  items = new TrackedArray<CommandItemData>();
 
   @provide(CommandGroupContext)
   groupContext: CommandGroupContextValue = { items: this.items };
 
   get hasVisibleItems(): boolean {
-    return this.items.some(item => item.checkVisibility());
+    return this.items.some((item) => item.isVisible());
   }
 
   registerWithCommand = modifier(() => {
-    if (this.commandContext) {
-      this.commandContext.allGroups.push(this.groupContext);
+    if (!this.commandContext) return;
 
-      registerDestructor(this, () => {
-        const index = this.commandContext!.allGroups.indexOf(this.groupContext);
-        if (index > -1) {
-          this.commandContext!.allGroups.splice(index, 1);
-        }
-      });
-    }
+    this.commandContext.allGroups.push(this.groupContext);
+
+    registerDestructor(this, () => {
+      const index = this.commandContext!.allGroups.indexOf(this.groupContext);
+      if (index > -1) {
+        this.commandContext!.allGroups.splice(index, 1);
+      }
+    });
   });
 
   <template>
@@ -410,9 +394,8 @@ class CommandSeparator extends Component<CommandSeparatorSignature> {
   @consume(CommandContext) context!: ContextRegistry[typeof CommandContext];
 
   get hasVisibleItems(): boolean {
-    if (!this.context?.allGroups) return false;
-    return this.context.allGroups.some(group =>
-      group.items.some(item => item.checkVisibility())
+    return this.context.allGroups.some((group) =>
+      group.items.some((item) => item.isVisible())
     );
   }
 
@@ -427,7 +410,7 @@ class CommandSeparator extends Component<CommandSeparatorSignature> {
   </template>
 }
 
-interface CommandItemSignature {
+interface CommandItemComponentSignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
@@ -441,50 +424,47 @@ interface CommandItemSignature {
   };
 }
 
-class CommandItem extends Component<CommandItemSignature> {
+class CommandItem extends Component<CommandItemComponentSignature> {
   @consume(CommandContext) context!: ContextRegistry[typeof CommandContext];
-  @consume(CommandGroupContext) declare groupContext?: ContextRegistry[typeof CommandGroupContext];
+  @consume(CommandGroupContext)
+  declare groupContext?: ContextRegistry[typeof CommandGroupContext];
 
   get isVisible(): boolean {
-    if (!this.context || !this.context.search?.trim()) {
-      return true;
-    }
+    const search = this.context.search?.trim();
+    if (!search) return true;
 
-    const searchLower = this.context.search.toLowerCase();
+    const searchLower = search.toLowerCase();
     const value = this.args.value.toLowerCase();
     const keywords = this.args.keywords || [];
 
-    const valueMatch = value.includes(searchLower);
-    const keywordsMatch = keywords.some((keyword) =>
-      keyword.toLowerCase().includes(searchLower)
+    return (
+      value.includes(searchLower) ||
+      keywords.some((keyword) => keyword.toLowerCase().includes(searchLower))
     );
-
-    return valueMatch || keywordsMatch;
   }
-
-registerWithGroup = modifier(() => {
-    if (this.groupContext) {
-      const instance = new CommandItemInstance(
-        this.args.value,
-        this.args.keywords || [],
-        () => this.isVisible
-      );
-
-      // Push directly - the array itself is tracked
-      this.groupContext.items.push(instance);
-
-      registerDestructor(this, () => {
-        const index = this.groupContext!.items.indexOf(instance);
-        if (index > -1) {
-          this.groupContext!.items.splice(index, 1);
-        }
-      });
-    }
-  });
 
   get isSelected(): boolean {
-    return this.context?.selectedValue === this.args.value;
+    return this.context.selectedValue === this.args.value;
   }
+
+  registerWithGroup = modifier(() => {
+    if (!this.groupContext) return;
+
+    const item: CommandItemData = {
+      value: this.args.value,
+      keywords: this.args.keywords || [],
+      isVisible: () => this.isVisible,
+    };
+
+    this.groupContext.items.push(item);
+
+    registerDestructor(this, () => {
+      const index = this.groupContext!.items.indexOf(item);
+      if (index > -1) {
+        this.groupContext!.items.splice(index, 1);
+      }
+    });
+  });
 
   handleClick = () => {
     if (!this.args.disabled && this.args.onSelect) {
@@ -493,7 +473,7 @@ registerWithGroup = modifier(() => {
   };
 
   handleMouseEnter = () => {
-    if (!this.args.disabled && this.context) {
+    if (!this.args.disabled) {
       this.context.setSelectedValue(this.args.value);
     }
   };
