@@ -1,11 +1,12 @@
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
 import { CodeBlock } from 'ember-shiki';
 
 import CopyButton from '@/components/docs/copy-button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
+import type PackageManagerService from '@/services/package-manager';
+import type { PackageManager } from '@/services/package-manager';
 import type ThemeService from '@/services/theme';
 
 import Terminal from '~icons/lucide/terminal';
@@ -20,15 +21,17 @@ interface PackageManagerCommandSignature {
 }
 
 export default class PackageManagerCommand extends Component<PackageManagerCommandSignature> {
+  @service declare packageManager: PackageManagerService;
   @service declare theme: ThemeService;
-  @tracked currentTab = 'pnpm';
 
   handleTabChange = (value: string) => {
-    this.currentTab = value;
+    this.packageManager.setPackageManager(
+      value as PackageManager
+    );
   };
 
   get currentCommand(): string {
-    switch (this.currentTab) {
+    switch (this.packageManager.selectedManager) {
       case 'pnpm':
         return this.pnpmCommand;
       case 'npm':
@@ -117,7 +120,10 @@ export default class PackageManagerCommand extends Component<PackageManagerComma
       style="--shiki-dark: #e1e4e8; --shiki-light: #1f2328; --shiki-dark-bg: #24292e; --shiki-light-bg: var(--surface); background-color: var(--surface);"
     >
       <CopyButton @class="!top-1.5 !right-2" @value={{this.currentCommand}} />
-      <Tabs @defaultValue="pnpm" @onValueChange={{this.handleTabChange}}>
+      <Tabs
+        @onValueChange={{this.handleTabChange}}
+        @value={{this.packageManager.selectedManager}}
+      >
         <div
           class="border-border/50 flex items-center gap-2 border-b px-3 py-1"
         >

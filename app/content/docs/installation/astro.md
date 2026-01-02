@@ -8,7 +8,7 @@ description: Install and configure shadcn-ember for Astro
 Start by creating a new Astro project with Tailwind CSS:
 
 ```bash
-pnpm create astro@latest astro-app --template with-tailwindcss --install --git
+npm create astro@latest astro-app --template with-tailwindcss --install --git
 ```
 
 ## Install Ember integration
@@ -16,7 +16,7 @@ pnpm create astro@latest astro-app --template with-tailwindcss --install --git
 Install `ember-astro` and Ember:
 
 ```bash
-pnpm add ember-astro ember-source
+npm add ember-astro ember-source
 ```
 
 ## Configure Astro
@@ -42,7 +42,7 @@ export default defineConfig({
 shadcn-ember uses `unplugin-icons` for icon support. Install the dependencies:
 
 ```bash
-pnpm add -D unplugin-icons @iconify-json/lucide
+npm add -D unplugin-icons @iconify-json/lucide
 ```
 
 Add the plugin to your `astro.config.mjs`:
