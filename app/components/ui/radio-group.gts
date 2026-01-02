@@ -112,6 +112,7 @@ class RadioGroupItem extends Component<RadioGroupItemSignature> {
         @class
       }}
       data-slot="radio-group-item"
+      data-state={{if this.checked "checked" "unchecked"}}
       disabled={{this.isDisabled}}
       role="radio"
       type="button"
@@ -122,6 +123,7 @@ class RadioGroupItem extends Component<RadioGroupItemSignature> {
         <span
           class="relative flex items-center justify-center"
           data-slot="radio-group-indicator"
+          data-state="checked"
         >
           <span
             class="bg-primary absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full"
