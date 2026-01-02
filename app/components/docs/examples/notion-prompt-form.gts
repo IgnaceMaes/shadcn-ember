@@ -21,6 +21,7 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuSub,
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
@@ -171,6 +172,8 @@ class NotionPromptForm extends Component {
   @tracked modelPopoverOpen = false;
   @tracked selectedModel = SAMPLE_DATA.models[0];
   @tracked scopeMenuOpen = false;
+  @tracked webSearchEnabled = true;
+  @tracked appsEnabled = true;
 
   get grouped() {
     return SAMPLE_DATA.mentionable.reduce(
@@ -234,6 +237,14 @@ class NotionPromptForm extends Component {
 
   isModelSelected = (modelName: string) => {
     return modelName === this.selectedModel?.name;
+  };
+
+  toggleWebSearch = () => {
+    this.webSearchEnabled = !this.webSearchEnabled;
+  };
+
+  toggleApps = () => {
+    this.appsEnabled = !this.appsEnabled;
   };
 
   <template>
@@ -387,22 +398,36 @@ class NotionPromptForm extends Component {
                       <Globe />
                       Web Search
                       <Switch
-                        @checked={{true}}
+                        @checked={{this.webSearchEnabled}}
                         @class="ml-auto"
+                        @onCheckedChange={{this.toggleWebSearch}}
                         id="web-search"
                       />
                     </label>
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
-                <DropdownMenuItem>
-                  <Grid3x3 />
-                  Apps and Integrations
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <PlusCircle />
-                  All Sources I can access
-                </DropdownMenuItem>
+                <DropdownMenuSeparator />
                 <DropdownMenuGroup>
+                  <DropdownMenuItem
+                    @asChild={{true}}
+                    @onSelect={{this.noop}}
+                    as |classes|
+                  >
+                    <label class={{classes}} for="apps">
+                      <Grid3x3 />
+                      Apps and Integrations
+                      <Switch
+                        @checked={{this.appsEnabled}}
+                        @class="ml-auto"
+                        @onCheckedChange={{this.toggleApps}}
+                        id="apps"
+                      />
+                    </label>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <PlusCircle />
+                    All Sources I can access
+                  </DropdownMenuItem>
                   <DropdownMenuSub>
                     <DropdownMenuSubTrigger>
                       <Avatar @class="size-4">
@@ -448,6 +473,7 @@ class NotionPromptForm extends Component {
                     Help Center
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
+                <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                   <DropdownMenuItem>
                     <Plus />
