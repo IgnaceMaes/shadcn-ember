@@ -200,21 +200,6 @@ import '../styles/global.css';
 ---
 ```
 
-## Configure Tailwind
-
-Update your `tailwind.config.mjs` to include the component paths:
-
-```typescript title="tailwind.config.mjs" showLineNumbers
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue,gts,gjs}'],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
-```
-
 ## Add components
 
 You can now add shadcn-ember components to your project. Create a `src/components/ui` directory and copy the component files you need.
