@@ -64,8 +64,8 @@ export default class InputGroupButtonExample extends Component {
             aria-label="Favorite"
           >
             <StarIcon
-              class="data-[favorite=true]:fill-primary data-[favorite=true]:stroke-primary"
-              data-favorite={{this.isFavorite}}
+              class="data-[favorite=true]:[&_path]:fill-primary data-[favorite=true]:[&_path]:stroke-primary"
+              data-favorite={{if this.isFavorite "true" "false"}}
             />
           </InputGroupButton>
         </InputGroupAddon>
