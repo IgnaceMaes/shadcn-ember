@@ -98,6 +98,7 @@ class Popover extends Component<PopoverSignature> {
   }
 
   <template>
+    {{! template-lint-disable no-yield-only }}
     {{yield}}
   </template>
 }

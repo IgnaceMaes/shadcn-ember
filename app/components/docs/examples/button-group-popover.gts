@@ -19,7 +19,12 @@ import ChevronDownIcon from '~icons/lucide/chevron-down';
     </Button>
     <Popover>
       <PopoverTrigger @asChild={{true}} as |trigger|>
-        <Button @size="icon-sm" @variant="outline" aria-label="Open Popover" {{trigger.modifiers}}>
+        <Button
+          @size="icon-sm"
+          @variant="outline"
+          aria-label="Open Popover"
+          {{trigger.modifiers}}
+        >
           <ChevronDownIcon />
         </Button>
       </PopoverTrigger>
