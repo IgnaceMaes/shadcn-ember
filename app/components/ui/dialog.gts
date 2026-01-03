@@ -261,16 +261,12 @@ class DialogContent extends Component<DialogContentSignature> {
         >
           {{yield}}
           {{#if this.showCloseButton}}
-            <button
-              class="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
-              data-slot="dialog-close"
-              data-state={{if this.context.open "open" "closed"}}
-              type="button"
-              {{on "click" this.handleCloseClick}}
+            <DialogClose
+              @class="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
             >
               <XIcon />
               <span class="sr-only">Close</span>
-            </button>
+            </DialogClose>
           {{/if}}
         </div>
       </DialogPortal>
