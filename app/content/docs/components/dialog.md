@@ -62,17 +62,17 @@ To use the `Dialog` component from within a `Context Menu` or `Dropdown Menu`, y
 
 ```hbs showLineNumbers {1, 26}
 <Dialog>
-  <ContextMenu as |cm|>
-    <cm.Trigger>Right click</cm.Trigger>
-    <cm.Content>
-      <cm.Item>Open</cm.Item>
-      <cm.Item>Download</cm.Item>
+  <ContextMenu>
+    <ContextMenuTrigger>Right click</ContextMenuTrigger>
+    <ContextMenuContent>
+      <ContextMenuItem>Open</ContextMenuItem>
+      <ContextMenuItem>Download</ContextMenuItem>
       <DialogTrigger @asChild={{true}}>
-        <cm.Item>
+        <ContextMenuItem>
           <span>Delete</span>
-        </cm.Item>
+        </ContextMenuItem>
       </DialogTrigger>
-    </cm.Content>
+    </ContextMenuContent>
   </ContextMenu>
   <DialogContent>
     <DialogHeader>
