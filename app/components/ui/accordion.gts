@@ -1,6 +1,7 @@
 import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { modifier } from 'ember-modifier';
 import { provide, consume } from 'ember-provide-consume-context';
 
 import { cn } from '@/lib/utils';
@@ -23,6 +24,8 @@ interface AccordionContextValue {
 interface AccordionItemContextValue {
   value: string;
   disabled: boolean;
+  isRendered: boolean;
+  finishClose: () => void;
 }
 
 interface ContextRegistry {
@@ -130,17 +133,47 @@ class AccordionContent extends Component<AccordionContentSignature> {
     return this.accordionContext.value === this.itemContext.value;
   }
 
+  handleAnimationEnd = (event: AnimationEvent) => {
+    if (event.target === event.currentTarget && !this.isOpen) {
+      this.itemContext.finishClose();
+    }
+  };
+
+  heightAnimation = modifier((element: HTMLElement) => {
+    const updateHeight = () => {
+      const height = element.scrollHeight;
+      element.style.setProperty(
+        '--radix-accordion-content-height',
+        `${height}px`
+      );
+    };
+
+    updateHeight();
+
+    const resizeObserver = new ResizeObserver(() => {
+      updateHeight();
+    });
+    resizeObserver.observe(element);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  });
+
   <template>
-    <div
-      class="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm"
-      data-state={{if this.isOpen "open" "closed"}}
-      hidden={{unless this.isOpen true}}
-      ...attributes
-    >
-      <div class={{cn "pb-4 pt-0" @class}}>
-        {{yield}}
+    {{#if this.itemContext.isRendered}}
+      <div
+        class="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm"
+        data-state={{if this.isOpen "open" "closed"}}
+        {{on "animationend" this.handleAnimationEnd}}
+        {{this.heightAnimation}}
+        ...attributes
+      >
+        <div class={{cn "pb-4 pt-0" @class}}>
+          {{yield}}
+        </div>
       </div>
-    </div>
+    {{/if}}
   </template>
 }
 
@@ -148,18 +181,37 @@ class AccordionItem extends Component<AccordionItemSignature> {
   @consume(AccordionContext)
   accordionContext!: ContextRegistry[typeof AccordionContext];
 
+  @tracked isOpenOrClosing = false;
+
   get isOpen() {
-    if (Array.isArray(this.accordionContext.value)) {
-      return this.accordionContext.value.includes(this.args.value);
-    }
-    return this.accordionContext.value === this.args.value;
+    return Array.isArray(this.accordionContext.value)
+      ? this.accordionContext.value.includes(this.args.value)
+      : this.accordionContext.value === this.args.value;
   }
+
+  get isRendered() {
+    return this.isOpen || this.isOpenOrClosing;
+  }
+
+  finishClose = () => {
+    if (!this.isOpen) {
+      this.isOpenOrClosing = false;
+    }
+  };
+
+  trackOpenState = modifier(() => {
+    if (this.isOpen) {
+      this.isOpenOrClosing = true;
+    }
+  });
 
   @provide(AccordionItemContext)
   get itemContext(): AccordionItemContextValue {
     return {
       value: this.args.value,
       disabled: this.args.disabled ?? false,
+      isRendered: this.isRendered,
+      finishClose: this.finishClose,
     };
   }
 
@@ -168,6 +220,7 @@ class AccordionItem extends Component<AccordionItemSignature> {
       class={{cn "border-b last:border-b-0" @class}}
       data-disabled={{if @disabled "true"}}
       data-state={{if this.isOpen "open" "closed"}}
+      {{this.trackOpenState}}
       ...attributes
     >
       {{yield}}
