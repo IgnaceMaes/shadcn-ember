@@ -15,12 +15,6 @@ npx embercli-shadcn@latest add accordion
 
 ### Manual
 
-**Install the following dependencies:**
-
-```bash
-pnpm add ember-velcro
-```
-
 **Copy and paste the accordion component into your project:**
 
 <ComponentSource name="accordion" />
