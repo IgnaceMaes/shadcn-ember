@@ -216,6 +216,10 @@ interface DialogContentSignature {
 class DialogContent extends Component<DialogContentSignature> {
   @consume(DialogContext) context!: ContextRegistry[typeof DialogContext];
 
+  get destinationElement() {
+    return document.body;
+  }
+
   get showCloseButton() {
     return this.args.showCloseButton ?? true;
   }
@@ -242,7 +246,7 @@ class DialogContent extends Component<DialogContentSignature> {
 
   <template>
     {{#if this.context.isRendered}}
-      <DialogPortal>
+      {{#in-element this.destinationElement insertBefore=null}}
         <DialogOverlay />
         <div
           aria-modal="true"
@@ -269,7 +273,7 @@ class DialogContent extends Component<DialogContentSignature> {
             </DialogClose>
           {{/if}}
         </div>
-      </DialogPortal>
+      {{/in-element}}
     {{/if}}
   </template>
 }

@@ -1,16 +1,28 @@
-import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { provide, consume } from 'ember-provide-consume-context';
 
 import { cn } from '@/lib/utils';
 
 import type { TOC } from '@ember/component/template-only';
-import type Owner from '@ember/owner';
 
 import X from '~icons/lucide/x';
 
 type Side = 'top' | 'bottom' | 'left' | 'right';
+
+const SheetContext = 'sheet-context' as const;
+
+interface SheetContextValue {
+  open: boolean;
+  isRendered: boolean;
+  setOpen: (open: boolean) => void;
+  finishClose: () => void;
+}
+
+interface ContextRegistry {
+  [SheetContext]: SheetContextValue;
+}
 
 function sheetVariants(side: Side = 'right', className?: string): string {
   const baseClasses =
@@ -36,30 +48,51 @@ interface SheetSignature {
     onOpenChange?: (open: boolean) => void;
   };
   Blocks: {
-    default: [isOpen: boolean, setOpen: (open: boolean) => void];
+    default: [];
   };
 }
 
 class Sheet extends Component<SheetSignature> {
-  @tracked isOpen: boolean;
-
-  constructor(owner: Owner, args: SheetSignature['Args']) {
-    super(owner, args);
-    this.isOpen = args.open ?? args.defaultOpen ?? false;
-  }
+  @tracked isOpen = false;
+  @tracked isOpenOrClosing = false;
 
   get open() {
     return this.args.open ?? this.isOpen;
   }
 
+  get isRendered() {
+    return this.open || this.isOpenOrClosing;
+  }
+
   setOpen = (open: boolean) => {
-    this.isOpen = open;
+    if (open) {
+      this.isOpenOrClosing = true;
+      this.isOpen = true;
+    } else {
+      this.isOpen = false;
+    }
     this.args.onOpenChange?.(open);
   };
 
+  finishClose = () => {
+    if (!this.open) {
+      this.isOpenOrClosing = false;
+    }
+  };
+
+  @provide(SheetContext)
+  get context(): SheetContextValue {
+    return {
+      open: this.open,
+      isRendered: this.isRendered,
+      setOpen: this.setOpen,
+      finishClose: this.finishClose,
+    };
+  }
+
   <template>
     <div data-slot="sheet">
-      {{yield this.open this.setOpen}}
+      {{yield}}
     </div>
   </template>
 }
@@ -69,7 +102,6 @@ interface SheetTriggerSignature {
   Element: HTMLButtonElement;
   Args: {
     class?: string;
-    setOpen?: (open: boolean) => void;
     asChild?: boolean;
   };
   Blocks: {
@@ -78,13 +110,24 @@ interface SheetTriggerSignature {
 }
 
 class SheetTrigger extends Component<SheetTriggerSignature> {
+  @consume(SheetContext) context!: ContextRegistry[typeof SheetContext];
+
   handleClick = () => {
-    this.args.setOpen?.(true);
+    this.context.setOpen(true);
   };
 
   <template>
     {{#if @asChild}}
-      {{yield}}
+      <span
+        data-slot="sheet-trigger"
+        role="button"
+        tabindex="0"
+        {{on "click" this.handleClick}}
+        {{on "keydown" this.handleClick}}
+        ...attributes
+      >
+        {{yield}}
+      </span>
     {{else}}
       <button
         class={{cn @class}}
@@ -104,7 +147,6 @@ interface SheetCloseSignature {
   Element: HTMLButtonElement;
   Args: {
     class?: string;
-    setOpen?: (open: boolean) => void;
     asChild?: boolean;
   };
   Blocks: {
@@ -113,13 +155,24 @@ interface SheetCloseSignature {
 }
 
 class SheetClose extends Component<SheetCloseSignature> {
+  @consume(SheetContext) context!: ContextRegistry[typeof SheetContext];
+
   handleClick = () => {
-    this.args.setOpen?.(false);
+    this.context.setOpen(false);
   };
 
   <template>
     {{#if @asChild}}
-      {{yield}}
+      <span
+        data-slot="sheet-close"
+        role="button"
+        tabindex="0"
+        {{on "click" this.handleClick}}
+        {{on "keydown" this.handleClick}}
+        ...attributes
+      >
+        {{yield}}
+      </span>
     {{else}}
       <button
         class={{cn @class}}
@@ -152,8 +205,6 @@ interface SheetOverlaySignature {
   Element: HTMLDivElement;
   Args: {
     class?: string;
-    isOpen?: boolean;
-    setOpen?: (open: boolean) => void;
   };
   Blocks: {
     default: [];
@@ -161,24 +212,31 @@ interface SheetOverlaySignature {
 }
 
 class SheetOverlay extends Component<SheetOverlaySignature> {
+  @consume(SheetContext) context!: ContextRegistry[typeof SheetContext];
+
   handleClick = () => {
-    this.args.setOpen?.(false);
+    this.context.setOpen(false);
+  };
+
+  handleAnimationEnd = (event: AnimationEvent) => {
+    if (event.target === event.currentTarget && !this.context.open) {
+      this.context.finishClose();
+    }
   };
 
   <template>
-    {{#if @isOpen}}
-      {{! template-lint-disable no-invalid-interactive }}
-      <div
-        class={{cn
-          "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50"
-          @class
-        }}
-        data-slot="sheet-overlay"
-        data-state={{if @isOpen "open" "closed"}}
-        {{on "click" this.handleClick}}
-        ...attributes
-      ></div>
-    {{/if}}
+    {{! template-lint-disable no-invalid-interactive }}
+    <div
+      class={{cn
+        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50"
+        @class
+      }}
+      data-slot="sheet-overlay"
+      data-state={{if this.context.open "open" "closed"}}
+      {{on "animationend" this.handleAnimationEnd}}
+      {{on "click" this.handleClick}}
+      ...attributes
+    ></div>
   </template>
 }
 
@@ -188,8 +246,6 @@ interface SheetContentSignature {
   Args: {
     class?: string;
     side?: Side;
-    isOpen?: boolean;
-    setOpen?: (open: boolean) => void;
   };
   Blocks: {
     default: [];
@@ -197,32 +253,49 @@ interface SheetContentSignature {
 }
 
 class SheetContent extends Component<SheetContentSignature> {
+  @consume(SheetContext) context!: ContextRegistry[typeof SheetContext];
+
+  get destinationElement() {
+    return document.body;
+  }
+
   get classes() {
     return sheetVariants(this.args.side ?? 'right', this.args.class);
   }
 
+  handleAnimationEnd = (event: AnimationEvent) => {
+    if (event.target === event.currentTarget && !this.context.open) {
+      this.context.finishClose();
+    }
+  };
+
+  handleCloseClick = () => {
+    this.context.setOpen(false);
+  };
+
   <template>
-    {{#if @isOpen}}
-      <SheetPortal>
-        <SheetOverlay @isOpen={{@isOpen}} @setOpen={{@setOpen}} />
+    {{#if this.context.isRendered}}
+      {{#in-element this.destinationElement insertBefore=null}}
+        <SheetOverlay />
         <div
           class={{this.classes}}
           data-slot="sheet-content"
-          data-state={{if @isOpen "open" "closed"}}
+          data-state={{if this.context.open "open" "closed"}}
           role="dialog"
+          {{on "animationend" this.handleAnimationEnd}}
           ...attributes
         >
           {{yield}}
           <button
             class="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none"
             type="button"
-            {{on "click" (if @setOpen (fn @setOpen false) (fn))}}
+            {{on "click" this.handleCloseClick}}
           >
             <X class="size-4" />
             <span class="sr-only">Close</span>
           </button>
         </div>
-      </SheetPortal>
+      {{/in-element}}
     {{/if}}
   </template>
 }

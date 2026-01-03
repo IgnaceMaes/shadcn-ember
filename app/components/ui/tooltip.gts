@@ -209,6 +209,10 @@ class TooltipContent extends Component<TooltipContentSignature> {
   cleanup?: () => void;
   arrowElement: HTMLElement | null = null;
 
+  get destinationElement() {
+    return document.body;
+  }
+
   positionContent = modifier((element: HTMLElement) => {
     const triggerElement = this.context.triggerElement;
     if (!triggerElement) return;
@@ -285,28 +289,30 @@ class TooltipContent extends Component<TooltipContentSignature> {
 
   <template>
     {{#if this.context.isRendered}}
-      <div
-        class={{cn
-          "z-50 overflow-hidden rounded-md bg-foreground px-3 py-1.5 text-xs text-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
-          @class
-        }}
-        data-align={{if @align @align "center"}}
-        data-side={{if @side @side "top"}}
-        data-slot="tooltip-content"
-        data-state={{if this.context.isOpen "open" "closed"}}
-        role="tooltip"
-        style={{this.positionStyle}}
-        {{on "animationend" this.handleAnimationEnd}}
-        {{this.positionContent}}
-        ...attributes
-      >
-        {{yield}}
+      {{#in-element this.destinationElement insertBefore=null}}
         <div
-          class="absolute bg-foreground size-2 rotate-45"
-          style={{this.arrowStyle}}
-          {{this.arrowModifier}}
-        ></div>
-      </div>
+          class={{cn
+            "z-50 overflow-hidden rounded-md bg-foreground px-3 py-1.5 text-xs text-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
+            @class
+          }}
+          data-align={{if @align @align "center"}}
+          data-side={{if @side @side "top"}}
+          data-slot="tooltip-content"
+          data-state={{if this.context.isOpen "open" "closed"}}
+          role="tooltip"
+          style={{this.positionStyle}}
+          {{on "animationend" this.handleAnimationEnd}}
+          {{this.positionContent}}
+          ...attributes
+        >
+          {{yield}}
+          <div
+            class="absolute bg-foreground size-2 rotate-45"
+            style={{this.arrowStyle}}
+            {{this.arrowModifier}}
+          ></div>
+        </div>
+      {{/in-element}}
     {{/if}}
   </template>
 }
