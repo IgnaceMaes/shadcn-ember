@@ -1,6 +1,7 @@
 import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { modifier } from 'ember-modifier';
 import { provide, consume } from 'ember-provide-consume-context';
 
 import { cn } from '@/lib/utils';
@@ -224,6 +225,20 @@ class DialogContent extends Component<DialogContentSignature> {
     return this.args.showCloseButton ?? true;
   }
 
+  scrollLock = modifier(
+    (_element, _positional, { enabled = true }: { enabled?: boolean } = {}) => {
+      if (!enabled) {
+        return;
+      }
+
+      document.body.classList.add('overflow-hidden');
+
+      return () => {
+        document.body.classList.remove('overflow-hidden');
+      };
+    }
+  );
+
   handleOverlayClick = (event: MouseEvent) => {
     event.stopPropagation();
   };
@@ -261,6 +276,7 @@ class DialogContent extends Component<DialogContentSignature> {
           {{on "animationend" this.handleAnimationEnd}}
           {{on "click" this.handleOverlayClick}}
           {{on "keydown" this.handleKeyDown}}
+          {{this.scrollLock enabled=this.context.open}}
           ...attributes
         >
           {{yield}}

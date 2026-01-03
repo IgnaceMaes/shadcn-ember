@@ -283,6 +283,7 @@ class SheetContent extends Component<SheetContentSignature> {
       this.context.finishClose();
     }
   };
+
   handleCloseClick = () => {
     this.context.setOpen(false);
   };
