@@ -25,9 +25,7 @@ export default class PackageManagerCommand extends Component<PackageManagerComma
   @service declare theme: ThemeService;
 
   handleTabChange = (value: string) => {
-    this.packageManager.setPackageManager(
-      value as PackageManager
-    );
+    this.packageManager.setPackageManager(value as PackageManager);
   };
 
   get currentCommand(): string {
