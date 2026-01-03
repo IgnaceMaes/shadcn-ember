@@ -18,8 +18,8 @@ import ChevronDownIcon from '~icons/lucide/chevron-down';
       Copilot
     </Button>
     <Popover>
-      <PopoverTrigger @asChild={{true}}>
-        <Button @size="icon-sm" @variant="outline" aria-label="Open Popover">
+      <PopoverTrigger @asChild={{true}} as |trigger|>
+        <Button @size="icon-sm" @variant="outline" aria-label="Open Popover" {{trigger.modifiers}}>
           <ChevronDownIcon />
         </Button>
       </PopoverTrigger>

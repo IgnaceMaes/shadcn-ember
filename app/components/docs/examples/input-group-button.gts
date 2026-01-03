@@ -32,12 +32,13 @@ export default class InputGroupButtonExample extends Component {
       </Label>
       <InputGroup @class="[--radius:9999px]">
         <Popover>
-          <PopoverTrigger>
+          <PopoverTrigger @asChild={{true}} as |trigger|>
             <InputGroupAddon @align="inline-start">
               <InputGroupButton
                 @size="icon-xs"
                 @variant="secondary"
                 aria-label="Info"
+                {{trigger.modifiers}}
               >
                 <InfoIcon />
               </InputGroupButton>

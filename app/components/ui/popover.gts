@@ -1,3 +1,4 @@
+import { hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { htmlSafe } from '@ember/template';
 import {
@@ -97,22 +98,39 @@ class Popover extends Component<PopoverSignature> {
   }
 
   <template>
-    <div data-slot="popover">
-      {{yield}}
-    </div>
+    {{yield}}
   </template>
 }
 
-interface PopoverTriggerSignature {
+interface PopoverTriggerSignatureAsChild {
   Element: HTMLButtonElement;
   Args: {
     class?: string;
-    asChild?: boolean;
+    asChild: true;
+  };
+  Blocks: {
+    default: [
+      trigger: {
+        modifiers: typeof PopoverTrigger.prototype.applyTriggerBehavior;
+      },
+    ];
+  };
+}
+
+interface PopoverTriggerSignatureAsRoot {
+  Element: HTMLButtonElement;
+  Args: {
+    class?: string;
+    asChild?: false;
   };
   Blocks: {
     default: [];
   };
 }
+
+type PopoverTriggerSignature =
+  | PopoverTriggerSignatureAsChild
+  | PopoverTriggerSignatureAsRoot;
 
 class PopoverTrigger extends Component<PopoverTriggerSignature> {
   @consume(PopoverContext) context!: ContextRegistry[typeof PopoverContext];
@@ -129,19 +147,19 @@ class PopoverTrigger extends Component<PopoverTriggerSignature> {
     };
   });
 
+  applyTriggerBehavior = modifier((element: HTMLElement) => {
+    element.setAttribute('data-slot', 'popover-trigger');
+    element.addEventListener('click', this.handleClick);
+    this.context.setTriggerElement(element);
+    return () => {
+      element.removeEventListener('click', this.handleClick);
+      this.context.setTriggerElement(null);
+    };
+  });
+
   <template>
     {{#if @asChild}}
-      <span
-        data-slot="popover-trigger"
-        role="button"
-        tabindex="0"
-        {{on "click" this.handleClick}}
-        {{on "keydown" this.handleClick}}
-        {{this.registerElement}}
-        ...attributes
-      >
-        {{yield}}
-      </span>
+      {{yield (hash modifiers=this.applyTriggerBehavior)}}
     {{else}}
       <button
         class={{cn @class}}
