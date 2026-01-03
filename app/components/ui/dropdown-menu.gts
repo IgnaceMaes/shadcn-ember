@@ -26,6 +26,7 @@ import ChevronRight from '~icons/lucide/chevron-right';
 const DropdownMenuContext = 'dropdown-menu-context' as const;
 const DropdownMenuGroupContext = 'dropdown-menu-group-context' as const;
 const DropdownMenuSubContext = 'dropdown-menu-sub-context' as const;
+const SUBMENU_CLOSE_DELAY = 500;
 
 interface DropdownMenuContextValue {
   isOpen: boolean;
@@ -36,6 +37,8 @@ interface DropdownMenuContextValue {
   setTriggerElement: (element: HTMLElement | null) => void;
   closeAllSubmenus?: () => void;
   registerGroupCloseCallback?: (callback: () => void) => () => void;
+  cancelPendingItemClose?: () => void;
+  setPendingItemClose?: (timeout: ReturnType<typeof setTimeout>) => void;
 }
 
 interface DropdownMenuGroupContextValue {
@@ -52,6 +55,8 @@ interface DropdownMenuSubContextValue {
   triggerElement: HTMLElement | null;
   setTriggerElement: (element: HTMLElement | null) => void;
   parentSetOpen: (open: boolean) => void;
+  cancelPendingClose: () => void;
+  setPendingClose: (timeout: ReturnType<typeof setTimeout>) => void;
 }
 
 interface ContextRegistry {
@@ -279,6 +284,7 @@ class DropdownMenuSub extends Component<DropdownMenuSubSignature> {
   @tracked isRendered = false;
   triggerElement: HTMLElement | null = null;
   unregister?: () => void;
+  closeTimeout?: ReturnType<typeof setTimeout>;
 
   constructor(owner: Owner, args: DropdownMenuSubSignature['Args']) {
     super(owner, args);
@@ -292,6 +298,9 @@ class DropdownMenuSub extends Component<DropdownMenuSubSignature> {
   willDestroy() {
     super.willDestroy();
     this.unregister?.();
+    if (this.closeTimeout) {
+      clearTimeout(this.closeTimeout);
+    }
   }
 
   get open() {
@@ -319,6 +328,17 @@ class DropdownMenuSub extends Component<DropdownMenuSubSignature> {
     this.triggerElement = element;
   };
 
+  cancelPendingClose = () => {
+    if (this.closeTimeout) {
+      clearTimeout(this.closeTimeout);
+      this.closeTimeout = undefined;
+    }
+  };
+
+  setPendingClose = (timeout: ReturnType<typeof setTimeout>) => {
+    this.closeTimeout = timeout;
+  };
+
   @cached
   @provide(DropdownMenuSubContext)
   get context(): DropdownMenuSubContextValue {
@@ -330,6 +350,8 @@ class DropdownMenuSub extends Component<DropdownMenuSubSignature> {
       triggerElement: this.triggerElement,
       setTriggerElement: this.setTriggerElement,
       parentSetOpen: this.groupContext.setOpen,
+      cancelPendingClose: this.cancelPendingClose,
+      setPendingClose: this.setPendingClose,
     };
   }
 
@@ -396,8 +418,97 @@ class DropdownMenuSubTrigger extends Component<DropdownMenuSubTriggerSignature> 
   @consume(DropdownMenuSubContext)
   context!: ContextRegistry[typeof DropdownMenuSubContext];
 
-  handleMouseEnter = () => {
+  @consume(DropdownMenuContext)
+  menuContext!: ContextRegistry[typeof DropdownMenuContext];
+
+  mouseEnterPosition: { x: number; y: number } | null = null;
+
+  handleMouseEnter = (event: MouseEvent) => {
+    this.mouseEnterPosition = { x: event.clientX, y: event.clientY };
+    this.menuContext.cancelPendingItemClose?.();
+    this.context.cancelPendingClose();
     this.context.setOpen(true);
+  };
+
+  isPointInTriangle(
+    px: number,
+    py: number,
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number,
+    x3: number,
+    y3: number
+  ): boolean {
+    const sign = (
+      p1x: number,
+      p1y: number,
+      p2x: number,
+      p2y: number,
+      p3x: number,
+      p3y: number
+    ) => {
+      return (p1x - p3x) * (p2y - p3y) - (p2x - p3x) * (p1y - p3y);
+    };
+
+    const d1 = sign(px, py, x1, y1, x2, y2);
+    const d2 = sign(px, py, x2, y2, x3, y3);
+    const d3 = sign(px, py, x3, y3, x1, y1);
+
+    const hasNeg = d1 < 0 || d2 < 0 || d3 < 0;
+    const hasPos = d1 > 0 || d2 > 0 || d3 > 0;
+
+    return !(hasNeg && hasPos);
+  }
+
+  isMouseMovingTowardsSubmenu(event: MouseEvent): boolean {
+    if (!this.mouseEnterPosition) return false;
+
+    const submenuContent = document.querySelector(
+      '[data-slot="dropdown-menu-sub-content"][data-state="open"]'
+    );
+
+    if (!submenuContent) return false;
+
+    const submenuRect = submenuContent.getBoundingClientRect();
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+    const enterX = this.mouseEnterPosition.x;
+    const enterY = this.mouseEnterPosition.y;
+
+    // Find the closest corner of the submenu
+    // The submenu is typically to the right, so we use left edge
+    const submenuLeft = submenuRect.left;
+    const submenuTop = submenuRect.top;
+    const submenuBottom = submenuRect.bottom;
+
+    // Create a triangle between:
+    // 1. Mouse enter position
+    // 2. Top-left corner of submenu
+    // 3. Bottom-left corner of submenu
+    return this.isPointInTriangle(
+      mouseX,
+      mouseY,
+      enterX,
+      enterY,
+      submenuLeft,
+      submenuTop,
+      submenuLeft,
+      submenuBottom
+    );
+  }
+
+  handleMouseLeave = (event: MouseEvent) => {
+    if (this.isMouseMovingTowardsSubmenu(event)) {
+      // Mouse might be moving towards submenu, use timeout
+      const timeout = setTimeout(() => {
+        this.context.setOpen(false);
+      }, SUBMENU_CLOSE_DELAY);
+      this.context.setPendingClose(timeout);
+    } else {
+      // Mouse is moving away, close immediately
+      this.context.setOpen(false);
+    }
   };
 
   registerElement = modifier((element: HTMLElement) => {
@@ -417,6 +528,7 @@ class DropdownMenuSubTrigger extends Component<DropdownMenuSubTriggerSignature> 
       data-slot="dropdown-menu-sub-trigger"
       data-state={{if this.context.isOpen "open" "closed"}}
       {{on "mouseenter" this.handleMouseEnter}}
+      {{on "mouseleave" this.handleMouseLeave}}
       {{this.registerElement}}
       ...attributes
     >
@@ -491,13 +603,12 @@ class DropdownMenuSubContent extends Component<DropdownMenuSubContentSignature> 
   );
 
   get positionStyle() {
-    return htmlSafe(
-      `position: fixed; left: ${this.x}px; top: ${this.y}px;`
-    );
+    return htmlSafe(`position: fixed; left: ${this.x}px; top: ${this.y}px;`);
   }
 
   handleMouseEnter = () => {
-    // Keep the submenu open when hovering over it
+    this.menuContext.cancelPendingItemClose?.();
+    this.subContext.cancelPendingClose();
   };
 
   handleAnimationEnd = (event: AnimationEvent) => {
@@ -553,6 +664,7 @@ class DropdownMenuContent extends Component<DropdownMenuContentSignature> {
   @tracked y = 0;
   cleanup?: () => void;
   groupCloseCallbacks: Set<() => void> = new Set();
+  pendingItemCloseTimeout?: ReturnType<typeof setTimeout>;
 
   get destinationElement() {
     return document.body;
@@ -569,6 +681,17 @@ class DropdownMenuContent extends Component<DropdownMenuContentSignature> {
     };
   };
 
+  cancelPendingItemClose = () => {
+    if (this.pendingItemCloseTimeout) {
+      clearTimeout(this.pendingItemCloseTimeout);
+      this.pendingItemCloseTimeout = undefined;
+    }
+  };
+
+  setPendingItemClose = (timeout: ReturnType<typeof setTimeout>) => {
+    this.pendingItemCloseTimeout = timeout;
+  };
+
   @cached
   @provide(DropdownMenuContext)
   get context(): DropdownMenuContextValue {
@@ -576,6 +699,8 @@ class DropdownMenuContent extends Component<DropdownMenuContentSignature> {
       ...this.menuContext,
       closeAllSubmenus: this.closeAllSubmenus,
       registerGroupCloseCallback: this.registerGroupCloseCallback,
+      cancelPendingItemClose: this.cancelPendingItemClose,
+      setPendingItemClose: this.setPendingItemClose,
     };
   }
 
@@ -637,9 +762,7 @@ class DropdownMenuContent extends Component<DropdownMenuContentSignature> {
   );
 
   get positionStyle() {
-    return htmlSafe(
-      `position: fixed; left: ${this.x}px; top: ${this.y}px;`
-    );
+    return htmlSafe(`position: fixed; left: ${this.x}px; top: ${this.y}px;`);
   }
 
   <template>
@@ -688,7 +811,11 @@ class DropdownMenuItem extends Component<DropdownMenuItemSignature> {
   menuContext!: ContextRegistry[typeof DropdownMenuContext];
 
   handleMouseEnter = () => {
-    this.menuContext.closeAllSubmenus?.();
+    this.menuContext.cancelPendingItemClose?.();
+    const timeout = setTimeout(() => {
+      this.menuContext.closeAllSubmenus?.();
+    }, SUBMENU_CLOSE_DELAY);
+    this.menuContext.setPendingItemClose?.(timeout);
   };
 
   handleClick = () => {
@@ -744,7 +871,11 @@ class DropdownMenuCheckboxItem extends Component<DropdownMenuCheckboxItemSignatu
   menuContext!: ContextRegistry[typeof DropdownMenuContext];
 
   handleMouseEnter = () => {
-    this.menuContext.closeAllSubmenus?.();
+    this.menuContext.cancelPendingItemClose?.();
+    const timeout = setTimeout(() => {
+      this.menuContext.closeAllSubmenus?.();
+    }, SUBMENU_CLOSE_DELAY);
+    this.menuContext.setPendingItemClose?.(timeout);
   };
 
   handleClick = () => {
@@ -800,7 +931,11 @@ class DropdownMenuRadioItem extends Component<DropdownMenuRadioItemSignature> {
   }
 
   handleMouseEnter = () => {
-    this.menuContext.closeAllSubmenus?.();
+    this.menuContext.cancelPendingItemClose?.();
+    const timeout = setTimeout(() => {
+      this.menuContext.closeAllSubmenus?.();
+    }, SUBMENU_CLOSE_DELAY);
+    this.menuContext.setPendingItemClose?.(timeout);
   };
 
   handleClick = () => {
