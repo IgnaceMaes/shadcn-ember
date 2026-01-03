@@ -49,7 +49,12 @@ export default class ButtonGroupDemo extends Component {
         <Button @variant="outline">Snooze</Button>
         <DropdownMenu>
           <DropdownMenuTrigger @asChild={{true}} as |trigger|>
-            <Button @size="icon" @variant="outline" aria-label="More Options" {{trigger.modifiers}}>
+            <Button
+              @size="icon"
+              @variant="outline"
+              aria-label="More Options"
+              {{trigger.modifiers}}
+            >
               <MoreHorizontalIcon />
             </Button>
           </DropdownMenuTrigger>

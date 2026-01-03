@@ -125,7 +125,7 @@ class DropdownMenu extends Component<DropdownMenuSignature> {
   }
 
   <template>
-    {{!-- template-lint-disable no-yield-only --}}
+    {{! template-lint-disable no-yield-only }}
     {{yield}}
   </template>
 }
@@ -137,7 +137,11 @@ interface DropdownMenuTriggerSignatureAsChild {
     asChild: true;
   };
   Blocks: {
-    default: [trigger: { modifiers: typeof DropdownMenuTrigger.prototype.applyTriggerBehavior }];
+    default: [
+      trigger: {
+        modifiers: typeof DropdownMenuTrigger.prototype.applyTriggerBehavior;
+      },
+    ];
   };
 }
 

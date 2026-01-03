@@ -31,7 +31,7 @@ import {
         </div>
         <div class="grid gap-3">
           <Label @for="sheet-demo-username">Username</Label>
-          {{!-- template-lint-disable no-potential-path-strings --}}
+          {{! template-lint-disable no-potential-path-strings }}
           <Input id="sheet-demo-username" value="@peduarte" />
         </div>
       </div>
