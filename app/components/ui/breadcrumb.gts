@@ -78,13 +78,13 @@ interface BreadcrumbLinkSignature {
     asChild?: boolean;
   };
   Blocks: {
-    default: [];
+    default: [string?];
   };
 }
 
 const BreadcrumbLink: TOC<BreadcrumbLinkSignature> = <template>
   {{#if @asChild}}
-    {{yield}}
+    {{yield (cn "hover:text-foreground transition-colors" @class)}}
   {{else}}
     <a
       class={{cn "hover:text-foreground transition-colors" @class}}
