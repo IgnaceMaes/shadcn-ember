@@ -41,7 +41,7 @@ export default class DropdownMenuDialogDemo extends Component {
 
   <template>
     <DropdownMenu>
-      <DropdownMenuTrigger @asChild={{true}}>
+      <DropdownMenuTrigger>
         <Button @size="icon-sm" @variant="outline" aria-label="Open menu">
           <MoreHorizontal />
         </Button>

@@ -16,7 +16,7 @@ import {
 
 <template>
   <DropdownMenu>
-    <DropdownMenuTrigger @asChild={{true}}>
+    <DropdownMenuTrigger>
       <Button @variant="outline">Open</Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent @align="start" @class="w-56">

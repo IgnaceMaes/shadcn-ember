@@ -1,3 +1,4 @@
+import { hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { htmlSafe } from '@ember/template';
 import {
@@ -124,22 +125,37 @@ class DropdownMenu extends Component<DropdownMenuSignature> {
   }
 
   <template>
-    <div class="relative" data-slot="dropdown-menu">
+    <div class="contents" data-slot="dropdown-menu">
       {{yield}}
     </div>
   </template>
 }
 
-interface DropdownMenuTriggerSignature {
+interface DropdownMenuTriggerSignatureAsChild {
   Element: HTMLButtonElement;
   Args: {
     class?: string;
-    asChild?: boolean;
+    asChild: true;
+  };
+  Blocks: {
+    default: [trigger: { modifiers: typeof DropdownMenuTrigger.prototype.applyTriggerBehavior }];
+  };
+}
+
+interface DropdownMenuTriggerSignatureAsRoot {
+  Element: HTMLButtonElement;
+  Args: {
+    class?: string;
+    asChild?: false;
   };
   Blocks: {
     default: [];
   };
 }
+
+type DropdownMenuTriggerSignature =
+  | DropdownMenuTriggerSignatureAsChild
+  | DropdownMenuTriggerSignatureAsRoot;
 
 class DropdownMenuTrigger extends Component<DropdownMenuTriggerSignature> {
   @consume(DropdownMenuContext)
@@ -157,19 +173,19 @@ class DropdownMenuTrigger extends Component<DropdownMenuTriggerSignature> {
     };
   });
 
+  applyTriggerBehavior = modifier((element: HTMLElement) => {
+    element.setAttribute('data-slot', 'dropdown-menu-trigger');
+    element.addEventListener('click', this.handleClick);
+    this.context.setTriggerElement(element);
+    return () => {
+      element.removeEventListener('click', this.handleClick);
+      this.context.setTriggerElement(null);
+    };
+  });
+
   <template>
     {{#if @asChild}}
-      <span
-        data-slot="dropdown-menu-trigger"
-        role="button"
-        tabindex="0"
-        {{on "click" this.handleClick}}
-        {{on "keydown" this.handleClick}}
-        {{this.registerElement}}
-        ...attributes
-      >
-        {{yield}}
-      </span>
+      {{yield (hash modifiers=this.applyTriggerBehavior)}}
     {{else}}
       <button
         class={{cn @class}}

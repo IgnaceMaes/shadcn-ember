@@ -21,7 +21,7 @@ export default class DropdownMenuRadioGroupDemo extends Component {
 
   <template>
     <DropdownMenu>
-      <DropdownMenuTrigger @asChild={{true}}>
+      <DropdownMenuTrigger>
         <Button @variant="outline">Open</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent @class="w-56">
