@@ -125,9 +125,8 @@ class Select extends Component<SelectSignature> {
   }
 
   <template>
-    <div class="relative" data-slot="select">
-      {{yield}}
-    </div>
+    {{! template-lint-disable no-yield-only }}
+    {{yield}}
   </template>
 }
 
