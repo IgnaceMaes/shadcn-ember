@@ -120,6 +120,7 @@ class SheetTrigger extends Component<SheetTriggerSignature> {
   <template>
     {{#if @asChild}}
       <span
+        class="contents"
         data-slot="sheet-trigger"
         role="button"
         tabindex="0"
@@ -165,6 +166,7 @@ class SheetClose extends Component<SheetCloseSignature> {
   <template>
     {{#if @asChild}}
       <span
+        class="contents"
         data-slot="sheet-close"
         role="button"
         tabindex="0"
