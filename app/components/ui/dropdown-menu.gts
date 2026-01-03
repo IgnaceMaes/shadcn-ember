@@ -125,9 +125,8 @@ class DropdownMenu extends Component<DropdownMenuSignature> {
   }
 
   <template>
-    <div class="contents" data-slot="dropdown-menu">
-      {{yield}}
-    </div>
+    {{!-- template-lint-disable no-yield-only --}}
+    {{yield}}
   </template>
 }
 
