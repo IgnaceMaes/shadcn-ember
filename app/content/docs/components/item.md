@@ -114,19 +114,6 @@ To render an item as a link, use the yielded element. The hover and focus states
 
 <ComponentPreview name="item-link" className="[&_.preview]:p-4" />
 
-```hbs
-<Item as |i|>
-  <i.Link href="/dashboard">
-    <ItemMedia />
-    <ItemContent>
-      <ItemTitle>Dashboard</ItemTitle>
-      <ItemDescription>Overview of your account and activity.</ItemDescription>
-    </ItemContent>
-    <ItemActions />
-  </i.Link>
-</Item>
-```
-
 ### Dropdown
 
 <ComponentPreview name="item-dropdown" className="[&_.preview]:p-4" />
@@ -152,35 +139,6 @@ The main component for displaying content with media, title, description, and ac
   </ItemContent>
   <ItemActions />
 </Item>
-```
-
-You can use the yielded link component to render the item as a link. The hover and focus states will be applied to the link element.
-
-```gts
-import {
-  Item,
-  ItemContent,
-  ItemDescription,
-  ItemMedia,
-  ItemTitle,
-} from '@/components/ui/item';
-import Home from '~icons/lucide/home';
-
-<template>
-  <Item as |i|>
-    <i.Link href="/dashboard">
-      <ItemMedia @variant="icon">
-        <Home />
-      </ItemMedia>
-      <ItemContent>
-        <ItemTitle>Dashboard</ItemTitle>
-        <ItemDescription>
-          Overview of your account and activity.
-        </ItemDescription>
-      </ItemContent>
-    </i.Link>
-  </Item>
-</template>
 ```
 
 ### ItemGroup
