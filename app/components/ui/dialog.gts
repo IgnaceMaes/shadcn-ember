@@ -188,7 +188,17 @@ class DialogClose extends Component<DialogCloseSignature> {
 
   <template>
     {{#if @asChild}}
-      {{yield}}
+      <span
+        class="contents"
+        data-slot="dialog-close"
+        role="button"
+        tabindex="0"
+        {{on "click" this.handleClick}}
+        {{on "keydown" this.handleClick}}
+        ...attributes
+      >
+        {{yield}}
+      </span>
     {{else}}
       <button
         class={{cn @class}}

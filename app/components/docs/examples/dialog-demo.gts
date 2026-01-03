@@ -57,7 +57,7 @@ export default class DialogDemo extends Component {
             </div>
           </div>
           <DialogFooter>
-            <DialogClose>
+            <DialogClose @asChild={{true}}>
               <Button @variant="outline">Cancel</Button>
             </DialogClose>
             <Button type="submit">Save changes</Button>
