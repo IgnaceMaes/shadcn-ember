@@ -1,6 +1,7 @@
 import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { modifier } from 'ember-modifier';
 import { provide, consume } from 'ember-provide-consume-context';
 
 import { cn } from '@/lib/utils';
@@ -263,12 +264,25 @@ class SheetContent extends Component<SheetContentSignature> {
     return sheetVariants(this.args.side ?? 'right', this.args.class);
   }
 
+  scrollLock = modifier(
+    (_element, _positional, { enabled = true }: { enabled?: boolean } = {}) => {
+      if (!enabled) {
+        return;
+      }
+
+      document.body.classList.add('overflow-hidden');
+
+      return () => {
+        document.body.classList.remove('overflow-hidden');
+      };
+    }
+  );
+
   handleAnimationEnd = (event: AnimationEvent) => {
     if (event.target === event.currentTarget && !this.context.open) {
       this.context.finishClose();
     }
   };
-
   handleCloseClick = () => {
     this.context.setOpen(false);
   };
@@ -283,6 +297,7 @@ class SheetContent extends Component<SheetContentSignature> {
           data-state={{if this.context.open "open" "closed"}}
           role="dialog"
           {{on "animationend" this.handleAnimationEnd}}
+          {{this.scrollLock enabled=this.context.open}}
           ...attributes
         >
           {{yield}}
