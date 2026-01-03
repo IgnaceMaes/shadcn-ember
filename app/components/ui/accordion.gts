@@ -140,24 +140,10 @@ class AccordionContent extends Component<AccordionContentSignature> {
   };
 
   heightAnimation = modifier((element: HTMLElement) => {
-    const updateHeight = () => {
-      const height = element.scrollHeight;
-      element.style.setProperty(
-        '--radix-accordion-content-height',
-        `${height}px`
-      );
-    };
-
-    updateHeight();
-
-    const resizeObserver = new ResizeObserver(() => {
-      updateHeight();
-    });
-    resizeObserver.observe(element);
-
-    return () => {
-      resizeObserver.disconnect();
-    };
+    element.style.setProperty(
+      '--radix-accordion-content-height',
+      `${element.scrollHeight}px`
+    );
   });
 
   <template>
