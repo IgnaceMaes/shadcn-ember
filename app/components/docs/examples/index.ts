@@ -55,6 +55,7 @@ export { default as InputDisabled } from './input-disabled';
 export { default as InputFile } from './input-file';
 export { default as InputGroupButton } from './input-group-button';
 export { default as InputGroupButtonGroup } from './input-group-button-group';
+export { default as InputGroupButtonHome } from './input-group-button-home';
 export { default as InputGroupDemo } from './input-group-demo';
 export { default as InputGroupDropdown } from './input-group-dropdown';
 export { default as InputGroupIcon } from './input-group-icon';

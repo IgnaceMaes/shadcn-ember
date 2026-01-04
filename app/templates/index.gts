@@ -10,7 +10,7 @@ import FieldCheckboxDemo from '@/components/docs/examples/field-checkbox-demo';
 import FieldDemo from '@/components/docs/examples/field-demo';
 import FieldHear from '@/components/docs/examples/field-hear';
 import FieldSlider from '@/components/docs/examples/field-slider';
-import InputGroupButton from '@/components/docs/examples/input-group-button';
+import InputGroupButtonHome from '@/components/docs/examples/input-group-button-home';
 import InputGroupDemo from '@/components/docs/examples/input-group-demo';
 import ItemDemo from '@/components/docs/examples/item-demo';
 import NotionPromptForm from '@/components/docs/examples/notion-prompt-form';
@@ -122,7 +122,7 @@ class IndexRoute extends Component {
               <div
                 class="flex flex-col gap-6 *:[div]:w-full *:[div]:max-w-full"
               >
-                <InputGroupButton />
+                <InputGroupButtonHome />
                 <ItemDemo />
                 <FieldSeparator @class="my-4">Appearance Settings</FieldSeparator>
                 <AppearanceSettings />
