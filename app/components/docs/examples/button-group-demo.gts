@@ -37,20 +37,20 @@ export default class ButtonGroupDemo extends Component {
   <template>
     <ButtonGroup>
       <ButtonGroup class="hidden sm:flex">
-        <Button @size="icon" @variant="outline" aria-label="Go Back">
+        <Button @size="icon-sm" @variant="outline" aria-label="Go Back">
           <ArrowLeftIcon />
         </Button>
       </ButtonGroup>
       <ButtonGroup>
-        <Button @variant="outline">Archive</Button>
-        <Button @variant="outline">Report</Button>
+        <Button @size="sm" @variant="outline">Archive</Button>
+        <Button @size="sm" @variant="outline">Report</Button>
       </ButtonGroup>
       <ButtonGroup>
-        <Button @variant="outline">Snooze</Button>
+        <Button @size="sm" @variant="outline">Snooze</Button>
         <DropdownMenu>
           <DropdownMenuTrigger @asChild={{true}} as |trigger|>
             <Button
-              @size="icon"
+              @size="icon-sm"
               @variant="outline"
               aria-label="More Options"
               {{trigger.modifiers}}
