@@ -28,6 +28,7 @@ const frameworks = [
   { value: 'nuxt.js', label: 'Nuxt.js' },
   { value: 'remix', label: 'Remix' },
   { value: 'astro', label: 'Astro' },
+  { value: 'ember', label: 'Ember' },
 ];
 
 export default class ComboboxDemo extends Component {
