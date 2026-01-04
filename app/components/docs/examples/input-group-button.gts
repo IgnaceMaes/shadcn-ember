@@ -8,18 +8,28 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from '@/components/ui/input-group';
-import { Label } from '@/components/ui/label';
 import {
   Popover,
   PopoverTrigger,
   PopoverContent,
 } from '@/components/ui/popover';
 
-import InfoIcon from '~icons/lucide/info';
-import StarIcon from '~icons/lucide/star';
+import Check from '~icons/lucide/check';
+import Copy from '~icons/lucide/copy';
+import Info from '~icons/lucide/info';
+import Star from '~icons/lucide/star';
 
 export default class InputGroupButtonExample extends Component {
+  @tracked hasCopied = false;
   @tracked isFavorite = false;
+
+  copyToClipboard = () => {
+    void navigator.clipboard.writeText('https://x.com/shadcn');
+    this.hasCopied = true;
+    setTimeout(() => {
+      this.hasCopied = false;
+    }, 2000);
+  };
 
   toggleFavorite = () => {
     this.isFavorite = !this.isFavorite;
@@ -27,48 +37,64 @@ export default class InputGroupButtonExample extends Component {
 
   <template>
     <div class="grid w-full max-w-sm gap-6">
-      <Label @class="sr-only" @for="input-secure-19">
-        Input Secure
-      </Label>
+      <InputGroup>
+        <InputGroupInput placeholder="https://x.com/shadcn" readonly />
+        <InputGroupAddon @align="inline-end">
+          <InputGroupButton
+            @size="icon-xs"
+            aria-label="Copy"
+            title="Copy"
+            {{on "click" this.copyToClipboard}}
+          >
+            {{#if this.hasCopied}}
+              <Check />
+            {{else}}
+              <Copy />
+            {{/if}}
+          </InputGroupButton>
+        </InputGroupAddon>
+      </InputGroup>
       <InputGroup @class="[--radius:9999px]">
         <Popover>
           <PopoverTrigger @asChild={{true}} as |trigger|>
-            <InputGroupAddon @align="inline-start">
+            <InputGroupAddon>
               <InputGroupButton
                 @size="icon-xs"
                 @variant="secondary"
-                aria-label="Info"
                 {{trigger.modifiers}}
               >
-                <InfoIcon />
+                <Info />
               </InputGroupButton>
             </InputGroupAddon>
           </PopoverTrigger>
           <PopoverContent
             @align="start"
             @class="flex flex-col gap-1 rounded-xl text-sm"
-            @sideOffset={{10}}
           >
-            <div class="font-medium">Your connection is not secure.</div>
-            <div>You should not enter any sensitive information on this site.</div>
+            <p class="font-medium">Your connection is not secure.</p>
+            <p>You should not enter any sensitive information on this site.</p>
           </PopoverContent>
         </Popover>
-        <InputGroupAddon @class="text-muted-foreground !pl-1">
+        <InputGroupAddon @class="text-muted-foreground pl-1.5">
           https://
         </InputGroupAddon>
-        <InputGroupInput @class="!pl-0.5" id="input-secure-19" />
+        <InputGroupInput id="input-secure-19" />
         <InputGroupAddon @align="inline-end">
           <InputGroupButton
-            {{on "click" this.toggleFavorite}}
             @size="icon-xs"
-            @variant="ghost"
-            aria-label="Favorite"
+            {{on "click" this.toggleFavorite}}
           >
-            <StarIcon
-              class="data-[favorite=true]:[&_path]:fill-primary data-[favorite=true]:[&_path]:stroke-primary"
+            <Star
+              class="data-[favorite=true]:fill-blue-600 data-[favorite=true]:stroke-blue-600"
               data-favorite={{if this.isFavorite "true" "false"}}
             />
           </InputGroupButton>
+        </InputGroupAddon>
+      </InputGroup>
+      <InputGroup>
+        <InputGroupInput placeholder="Type to search..." />
+        <InputGroupAddon @align="inline-end">
+          <InputGroupButton @variant="secondary">Search</InputGroupButton>
         </InputGroupAddon>
       </InputGroup>
     </div>
