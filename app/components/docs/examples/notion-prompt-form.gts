@@ -300,7 +300,9 @@ class NotionPromptForm extends Component {
                 </Command>
               </PopoverContent>
             </Popover>
-            <div class="no-scrollbar -m-1.5 flex max-w-full gap-1 overflow-x-auto p-1.5">
+            <div
+              class="no-scrollbar -m-1.5 flex max-w-full gap-1 overflow-x-auto p-1.5"
+            >
               {{#each this.mentionedItems as |item|}}
                 <InputGroupButton
                   @class="rounded-full !pl-2"
