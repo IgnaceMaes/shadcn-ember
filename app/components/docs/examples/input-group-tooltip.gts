@@ -56,7 +56,6 @@ import Info from '~icons/lucide/info';
     </InputGroup>
 
     <InputGroup>
-      <InputGroupInput placeholder="Enter API key" />
       <Tooltip>
         <TooltipTrigger>
           <InputGroupAddon>
@@ -73,6 +72,7 @@ import Info from '~icons/lucide/info';
           <p>Click for help with API keys</p>
         </TooltipContent>
       </Tooltip>
+      <InputGroupInput placeholder="Enter API key" />
     </InputGroup>
   </div>
 </template>
