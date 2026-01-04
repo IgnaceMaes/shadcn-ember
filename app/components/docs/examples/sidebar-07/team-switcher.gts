@@ -70,26 +70,25 @@ class TeamSwitcherComponent extends Component<TeamSwitcherSignature> {
         <SidebarMenuItem>
           <DropdownMenu>
             <DropdownMenuTrigger @class="w-full">
-              {{#let (component SidebarMenuButton size="lg") as |Button|}}
-                <Button
-                  class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              <SidebarMenuButton
+                @class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                @size="lg"
+              >
+                <div
+                  class="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
                 >
-                  <div
-                    class="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
-                  >
-                    <this.currentTeam.logo />
-                  </div>
-                  <div class="grid flex-1 text-left text-sm leading-tight">
-                    <span
-                      class="truncate font-medium"
-                    >{{this.currentTeam.name}}</span>
-                    <span
-                      class="truncate text-xs"
-                    >{{this.currentTeam.plan}}</span>
-                  </div>
-                  <ChevronsUpDown class="ml-auto" />
-                </Button>
-              {{/let}}
+                  <this.currentTeam.logo />
+                </div>
+                <div class="grid flex-1 text-left text-sm leading-tight">
+                  <span
+                    class="truncate font-medium"
+                  >{{this.currentTeam.name}}</span>
+                  <span
+                    class="truncate text-xs"
+                  >{{this.currentTeam.plan}}</span>
+                </div>
+                <ChevronsUpDown class="ml-auto" />
+              </SidebarMenuButton>
             </DropdownMenuTrigger>
             <DropdownMenuContent
               @align="start"

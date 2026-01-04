@@ -96,15 +96,10 @@ class NavProjects extends Component<Signature> {
           </SidebarMenuItem>
         {{/each}}
         <SidebarMenuItem>
-          {{#let
-            (component SidebarMenuButton class="text-sidebar-foreground/70")
-            as |Button|
-          }}
-            <Button>
-              <MoreHorizontal class="text-sidebar-foreground/70" />
-              <span>More</span>
-            </Button>
-          {{/let}}
+          <SidebarMenuButton @class="text-sidebar-foreground/70">
+            <MoreHorizontal class="text-sidebar-foreground/70" />
+            <span>More</span>
+          </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
     </SidebarGroup>

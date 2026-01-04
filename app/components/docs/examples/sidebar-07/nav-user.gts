@@ -61,21 +61,20 @@ class NavUserComponent extends Component<Signature> {
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger @class="w-full">
-            {{#let (component SidebarMenuButton size="lg") as |Button|}}
-              <Button
-                class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-              >
-                <Avatar @class="h-8 w-8 rounded-lg">
-                  <AvatarImage @alt={{@user.name}} @src={{@user.avatar}} />
-                  <AvatarFallback @class="rounded-lg">CN</AvatarFallback>
-                </Avatar>
-                <div class="grid flex-1 text-left text-sm leading-tight">
-                  <span class="truncate font-medium">{{@user.name}}</span>
-                  <span class="truncate text-xs">{{@user.email}}</span>
-                </div>
-                <ChevronsUpDown class="ml-auto size-4" />
-              </Button>
-            {{/let}}
+            <SidebarMenuButton
+              @class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              @size="lg"
+            >
+              <Avatar @class="h-8 w-8 rounded-lg">
+                <AvatarImage @alt={{@user.name}} @src={{@user.avatar}} />
+                <AvatarFallback @class="rounded-lg">CN</AvatarFallback>
+              </Avatar>
+              <div class="grid flex-1 text-left text-sm leading-tight">
+                <span class="truncate font-medium">{{@user.name}}</span>
+                <span class="truncate text-xs">{{@user.email}}</span>
+              </div>
+              <ChevronsUpDown class="ml-auto size-4" />
+            </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
             @align="end"
