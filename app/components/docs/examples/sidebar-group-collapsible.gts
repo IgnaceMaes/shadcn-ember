@@ -9,11 +9,25 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
 
+import type { ComponentLike } from '@glint/template';
+
 import ChevronDown from '~icons/lucide/chevron-down';
+import Frame from '~icons/lucide/frame';
+import Map from '~icons/lucide/map';
+import PieChart from '~icons/lucide/pie-chart';
+
+const projects = [
+  { name: 'Design Engineering', url: '#', icon: Frame as ComponentLike },
+  { name: 'Sales & Marketing', url: '#', icon: PieChart as ComponentLike },
+  { name: 'Travel', url: '#', icon: Map as ComponentLike },
+];
 
 <template>
   <SidebarProvider class="!min-h-full h-full">
@@ -21,16 +35,29 @@ import ChevronDown from '~icons/lucide/chevron-down';
       <SidebarContent>
         <Collapsible @defaultOpen={{true}} class="group/collapsible">
           <SidebarGroup>
-            <SidebarGroupLabel>
-              <CollapsibleTrigger class="w-full">
-                <span>Help</span>
+            <SidebarGroupLabel @asChild={{true}}>
+              <CollapsibleTrigger>
+                Help
                 <ChevronDown
                   class="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180"
                 />
               </CollapsibleTrigger>
             </SidebarGroupLabel>
             <CollapsibleContent>
-              <SidebarGroupContent />
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {{#each projects as |project|}}
+                    <SidebarMenuItem>
+                      <SidebarMenuButton>
+                        <a class="flex items-center gap-2" href={{project.url}}>
+                          <project.icon />
+                          <span>{{project.name}}</span>
+                        </a>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  {{/each}}
+                </SidebarMenu>
+              </SidebarGroupContent>
             </CollapsibleContent>
           </SidebarGroup>
         </Collapsible>

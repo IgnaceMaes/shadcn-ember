@@ -5,11 +5,25 @@ import {
   SidebarGroupAction,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
 
+import type { ComponentLike } from '@glint/template';
+
+import Frame from '~icons/lucide/frame';
+import Map from '~icons/lucide/map';
+import PieChart from '~icons/lucide/pie-chart';
 import Plus from '~icons/lucide/plus';
+
+const projects = [
+  { name: 'Design Engineering', url: '#', icon: Frame as ComponentLike },
+  { name: 'Sales & Marketing', url: '#', icon: PieChart as ComponentLike },
+  { name: 'Travel', url: '#', icon: Map as ComponentLike },
+];
 
 <template>
   <SidebarProvider class="!min-h-full h-full">
@@ -21,7 +35,20 @@ import Plus from '~icons/lucide/plus';
             <Plus />
             <span class="sr-only">Add Project</span>
           </SidebarGroupAction>
-          <SidebarGroupContent />
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {{#each projects as |project|}}
+                <SidebarMenuItem>
+                  <SidebarMenuButton>
+                    <a class="flex items-center gap-2" href={{project.url}}>
+                      <project.icon />
+                      <span>{{project.name}}</span>
+                    </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              {{/each}}
+            </SidebarMenu>
+          </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>

@@ -520,8 +520,9 @@ import Plus from '~icons/lucide/plus';
     <SidebarContent>
       <SidebarGroup>
         <SidebarGroupLabel>Application</SidebarGroupLabel>
-        <SidebarGroupAction>
-          <Plus /> <span class="sr-only">Add Project</span>
+        <SidebarGroupAction title="Add Project">
+          <Plus />
+          <span class="sr-only">Add Project</span>
         </SidebarGroupAction>
         <SidebarGroupContent />
       </SidebarGroup>
@@ -537,7 +538,11 @@ To make a `SidebarGroup` collapsible, wrap it in a `Collapsible`.
 <ComponentPreview name="sidebar-group-collapsible" title="Collapsible Sidebar Group" description="A collapsible sidebar group" />
 
 ```gts
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -549,10 +554,12 @@ import ChevronDown from '~icons/lucide/chevron-down';
 <template>
   <Collapsible @defaultOpen={{true}} class="group/collapsible">
     <SidebarGroup>
-      <SidebarGroupLabel>
+      <SidebarGroupLabel @asChild={{true}}>
         <CollapsibleTrigger>
           Help
-          <ChevronDown class="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+          <ChevronDown
+            class="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180"
+          />
         </CollapsibleTrigger>
       </SidebarGroupLabel>
       <CollapsibleContent>
@@ -587,7 +594,8 @@ import Plus from '~icons/lucide/plus';
   <SidebarGroup>
     <SidebarGroupLabel>Projects</SidebarGroupLabel>
     <SidebarGroupAction title="Add Project">
-      <Plus /> <span class="sr-only">Add Project</span>
+      <Plus />
+      <span class="sr-only">Add Project</span>
     </SidebarGroupAction>
     <SidebarGroupContent />
   </SidebarGroup>
