@@ -1,0 +1,110 @@
+---
+title: Combobox
+description: Autocomplete input and command palette with a list of suggestions.
+---
+
+<ComponentPreview name="combobox-demo" />
+
+## Installation
+
+The Combobox is built using a composition of the `<Popover />` and the `<Command />` components.
+
+See installation instructions for the [Popover](/docs/components/popover) and the [Command](/docs/components/command) components.
+
+## Usage
+
+```gts showLineNumbers
+import { tracked } from '@glimmer/tracking';
+import Component from '@glimmer/component';
+import { Button } from '@/components/ui/button';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+
+const frameworks = [
+  { value: 'next.js', label: 'Next.js' },
+  { value: 'sveltekit', label: 'SvelteKit' },
+  { value: 'nuxt.js', label: 'Nuxt.js' },
+  { value: 'remix', label: 'Remix' },
+  { value: 'astro', label: 'Astro' },
+];
+
+export default class ExampleCombobox extends Component {
+  @tracked open = false;
+  @tracked value = '';
+
+  get selectedLabel() {
+    const framework = frameworks.find((f) => f.value === this.value);
+    return framework?.label || 'Select framework...';
+  }
+
+  handleSelect = (currentValue: string) => {
+    this.value = currentValue === this.value ? '' : currentValue;
+    this.open = false;
+  };
+
+  <template>
+    <Popover @open={{this.open}} @onOpenChange={{(fn (mut this.open))}}>
+      <PopoverTrigger>
+        <Button
+          @variant="outline"
+          role="combobox"
+          aria-expanded={{this.open}}
+          @class="w-[200px] justify-between"
+        >
+          {{this.selectedLabel}}
+          <ChevronsUpDownIcon class="opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent @class="w-[200px] p-0">
+        <Command>
+          <CommandInput @placeholder="Search framework..." />
+          <CommandList>
+            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandGroup>
+              {{#each frameworks as |framework|}}
+                <CommandItem
+                  @value={{framework.value}}
+                  @onSelect={{this.handleSelect}}
+                >
+                  <CheckIcon
+                    class={{cn
+                      "mr-2 size-4"
+                      (if (eq this.value framework.value) "opacity-100" "opacity-0")
+                    }}
+                  />
+                  {{framework.label}}
+                </CommandItem>
+              {{/each}}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  </template>
+}
+```
+
+## Examples
+
+### Combobox
+
+<ComponentPreview name="combobox-demo" />
+
+### Popover
+
+<ComponentPreview name="combobox-popover" />
+
+### Dropdown menu
+
+<ComponentPreview name="combobox-dropdown-menu" />
