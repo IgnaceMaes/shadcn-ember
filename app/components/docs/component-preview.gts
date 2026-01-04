@@ -28,12 +28,17 @@ export default class ComponentPreview extends Component<Signature> {
     return module?.default;
   }
 
+  get isSidebarComponent(): boolean {
+    return this.args.name.startsWith('sidebar-');
+  }
+
   <template>
     {{#if this.componentInstance}}
       <ComponentPreviewRender
         @align={{@align}}
         @class={{@class}}
         @component={{this.componentInstance}}
+        @isSidebarComponent={{this.isSidebarComponent}}
       />
     {{else}}
       <div class="text-destructive">

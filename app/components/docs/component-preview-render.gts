@@ -25,6 +25,7 @@ interface ComponentPreviewSignature {
     showLineNumbers?: boolean;
     align?: 'start' | 'center' | 'end';
     class?: string;
+    isSidebarComponent?: boolean;
   };
   Blocks: {
     default?: [];
@@ -40,6 +41,10 @@ export default class ComponentPreviewRender extends Component<ComponentPreviewSi
 
   get align() {
     return this.args.align ?? 'center';
+  }
+
+  get isSidebarComponent() {
+    return this.args.isSidebarComponent ?? false;
   }
 
   get code(): string {
@@ -65,7 +70,11 @@ export default class ComponentPreviewRender extends Component<ComponentPreviewSi
       <div data-slot="preview">
         <div
           class={{cn
-            "preview flex w-full justify-center data-[align=center]:items-center data-[align=end]:items-end data-[align=start]:items-start h-[450px] p-10"
+            (if
+              this.isSidebarComponent
+              "preview flex w-full h-[450px] relative"
+              "preview flex w-full justify-center data-[align=center]:items-center data-[align=end]:items-end data-[align=start]:items-start h-[450px] p-10"
+            )
             @class
           }}
           data-align={{this.align}}
