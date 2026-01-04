@@ -1,3 +1,5 @@
+import { on } from '@ember/modifier';
+
 import {
   Collapsible,
   CollapsibleContent,
@@ -43,21 +45,22 @@ const NavMainComponent: TOC<Signature> = <template>
       {{#each @items as |item|}}
         <Collapsible @defaultOpen={{item.isActive}} class="group/collapsible">
           <SidebarMenuItem>
-            <CollapsibleTrigger>
-              {{#let
-                (component SidebarMenuButton tooltip=item.title)
-                as |Button|
-              }}
-                <Button>
-                  {{#if item.icon}}
-                    <item.icon />
-                  {{/if}}
-                  <span>{{item.title}}</span>
-                  <ChevronRight
-                    class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
-                  />
-                </Button>
-              {{/let}}
+            <CollapsibleTrigger @asChild={{true}} as |trigger|>
+              <SidebarMenuButton
+                aria-controls={{trigger.aria-controls}}
+                aria-expanded={{trigger.aria-expanded}}
+                data-slot={{trigger.data-slot}}
+                data-state={{trigger.data-state}}
+                {{on "click" trigger.onClick}}
+              >
+                {{#if item.icon}}
+                  <item.icon />
+                {{/if}}
+                <span>{{item.title}}</span>
+                <ChevronRight
+                  class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
+                />
+              </SidebarMenuButton>
             </CollapsibleTrigger>
             <CollapsibleContent>
               <SidebarMenuSub>
