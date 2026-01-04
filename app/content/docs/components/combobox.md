@@ -108,3 +108,9 @@ export default class ExampleCombobox extends Component {
 ### Dropdown menu
 
 <ComponentPreview name="combobox-dropdown-menu" />
+
+### Responsive
+
+You can create a responsive combobox by using the `<Popover />` on desktop and the `<Sheet />` components on mobile.
+
+<ComponentPreview name="combobox-responsive" />
