@@ -17,8 +17,11 @@ import MessageSquare from '~icons/lucide/message-square';
 import Send from '~icons/lucide/send';
 
 const items = [
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   { title: 'Inbox', url: '#', icon: Inbox, badge: '24' },
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   { title: 'Drafts', url: '#', icon: Send, badge: '3' },
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   { title: 'Sent', url: '#', icon: MessageSquare },
 ];
 

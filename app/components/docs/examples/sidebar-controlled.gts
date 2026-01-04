@@ -1,9 +1,6 @@
-import { fn } from '@ember/helper';
-import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
-import { Button } from '@/components/ui/button';
 import {
   Sidebar,
   SidebarContent,
@@ -22,8 +19,11 @@ import Inbox from '~icons/lucide/inbox';
 import Settings from '~icons/lucide/settings';
 
 const items = [
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   { title: 'Home', url: '#', icon: Home },
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   { title: 'Inbox', url: '#', icon: Inbox },
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   { title: 'Settings', url: '#', icon: Settings },
 ];
 

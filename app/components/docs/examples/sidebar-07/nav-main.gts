@@ -1,5 +1,3 @@
-import Component from '@glimmer/component';
-
 import {
   Collapsible,
   CollapsibleContent,
@@ -16,6 +14,7 @@ import {
   SidebarMenuSubItem,
 } from '@/components/ui/sidebar';
 
+import type { TOC } from '@ember/component/template-only';
 import type { ComponentLike } from '@glint/template';
 
 import ChevronRight from '~icons/lucide/chevron-right';
@@ -37,52 +36,47 @@ interface Signature {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class NavMainComponent<
-  T extends Signature = Signature,
-> extends Component<Signature> {
-  <template>
-    <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
-      <SidebarMenu>
-        {{#each @items as |item|}}
-          <Collapsible @defaultOpen={{item.isActive}} class="group/collapsible">
-            <SidebarMenuItem>
-              <CollapsibleTrigger>
-                {{#let
-                  (component SidebarMenuButton tooltip=item.title)
-                  as |Button|
-                }}
-                  <Button>
-                    {{#if item.icon}}
-                      <item.icon />
-                    {{/if}}
-                    <span>{{item.title}}</span>
-                    <ChevronRight
-                      class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
-                    />
-                  </Button>
-                {{/let}}
-              </CollapsibleTrigger>
-              <CollapsibleContent>
-                <SidebarMenuSub>
-                  {{#each item.items as |subItem|}}
-                    <SidebarMenuSubItem>
-                      <SidebarMenuSubButton>
-                        <a href={{subItem.url}}>
-                          <span>{{subItem.title}}</span>
-                        </a>
-                      </SidebarMenuSubButton>
-                    </SidebarMenuSubItem>
-                  {{/each}}
-                </SidebarMenuSub>
-              </CollapsibleContent>
-            </SidebarMenuItem>
-          </Collapsible>
-        {{/each}}
-      </SidebarMenu>
-    </SidebarGroup>
-  </template>
-}
+const NavMainComponent: TOC<Signature> = <template>
+  <SidebarGroup>
+    <SidebarGroupLabel>Platform</SidebarGroupLabel>
+    <SidebarMenu>
+      {{#each @items as |item|}}
+        <Collapsible @defaultOpen={{item.isActive}} class="group/collapsible">
+          <SidebarMenuItem>
+            <CollapsibleTrigger>
+              {{#let
+                (component SidebarMenuButton tooltip=item.title)
+                as |Button|
+              }}
+                <Button>
+                  {{#if item.icon}}
+                    <item.icon />
+                  {{/if}}
+                  <span>{{item.title}}</span>
+                  <ChevronRight
+                    class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
+                  />
+                </Button>
+              {{/let}}
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <SidebarMenuSub>
+                {{#each item.items as |subItem|}}
+                  <SidebarMenuSubItem>
+                    <SidebarMenuSubButton>
+                      <a href={{subItem.url}}>
+                        <span>{{subItem.title}}</span>
+                      </a>
+                    </SidebarMenuSubButton>
+                  </SidebarMenuSubItem>
+                {{/each}}
+              </SidebarMenuSub>
+            </CollapsibleContent>
+          </SidebarMenuItem>
+        </Collapsible>
+      {{/each}}
+    </SidebarMenu>
+  </SidebarGroup>
+</template>;
 
 export { NavMainComponent as NavMain };

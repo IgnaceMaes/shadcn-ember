@@ -16,7 +16,6 @@ import {
 
 import Folder from '~icons/lucide/folder';
 import Forward from '~icons/lucide/forward';
-import MoreHorizontal from '~icons/lucide/more-horizontal';
 import Trash2 from '~icons/lucide/trash-2';
 
 <template>

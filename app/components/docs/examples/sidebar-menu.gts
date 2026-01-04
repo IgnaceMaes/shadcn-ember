@@ -16,8 +16,11 @@ import Map from '~icons/lucide/map';
 import PieChart from '~icons/lucide/pie-chart';
 
 const projects = [
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   { name: 'Design Engineering', url: '#', icon: Frame },
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   { name: 'Sales & Marketing', url: '#', icon: PieChart },
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   { name: 'Travel', url: '#', icon: Map },
 ];
 

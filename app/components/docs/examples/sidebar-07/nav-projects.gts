@@ -53,7 +53,7 @@ interface Signature {
   Element: HTMLDivElement;
 }
 
-class NavProjectsComponent extends Component<Signature> {
+class NavProjects extends Component<Signature> {
   @consume(SidebarContext) context!: ContextRegistry[typeof SidebarContext];
 
   <template>
@@ -62,16 +62,13 @@ class NavProjectsComponent extends Component<Signature> {
       <SidebarMenu>
         {{#each @projects as |item|}}
           <SidebarMenuItem>
-            <SidebarMenuButton @href={{item.url}}>
+            <SidebarMenuButton>
               <item.icon />
               <span>{{item.name}}</span>
             </SidebarMenuButton>
             <DropdownMenu>
               <DropdownMenuTrigger @asChild={{true}} as |trigger|>
-                <SidebarMenuAction
-                  @showOnHover={{true}}
-                  {{trigger.modifiers}}
-                >
+                <SidebarMenuAction @showOnHover={{true}} {{trigger.modifiers}}>
                   <MoreHorizontal />
                   <span class="sr-only">More</span>
                 </SidebarMenuAction>
@@ -114,4 +111,4 @@ class NavProjectsComponent extends Component<Signature> {
   </template>
 }
 
-export { NavProjectsComponent as NavProjects };
+export { NavProjects };
