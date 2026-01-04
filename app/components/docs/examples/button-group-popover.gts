@@ -1,3 +1,5 @@
+import { modifier } from 'ember-modifier';
+
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import {
@@ -10,6 +12,10 @@ import { Textarea } from '@/components/ui/textarea';
 
 import BotIcon from '~icons/lucide/bot';
 import ChevronDownIcon from '~icons/lucide/chevron-down';
+
+const autofocus = modifier((element: HTMLElement) => {
+  element.focus();
+});
 
 <template>
   <ButtonGroup>
@@ -37,6 +43,7 @@ import ChevronDownIcon from '~icons/lucide/chevron-down';
           <Textarea
             class="mb-4 resize-none"
             placeholder="Describe your task in natural language."
+            {{autofocus}}
           />
           <p class="font-medium">Start a new task with Copilot</p>
           <p class="text-muted-foreground">
