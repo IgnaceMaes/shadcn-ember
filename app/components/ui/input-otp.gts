@@ -172,12 +172,22 @@ class InputOTP extends Component<InputOTPSignature> {
   handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'Backspace') {
       event.preventDefault();
-      if (this.value.length > 0 && this.activeIndex > 0) {
-        const newValue =
-          this.value.slice(0, this.activeIndex - 1) +
-          this.value.slice(this.activeIndex);
-        const newActiveIndex = Math.max(0, this.activeIndex - 1);
-        this.updateValue(newValue, newActiveIndex);
+      if (this.value.length > 0) {
+        const charAtCurrent = this.value[this.activeIndex];
+        if (charAtCurrent) {
+          // Delete character at current position
+          const newValue =
+            this.value.slice(0, this.activeIndex) +
+            this.value.slice(this.activeIndex + 1);
+          this.updateValue(newValue);
+        } else if (this.activeIndex > 0) {
+          // Delete character at previous position and move back
+          const newValue =
+            this.value.slice(0, this.activeIndex - 1) +
+            this.value.slice(this.activeIndex);
+          const newActiveIndex = Math.max(0, this.activeIndex - 1);
+          this.updateValue(newValue, newActiveIndex);
+        }
       }
     } else if (event.key === 'Delete') {
       event.preventDefault();
