@@ -99,7 +99,6 @@ export { default as ToggleLg } from './toggle-lg';
 export { default as ToggleOutline } from './toggle-outline';
 export { default as ToggleSm } from './toggle-sm';
 export { default as ToggleWithText } from './toggle-with-text';
-export { default as ToggleGroupDemo } from './toggle-group-demo';
 export { default as ToggleGroupDisabled } from './toggle-group-disabled';
 export { default as ToggleGroupLg } from './toggle-group-lg';
 export { default as ToggleGroupOutline } from './toggle-group-outline';
