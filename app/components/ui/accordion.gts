@@ -70,6 +70,7 @@ interface AccordionSignature {
   Args: {
     type?: 'single' | 'multiple';
     value?: string | string[];
+    defaultValue?: string | string[];
     onValueChange?: (value: string | string[]) => void;
     collapsible?: boolean;
     disabled?: boolean;
@@ -219,7 +220,8 @@ class Accordion extends Component<AccordionSignature> {
 
   constructor(owner: Owner, args: AccordionSignature['Args']) {
     super(owner, args);
-    this.internalValue = args.value ?? (args.type === 'multiple' ? [] : '');
+    this.internalValue =
+      args.value ?? args.defaultValue ?? (args.type === 'multiple' ? [] : '');
   }
 
   get value() {
