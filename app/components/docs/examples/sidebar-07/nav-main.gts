@@ -47,6 +47,7 @@ const NavMainComponent: TOC<Signature> = <template>
           <SidebarMenuItem>
             <CollapsibleTrigger @asChild={{true}} as |trigger|>
               <SidebarMenuButton
+                @tooltip={{item.title}}
                 aria-controls={{trigger.aria-controls}}
                 aria-expanded={{trigger.aria-expanded}}
                 data-slot={{trigger.data-slot}}

@@ -664,6 +664,7 @@ interface SidebarMenuButtonSignature {
     size?: 'default' | 'sm' | 'lg';
     tooltip?: string;
     class?: string;
+    asChild?: boolean;
   };
   Blocks: {
     default: [];
@@ -711,7 +712,7 @@ class SidebarMenuButtonComponent extends Component<SidebarMenuButtonSignature> {
   <template>
     {{#if @tooltip}}
       <Tooltip>
-        <TooltipTrigger>
+        <TooltipTrigger @asChild={{true}} @class="w-full">
           <button
             class={{this.classes}}
             data-active={{@isActive}}
