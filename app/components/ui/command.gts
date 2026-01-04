@@ -242,7 +242,8 @@ class CommandInput extends Component<CommandInputSignature> {
   focusInput = modifier((element: HTMLInputElement) => {
     const isInDialogOrPopover =
       element.closest('[data-slot="dialog-content"]') ||
-      element.closest('[data-slot="popover-content"]');
+      element.closest('[data-slot="popover-content"]') ||
+      element.closest('[data-slot="dropdown-menu-sub-content"]');
 
     if (isInDialogOrPopover) {
       requestAnimationFrame(() => {
