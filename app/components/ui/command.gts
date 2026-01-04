@@ -252,6 +252,7 @@ class CommandInput extends Component<CommandInputSignature> {
   });
 
   <template>
+    {{! template-lint-disable no-invalid-interactive no-pointer-down-event-binding }}
     <div
       class={{cn "flex h-9 items-center gap-2 border-b px-3" @class}}
       data-slot="command-input-wrapper"

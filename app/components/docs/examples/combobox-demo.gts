@@ -47,6 +47,7 @@ export default class ComboboxDemo extends Component {
   <template>
     <Popover @onOpenChange={{fn (mut this.open)}} @open={{this.open}}>
       <PopoverTrigger>
+        {{! template-lint-disable require-mandatory-role-attributes }}
         <Button
           @class="w-[200px] justify-between"
           @variant="outline"

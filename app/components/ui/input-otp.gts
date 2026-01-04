@@ -8,7 +8,6 @@ import { consume, provide } from 'ember-provide-consume-context';
 import { cn } from '@/lib/utils';
 
 import type { TOC } from '@ember/component/template-only';
-import type Owner from '@ember/owner';
 
 import Minus from '~icons/lucide/minus';
 
