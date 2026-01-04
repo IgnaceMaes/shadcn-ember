@@ -235,6 +235,10 @@ class CommandInput extends Component<CommandInputSignature> {
     this.context.setSearch(target.value);
   };
 
+  preventDropdownClose = (event: Event) => {
+    event.stopPropagation();
+  };
+
   focusInput = modifier((element: HTMLInputElement) => {
     const isInDialogOrPopover =
       element.closest('[data-slot="dialog-content"]') ||
@@ -251,6 +255,9 @@ class CommandInput extends Component<CommandInputSignature> {
     <div
       class={{cn "flex h-9 items-center gap-2 border-b px-3" @class}}
       data-slot="command-input-wrapper"
+      role="search"
+      {{on "click" this.preventDropdownClose}}
+      {{on "mousedown" this.preventDropdownClose}}
     >
       <Search class="size-4 shrink-0 opacity-50" />
       <input
