@@ -15,7 +15,7 @@ We use it to understand how your project is set up and how to generate component
 
 ## $schema
 
-You can see the JSON Schema for `components.json` at [/schema.json](/schema.json).
+You can see the JSON Schema for `components.json` at [/schema.json](https://shadcn-ember.com/schema.json).
 
 ```json
 {
