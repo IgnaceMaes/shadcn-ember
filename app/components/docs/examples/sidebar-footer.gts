@@ -31,8 +31,10 @@ import User2 from '~icons/lucide/user-2';
         <SidebarMenu>
           <SidebarMenuItem>
             <DropdownMenu>
-              <DropdownMenuTrigger>
-                <SidebarMenuButton>
+              <DropdownMenuTrigger @class="w-full">
+                <SidebarMenuButton
+                  @class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                >
                   <User2 />
                   <span>Username</span>
                   <ChevronUp class="ml-auto" />

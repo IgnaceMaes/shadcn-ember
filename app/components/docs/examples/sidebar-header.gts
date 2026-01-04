@@ -25,7 +25,7 @@ import ChevronDown from '~icons/lucide/chevron-down';
         <SidebarMenu>
           <SidebarMenuItem>
             <DropdownMenu>
-              <DropdownMenuTrigger>
+              <DropdownMenuTrigger @class="w-full">
                 <SidebarMenuButton>
                   <span>Select Workspace</span>
                   <ChevronDown class="ml-auto" />
