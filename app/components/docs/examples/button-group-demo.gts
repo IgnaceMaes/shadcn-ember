@@ -121,9 +121,7 @@ export default class ButtonGroupDemo extends Component {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem
-                @class="text-destructive focus:text-destructive"
-              >
+              <DropdownMenuItem @variant="destructive">
                 <Trash2Icon />
                 Trash
               </DropdownMenuItem>
