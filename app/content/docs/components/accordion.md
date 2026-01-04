@@ -3,7 +3,7 @@ title: Accordion
 description: A vertically stacked set of interactive headings that each reveal a section of content.
 ---
 
-<ComponentPreview name="accordion-demo" align="start" />
+<ComponentPreview name="accordion-demo" align="start" class="[&>div]:sm:max-w-[80%]" />
 
 ## Installation
 
