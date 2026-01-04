@@ -288,7 +288,7 @@ class InputOTPSlot extends Component<InputOTPSlotSignature> {
       }}
       data-active={{if this.slotData.isActive "true" "false"}}
       data-slot="input-otp-slot"
-      role="button"
+      type="button"
       {{on "click" this.handleClick}}
       ...attributes
     >

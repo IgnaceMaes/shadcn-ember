@@ -1,6 +1,6 @@
-import { tracked } from '@glimmer/tracking';
 import { fn } from '@ember/helper';
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -43,9 +43,9 @@ export default class ComboboxPopover extends Component {
   <template>
     <div class="flex items-center space-x-4">
       <p class="text-muted-foreground text-sm">Status</p>
-      <Popover @open={{this.open}} @onOpenChange={{fn (mut this.open)}}>
+      <Popover @onOpenChange={{fn (mut this.open)}} @open={{this.open}}>
         <PopoverTrigger>
-          <Button @variant="outline" @class="w-[150px] justify-start">
+          <Button @class="w-[150px] justify-start" @variant="outline">
             {{#if this.selectedStatus}}
               {{this.selectedStatus.label}}
             {{else}}
@@ -53,7 +53,7 @@ export default class ComboboxPopover extends Component {
             {{/if}}
           </Button>
         </PopoverTrigger>
-        <PopoverContent @class="p-0" @side="right" @align="start">
+        <PopoverContent @align="start" @class="p-0" @side="right">
           <Command>
             <CommandInput @placeholder="Change status..." />
             <CommandList>
@@ -61,8 +61,8 @@ export default class ComboboxPopover extends Component {
               <CommandGroup>
                 {{#each statuses as |status|}}
                   <CommandItem
-                    @value={{status.value}}
                     @onSelect={{this.handleSelect}}
+                    @value={{status.value}}
                   >
                     {{status.label}}
                   </CommandItem>

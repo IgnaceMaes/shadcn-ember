@@ -1,9 +1,7 @@
-import { tracked } from '@glimmer/tracking';
 import { fn } from '@ember/helper';
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 import { eq } from 'ember-truth-helpers';
-
-import { cn } from '@/lib/utils';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -19,6 +17,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { cn } from '@/lib/utils';
 
 import CheckIcon from '~icons/lucide/check';
 import ChevronsUpDownIcon from '~icons/lucide/chevrons-up-down';
@@ -46,13 +45,13 @@ export default class ComboboxDemo extends Component {
   };
 
   <template>
-    <Popover @open={{this.open}} @onOpenChange={{fn (mut this.open)}}>
+    <Popover @onOpenChange={{fn (mut this.open)}} @open={{this.open}}>
       <PopoverTrigger>
         <Button
-          @variant="outline"
-          role="combobox"
-          aria-expanded={{this.open}}
           @class="w-[200px] justify-between"
+          @variant="outline"
+          aria-expanded={{this.open}}
+          role="combobox"
         >
           {{this.selectedLabel}}
           <ChevronsUpDownIcon class="opacity-50" />
@@ -66,14 +65,18 @@ export default class ComboboxDemo extends Component {
             <CommandGroup>
               {{#each frameworks as |framework|}}
                 <CommandItem
-                  @value={{framework.value}}
                   @onSelect={{this.handleSelect}}
+                  @value={{framework.value}}
                 >
                   {{framework.label}}
                   <CheckIcon
                     class={{cn
                       "ml-auto size-4"
-                      (if (eq this.value framework.value) "opacity-100" "opacity-0")
+                      (if
+                        (eq this.value framework.value)
+                        "opacity-100"
+                        "opacity-0"
+                      )
                     }}
                   />
                 </CommandItem>

@@ -1,6 +1,6 @@
-import { tracked } from '@glimmer/tracking';
 import { fn } from '@ember/helper';
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -58,9 +58,9 @@ export default class ComboboxDropdownMenu extends Component {
         </span>
         <span class="text-muted-foreground">Create a new project</span>
       </p>
-      <DropdownMenu @open={{this.open}} @onOpenChange={{fn (mut this.open)}}>
+      <DropdownMenu @onOpenChange={{fn (mut this.open)}} @open={{this.open}}>
         <DropdownMenuTrigger>
-          <Button @variant="ghost" @size="sm">
+          <Button @size="sm" @variant="ghost">
             <MoreHorizontalIcon />
           </Button>
         </DropdownMenuTrigger>
@@ -80,8 +80,8 @@ export default class ComboboxDropdownMenu extends Component {
                     <CommandGroup>
                       {{#each labels as |label|}}
                         <CommandItem
-                          @value={{label}}
                           @onSelect={{this.handleLabelSelect}}
+                          @value={{label}}
                         >
                           {{label}}
                         </CommandItem>
