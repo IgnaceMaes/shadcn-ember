@@ -80,10 +80,7 @@ export default class InputGroupButtonExample extends Component {
         </InputGroupAddon>
         <InputGroupInput id="input-secure-19" />
         <InputGroupAddon @align="inline-end">
-          <InputGroupButton
-            @size="icon-xs"
-            {{on "click" this.toggleFavorite}}
-          >
+          <InputGroupButton @size="icon-xs" {{on "click" this.toggleFavorite}}>
             <Star
               class="data-[favorite=true]:fill-blue-600 data-[favorite=true]:stroke-blue-600"
               data-favorite={{if this.isFavorite "true" "false"}}
