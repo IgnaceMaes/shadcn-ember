@@ -14,7 +14,6 @@ import { cached } from '@glimmer/tracking';
 import onClickOutside from 'ember-click-outside/modifiers/on-click-outside';
 import { modifier } from 'ember-modifier';
 import { provide, consume } from 'ember-provide-consume-context';
-import { not } from 'ember-truth-helpers';
 
 import { cn } from '@/lib/utils';
 
@@ -164,9 +163,9 @@ class SelectTrigger extends Component<SelectTriggerSignature> {
         "*:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
         @class
       }}
+      data-placeholder={{if this.context.value null ""}}
       data-size={{if @size @size "default"}}
       data-slot="select-trigger"
-      data-placeholder={{if (not this.context.value) "" null}}
       disabled={{this.context.disabled}}
       type="button"
       {{on "click" this.context.toggle}}
