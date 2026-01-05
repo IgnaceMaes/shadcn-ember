@@ -306,7 +306,7 @@ class InputOTPSlot extends Component<InputOTPSlotSignature> {
         <div
           class="pointer-events-none absolute inset-0 flex items-center justify-center"
         >
-          <div class="otp-caret-blink bg-foreground h-4 w-px"></div>
+          <div class="bg-foreground h-4 w-px animate-caret-blink"></div>
         </div>
       {{/if}}
     </button>
