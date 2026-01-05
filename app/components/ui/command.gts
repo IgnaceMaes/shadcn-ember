@@ -1,3 +1,4 @@
+import { registerDestructor } from '@ember/destroyable';
 import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
@@ -364,12 +365,12 @@ class CommandGroup extends Component<CommandGroupSignature> {
 
     this.commandContext.allGroups.push(this.groupContext);
 
-    return () => {
+    registerDestructor(this, () => {
       const index = this.commandContext!.allGroups.indexOf(this.groupContext);
       if (index > -1) {
         this.commandContext!.allGroups.splice(index, 1);
       }
-    };
+    });
   });
 
   <template>
@@ -470,12 +471,12 @@ class CommandItem extends Component<CommandItemComponentSignature> {
 
     this.groupContext.items.push(item);
 
-    return () => {
+    registerDestructor(this, () => {
       const index = this.groupContext!.items.indexOf(item);
       if (index > -1) {
         this.groupContext!.items.splice(index, 1);
       }
-    };
+    });
   });
 
   handleClick = () => {
