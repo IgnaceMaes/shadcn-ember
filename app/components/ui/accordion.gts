@@ -216,16 +216,16 @@ class AccordionItem extends Component<AccordionItemSignature> {
 }
 
 class Accordion extends Component<AccordionSignature> {
-  @tracked internalValue: string | string[];
-
-  constructor(owner: Owner, args: AccordionSignature['Args']) {
-    super(owner, args);
-    this.internalValue =
-      args.value ?? args.defaultValue ?? (args.type === 'multiple' ? [] : '');
-  }
+  @tracked internalValue: string | string[] | undefined = undefined;
 
   get value() {
-    return this.args.value ?? this.internalValue;
+    if (this.args.value !== undefined) {
+      return this.args.value;
+    }
+    if (this.internalValue !== undefined) {
+      return this.internalValue;
+    }
+    return this.args.defaultValue ?? (this.type === 'multiple' ? [] : '');
   }
 
   get type() {
