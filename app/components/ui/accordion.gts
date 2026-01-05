@@ -6,8 +6,6 @@ import { provide, consume } from 'ember-provide-consume-context';
 
 import { cn } from '@/lib/utils';
 
-import type Owner from '@ember/owner';
-
 import ChevronDown from '~icons/lucide/chevron-down';
 
 const AccordionContext = 'accordion-context' as const;

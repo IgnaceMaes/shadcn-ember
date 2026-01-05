@@ -1,8 +1,6 @@
 import { Spinner } from '@/components/ui/spinner';
 
-import type { TOC } from '@ember/component/template-only';
-
-const SpinnerColor: TOC<{ Element: HTMLDivElement }> = <template>
+<template>
   <div class="flex items-center gap-6">
     <Spinner @class="size-6 text-red-500" />
     <Spinner @class="size-6 text-green-500" />
@@ -10,6 +8,4 @@ const SpinnerColor: TOC<{ Element: HTMLDivElement }> = <template>
     <Spinner @class="size-6 text-yellow-500" />
     <Spinner @class="size-6 text-purple-500" />
   </div>
-</template>;
-
-export default SpinnerColor;
+</template>

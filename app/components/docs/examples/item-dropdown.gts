@@ -41,7 +41,12 @@ const people = [
   <div class="flex min-h-64 w-full max-w-md flex-col items-center gap-6">
     <DropdownMenu>
       <DropdownMenuTrigger @asChild={{true}} as |trigger|>
-        <Button @class="w-fit" @size="sm" @variant="outline" {{trigger.modifiers}}>
+        <Button
+          @class="w-fit"
+          @size="sm"
+          @variant="outline"
+          {{trigger.modifiers}}
+        >
           Select
           <ChevronDownIcon />
         </Button>

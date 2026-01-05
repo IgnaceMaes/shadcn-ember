@@ -7,11 +7,9 @@ import {
 } from '@/components/ui/input-group';
 import { Spinner } from '@/components/ui/spinner';
 
-import type { TOC } from '@ember/component/template-only';
-
 import ArrowUp from '~icons/lucide/arrow-up';
 
-const SpinnerInputGroup: TOC<{ Element: HTMLDivElement }> = <template>
+<template>
   <div class="flex w-full max-w-md flex-col gap-4">
     <InputGroup>
       <InputGroupInput disabled placeholder="Send a message..." />
@@ -31,6 +29,4 @@ const SpinnerInputGroup: TOC<{ Element: HTMLDivElement }> = <template>
       </InputGroupAddon>
     </InputGroup>
   </div>
-</template>;
-
-export default SpinnerInputGroup;
+</template>

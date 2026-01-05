@@ -9,9 +9,7 @@ import {
 } from '@/components/ui/empty';
 import { Spinner } from '@/components/ui/spinner';
 
-import type { TOC } from '@ember/component/template-only';
-
-const SpinnerEmpty: TOC<{ Element: HTMLDivElement }> = <template>
+<template>
   <Empty @class="w-full border md:p-6">
     <EmptyHeader>
       <EmptyMedia @variant="icon">
@@ -28,6 +26,4 @@ const SpinnerEmpty: TOC<{ Element: HTMLDivElement }> = <template>
       </Button>
     </EmptyContent>
   </Empty>
-</template>;
-
-export default SpinnerEmpty;
+</template>

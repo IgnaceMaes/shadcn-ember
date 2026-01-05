@@ -1,9 +1,7 @@
 import { Badge } from '@/components/ui/badge';
 import { Spinner } from '@/components/ui/spinner';
 
-import type { TOC } from '@ember/component/template-only';
-
-const SpinnerBadge: TOC<{ Element: HTMLDivElement }> = <template>
+<template>
   <div class="flex items-center gap-2">
     <Badge>
       <Spinner />
@@ -18,6 +16,4 @@ const SpinnerBadge: TOC<{ Element: HTMLDivElement }> = <template>
       Loading
     </Badge>
   </div>
-</template>;
-
-export default SpinnerBadge;
+</template>

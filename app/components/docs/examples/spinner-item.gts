@@ -11,9 +11,7 @@ import {
 import { Progress } from '@/components/ui/progress';
 import { Spinner } from '@/components/ui/spinner';
 
-import type { TOC } from '@ember/component/template-only';
-
-const SpinnerItem: TOC<{ Element: HTMLDivElement }> = <template>
+<template>
   <div class="flex w-full max-w-md flex-col gap-4 [--radius:1rem]">
     <Item @variant="outline">
       <ItemMedia @variant="icon">
@@ -33,6 +31,4 @@ const SpinnerItem: TOC<{ Element: HTMLDivElement }> = <template>
       </ItemFooter>
     </Item>
   </div>
-</template>;
-
-export default SpinnerItem;
+</template>

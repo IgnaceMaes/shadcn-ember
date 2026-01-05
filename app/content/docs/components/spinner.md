@@ -37,30 +37,6 @@ You can replace the default spinner icon with any other icon by editing the `Spi
 
 <ComponentPreview name="spinner-custom" />
 
-```gts showLineNumbers title="components/ui/spinner.tsx"
-import type { TOC } from '@ember/component/template-only';
-import Loader from '~icons/lucide/loader';
-import { cn } from '@/lib/utils';
-
-interface SpinnerSignature {
-  Element: HTMLOrSVGElement;
-  Args: {
-    class?: string;
-  };
-}
-
-const Spinner: TOC<SpinnerSignature> = <template>
-  <Loader
-    role="status"
-    aria-label="Loading"
-    class={{cn "size-4 animate-spin" @class}}
-    ...attributes
-  />
-</template>;
-
-export { Spinner };
-```
-
 ## Examples
 
 ### Size

@@ -1,9 +1,7 @@
 import { Item, ItemContent, ItemMedia, ItemTitle } from '@/components/ui/item';
 import { Spinner } from '@/components/ui/spinner';
 
-import type { TOC } from '@ember/component/template-only';
-
-const SpinnerDemo: TOC<{ Element: HTMLDivElement }> = <template>
+<template>
   <div class="flex w-full max-w-xs flex-col gap-4 [--radius:1rem]">
     <Item @variant="muted">
       <ItemMedia>
@@ -17,6 +15,4 @@ const SpinnerDemo: TOC<{ Element: HTMLDivElement }> = <template>
       </ItemContent>
     </Item>
   </div>
-</template>;
-
-export default SpinnerDemo;
+</template>
