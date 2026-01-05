@@ -26,6 +26,7 @@ interface CommandItemData {
   value: string;
   keywords: string[];
   isVisible: () => boolean;
+  isDisabled: () => boolean;
 }
 
 interface CommandContextValue {
@@ -63,7 +64,7 @@ class Command extends Component<CommandRootSignature> {
   get firstVisibleItem(): string | null {
     for (const group of this.allGroups) {
       for (const item of group.items) {
-        if (item.isVisible()) {
+        if (item.isVisible() && !item.isDisabled()) {
           return item.value;
         }
       }
@@ -109,7 +110,7 @@ class Command extends Component<CommandRootSignature> {
     const currentTarget = event.currentTarget as HTMLElement;
     const items = Array.from(
       currentTarget.querySelectorAll<HTMLElement>(
-        '[data-slot="command-item"]:not([hidden])'
+        '[data-slot="command-item"]:not([hidden]):not([data-disabled="true"])'
       )
     );
 
@@ -465,6 +466,7 @@ class CommandItem extends Component<CommandItemComponentSignature> {
       value: this.args.value,
       keywords: this.args.keywords || [],
       isVisible: () => this.isVisible,
+      isDisabled: () => this.args.disabled ?? false,
     };
 
     this.groupContext.items.push(item);
@@ -497,7 +499,7 @@ class CommandItem extends Component<CommandItemComponentSignature> {
           "data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
           @class
         }}
-        data-disabled={{@disabled}}
+        data-disabled={{if @disabled "true" "false"}}
         data-selected={{if this.isSelected "true" "false"}}
         data-slot="command-item"
         data-value={{@value}}
