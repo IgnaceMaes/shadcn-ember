@@ -24,14 +24,21 @@ npx embercli-shadcn@latest add tooltip
 ## Usage
 
 ```gts showLineNumbers
-import { Tooltip } from '@/components/ui/tooltip';
+import { Button } from '@/components/ui/button';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 ```
 
 ```hbs showLineNumbers
-<Tooltip as |t|>
-  <t.Trigger>Hover</t.Trigger>
-  <t.Content>
+<Tooltip>
+  <TooltipTrigger>
+    <Button @variant="outline">Hover</Button>
+  </TooltipTrigger>
+  <TooltipContent>
     <p>Add to library</p>
-  </t.Content>
+  </TooltipContent>
 </Tooltip>
 ```
