@@ -1,5 +1,3 @@
-import { array } from '@ember/helper';
-
 import {
   Item,
   ItemContent,

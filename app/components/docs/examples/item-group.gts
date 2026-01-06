@@ -1,4 +1,3 @@
-import { array } from '@ember/helper';
 import { lt } from 'ember-truth-helpers';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
