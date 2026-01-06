@@ -37,7 +37,6 @@ const people = [
 ];
 
 <template>
-  {{! template-lint-disable no-potential-path-strings }}
   <div class="flex min-h-64 w-full max-w-md flex-col items-center gap-6">
     <DropdownMenu>
       <DropdownMenuTrigger @asChild={{true}} as |trigger|>
@@ -52,23 +51,21 @@ const people = [
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent @class="w-72 [--radius:0.65rem]">
-        {{#each (array people) as |persons|}}
-          {{#each persons as |person|}}
-            <DropdownMenuItem @class="p-0">
-              <Item @class="w-full p-2" @size="sm">
-                <ItemMedia>
-                  <Avatar @class="size-8">
-                    <AvatarImage @class="grayscale" @src={{person.avatar}} />
-                    <AvatarFallback>{{person.username}}</AvatarFallback>
-                  </Avatar>
-                </ItemMedia>
-                <ItemContent @class="gap-0.5">
-                  <ItemTitle>{{person.username}}</ItemTitle>
-                  <ItemDescription>{{person.email}}</ItemDescription>
-                </ItemContent>
-              </Item>
-            </DropdownMenuItem>
-          {{/each}}
+        {{#each people as |person|}}
+          <DropdownMenuItem @class="p-0">
+            <Item @class="w-full p-2" @size="sm">
+              <ItemMedia>
+                <Avatar @class="size-8">
+                  <AvatarImage @class="grayscale" @src={{person.avatar}} />
+                  <AvatarFallback>{{person.username}}</AvatarFallback>
+                </Avatar>
+              </ItemMedia>
+              <ItemContent @class="gap-0.5">
+                <ItemTitle>{{person.username}}</ItemTitle>
+                <ItemDescription>{{person.email}}</ItemDescription>
+              </ItemContent>
+            </Item>
+          </DropdownMenuItem>
         {{/each}}
       </DropdownMenuContent>
     </DropdownMenu>

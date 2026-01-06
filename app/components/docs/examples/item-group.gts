@@ -35,32 +35,29 @@ const people = [
 ];
 
 <template>
-  {{! template-lint-disable no-potential-path-strings }}
   <div class="flex w-full max-w-md flex-col gap-6">
     <ItemGroup>
-      {{#each (array people) as |persons|}}
-        {{#each persons as |person index|}}
-          <Item>
-            <ItemMedia>
-              <Avatar>
-                <AvatarImage @class="grayscale" @src={{person.avatar}} />
-                <AvatarFallback>{{person.username}}</AvatarFallback>
-              </Avatar>
-            </ItemMedia>
-            <ItemContent @class="gap-1">
-              <ItemTitle>{{person.username}}</ItemTitle>
-              <ItemDescription>{{person.email}}</ItemDescription>
-            </ItemContent>
-            <ItemActions>
-              <Button @class="rounded-full" @size="icon" @variant="ghost">
-                <PlusIcon />
-              </Button>
-            </ItemActions>
-          </Item>
-          {{#if (lt index 2)}}
-            <ItemSeparator />
-          {{/if}}
-        {{/each}}
+      {{#each people as |person index|}}
+        <Item>
+          <ItemMedia>
+            <Avatar>
+              <AvatarImage @class="grayscale" @src={{person.avatar}} />
+              <AvatarFallback>{{person.username}}</AvatarFallback>
+            </Avatar>
+          </ItemMedia>
+          <ItemContent @class="gap-1">
+            <ItemTitle>{{person.username}}</ItemTitle>
+            <ItemDescription>{{person.email}}</ItemDescription>
+          </ItemContent>
+          <ItemActions>
+            <Button @class="rounded-full" @size="icon" @variant="ghost">
+              <PlusIcon />
+            </Button>
+          </ItemActions>
+        </Item>
+        {{#if (lt index 2)}}
+          <ItemSeparator />
+        {{/if}}
       {{/each}}
     </ItemGroup>
   </div>

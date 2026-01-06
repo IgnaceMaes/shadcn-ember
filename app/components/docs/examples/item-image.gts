@@ -31,42 +31,39 @@ const music = [
 ];
 
 <template>
-  {{! template-lint-disable no-potential-path-strings }}
   <div class="flex w-full max-w-md flex-col gap-6">
     <ItemGroup @class="gap-4">
-      {{#each (array music) as |songs|}}
-        {{#each songs as |song|}}
-          <Item @asChild={{true}} @variant="outline" as |item|>
-            <a
-              class={{item.class}}
-              data-size={{item.size}}
-              data-slot={{item.slot}}
-              data-variant={{item.variant}}
-              href="#"
-            >
-              <ItemMedia @variant="image">
-                <img
-                  alt={{song.title}}
-                  class="object-cover grayscale"
-                  height="32"
-                  src="https://avatar.vercel.sh/{{song.title}}"
-                  width="32"
-                />
-              </ItemMedia>
-              <ItemContent>
-                <ItemTitle @class="line-clamp-1">
-                  {{song.title}}
-                  -
-                  <span class="text-muted-foreground">{{song.album}}</span>
-                </ItemTitle>
-                <ItemDescription>{{song.artist}}</ItemDescription>
-              </ItemContent>
-              <ItemContent @class="flex-none text-center">
-                <ItemDescription>{{song.duration}}</ItemDescription>
-              </ItemContent>
-            </a>
-          </Item>
-        {{/each}}
+      {{#each music as |song|}}
+        <Item @asChild={{true}} @variant="outline" as |item|>
+          <a
+            class={{item.class}}
+            data-size={{item.size}}
+            data-slot={{item.slot}}
+            data-variant={{item.variant}}
+            href="#"
+          >
+            <ItemMedia @variant="image">
+              <img
+                alt={{song.title}}
+                class="object-cover grayscale"
+                height="32"
+                src="https://avatar.vercel.sh/{{song.title}}"
+                width="32"
+              />
+            </ItemMedia>
+            <ItemContent>
+              <ItemTitle @class="line-clamp-1">
+                {{song.title}}
+                -
+                <span class="text-muted-foreground">{{song.album}}</span>
+              </ItemTitle>
+              <ItemDescription>{{song.artist}}</ItemDescription>
+            </ItemContent>
+            <ItemContent @class="flex-none text-center">
+              <ItemDescription>{{song.duration}}</ItemDescription>
+            </ItemContent>
+          </a>
+        </Item>
       {{/each}}
     </ItemGroup>
   </div>

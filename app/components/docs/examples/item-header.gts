@@ -34,27 +34,24 @@ const models = [
 ];
 
 <template>
-  {{! template-lint-disable no-potential-path-strings }}
   <div class="flex w-full max-w-xl flex-col gap-6">
     <ItemGroup @class="grid grid-cols-3 gap-4">
-      {{#each (array models) as |modelsList|}}
-        {{#each modelsList as |model|}}
-          <Item @variant="outline">
-            <ItemHeader>
-              <img
-                alt={{model.name}}
-                class="aspect-square w-full rounded-sm object-cover"
-                height="128"
-                src={{model.image}}
-                width="128"
-              />
-            </ItemHeader>
-            <ItemContent>
-              <ItemTitle>{{model.name}}</ItemTitle>
-              <ItemDescription>{{model.description}}</ItemDescription>
-            </ItemContent>
-          </Item>
-        {{/each}}
+      {{#each models as |model|}}
+        <Item @variant="outline">
+          <ItemHeader>
+            <img
+              alt={{model.name}}
+              class="aspect-square w-full rounded-sm object-cover"
+              height="128"
+              src={{model.image}}
+              width="128"
+            />
+          </ItemHeader>
+          <ItemContent>
+            <ItemTitle>{{model.name}}</ItemTitle>
+            <ItemDescription>{{model.description}}</ItemDescription>
+          </ItemContent>
+        </Item>
       {{/each}}
     </ItemGroup>
   </div>
