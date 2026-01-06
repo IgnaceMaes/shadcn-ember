@@ -1,0 +1,26 @@
+{
+  "name": "shadcn-ember-workspace",
+  "version": "0.0.0",
+  "private": true,
+  "description": "shadcn-ember workspace",
+  "repository": "https://github.com/IgnaceMaes/shadcn-ember",
+  "license": "MIT",
+  "author": "Ignace Maes",
+  "scripts": {
+    "build": "pnpm --filter shadcn-ember build",
+    "format": "pnpm --filter shadcn-ember format",
+    "lint": "pnpm --filter shadcn-ember lint",
+    "lint:fix": "pnpm --filter shadcn-ember lint:fix",
+    "start": "pnpm --filter shadcn-ember start",
+    "dev": "pnpm --filter shadcn-ember dev",
+    "test": "pnpm --filter shadcn-ember test"
+  },
+  "devDependencies": {
+    "prettier": "^3.7.3"
+  },
+  "engines": {
+    "node": ">= 20",
+    "pnpm": ">= 10"
+  },
+  "packageManager": "pnpm@10.0.0"
+}
