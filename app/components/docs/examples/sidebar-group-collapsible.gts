@@ -35,7 +35,7 @@ const projects = [
       <SidebarContent>
         <Collapsible @defaultOpen={{true}} class="group/collapsible">
           <SidebarGroup>
-            <SidebarGroupLabel @asChild={{true}}>
+            <SidebarGroupLabel>
               <CollapsibleTrigger>
                 Help
                 <ChevronDown
