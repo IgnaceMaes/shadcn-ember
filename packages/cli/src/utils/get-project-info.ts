@@ -1,0 +1,313 @@
+import type { rawConfigSchema } from '@/src/schema'
+import type { Framework } from '@/src/utils/frameworks'
+import type { Config } from '@/src/utils/get-config'
+import fs from 'fs-extra'
+import { getTsconfig } from 'get-tsconfig'
+import path from 'pathe'
+import { coerce } from 'semver'
+import { glob } from 'tinyglobby'
+import { z } from 'zod'
+import { FRAMEWORKS } from '@/src/utils/frameworks'
+import { getConfig, resolveConfigPaths } from '@/src/utils/get-config'
+import { getPackageInfo } from '@/src/utils/get-package-info'
+
+export type TailwindVersion = 'v3' | 'v4' | null
+
+export interface ProjectInfo {
+  framework: Framework
+  isSrcDir: boolean
+  // isRSC: boolean
+  // isTsx: boolean
+  typescript: boolean
+  tailwindConfigFile: string | null
+  tailwindCssFile: string | null
+  tailwindVersion: TailwindVersion
+  aliasPrefix: string | null
+}
+
+const PROJECT_SHARED_IGNORE = [
+  '**/node_modules/**',
+  'dist',
+  'tmp',
+  'public',
+  'dist',
+  'build',
+]
+
+const TS_CONFIG_SCHEMA = z.object({
+  compilerOptions: z.object({
+    paths: z.record(z.string().or(z.array(z.string()))),
+  }),
+})
+
+export async function detectFrameworkConfigFiles(cwd: string): Promise<Framework | null> {
+  const packageInfo = await getPackageInfo(cwd, false)
+  const configFiles = await glob('**/ember-cli-build.js', {
+    cwd,
+    deep: 3,
+    ignore: PROJECT_SHARED_IGNORE,
+  })
+
+  // Check for Ember
+  if (configFiles.length > 0) {
+    return FRAMEWORKS.ember
+  }
+
+  // Check for ember-source in dependencies
+  if (packageInfo?.dependencies?.['ember-source']
+    || packageInfo?.devDependencies?.['ember-source']) {
+    return FRAMEWORKS.ember
+  }
+
+  return null
+}
+
+export async function isTypeScriptProject(cwd: string) {
+  const files = await glob('tsconfig.*', {
+    cwd,
+    deep: 1,
+    ignore: PROJECT_SHARED_IGNORE,
+  })
+
+  return files.length > 0
+}
+
+export async function getProjectInfo(cwd: string): Promise<ProjectInfo | null> {
+  const [
+    detectedFramework,
+    typescript,
+    isSrcDir,
+    // isTsx,
+    tailwindConfigFile,
+    tailwindCssFile,
+    tailwindVersion,
+    aliasPrefix,
+    packageJson,
+  ] = await Promise.all([
+    detectFrameworkConfigFiles(cwd),
+    isTypeScriptProject(cwd),
+    fs.pathExists(path.resolve(cwd, 'src')),
+    getTailwindConfigFile(cwd),
+    getTailwindCssFile(cwd),
+    getTailwindVersion(cwd),
+    getTsConfigAliasPrefix(cwd),
+    getPackageInfo(cwd, false),
+  ])
+
+  const type: ProjectInfo = {
+    framework: detectedFramework || FRAMEWORKS.manual,
+    typescript,
+    isSrcDir,
+    tailwindConfigFile,
+    tailwindCssFile,
+    tailwindVersion,
+    aliasPrefix,
+  }
+
+  return type
+}
+
+export async function getTailwindVersion(
+  cwd: string,
+): Promise<ProjectInfo['tailwindVersion']> {
+  const [packageInfo, config] = await Promise.all([
+    getPackageInfo(cwd, false),
+    getConfig(cwd),
+  ])
+
+  // If the config file is empty, we can assume that it's a v4 project.
+  if (config?.tailwind?.config === '') {
+    return 'v4'
+  }
+
+  const hasTailwindCss = !!(
+    packageInfo?.dependencies?.tailwindcss
+    || packageInfo?.devDependencies?.tailwindcss
+  )
+
+  if (!hasTailwindCss) {
+    return null
+  }
+
+  if (
+    /^(?:\^|~)?3(?:\.\d+)*(?:-.*)?$/.test(
+      packageInfo?.dependencies?.tailwindcss
+      || packageInfo?.devDependencies?.tailwindcss
+      || '',
+    )
+  ) {
+    return 'v3'
+  }
+
+  return 'v4'
+}
+
+export async function getTailwindCssFile(cwd: string) {
+  const [files, tailwindVersion] = await Promise.all([
+    glob(['**/*.css', '**/*.scss'], {
+      cwd,
+      deep: 5,
+      ignore: PROJECT_SHARED_IGNORE,
+    }),
+    getTailwindVersion(cwd),
+  ])
+
+  if (!files.length) {
+    return null
+  }
+
+  const needle
+    = tailwindVersion === 'v4' ? `@import "tailwindcss"` : '@tailwind base'
+  for (const file of files) {
+    const contents = await fs.readFile(path.resolve(cwd, file), 'utf8')
+    if (
+      contents.includes(`@import "tailwindcss"`)
+      || contents.includes(`@import 'tailwindcss'`)
+      || contents.includes(`@tailwind base`)
+    ) {
+      return file
+    }
+  }
+
+  return null
+}
+
+export async function getTailwindConfigFile(cwd: string) {
+  const files = await glob('tailwind.config.*', {
+    cwd,
+    deep: 3,
+    ignore: PROJECT_SHARED_IGNORE,
+  })
+
+  if (!files.length) {
+    return null
+  }
+
+  return files[0]
+}
+
+export async function getTsConfigAliasPrefix(cwd: string) {
+  const detectedFramework = await detectFrameworkConfigFiles(cwd)
+  const isTypeScript = await isTypeScriptProject(cwd)
+  const tsConfig = await getTsconfig(cwd, isTypeScript
+    ? './tsconfig.json'
+    : './jsconfig.json')
+
+  if (
+    tsConfig === null
+    || !Object.entries(tsConfig.config.compilerOptions?.paths ?? {}).length
+  ) {
+    return null
+  }
+
+  const aliasPaths = tsConfig.config.compilerOptions?.paths ?? {}
+
+  // This assume that the first alias is the prefix.
+  for (const [alias, paths] of Object.entries(aliasPaths)) {
+    if (
+      paths.includes('./*')
+      || paths.includes('./src/*')
+      || paths.includes('./app/*')
+      || paths.includes('./resources/js/*') // Laravel.
+    ) {
+      const cleanAlias = alias.replace(/\/\*$/, '') ?? null
+      // handle Ember config files
+      return cleanAlias === '#build' ? '@' : cleanAlias
+    }
+  }
+
+  // Use the first alias as the prefix.
+  return Object.keys(aliasPaths)?.[0]?.replace(/\/\*$/, '') ?? null
+}
+
+export async function getTsConfig(cwd: string) {
+  for (const fallback of [
+    'tsconfig.json',
+    'tsconfig.web.json',
+    'tsconfig.app.json',
+  ]) {
+    const filePath = path.resolve(cwd, fallback)
+    if (!(await fs.pathExists(filePath))) {
+      continue
+    }
+
+    // We can't use fs.readJSON because it doesn't support comments.
+    const contents = await fs.readFile(filePath, 'utf8')
+    const cleanedContents = contents.replace(/\/\*\s*\*\//g, '')
+    const result = TS_CONFIG_SCHEMA.safeParse(JSON.parse(cleanedContents))
+
+    if (result.error) {
+      continue
+    }
+
+    return result.data
+  }
+
+  return null
+}
+
+export async function getProjectConfig(
+  cwd: string,
+  defaultProjectInfo: ProjectInfo | null = null,
+): Promise<Config | null> {
+  // Check for existing component config.
+  const [existingConfig, projectInfo] = await Promise.all([
+    getConfig(cwd),
+    !defaultProjectInfo
+      ? getProjectInfo(cwd)
+      : Promise.resolve(defaultProjectInfo),
+  ])
+
+  if (existingConfig) {
+    return existingConfig
+  }
+
+  if (
+    !projectInfo
+    || !projectInfo.tailwindCssFile
+    || (projectInfo.tailwindVersion === 'v3' && !projectInfo.tailwindConfigFile)
+  ) {
+    return null
+  }
+
+  const config: z.infer<typeof rawConfigSchema> = {
+    $schema: 'https://shadcn-ember.com/schema.json',
+    // rsc: projectInfo.isRSC,
+    // tsx: projectInfo.isTsx,
+    typescript: projectInfo.typescript,
+    style: 'new-york',
+    tailwind: {
+      config: projectInfo.tailwindConfigFile ?? '',
+      baseColor: 'zinc',
+      css: projectInfo.tailwindCssFile,
+      cssVariables: true,
+      prefix: '',
+    },
+    iconLibrary: 'lucide',
+    aliases: {
+      components: `${projectInfo.aliasPrefix}/components`,
+      ui: `${projectInfo.aliasPrefix}/components/ui`,
+      composables: `${projectInfo.aliasPrefix}/composables`,
+      lib: `${projectInfo.aliasPrefix}/lib`,
+      utils: `${projectInfo.aliasPrefix}/lib/utils`,
+    },
+  }
+
+  return await resolveConfigPaths(cwd, config)
+}
+
+export async function getProjectTailwindVersionFromConfig(config: {
+  resolvedPaths: Pick<Config['resolvedPaths'], 'cwd'>
+}): Promise<TailwindVersion> {
+  if (!config.resolvedPaths?.cwd) {
+    return 'v3'
+  }
+
+  const projectInfo = await getProjectInfo(config.resolvedPaths.cwd)
+
+  if (!projectInfo?.tailwindVersion) {
+    return null
+  }
+
+  return projectInfo.tailwindVersion
+}

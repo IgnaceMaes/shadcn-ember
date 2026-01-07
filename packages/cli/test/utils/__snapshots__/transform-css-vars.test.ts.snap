@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`transform css vars 1`] = `"<template><div class="bg-background hover:bg-muted text-primary-foreground sm:focus:text-accent-foreground">foo</div></template>"`;
+
+exports[`transform css vars 2`] = `"<template><div class="bg-background hover:bg-muted text-primary-foreground sm:focus:text-accent-foreground">foo</div></template>"`;
+
+exports[`transform css vars 3`] = `"<template><div class={{cn "bg-background hover:bg-muted" "text-primary-foreground sm:focus:text-accent-foreground"}}>foo</div></template>"`;
+
+exports[`transform css vars 4`] = `"<template><div class={{cn "bg-background border border-input"}}>foo</div></template>"`;

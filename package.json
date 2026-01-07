@@ -16,7 +16,9 @@
     "test": "pnpm --filter shadcn-ember test"
   },
   "devDependencies": {
-    "prettier": "^3.7.3"
+    "@vitest/ui": "^3.2.4",
+    "prettier": "^3.7.3",
+    "vitest": "^3.2.4"
   },
   "engines": {
     "node": ">= 20",
