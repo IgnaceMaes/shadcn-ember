@@ -23,7 +23,7 @@ const DEPENDENCIES = new Map<string, string[]>([
   ['ember-truth-helpers', []],
   ['ember-composable-helpers', []],
   ['class-variance-authority', []],
-  ['lucide-ember', []],
+  ['@iconify-json/lucide', []],
 ])
 
 const REGISTRY_DEPENDENCY = '@/'

@@ -4,7 +4,7 @@
   "type": "registry:style",
   "dependencies": [
     "class-variance-authority",
-    "lucide-ember"
+    "@iconify-json/lucide"
   ],
   "devDependencies": [
     "tw-animate-css"

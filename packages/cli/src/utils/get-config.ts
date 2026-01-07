@@ -16,12 +16,32 @@ import { resolveImport } from '@/src/utils/resolve-import'
 export const DEFAULT_STYLE = 'default'
 export const DEFAULT_COMPONENTS = '@/components'
 export const DEFAULT_UTILS = '@/lib/utils'
-export const DEFAULT_TAILWIND_CSS = 'assets/css/tailwind.css' // Ember default path
+export const DEFAULT_TAILWIND_CSS = 'app/app.css' // Ember default path
 export const DEFAULT_TAILWIND_CONFIG = 'tailwind.config.js'
 export const DEFAULT_TAILWIND_BASE_COLOR = 'slate'
 export const DEFAULT_TYPESCRIPT_CONFIG = './tsconfig.json'
 
 export type Config = z.infer<typeof configSchema>
+
+/**
+ * Resolves an import path or relative path to an absolute path.
+ * If the path looks like a TypeScript alias (starts with @/ or similar),
+ * it uses the tsconfig to resolve it. Otherwise, it treats it as a relative path.
+ */
+async function resolveImportOrPath(
+  importPath: string,
+  tsConfig: ReturnType<typeof getTsconfig>,
+  cwd: string,
+): Promise<string | undefined> {
+  // Check if it looks like a relative path (doesn't start with @ or other alias patterns)
+  if (!importPath.startsWith('@') && !importPath.startsWith('~') && !importPath.startsWith('#')) {
+    // Treat as relative path from cwd
+    return path.resolve(cwd, importPath)
+  }
+
+  // Otherwise, try to resolve as a TypeScript alias
+  return await resolveImport(importPath, tsConfig)
+}
 
 export async function getConfig(cwd: string) {
   const config = await getRawConfig(cwd)
@@ -75,27 +95,27 @@ export async function resolveConfigPaths(
         ? path.resolve(cwd, config.tailwind.config)
         : '',
       tailwindCss: path.resolve(cwd, config.tailwind.css),
-      utils: await resolveImport(config.aliases.utils, tsConfig),
-      components: await resolveImport(config.aliases.components, tsConfig),
+      utils: await resolveImportOrPath(config.aliases.utils, tsConfig, cwd),
+      components: await resolveImportOrPath(config.aliases.components, tsConfig, cwd),
       ui: config.aliases.ui
-        ? await resolveImport(config.aliases.ui, tsConfig)
+        ? await resolveImportOrPath(config.aliases.ui, tsConfig, cwd)
         : path.resolve(
-            (await resolveImport(config.aliases.components, tsConfig))
+            (await resolveImportOrPath(config.aliases.components, tsConfig, cwd))
             ?? cwd,
             'ui',
           ),
       // TODO: Make this configurable.
       // For now, we assume the lib and composables directories are one level up from the components directory.
       lib: config.aliases.lib
-        ? await resolveImport(config.aliases.lib, tsConfig)
+        ? await resolveImportOrPath(config.aliases.lib, tsConfig, cwd)
         : path.resolve(
-            (await resolveImport(config.aliases.utils, tsConfig)) ?? cwd,
+            (await resolveImportOrPath(config.aliases.utils, tsConfig, cwd)) ?? cwd,
             '..',
           ),
       composables: config.aliases.composables
-        ? await resolveImport(config.aliases.composables, tsConfig)
+        ? await resolveImportOrPath(config.aliases.composables, tsConfig, cwd)
         : path.resolve(
-            (await resolveImport(config.aliases.components, tsConfig))
+            (await resolveImportOrPath(config.aliases.components, tsConfig, cwd))
             ?? cwd,
             '..',
             'composables',

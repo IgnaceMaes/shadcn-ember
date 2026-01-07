@@ -23,7 +23,7 @@ const DEPRECATED_ITEMS = [
 // Shared between index and style for backward compatibility.
 const NEW_YORK_V4_STYLE = {
   type: "registry:style",
-  dependencies: ["class-variance-authority", "lucide-ember"],
+  dependencies: ["class-variance-authority", "@iconify-json/lucide"],
   devDependencies: ["tw-animate-css"],
   registryDependencies: ["utils"],
   cssVars: {},
@@ -58,7 +58,7 @@ export const registry = {
       .map((item) => {
         // Temporary fix for dashboard-01.
         if (item.name === "dashboard-01") {
-          item.dependencies?.push("lucide-ember")
+          item.dependencies?.push("@iconify-json/lucide")
         }
 
         if (item.name === "accordion" && "tailwind" in item) {

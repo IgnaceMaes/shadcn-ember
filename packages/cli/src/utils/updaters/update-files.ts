@@ -425,27 +425,18 @@ export function resolveNestedFilePath(
   const normalizedFilePath = filePath.replace(/^\/|\/$/g, '')
   const normalizedCommonRoot = commonRoot.replace(/^\/|\/$/g, '')
 
-  // Get all aliases without @ prefix and normalize
-  const aliases = Object.values(config.aliases)
-    .map(alias => alias.replace(/^@\//, '').replace(/^\/|\/$/g, ''))
-    .sort((a, b) => b.length - a.length) // Sort by length descending to match most specific first
-
-  // Check if the common root contains any of the aliases
-  for (const alias of aliases) {
-    if (normalizedCommonRoot.includes(alias)) {
-      // Find where the alias ends in the file path
-      const aliasEndIndex = normalizedFilePath.indexOf(alias) + alias.length
-
-      // Return everything after the alias (skip the leading slash if present)
-      // Example: "components/ai-elements/artifact/Artifact.gts" -> "ai-elements/artifact/Artifact.gts"
-      // Example: "lib/utils/cn.ts" -> "utils/cn.ts"
-      // Example: "composables/useCounter.ts" -> "useCounter.ts"
-      return normalizedFilePath.substring(aliasEndIndex).replace(/^\//, '')
-    }
+  // If the file path starts with the common root, strip it
+  // Example: "ui/accordion.gts" with commonRoot "/ui" -> "accordion.gts"
+  if (normalizedFilePath.startsWith(normalizedCommonRoot + '/')) {
+    return normalizedFilePath.substring(normalizedCommonRoot.length + 1)
+  }
+  if (normalizedFilePath === normalizedCommonRoot) {
+    return ''
   }
 
-  // Fallback to original logic for non-aliased paths
-  // Example: "registry/new-york-v4/ui/button/Button.gts" -> "button/Button.gts"
+  // Fallback to original logic for nested paths
+  // Example: "registry/new-york-v4/ui/button/Button.gts" with commonRoot "/registry/new-york-v4/ui"
+  // -> "button/Button.gts"
   const lastCommonRootSegment = normalizedCommonRoot.split('/').pop()
 
   // normalizedFilePath: registry/new-york-v4/ui/button/Button.gts

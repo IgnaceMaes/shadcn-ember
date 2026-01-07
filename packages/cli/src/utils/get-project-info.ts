@@ -202,6 +202,15 @@ export async function getTsConfigAliasPrefix(cwd: string) {
 
   const aliasPaths = tsConfig.config.compilerOptions?.paths ?? {}
 
+  // For Ember projects, prioritize @/* alias
+  if (detectedFramework?.name === 'ember') {
+    for (const [alias, paths] of Object.entries(aliasPaths)) {
+      if (alias === '@/*' && paths.includes('./app/*')) {
+        return '@'
+      }
+    }
+  }
+
   // This assume that the first alias is the prefix.
   for (const [alias, paths] of Object.entries(aliasPaths)) {
     if (
