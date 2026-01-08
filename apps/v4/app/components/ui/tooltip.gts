@@ -17,7 +17,6 @@ import { provide, consume } from 'ember-provide-consume-context';
 
 import { cn } from '@/lib/utils';
 
-import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
 
 const TooltipContext = 'tooltip-context' as const;
@@ -34,21 +33,6 @@ interface TooltipContextValue {
 interface ContextRegistry {
   [TooltipContext]: TooltipContextValue;
 }
-
-interface TooltipProviderSignature {
-  Args: {
-    delayDuration?: number;
-    skipDelayDuration?: number;
-  };
-  Blocks: {
-    default: [];
-  };
-}
-
-const TooltipProvider: TOC<TooltipProviderSignature> = <template>
-  {{! template-lint-disable no-yield-only }}
-  {{yield}}
-</template>;
 
 interface TooltipSignature {
   Args: {
@@ -159,7 +143,7 @@ class TooltipTrigger extends Component<TooltipTriggerSignature> {
   <template>
     {{#if @asChild}}
       <span
-        class={{cn "inline-block" @class}}
+        class={{cn "contents" @class}}
         data-slot="tooltip-trigger"
         {{on "blur" this.handleBlur}}
         {{on "focus" this.handleFocus}}
@@ -317,4 +301,4 @@ class TooltipContent extends Component<TooltipContentSignature> {
   </template>
 }
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };
+export { Tooltip, TooltipTrigger, TooltipContent };
