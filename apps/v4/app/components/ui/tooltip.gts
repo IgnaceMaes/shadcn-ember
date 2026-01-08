@@ -143,7 +143,7 @@ class TooltipTrigger extends Component<TooltipTriggerSignature> {
   <template>
     {{#if @asChild}}
       <span
-        class={{cn "contents" @class}}
+        class={{cn "inline-block" @class}}
         data-slot="tooltip-trigger"
         {{on "blur" this.handleBlur}}
         {{on "focus" this.handleFocus}}
