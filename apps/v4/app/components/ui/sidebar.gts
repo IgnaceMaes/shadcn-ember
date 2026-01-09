@@ -15,7 +15,6 @@ import { Skeleton } from '@/components/ui/skeleton';
 import {
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
@@ -157,37 +156,35 @@ class SidebarProviderComponent extends Component<SidebarProviderSignature> {
         onChange=this.handleMediaChange
       }}
     >
-      <TooltipProvider @delayDuration={{0}}>
-        <div
-          class={{cn
-            "group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar relative flex min-h-svh h-full w-full"
-            @class
-          }}
-          data-slot="sidebar-wrapper"
-          style={{htmlSafe
-            (if
+      <div
+        class={{cn
+          "group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar relative flex min-h-svh h-full w-full"
+          @class
+        }}
+        data-slot="sidebar-wrapper"
+        style={{htmlSafe
+          (if
+            @style
+            (concat
+              "--sidebar-width: "
+              SIDEBAR_WIDTH
+              "; --sidebar-width-icon: "
+              SIDEBAR_WIDTH_ICON
+              "; "
               @style
-              (concat
-                "--sidebar-width: "
-                SIDEBAR_WIDTH
-                "; --sidebar-width-icon: "
-                SIDEBAR_WIDTH_ICON
-                "; "
-                @style
-              )
-              (concat
-                "--sidebar-width: "
-                SIDEBAR_WIDTH
-                "; --sidebar-width-icon: "
-                SIDEBAR_WIDTH_ICON
-              )
             )
-          }}
-          ...attributes
-        >
-          {{yield}}
-        </div>
-      </TooltipProvider>
+            (concat
+              "--sidebar-width: "
+              SIDEBAR_WIDTH
+              "; --sidebar-width-icon: "
+              SIDEBAR_WIDTH_ICON
+            )
+          )
+        }}
+        ...attributes
+      >
+        {{yield}}
+      </div>
     </div>
   </template>
 }
