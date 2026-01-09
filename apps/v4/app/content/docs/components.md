@@ -5,7 +5,3 @@ order: 2
 ---
 
 <ComponentsList />
-
----
-
-Can't find what you need? Check back soon as we're actively adding more components to match the [shadcn/ui library](https://ui.shadcn.com/docs/components).
