@@ -8,21 +8,22 @@
   "author": "Ignace Maes",
   "scripts": {
     "build": "pnpm --filter shadcn-ember build",
+    "dev": "pnpm --filter shadcn-ember dev",
     "format": "pnpm --filter shadcn-ember format",
     "lint": "pnpm --filter shadcn-ember lint",
     "lint:fix": "pnpm --filter shadcn-ember lint:fix",
     "start": "pnpm --filter shadcn-ember start",
-    "dev": "pnpm --filter shadcn-ember dev",
     "test": "pnpm --filter shadcn-ember test"
   },
   "devDependencies": {
     "@vitest/ui": "^3.2.4",
     "prettier": "^3.7.3",
+    "release-plan": "^0.17.0",
     "vitest": "^3.2.4"
   },
+  "packageManager": "pnpm@10.0.0",
   "engines": {
     "node": ">= 20",
     "pnpm": ">= 10"
-  },
-  "packageManager": "pnpm@10.0.0"
+  }
 }
