@@ -86,7 +86,7 @@ interface SidebarProviderSignature {
   };
 }
 
-class SidebarProviderComponent extends Component<SidebarProviderSignature> {
+class SidebarProvider extends Component<SidebarProviderSignature> {
   @tracked _open = this.args.defaultOpen ?? true;
   @tracked openMobile = false;
   @tracked isMobile = false;
@@ -202,7 +202,7 @@ interface SidebarSignature {
   };
 }
 
-class SidebarComponent extends Component<SidebarSignature> {
+class Sidebar extends Component<SidebarSignature> {
   @consume(SidebarContext) context!: ContextRegistry[typeof SidebarContext];
 
   get side(): 'left' | 'right' {
@@ -323,7 +323,7 @@ interface SidebarTriggerSignature {
   };
 }
 
-class SidebarTriggerComponent extends Component<SidebarTriggerSignature> {
+class SidebarTrigger extends Component<SidebarTriggerSignature> {
   @consume(SidebarContext) context!: ContextRegistry[typeof SidebarContext];
 
   handleClick = (event: MouseEvent): void => {
@@ -361,7 +361,7 @@ interface SidebarRailSignature {
   };
 }
 
-class SidebarRailComponent extends Component<SidebarRailSignature> {
+class SidebarRail extends Component<SidebarRailSignature> {
   @consume(SidebarContext) context!: ContextRegistry[typeof SidebarContext];
 
   <template>
@@ -668,7 +668,7 @@ interface SidebarMenuButtonSignature {
   };
 }
 
-class SidebarMenuButtonComponent extends Component<SidebarMenuButtonSignature> {
+class SidebarMenuButton extends Component<SidebarMenuButtonSignature> {
   @consume(SidebarContext) context!: ContextRegistry[typeof SidebarContext];
 
   get variant(): 'default' | 'outline' {
@@ -818,7 +818,7 @@ interface SidebarMenuSkeletonSignature {
   };
 }
 
-class SidebarMenuSkeletonComponent extends Component<SidebarMenuSkeletonSignature> {
+class SidebarMenuSkeleton extends Component<SidebarMenuSkeletonSignature> {
   get width(): string {
     return `${Math.floor(Math.random() * 40) + 50}%`;
   }
@@ -925,10 +925,10 @@ const SidebarMenuSubButton: TOC<SidebarMenuSubButtonSignature> = <template>
 </template>;
 
 export {
-  SidebarProviderComponent as SidebarProvider,
-  SidebarComponent as Sidebar,
-  SidebarTriggerComponent as SidebarTrigger,
-  SidebarRailComponent as SidebarRail,
+  SidebarProvider,
+  Sidebar,
+  SidebarTrigger,
+  SidebarRail,
   SidebarInset,
   SidebarInput,
   SidebarHeader,
@@ -941,10 +941,10 @@ export {
   SidebarGroupContent,
   SidebarMenu,
   SidebarMenuItem,
-  SidebarMenuButtonComponent as SidebarMenuButton,
+  SidebarMenuButton,
   SidebarMenuAction,
   SidebarMenuBadge,
-  SidebarMenuSkeletonComponent as SidebarMenuSkeleton,
+  SidebarMenuSkeleton,
   SidebarMenuSub,
   SidebarMenuSubItem,
   SidebarMenuSubButton,
