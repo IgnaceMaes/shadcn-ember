@@ -82,7 +82,7 @@ export default ts.config(
         typescript: true,
         node: true,
       },
-      'import/internal-regex': '^(@/|shadcn-ember/)',
+      'import/internal-regex': '^(@/|shadcn-ember-docs/)',
     },
     rules: {
       'import/order': [
@@ -118,7 +118,7 @@ export default ts.config(
         typescript: true,
         node: true,
       },
-      'import/internal-regex': '^(@/|shadcn-ember/)',
+      'import/internal-regex': '^(@/|shadcn-ember-docs/)',
     },
     extends: [...ts.configs.recommendedTypeChecked, ember.configs.gts],
     rules: {

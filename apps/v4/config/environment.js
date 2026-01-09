@@ -2,7 +2,7 @@
 
 module.exports = function (environment) {
   const ENV = {
-    modulePrefix: 'shadcn-ember',
+    modulePrefix: 'shadcn-ember-docs',
     environment,
     rootURL: '/',
     locationType: 'history',

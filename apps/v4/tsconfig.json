@@ -4,8 +4,8 @@
   "compilerOptions": {
     "allowJs": true,
     "paths": {
-      "shadcn-ember/tests/*": ["./tests/*"],
-      "shadcn-ember/*": ["./app/*"],
+      "shadcn-ember-docs/tests/*": ["./tests/*"],
+      "shadcn-ember-docs/*": ["./app/*"],
       "*": ["./types/*"],
       "@/*": ["./app/*"]
     },
