@@ -267,13 +267,15 @@ export function cn(...inputs: ClassValue[]) {
 }
 ```
 
-## Run the CLI
-
-There is [no CLI yet](/docs/cli) yet. For now copy and paste the components into `app/components/ui`.
-
 ## Add Components
 
-Copy and paste the shadcn-ember component in your app. You can then import it like this:
+You can now start adding components to your project:
+
+```bash
+npx shadcn-ember@latest add button
+```
+
+The command above will add the `Button` component to your project. You can then import it like this:
 
 ```gts showLineNumbers title="app/templates/application.gts"
 import { Button } from '@/components/ui/button';
