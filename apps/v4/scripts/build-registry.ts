@@ -171,7 +171,7 @@ async function buildRegistry() {
   })
 }
 
-// shadcn-vue: we dont need to sync as we will be using older version of cli for old registry
+// shadcn-ember: we dont need to sync as we will be using older version of cli for old registry
 // async function syncRegistry() {
 //   // Store the current registry content
 //   const registryDir = path.join(process.cwd(), 'registry')

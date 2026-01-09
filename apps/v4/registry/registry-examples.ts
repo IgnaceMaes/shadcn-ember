@@ -7,7 +7,7 @@ export const examples: Registry["items"] = [
 //     registryDependencies: ["button"],
 //     files: [
 //       {
-//         path: "examples/button-demo.vue",
+//         path: "examples/button-demo.gts",
 //         type: "registry:example",
 //       },
 //     ],
