@@ -68,7 +68,7 @@ class IndexRoute extends Component {
               <div
                 class="flex flex-wrap items-center justify-center gap-4 pt-4"
               >
-                <DocLinkTo @route="docs">
+                <DocLinkTo @route="docs.installation">
                   <Button>
                     Get Started
                   </Button>
