@@ -7,12 +7,15 @@
   "license": "MIT",
   "author": "Ignace Maes",
   "scripts": {
-    "build": "pnpm --filter shadcn-ember build",
-    "dev": "pnpm --filter shadcn-ember dev",
-    "format": "pnpm --filter shadcn-ember format",
-    "lint": "pnpm --filter shadcn-ember lint",
-    "lint:fix": "pnpm --filter shadcn-ember lint:fix",
-    "start": "pnpm --filter shadcn-ember start",
+    "dev": "pnpm --filter shadcn-ember-docs dev",
+    "build": "pnpm --filter shadcn-ember-docs build",
+    "lint": "pnpm --filter shadcn-ember-docs lint",
+    "lint:fix": "pnpm --filter shadcn-ember-docs lint:fix",
+    "dev:cli": "pnpm --filter shadcn-ember dev",
+    "start:cli": "pnpm --filter shadcn-ember start:dev",
+    "build:cli": "pnpm --filter shadcn-ember build",
+    "registry:build-only": "pnpm --filter=shadcn-ember-docs registry:build",
+    "registry:build": "pnpm --filter=shadcn-ember-docs registry:build && pnpm lint:fix",
     "test": "pnpm --filter shadcn-ember test"
   },
   "devDependencies": {
