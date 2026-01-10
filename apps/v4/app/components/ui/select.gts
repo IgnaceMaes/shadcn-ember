@@ -25,6 +25,7 @@ import ChevronDown from '~icons/lucide/chevron-down';
 import ChevronUp from '~icons/lucide/chevron-up';
 
 const SelectContext = 'select-context' as const;
+const SelectContentContext = 'select-content-context' as const;
 
 interface SelectContextValue {
   value: string;
@@ -33,15 +34,22 @@ interface SelectContextValue {
   isRendered: boolean;
   disabled: boolean;
   toggle: () => void;
-  close: () => void;
+  close: (instant?: boolean) => void;
   finishClose: () => void;
-  selectValue: (value: string, label: string) => void;
+  selectValue: (value: string, label: string, instant?: boolean) => void;
   triggerElement: HTMLElement | null;
   setTriggerElement: (element: HTMLElement | null) => void;
+  selectedItemElement: HTMLElement | null;
+  setSelectedItemElement: (element: HTMLElement | null) => void;
+}
+
+interface SelectContentContextValue {
+  position: 'popper' | 'item-aligned';
 }
 
 interface ContextRegistry {
   [SelectContext]: SelectContextValue;
+  [SelectContentContext]: SelectContentContextValue;
 }
 
 interface SelectSignature {
@@ -64,6 +72,7 @@ class Select extends Component<SelectSignature> {
   @tracked selectedValue: string;
   @tracked selectedLabel = '';
   triggerElement: HTMLElement | null = null;
+  @tracked selectedItemElement: HTMLElement | null = null;
 
   constructor(owner: Owner, args: SelectSignature['Args']) {
     super(owner, args);
@@ -85,8 +94,11 @@ class Select extends Component<SelectSignature> {
     }
   };
 
-  close = () => {
+  close = (instant = false) => {
     this.isOpen = false;
+    if (instant) {
+      this.finishClose();
+    }
   };
 
   finishClose = () => {
@@ -95,15 +107,19 @@ class Select extends Component<SelectSignature> {
     }
   };
 
-  selectValue = (value: string, label: string) => {
+  selectValue = (value: string, label: string, instant = false) => {
     this.selectedValue = value;
     this.selectedLabel = label;
-    this.close();
+    this.close(instant);
     this.args.onValueChange?.(value);
   };
 
   setTriggerElement = (element: HTMLElement | null) => {
     this.triggerElement = element;
+  };
+
+  setSelectedItemElement = (element: HTMLElement | null) => {
+    this.selectedItemElement = element;
   };
 
   @cached
@@ -121,6 +137,8 @@ class Select extends Component<SelectSignature> {
       selectValue: this.selectValue,
       triggerElement: this.triggerElement,
       setTriggerElement: this.setTriggerElement,
+      selectedItemElement: this.selectedItemElement,
+      setSelectedItemElement: this.setSelectedItemElement,
     };
   }
 
@@ -225,7 +243,11 @@ class SelectContent extends Component<SelectContentSignature> {
   @tracked x = 0;
   @tracked y = 0;
   @tracked triggerWidth = 0;
+  @tracked maxHeight = 0;
+  @tracked canScrollUp = false;
+  @tracked canScrollDown = false;
   cleanup?: () => void;
+  contentElement: HTMLDivElement | null = null;
 
   get destinationElement() {
     return document.body;
@@ -237,23 +259,62 @@ class SelectContent extends Component<SelectContentSignature> {
       : '';
   }
 
+  @cached
+  @provide(SelectContentContext)
+  get contentContext(): SelectContentContextValue {
+    return {
+      position: this.args.position ?? 'item-aligned',
+    };
+  }
+
   handleClickOutside = () => {
-    this.context.close();
+    const instant = this.args.position === 'item-aligned';
+    this.context.close(instant);
   };
 
   handleAnimationEnd = (event: AnimationEvent) => {
     if (event.target === event.currentTarget && !this.context.isOpen) {
-      this.context.finishClose();
+      // Only wait for animation on popper mode
+      if (this.args.position !== 'item-aligned') {
+        this.context.finishClose();
+      }
+    }
+  };
+
+  updateScrollState = (element: HTMLDivElement) => {
+    const { scrollTop, scrollHeight, clientHeight } = element;
+    this.canScrollUp = scrollTop > 1;
+    this.canScrollDown = Math.ceil(scrollTop + clientHeight) < scrollHeight;
+  };
+
+  handleScroll = (event: Event) => {
+    const element = event.target as HTMLDivElement;
+    this.updateScrollState(element);
+  };
+
+  scrollUp = () => {
+    if (this.contentElement) {
+      this.contentElement.scrollBy({ top: -100, behavior: 'smooth' });
+    }
+  };
+
+  scrollDown = () => {
+    if (this.contentElement) {
+      this.contentElement.scrollBy({ top: 100, behavior: 'smooth' });
     }
   };
 
   positionContent = modifier(
     (
       element: HTMLElement,
-      [triggerElement]: [HTMLElement | null | undefined]
+      [triggerElement, selectedItem]: [
+        HTMLElement | null | undefined,
+        HTMLElement | null
+      ]
     ) => {
       if (!triggerElement) return;
 
+      const position = this.args.position ?? 'item-aligned';
       const align = this.args.align ?? 'start';
       const placementMap: Record<string, Placement> = {
         start: 'bottom-start',
@@ -262,20 +323,82 @@ class SelectContent extends Component<SelectContentSignature> {
       };
 
       const update = () => {
-        void computePosition(triggerElement, element, {
-          placement: placementMap[align] || 'bottom-start',
-          strategy: 'fixed',
-          middleware: [offset(4), flip(), shift({ padding: 8 })],
-        }).then(({ x, y }) => {
-          this.x = x;
-          this.y = y;
+        if (position === 'item-aligned') {
+          // Calculate the offset to align the selected item with the trigger
+          let itemOffset = 0;
+
+          if (selectedItem) {
+            // Get the distance from the content's top to the selected item
+            const contentTop = element.getBoundingClientRect().top;
+            const itemTop = selectedItem.getBoundingClientRect().top;
+            itemOffset = itemTop - contentTop;
+          }
+
+          // Position the content so it overlaps the trigger
+          const triggerRect = triggerElement.getBoundingClientRect();
+          const viewportHeight = window.innerHeight;
+          const padding = 8;
+
+          const idealY = triggerRect.top - itemOffset;
+
+          // Calculate available space above and below
+          const spaceAbove = idealY - padding;
+          const spaceBelow = viewportHeight - idealY - padding;
+
+          // Get content height
+          const contentHeight = element.scrollHeight;
+
+          // Adjust position and max-height to fit within viewport
+          if (idealY < padding) {
+            // Would overflow top - push down
+            this.y = padding;
+            this.maxHeight = Math.min(contentHeight, triggerRect.bottom - padding);
+          } else if (idealY + contentHeight > viewportHeight - padding) {
+            // Would overflow bottom - adjust
+            if (spaceBelow >= contentHeight) {
+              this.y = idealY;
+              this.maxHeight = contentHeight;
+            } else if (spaceAbove >= contentHeight) {
+              // Fit above
+              this.y = Math.max(padding, viewportHeight - contentHeight - padding);
+              this.maxHeight = contentHeight;
+            } else {
+              // Constrain to available space
+              const availableSpace = viewportHeight - padding * 2;
+              this.y = padding;
+              this.maxHeight = availableSpace;
+            }
+          } else {
+            // Fits naturally
+            this.y = idealY;
+            this.maxHeight = contentHeight;
+          }
+
+          this.x = triggerRect.left;
           this.triggerWidth = triggerElement.offsetWidth;
+
           // Set trigger width as CSS variable
           element.style.setProperty(
             '--select-trigger-width',
             `${triggerElement.offsetWidth}px`
           );
-        });
+        } else {
+          // Use floating-ui for popper positioning
+          void computePosition(triggerElement, element, {
+            placement: placementMap[align] || 'bottom-start',
+            strategy: 'fixed',
+            middleware: [offset(4), flip(), shift({ padding: 8 })],
+          }).then(({ x, y }) => {
+            this.x = x;
+            this.y = y;
+            this.triggerWidth = triggerElement.offsetWidth;
+            // Set trigger width as CSS variable
+            element.style.setProperty(
+              '--select-trigger-width',
+              `${triggerElement.offsetWidth}px`
+            );
+          });
+        }
       };
 
       this.cleanup = autoUpdate(triggerElement, element, update);
@@ -286,9 +409,28 @@ class SelectContent extends Component<SelectContentSignature> {
     }
   );
 
+  registerContent = modifier((element: HTMLDivElement) => {
+    this.contentElement = element;
+
+    // Check initial scroll state after layout
+    const checkScroll = () => {
+      this.updateScrollState(element);
+    };
+
+    requestAnimationFrame(() => {
+      checkScroll();
+      // Double-check after a brief moment to ensure layout is complete
+      setTimeout(checkScroll, 50);
+    });
+
+    return () => {
+      this.contentElement = null;
+    };
+  });
+
   get positionStyle() {
     return htmlSafe(
-      `position: fixed; left: ${this.x}px; top: ${this.y}px; z-index: 50; --select-trigger-width: ${this.triggerWidth}px;`
+      `position: fixed; left: ${this.x}px; top: ${this.y}px; z-index: 50; max-height: ${this.maxHeight}px; --select-trigger-width: ${this.triggerWidth}px;`
     );
   }
 
@@ -297,7 +439,7 @@ class SelectContent extends Component<SelectContentSignature> {
       {{#in-element this.destinationElement insertBefore=null}}
         <div
           class={{cn
-            "min-w-[var(--select-trigger-width)] bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 max-h-96 overflow-x-hidden overflow-y-auto rounded-md border shadow-md"
+            "min-w-[var(--select-trigger-width)] bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 overflow-hidden rounded-md border shadow-md"
             this.positionClass
             @class
           }}
@@ -307,12 +449,39 @@ class SelectContent extends Component<SelectContentSignature> {
           style={{this.positionStyle}}
           {{on "animationend" this.handleAnimationEnd}}
           {{onClickOutside this.handleClickOutside}}
-          {{this.positionContent this.context.triggerElement}}
+          {{this.positionContent
+            this.context.triggerElement
+            this.context.selectedItemElement
+          }}
           ...attributes
         >
-          <div class="p-1">
+          {{#if this.canScrollUp}}
+            <button
+              class="flex cursor-default items-center justify-center py-1 w-full"
+              data-slot="select-scroll-up-button"
+              type="button"
+              {{on "click" this.scrollUp}}
+            >
+              <ChevronUp class="size-4" />
+            </button>
+          {{/if}}
+          <div
+            class="overflow-y-auto overflow-x-hidden p-1 max-h-[inherit]"
+            {{on "scroll" this.handleScroll}}
+            {{this.registerContent}}
+          >
             {{yield}}
           </div>
+          {{#if this.canScrollDown}}
+            <button
+              class="flex cursor-default items-center justify-center py-1 w-full"
+              data-slot="select-scroll-down-button"
+              type="button"
+              {{on "click" this.scrollDown}}
+            >
+              <ChevronDown class="size-4" />
+            </button>
+          {{/if}}
         </div>
       {{/in-element}}
     {{/if}}
@@ -369,6 +538,8 @@ interface SelectItemSignature {
 
 class SelectItem extends Component<SelectItemSignature> {
   @consume(SelectContext) context!: ContextRegistry[typeof SelectContext];
+  @consume(SelectContentContext)
+  contentContext!: ContextRegistry[typeof SelectContentContext];
 
   itemElement: HTMLDivElement | null = null;
 
@@ -379,19 +550,44 @@ class SelectItem extends Component<SelectItemSignature> {
   handleClick = () => {
     if (!this.args.disabled) {
       const label = this.itemElement?.textContent?.trim() || this.args.value;
-      this.context.selectValue(this.args.value, label);
+      const instant = this.contentContext.position === 'item-aligned';
+      this.context.selectValue(this.args.value, label, instant);
     }
   };
 
   registerElement = modifier((element: HTMLDivElement) => {
     this.itemElement = element;
+
+    return () => {
+      // Clean up on unmount
+      if (this.context.selectedItemElement === element) {
+        this.context.setSelectedItemElement(null);
+      }
+    };
   });
+
+  updateSelectedElement = modifier(
+    (element: HTMLDivElement, [isSelected]: [boolean]) => {
+      // Defer the update to avoid updating tracked properties during render
+      requestAnimationFrame(() => {
+        if (isSelected) {
+          this.context.setSelectedItemElement(element);
+        } else if (this.context.selectedItemElement === element) {
+          this.context.setSelectedItemElement(null);
+        }
+      });
+    }
+  );
 
   <template>
     {{! template-lint-disable require-mandatory-role-attributes require-presentational-children }}
     <div
       class={{cn
         "focus:bg-accent focus:text-accent-foreground hover:bg-accent hover:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2"
+        (if
+          this.isSelected
+          "[@media(hover:none)]:bg-accent [@media(hover:none)]:text-accent-foreground"
+        )
         @class
       }}
       data-disabled={{if @disabled "true"}}
@@ -399,6 +595,7 @@ class SelectItem extends Component<SelectItemSignature> {
       role="option"
       {{on "click" this.handleClick}}
       {{this.registerElement}}
+      {{this.updateSelectedElement this.isSelected}}
       ...attributes
     >
       <span
