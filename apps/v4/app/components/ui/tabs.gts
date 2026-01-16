@@ -6,7 +6,6 @@ import { provide, consume } from 'ember-provide-consume-context';
 import { cn } from '@/lib/utils';
 
 import type { TOC } from '@ember/component/template-only';
-import type Owner from '@ember/owner';
 
 const TabsContext = 'tabs-context' as const;
 
@@ -33,15 +32,10 @@ interface TabsSignature {
 }
 
 class Tabs extends Component<TabsSignature> {
-  @tracked currentValue: string;
-
-  constructor(owner: Owner, args: TabsSignature['Args']) {
-    super(owner, args);
-    this.currentValue = args.value ?? args.defaultValue ?? '';
-  }
+  @tracked currentValue?: string;
 
   get value() {
-    return this.args.value ?? this.currentValue;
+    return this.args.value ?? this.currentValue ?? this.args.defaultValue ?? '';
   }
 
   setValue = (value: string) => {

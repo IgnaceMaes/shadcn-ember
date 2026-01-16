@@ -16,8 +16,6 @@ import { provide, consume } from 'ember-provide-consume-context';
 
 import { cn } from '@/lib/utils';
 
-import type Owner from '@ember/owner';
-
 const HoverCardContext = 'hover-card-context' as const;
 
 interface HoverCardContextValue {
@@ -47,19 +45,14 @@ interface HoverCardSignature {
 }
 
 class HoverCard extends Component<HoverCardSignature> {
-  @tracked isOpen = false;
+  @tracked isOpen?: boolean;
   @tracked isOpenOrClosing = false;
   triggerElement: HTMLElement | null = null;
   openTimeout: number | null = null;
   closeTimeout: number | null = null;
 
-  constructor(owner: Owner, args: HoverCardSignature['Args']) {
-    super(owner, args);
-    this.isOpen = args.open ?? args.defaultOpen ?? false;
-  }
-
   get open() {
-    return this.args.open ?? this.isOpen;
+    return this.args.open ?? this.isOpen ?? this.args.defaultOpen ?? false;
   }
 
   get isRendered() {

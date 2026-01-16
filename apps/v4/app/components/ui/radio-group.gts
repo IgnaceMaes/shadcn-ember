@@ -5,8 +5,6 @@ import { provide, consume } from 'ember-provide-consume-context';
 
 import { cn } from '@/lib/utils';
 
-import type Owner from '@ember/owner';
-
 const RadioGroupContext = 'radio-group-context' as const;
 
 interface RadioGroupContextValue {
@@ -34,15 +32,10 @@ interface RadioGroupSignature {
 }
 
 class RadioGroup extends Component<RadioGroupSignature> {
-  @tracked currentValue: string;
-
-  constructor(owner: Owner, args: RadioGroupSignature['Args']) {
-    super(owner, args);
-    this.currentValue = args.value ?? args.defaultValue ?? '';
-  }
+  @tracked currentValue?: string;
 
   get value() {
-    return this.args.value ?? this.currentValue;
+    return this.args.value ?? this.currentValue ?? this.args.defaultValue ?? '';
   }
 
   setValue = (value: string) => {

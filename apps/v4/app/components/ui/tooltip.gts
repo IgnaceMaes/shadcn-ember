@@ -17,8 +17,6 @@ import { provide, consume } from 'ember-provide-consume-context';
 
 import { cn } from '@/lib/utils';
 
-import type Owner from '@ember/owner';
-
 const TooltipContext = 'tooltip-context' as const;
 
 interface TooltipContextValue {
@@ -46,17 +44,12 @@ interface TooltipSignature {
 }
 
 class Tooltip extends Component<TooltipSignature> {
-  @tracked currentOpen: boolean;
+  @tracked currentOpen?: boolean;
   @tracked isOpenOrClosing = false;
   triggerElement: HTMLElement | null = null;
 
-  constructor(owner: Owner, args: TooltipSignature['Args']) {
-    super(owner, args);
-    this.currentOpen = args.open ?? args.defaultOpen ?? false;
-  }
-
   get isOpen() {
-    return this.args.open ?? this.currentOpen;
+    return this.args.open ?? this.currentOpen ?? this.args.defaultOpen ?? false;
   }
 
   get isRendered() {
