@@ -18,7 +18,6 @@ import { provide, consume } from 'ember-provide-consume-context';
 import { cn } from '@/lib/utils';
 
 import type { TOC } from '@ember/component/template-only';
-import type Owner from '@ember/owner';
 
 import Check from '~icons/lucide/check';
 import ChevronDown from '~icons/lucide/chevron-down';
@@ -61,17 +60,14 @@ interface SelectSignature {
 class Select extends Component<SelectSignature> {
   @tracked isOpen = false;
   @tracked isRendered = false;
-  @tracked selectedValue: string;
+  @tracked selectedValue?: string;
   @tracked selectedLabel = '';
   triggerElement: HTMLElement | null = null;
 
-  constructor(owner: Owner, args: SelectSignature['Args']) {
-    super(owner, args);
-    this.selectedValue = args.value ?? args.defaultValue ?? '';
-  }
-
   get value() {
-    return this.args.value ?? this.selectedValue;
+    return (
+      this.args.value ?? this.selectedValue ?? this.args.defaultValue ?? ''
+    );
   }
 
   toggle = () => {

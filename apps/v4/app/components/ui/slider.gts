@@ -6,8 +6,6 @@ import { tracked } from '@glimmer/tracking';
 
 import { cn } from '@/lib/utils';
 
-import type Owner from '@ember/owner';
-
 interface SliderSignature {
   Element: HTMLDivElement;
   Args: {
@@ -24,15 +22,12 @@ interface SliderSignature {
 }
 
 class Slider extends Component<SliderSignature> {
-  @tracked internalValue: number[];
-
-  constructor(owner: Owner, args: SliderSignature['Args']) {
-    super(owner, args);
-    this.internalValue = args.value ?? args.defaultValue ?? [0];
-  }
+  @tracked internalValue?: number[];
 
   get value() {
-    return this.args.value ?? this.internalValue;
+    return (
+      this.args.value ?? this.internalValue ?? this.args.defaultValue ?? [0]
+    );
   }
 
   get min() {
