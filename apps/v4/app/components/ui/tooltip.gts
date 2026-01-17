@@ -126,6 +126,10 @@ class TooltipTrigger extends Component<TooltipTriggerSignature> {
     this.context.setOpen(false);
   };
 
+  handlePointerDown = () => {
+    this.context.setOpen(false);
+  };
+
   registerElement = modifier((element: HTMLElement) => {
     this.context.setTriggerElement(element);
     return () => {
@@ -142,6 +146,8 @@ class TooltipTrigger extends Component<TooltipTriggerSignature> {
         {{on "focus" this.handleFocus}}
         {{on "mouseenter" this.handleMouseEnter}}
         {{on "mouseleave" this.handleMouseLeave}}
+        {{! template-lint-disable no-pointer-down-event-binding }}
+        {{on "pointerdown" this.handlePointerDown}}
         {{this.registerElement}}
         ...attributes
       >
@@ -155,6 +161,8 @@ class TooltipTrigger extends Component<TooltipTriggerSignature> {
         {{on "focus" this.handleFocus}}
         {{on "mouseenter" this.handleMouseEnter}}
         {{on "mouseleave" this.handleMouseLeave}}
+        {{! template-lint-disable no-pointer-down-event-binding }}
+        {{on "pointerdown" this.handlePointerDown}}
         {{this.registerElement}}
         ...attributes
       >
