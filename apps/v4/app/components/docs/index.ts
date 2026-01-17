@@ -37,6 +37,8 @@ export { default as Steps } from './steps';
 export { default as Step } from './step';
 export { default as ComponentSource } from './component-source';
 export { default as InstallationGrid } from './installation-grid';
+export { default as InstallationTabs } from './installation-tabs';
+export { default as MarkdownNodes } from './markdown-nodes';
 
 // Component Documentation (existing)
 export { default as ComponentDocPage } from './component-doc-page';

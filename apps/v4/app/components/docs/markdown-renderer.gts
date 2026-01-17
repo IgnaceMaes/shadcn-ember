@@ -1,4 +1,4 @@
-import { concat } from '@ember/helper';
+import { concat, array } from '@ember/helper';
 import Component from '@glimmer/component';
 import { pageTitle } from 'ember-page-title';
 import { eq } from 'ember-truth-helpers';
@@ -27,6 +27,7 @@ import {
   DocHeading,
 } from './index';
 import * as DocsComponents from './index';
+import InstallationTabs from './installation-tabs';
 import PackageManagerCommand from './package-manager-command';
 
 import type { TocItem } from './doc-toc';
@@ -148,6 +149,8 @@ interface ProcessedNode {
   alertType?: 'info' | 'note' | 'warning' | 'tip' | 'caution';
   ordered?: boolean;
   start?: number;
+  cliNodes?: ProcessedNode[];
+  manualNodes?: ProcessedNode[];
 }
 
 interface Signature {
@@ -169,7 +172,8 @@ export default class MarkdownRenderer extends Component<Signature> {
     const processor = unified().use(remarkParse).use(remarkGfm);
 
     const ast = processor.parse(this.parsed.content) as Root;
-    return this.processNodes(ast.children);
+    const nodes = this.processNodes(ast.children);
+    return this.groupInstallationSections(nodes);
   }
 
   get tocItems(): TocItem[] {
@@ -197,6 +201,89 @@ export default class MarkdownRenderer extends Component<Signature> {
       .replace(/[^\w\s-]/g, '')
       .replace(/\s+/g, '-')
       .replace(/-+/g, '-');
+  }
+
+  // Group Installation section with CLI/Manual subsections into tabs
+  groupInstallationSections(nodes: ProcessedNode[]): ProcessedNode[] {
+    const result: ProcessedNode[] = [];
+    let i = 0;
+
+    while (i < nodes.length) {
+      const node = nodes[i];
+      if (!node) {
+        i++;
+        continue;
+      }
+
+      // Check if this is an "Installation" h2 heading
+      if (
+        node.type === 'heading' &&
+        node.depth === 2 &&
+        this.getHeadingText(node.children).toLowerCase() === 'installation'
+      ) {
+        // Look ahead for CLI (h3) and Manual (h3) sections
+        let cliStart = -1;
+        let manualStart = -1;
+        let sectionEnd = i + 1;
+
+        // Scan ahead to find CLI and Manual h3 headings and next h2
+        for (let j = i + 1; j < nodes.length; j++) {
+          const scanNode = nodes[j];
+          if (!scanNode) continue;
+
+          if (scanNode.type === 'heading') {
+            if (scanNode.depth === 2) {
+              // Next h2 section - stop here
+              sectionEnd = j;
+              break;
+            }
+            if (scanNode.depth === 3) {
+              const headingText = this.getHeadingText(
+                scanNode.children
+              ).toLowerCase();
+              if (headingText === 'cli' && cliStart === -1) {
+                cliStart = j;
+              } else if (headingText === 'manual' && manualStart === -1) {
+                manualStart = j;
+              }
+            }
+          }
+          sectionEnd = j + 1;
+        }
+
+        // If we found both CLI and Manual sections, create installation tabs
+        if (cliStart !== -1 && manualStart !== -1) {
+          // Add the Installation heading
+          result.push(node);
+
+          // Determine CLI content range (from cliStart+1 to manualStart or end)
+          const cliContentEnd =
+            manualStart > cliStart ? manualStart : sectionEnd;
+          const cliNodes = nodes.slice(cliStart + 1, cliContentEnd);
+
+          // Determine Manual content range (from manualStart+1 to sectionEnd)
+          const manualContentEnd =
+            cliStart > manualStart ? cliStart : sectionEnd;
+          const manualNodes = nodes.slice(manualStart + 1, manualContentEnd);
+
+          // Create installationTabs node
+          result.push({
+            type: 'installationTabs',
+            cliNodes,
+            manualNodes,
+          });
+
+          // Skip to end of installation section
+          i = sectionEnd;
+          continue;
+        }
+      }
+
+      result.push(node);
+      i++;
+    }
+
+    return result;
   }
 
   processNodes(nodes: MdastNode[]): ProcessedNode[] {
@@ -548,6 +635,12 @@ export default class MarkdownRenderer extends Component<Signature> {
                 @props={{node.componentProps}}
               />
             {{/if}}
+          {{/if}}
+          {{#if (eq node.type "installationTabs")}}
+            <InstallationTabs
+              @cliNodes={{if node.cliNodes node.cliNodes (array)}}
+              @manualNodes={{if node.manualNodes node.manualNodes (array)}}
+            />
           {{/if}}
           {{#if (eq node.type "thematicBreak")}}
             <Separator @class="my-4 md:my-8" />
