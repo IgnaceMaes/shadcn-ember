@@ -2,7 +2,7 @@
   "name": "shadcn-ember",
   "type": "module",
   "version": "0.0.0",
-  "description": "Add components to your apps.",
+  "description": "shadcn/ui, but for Ember",
   "publishConfig": {
     "access": "public"
   },
