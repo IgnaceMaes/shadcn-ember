@@ -2,17 +2,21 @@
   "solution": {
     "shadcn-ember": {
       "impact": "patch",
-      "oldVersion": "0.0.2",
-      "newVersion": "0.0.3",
+      "oldVersion": "0.0.3",
+      "newVersion": "0.0.4",
       "tagName": "latest",
       "constraints": [
         {
           "impact": "patch",
           "reason": "Appears in changelog section :bug: Bug Fix"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :house: Internal"
         }
       ],
       "pkgJSONPath": "./packages/cli/package.json"
     }
   },
-  "description": "## Release (2026-01-17)\n\n* shadcn-ember 0.0.3 (patch)\n\n#### :bug: Bug Fix\n* `shadcn-ember`\n  * [#12](https://github.com/IgnaceMaes/shadcn-ember/pull/12) fix: build first ([@IgnaceMaes](https://github.com/IgnaceMaes))\n* Other\n  * [#11](https://github.com/IgnaceMaes/shadcn-ember/pull/11) chore: does this trigger a relaase? ([@IgnaceMaes](https://github.com/IgnaceMaes))\n\n#### :house: Internal\n* [#10](https://github.com/IgnaceMaes/shadcn-ember/pull/10) Prepare Release vnull ([@github-actions[bot]](https://github.com/apps/github-actions))\n\n#### Committers: 2\n- GitHub Actions [Bot] ([@github-actions](https://github.com/apps/github-actions))\n- Ignace Maes ([@IgnaceMaes](https://github.com/IgnaceMaes))\n"
+  "description": "## Release (2026-01-17)\n\n* shadcn-ember 0.0.4 (patch)\n\n#### :bug: Bug Fix\n* Other\n  * [#14](https://github.com/IgnaceMaes/shadcn-ember/pull/14) fix: tooltip closing flicker ([@IgnaceMaes](https://github.com/IgnaceMaes))\n  * [#11](https://github.com/IgnaceMaes/shadcn-ember/pull/11) chore: does this trigger a relaase? ([@IgnaceMaes](https://github.com/IgnaceMaes))\n* `shadcn-ember`\n  * [#12](https://github.com/IgnaceMaes/shadcn-ember/pull/12) fix: build first ([@IgnaceMaes](https://github.com/IgnaceMaes))\n\n#### :house: Internal\n* `shadcn-ember`\n  * [#13](https://github.com/IgnaceMaes/shadcn-ember/pull/13) Prepare Release v0.0.3 ([@github-actions[bot]](https://github.com/apps/github-actions))\n* Other\n  * [#10](https://github.com/IgnaceMaes/shadcn-ember/pull/10) Prepare Release vnull ([@github-actions[bot]](https://github.com/apps/github-actions))\n\n#### Committers: 2\n- GitHub Actions [Bot] ([@github-actions](https://github.com/apps/github-actions))\n- Ignace Maes ([@IgnaceMaes](https://github.com/IgnaceMaes))\n"
 }
