@@ -17,7 +17,6 @@ import { provide, consume } from 'ember-provide-consume-context';
 import { cn } from '@/lib/utils';
 
 import type { TOC } from '@ember/component/template-only';
-import type Owner from '@ember/owner';
 
 import Check from '~icons/lucide/check';
 import ChevronRight from '~icons/lucide/chevron-right';
@@ -76,17 +75,12 @@ interface ContextMenuSignature {
 }
 
 class ContextMenu extends Component<ContextMenuSignature> {
-  @tracked isOpen: boolean;
+  @tracked isOpen?: boolean;
   @tracked isRendered = false;
   mousePosition: { x: number; y: number } | null = null;
 
-  constructor(owner: Owner, args: ContextMenuSignature['Args']) {
-    super(owner, args);
-    this.isOpen = args.open ?? args.defaultOpen ?? false;
-  }
-
   get open() {
-    return this.args.open ?? this.isOpen;
+    return this.args.open ?? this.isOpen ?? this.args.defaultOpen ?? false;
   }
 
   setOpen = (open: boolean) => {
@@ -179,17 +173,12 @@ class ContextMenuGroup extends Component<ContextMenuGroupSignature> {
   submenuCloseCallbacks: Set<() => void> = new Set();
   unregister?: () => void;
 
-  constructor(owner: Owner, args: ContextMenuGroupSignature['Args']) {
-    super(owner, args);
-    this.unregister = this.menuContext.registerGroupCloseCallback?.(
+  register = modifier(() => {
+    const unregister = this.menuContext.registerGroupCloseCallback?.(
       this.closeAllSubmenus
     );
-  }
-
-  willDestroy() {
-    super.willDestroy();
-    this.unregister?.();
-  }
+    return () => unregister?.();
+  });
 
   closeAllSubmenus = () => {
     this.currentOpenSubmenu = null;
@@ -222,6 +211,7 @@ class ContextMenuGroup extends Component<ContextMenuGroupSignature> {
       class={{cn @class}}
       data-slot="context-menu-group"
       role="group"
+      {{this.register}}
       ...attributes
     >
       {{yield}}
@@ -259,34 +249,30 @@ class ContextMenuSub extends Component<ContextMenuSubSignature> {
   @consume(ContextMenuContext)
   menuContext!: ContextRegistry[typeof ContextMenuContext];
 
-  @tracked isOpen: boolean;
+  @tracked isOpen?: boolean;
   @tracked isRendered = false;
   triggerElement: HTMLElement | null = null;
   unregister?: () => void;
   closeTimeout?: ReturnType<typeof setTimeout>;
 
-  constructor(owner: Owner, args: ContextMenuSubSignature['Args']) {
-    super(owner, args);
-    this.isOpen = args.open ?? args.defaultOpen ?? false;
+  get open() {
+    return this.args.open ?? this.isOpen ?? this.args.defaultOpen ?? false;
+  }
 
+  register = modifier(() => {
+    let unregister: (() => void) | undefined;
     if (this.groupContext) {
-      this.unregister = this.groupContext.registerSubmenu(() => {
+      unregister = this.groupContext.registerSubmenu(() => {
         this.isOpen = false;
       });
     }
-  }
-
-  willDestroy() {
-    super.willDestroy();
-    this.unregister?.();
-    if (this.closeTimeout) {
-      clearTimeout(this.closeTimeout);
-    }
-  }
-
-  get open() {
-    return this.args.open ?? this.isOpen;
-  }
+    return () => {
+      unregister?.();
+      if (this.closeTimeout) {
+        clearTimeout(this.closeTimeout);
+      }
+    };
+  });
 
   setOpen = (open: boolean) => {
     if (open) {
@@ -337,7 +323,7 @@ class ContextMenuSub extends Component<ContextMenuSubSignature> {
   }
 
   <template>
-    <div data-slot="context-menu-sub">
+    <div data-slot="context-menu-sub" {{this.register}}>
       {{yield}}
     </div>
   </template>
@@ -356,15 +342,10 @@ interface ContextMenuRadioGroupSignature {
 }
 
 class ContextMenuRadioGroup extends Component<ContextMenuRadioGroupSignature> {
-  @tracked internalValue: string;
-
-  constructor(owner: Owner, args: ContextMenuRadioGroupSignature['Args']) {
-    super(owner, args);
-    this.internalValue = args.value ?? '';
-  }
+  @tracked internalValue?: string;
 
   get value() {
-    return this.args.value ?? this.internalValue;
+    return this.args.value ?? this.internalValue ?? '';
   }
 
   setValue = (value: string) => {

@@ -24,8 +24,6 @@ class Checkbox extends Component<CheckboxSignature> {
   }
 
   get isChecked() {
-    // Controlled mode: use args.checked when onCheckedChange is provided
-    // Uncontrolled mode: use internal state
     return this.isControlled && this.args.checked !== undefined
       ? this.args.checked
       : this.internalChecked;
@@ -50,12 +48,10 @@ class Checkbox extends Component<CheckboxSignature> {
 
     const newChecked = !this.isChecked;
 
-    // Update internal state if not controlled
     if (!this.isControlled) {
       this.internalChecked = newChecked;
     }
 
-    // Call the callback if provided
     this.args.onCheckedChange?.(newChecked);
   };
 

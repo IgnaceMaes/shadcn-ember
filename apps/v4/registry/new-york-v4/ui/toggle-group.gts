@@ -8,8 +8,6 @@ import { provide, consume } from 'ember-provide-consume-context';
 import { toggleVariants } from '@/components/ui/toggle';
 import { cn } from '@/lib/utils';
 
-import type Owner from '@ember/owner';
-
 type Variant = 'default' | 'outline';
 type Size = 'default' | 'sm' | 'lg';
 
@@ -47,17 +45,15 @@ interface ToggleGroupSignature {
 }
 
 class ToggleGroup extends Component<ToggleGroupSignature> {
-  @tracked internalValue: string | string[];
-
-  constructor(owner: Owner, args: ToggleGroupSignature['Args']) {
-    super(owner, args);
-    const defaultVal =
-      args.defaultValue ?? (args.type === 'multiple' ? [] : '');
-    this.internalValue = args.value ?? defaultVal;
-  }
+  @tracked internalValue?: string | string[];
 
   get value() {
-    return this.args.value ?? this.internalValue;
+    return (
+      this.args.value ??
+      this.internalValue ??
+      this.args.defaultValue ??
+      (this.type === 'multiple' ? [] : '')
+    );
   }
 
   get type() {

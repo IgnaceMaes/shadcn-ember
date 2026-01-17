@@ -148,12 +148,9 @@ class InputOTP extends Component<InputOTPSignature> {
   handleInput = (event: Event) => {
     const input = event.target as HTMLInputElement;
     let inputValue = input.value;
-
-    // Only allow alphanumeric characters
     inputValue = inputValue.replace(/[^a-zA-Z0-9]/g, '');
 
     if (inputValue.length > 0) {
-      // Add the new character at the active position
       const newValue = (
         this.value.slice(0, this.activeIndex) +
         inputValue[0] +
@@ -161,8 +158,6 @@ class InputOTP extends Component<InputOTPSignature> {
       ).slice(0, this.maxLength);
 
       const newActiveIndex = Math.min(this.activeIndex + 1, this.maxLength - 1);
-
-      // Reset input value to support continuous typing
       input.value = '';
 
       this.updateValue(newValue, newActiveIndex);
@@ -175,13 +170,11 @@ class InputOTP extends Component<InputOTPSignature> {
       if (this.value.length > 0) {
         const charAtCurrent = this.value[this.activeIndex];
         if (charAtCurrent) {
-          // Delete character at current position
           const newValue =
             this.value.slice(0, this.activeIndex) +
             this.value.slice(this.activeIndex + 1);
           this.updateValue(newValue);
         } else if (this.activeIndex > 0) {
-          // Delete character at previous position and move back
           const newValue =
             this.value.slice(0, this.activeIndex - 1) +
             this.value.slice(this.activeIndex);

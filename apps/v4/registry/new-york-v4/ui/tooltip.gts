@@ -17,8 +17,6 @@ import { provide, consume } from 'ember-provide-consume-context';
 
 import { cn } from '@/lib/utils';
 
-import type Owner from '@ember/owner';
-
 const TooltipContext = 'tooltip-context' as const;
 
 interface TooltipContextValue {
@@ -46,17 +44,12 @@ interface TooltipSignature {
 }
 
 class Tooltip extends Component<TooltipSignature> {
-  @tracked currentOpen: boolean;
+  @tracked currentOpen?: boolean;
   @tracked isOpenOrClosing = false;
   triggerElement: HTMLElement | null = null;
 
-  constructor(owner: Owner, args: TooltipSignature['Args']) {
-    super(owner, args);
-    this.currentOpen = args.open ?? args.defaultOpen ?? false;
-  }
-
   get isOpen() {
-    return this.args.open ?? this.currentOpen;
+    return this.args.open ?? this.currentOpen ?? this.args.defaultOpen ?? false;
   }
 
   get isRendered() {
@@ -133,6 +126,10 @@ class TooltipTrigger extends Component<TooltipTriggerSignature> {
     this.context.setOpen(false);
   };
 
+  handlePointerDown = () => {
+    this.context.setOpen(false);
+  };
+
   registerElement = modifier((element: HTMLElement) => {
     this.context.setTriggerElement(element);
     return () => {
@@ -149,6 +146,8 @@ class TooltipTrigger extends Component<TooltipTriggerSignature> {
         {{on "focus" this.handleFocus}}
         {{on "mouseenter" this.handleMouseEnter}}
         {{on "mouseleave" this.handleMouseLeave}}
+        {{! template-lint-disable no-pointer-down-event-binding }}
+        {{on "pointerdown" this.handlePointerDown}}
         {{this.registerElement}}
         ...attributes
       >
@@ -162,6 +161,8 @@ class TooltipTrigger extends Component<TooltipTriggerSignature> {
         {{on "focus" this.handleFocus}}
         {{on "mouseenter" this.handleMouseEnter}}
         {{on "mouseleave" this.handleMouseLeave}}
+        {{! template-lint-disable no-pointer-down-event-binding }}
+        {{on "pointerdown" this.handlePointerDown}}
         {{this.registerElement}}
         ...attributes
       >
@@ -188,8 +189,9 @@ class TooltipContent extends Component<TooltipContentSignature> {
   @consume(TooltipContext) context!: ContextRegistry[typeof TooltipContext];
   @tracked x = 0;
   @tracked y = 0;
-  @tracked arrowX = 0;
-  @tracked arrowY = 0;
+  @tracked arrowX: number | undefined;
+  @tracked arrowY: number | undefined;
+  @tracked actualSide: 'top' | 'right' | 'bottom' | 'left' = 'top';
   cleanup?: () => void;
   arrowElement: HTMLElement | null = null;
 
@@ -225,18 +227,23 @@ class TooltipContent extends Component<TooltipContentSignature> {
         placement,
         strategy: 'fixed',
         middleware: [
-          offset(this.args.sideOffset ?? 4),
+          offset(this.args.sideOffset ?? 8),
           flip(),
           shift({ padding: 8 }),
           arrow({ element: this.arrowElement! }),
         ],
-      }).then(({ x, y, middlewareData }) => {
+      }).then(({ x, y, placement: actualPlacement, middlewareData }) => {
         this.x = x;
         this.y = y;
+        this.actualSide = actualPlacement.split('-')[0] as
+          | 'top'
+          | 'right'
+          | 'bottom'
+          | 'left';
 
-        if (middlewareData.arrow && this.arrowElement) {
-          this.arrowX = middlewareData.arrow.x ?? 0;
-          this.arrowY = middlewareData.arrow.y ?? 0;
+        if (middlewareData.arrow) {
+          this.arrowX = middlewareData.arrow.x;
+          this.arrowY = middlewareData.arrow.y;
         }
       });
     };
@@ -262,7 +269,32 @@ class TooltipContent extends Component<TooltipContentSignature> {
   }
 
   get arrowStyle() {
-    return htmlSafe(`left: ${this.arrowX}px; top: ${this.arrowY}px;`);
+    const side = this.actualSide;
+    const styles: string[] = [];
+
+    // For top/bottom placement, arrow x is set by floating-ui, y is at the edge
+    // For left/right placement, arrow y is set by floating-ui, x is at the edge
+    if (side === 'top' || side === 'bottom') {
+      if (this.arrowX != null) {
+        styles.push(`left: ${this.arrowX}px`);
+      }
+      if (side === 'top') {
+        styles.push('bottom: -3px');
+      } else {
+        styles.push('top: -3px');
+      }
+    } else {
+      if (this.arrowY != null) {
+        styles.push(`top: ${this.arrowY}px`);
+      }
+      if (side === 'left') {
+        styles.push('right: -3px');
+      } else {
+        styles.push('left: -3px');
+      }
+    }
+
+    return htmlSafe(styles.join('; '));
   }
 
   handleAnimationEnd = (event: AnimationEvent) => {
@@ -276,11 +308,11 @@ class TooltipContent extends Component<TooltipContentSignature> {
       {{#in-element this.destinationElement insertBefore=null}}
         <div
           class={{cn
-            "z-50 overflow-hidden rounded-md bg-foreground px-3 py-1.5 text-xs text-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
+            "z-50 rounded-md bg-foreground px-3 py-1.5 text-xs text-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
             @class
           }}
           data-align={{if @align @align "center"}}
-          data-side={{if @side @side "top"}}
+          data-side={{this.actualSide}}
           data-slot="tooltip-content"
           data-state={{if this.context.isOpen "open" "closed"}}
           role="tooltip"
@@ -291,7 +323,7 @@ class TooltipContent extends Component<TooltipContentSignature> {
         >
           {{yield}}
           <div
-            class="absolute bg-foreground size-2 rotate-45"
+            class="absolute size-2.5 rotate-45 rounded-[2px] bg-foreground"
             style={{this.arrowStyle}}
             {{this.arrowModifier}}
           ></div>

@@ -24,7 +24,6 @@ function toastVariants(
   return cn(baseClasses, variantClasses[variant], className);
 }
 
-// ToastProvider Component
 interface ToastProviderSignature {
   Args: {
     duration?: number;
@@ -39,7 +38,6 @@ const ToastProvider: TOC<ToastProviderSignature> = <template>
   {{yield}}
 </template>;
 
-// ToastViewport Component
 interface ToastViewportSignature {
   Element: HTMLDivElement;
   Args: {
@@ -62,7 +60,6 @@ const ToastViewport: TOC<ToastViewportSignature> = <template>
   </div>
 </template>;
 
-// Toast Root Component
 interface ToastSignature {
   Element: HTMLDivElement;
   Args: {
@@ -86,7 +83,6 @@ class Toast extends Component<ToastSignature> {
   </template>
 }
 
-// ToastAction Component
 interface ToastActionSignature {
   Element: HTMLButtonElement;
   Args: {
@@ -111,7 +107,6 @@ const ToastAction: TOC<ToastActionSignature> = <template>
   </button>
 </template>;
 
-// ToastClose Component
 interface ToastCloseSignature {
   Element: HTMLButtonElement;
   Args: {
@@ -135,7 +130,6 @@ const ToastClose: TOC<ToastCloseSignature> = <template>
   </button>
 </template>;
 
-// ToastTitle Component
 interface ToastTitleSignature {
   Element: HTMLDivElement;
   Args: {
@@ -155,7 +149,6 @@ const ToastTitle: TOC<ToastTitleSignature> = <template>
   </div>
 </template>;
 
-// ToastDescription Component
 interface ToastDescriptionSignature {
   Element: HTMLDivElement;
   Args: {

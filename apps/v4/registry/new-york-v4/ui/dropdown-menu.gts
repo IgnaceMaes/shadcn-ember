@@ -19,7 +19,6 @@ import { provide, consume } from 'ember-provide-consume-context';
 import { cn } from '@/lib/utils';
 
 import type { TOC } from '@ember/component/template-only';
-import type Owner from '@ember/owner';
 
 import Check from '~icons/lucide/check';
 import ChevronRight from '~icons/lucide/chevron-right';
@@ -78,17 +77,12 @@ interface DropdownMenuSignature {
 }
 
 class DropdownMenu extends Component<DropdownMenuSignature> {
-  @tracked isOpen: boolean;
+  @tracked isOpen?: boolean;
   @tracked isRendered = false;
   triggerElement: HTMLElement | null = null;
 
-  constructor(owner: Owner, args: DropdownMenuSignature['Args']) {
-    super(owner, args);
-    this.isOpen = args.open ?? args.defaultOpen ?? false;
-  }
-
   get open() {
-    return this.args.open ?? this.isOpen;
+    return this.args.open ?? this.isOpen ?? this.args.defaultOpen ?? false;
   }
 
   setOpen = (open: boolean) => {
@@ -222,17 +216,15 @@ class DropdownMenuGroup extends Component<DropdownMenuGroupSignature> {
   submenuCloseCallbacks: Set<() => void> = new Set();
   unregister?: () => void;
 
-  constructor(owner: Owner, args: DropdownMenuGroupSignature['Args']) {
-    super(owner, args);
-    this.unregister = this.menuContext.registerGroupCloseCallback?.(
+  register = modifier(() => {
+    const unregister = this.menuContext.registerGroupCloseCallback?.(
       this.closeAllSubmenus
     );
-  }
 
-  willDestroy() {
-    super.willDestroy();
-    this.unregister?.();
-  }
+    return () => {
+      unregister?.();
+    };
+  });
 
   closeAllSubmenus = () => {
     this.currentOpenSubmenu = null;
@@ -265,6 +257,7 @@ class DropdownMenuGroup extends Component<DropdownMenuGroupSignature> {
       class={{cn @class}}
       data-slot="dropdown-menu-group"
       role="group"
+      {{this.register}}
       ...attributes
     >
       {{yield}}
@@ -299,32 +292,27 @@ class DropdownMenuSub extends Component<DropdownMenuSubSignature> {
   @consume(DropdownMenuGroupContext)
   groupContext!: ContextRegistry[typeof DropdownMenuGroupContext];
 
-  @tracked isOpen: boolean;
+  @tracked isOpen?: boolean;
   @tracked isRendered = false;
   triggerElement: HTMLElement | null = null;
   unregister?: () => void;
   closeTimeout?: ReturnType<typeof setTimeout>;
 
-  constructor(owner: Owner, args: DropdownMenuSubSignature['Args']) {
-    super(owner, args);
-    this.isOpen = args.open ?? args.defaultOpen ?? false;
+  get open() {
+    return this.args.open ?? this.isOpen ?? this.args.defaultOpen ?? false;
+  }
 
-    this.unregister = this.groupContext.registerSubmenu(() => {
+  register = modifier(() => {
+    const unregister = this.groupContext.registerSubmenu(() => {
       this.isOpen = false;
     });
-  }
-
-  willDestroy() {
-    super.willDestroy();
-    this.unregister?.();
-    if (this.closeTimeout) {
-      clearTimeout(this.closeTimeout);
-    }
-  }
-
-  get open() {
-    return this.args.open ?? this.isOpen;
-  }
+    return () => {
+      unregister();
+      if (this.closeTimeout) {
+        clearTimeout(this.closeTimeout);
+      }
+    };
+  });
 
   setOpen = (open: boolean) => {
     if (open) {
@@ -375,7 +363,7 @@ class DropdownMenuSub extends Component<DropdownMenuSubSignature> {
   }
 
   <template>
-    <div data-slot="dropdown-menu-sub">
+    <div data-slot="dropdown-menu-sub" {{this.register}}>
       {{yield}}
     </div>
   </template>
@@ -394,15 +382,10 @@ interface DropdownMenuRadioGroupSignature {
 }
 
 class DropdownMenuRadioGroup extends Component<DropdownMenuRadioGroupSignature> {
-  @tracked internalValue: string;
-
-  constructor(owner: Owner, args: DropdownMenuRadioGroupSignature['Args']) {
-    super(owner, args);
-    this.internalValue = args.value ?? '';
-  }
+  @tracked internalValue?: string;
 
   get value() {
-    return this.args.value ?? this.internalValue;
+    return this.args.value ?? this.internalValue ?? '';
   }
 
   setValue = (value: string) => {
@@ -495,16 +478,10 @@ class DropdownMenuSubTrigger extends Component<DropdownMenuSubTriggerSignature> 
     const enterX = this.mouseEnterPosition.x;
     const enterY = this.mouseEnterPosition.y;
 
-    // Find the closest corner of the submenu
-    // The submenu is typically to the right, so we use left edge
     const submenuLeft = submenuRect.left;
     const submenuTop = submenuRect.top;
     const submenuBottom = submenuRect.bottom;
 
-    // Create a triangle between:
-    // 1. Mouse enter position
-    // 2. Top-left corner of submenu
-    // 3. Bottom-left corner of submenu
     return this.isPointInTriangle(
       mouseX,
       mouseY,
@@ -519,13 +496,11 @@ class DropdownMenuSubTrigger extends Component<DropdownMenuSubTriggerSignature> 
 
   handleMouseLeave = (event: MouseEvent) => {
     if (this.isMouseMovingTowardsSubmenu(event)) {
-      // Mouse might be moving towards submenu, use timeout
       const timeout = setTimeout(() => {
         this.context.setOpen(false);
       }, SUBMENU_CLOSE_DELAY);
       this.context.setPendingClose(timeout);
     } else {
-      // Mouse is moving away, close immediately
       this.context.setOpen(false);
     }
   };

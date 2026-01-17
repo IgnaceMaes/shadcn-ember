@@ -18,7 +18,6 @@ import { provide, consume } from 'ember-provide-consume-context';
 import { cn } from '@/lib/utils';
 
 import type { TOC } from '@ember/component/template-only';
-import type Owner from '@ember/owner';
 
 const PopoverContext = 'popover-context' as const;
 
@@ -47,17 +46,12 @@ interface PopoverSignature {
 }
 
 class Popover extends Component<PopoverSignature> {
-  @tracked isOpen = false;
+  @tracked isOpen?: boolean;
   @tracked isOpenOrClosing = false;
   triggerElement: HTMLElement | null = null;
 
-  constructor(owner: Owner, args: PopoverSignature['Args']) {
-    super(owner, args);
-    this.isOpen = args.open ?? args.defaultOpen ?? false;
-  }
-
   get open() {
-    return this.args.open ?? this.isOpen;
+    return this.args.open ?? this.isOpen ?? this.args.defaultOpen ?? false;
   }
 
   get isRendered() {

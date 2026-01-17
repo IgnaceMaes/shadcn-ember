@@ -4,8 +4,6 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { provide, consume } from 'ember-provide-consume-context';
 
-import type Owner from '@ember/owner';
-
 const CollapsibleContext = 'collapsible-context' as const;
 
 interface CollapsibleContextValue {
@@ -33,16 +31,11 @@ interface CollapsibleSignature {
 }
 
 class Collapsible extends Component<CollapsibleSignature> {
-  @tracked currentOpen: boolean;
+  @tracked currentOpen?: boolean;
   contentId = `collapsible-content-${guidFor(this)}`;
 
-  constructor(owner: Owner, args: CollapsibleSignature['Args']) {
-    super(owner, args);
-    this.currentOpen = args.open ?? args.defaultOpen ?? false;
-  }
-
   get open() {
-    return this.args.open ?? this.currentOpen;
+    return this.args.open ?? this.currentOpen ?? this.args.defaultOpen ?? false;
   }
 
   get disabled() {

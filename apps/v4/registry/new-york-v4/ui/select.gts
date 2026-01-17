@@ -18,7 +18,6 @@ import { provide, consume } from 'ember-provide-consume-context';
 import { cn } from '@/lib/utils';
 
 import type { TOC } from '@ember/component/template-only';
-import type Owner from '@ember/owner';
 
 import Check from '~icons/lucide/check';
 import ChevronDown from '~icons/lucide/chevron-down';
@@ -48,6 +47,7 @@ interface SelectSignature {
   Args: {
     value?: string;
     defaultValue?: string;
+    valueLabel?: string;
     onValueChange?: (value: string) => void;
     disabled?: boolean;
     name?: string;
@@ -61,17 +61,18 @@ interface SelectSignature {
 class Select extends Component<SelectSignature> {
   @tracked isOpen = false;
   @tracked isRendered = false;
-  @tracked selectedValue: string;
+  @tracked selectedValue?: string;
   @tracked selectedLabel = '';
   triggerElement: HTMLElement | null = null;
 
-  constructor(owner: Owner, args: SelectSignature['Args']) {
-    super(owner, args);
-    this.selectedValue = args.value ?? args.defaultValue ?? '';
+  get value() {
+    return (
+      this.args.value ?? this.selectedValue ?? this.args.defaultValue ?? ''
+    );
   }
 
-  get value() {
-    return this.args.value ?? this.selectedValue;
+  get resolvedLabel() {
+    return this.selectedLabel || this.args.valueLabel || '';
   }
 
   toggle = () => {
@@ -111,7 +112,7 @@ class Select extends Component<SelectSignature> {
   get context(): SelectContextValue {
     return {
       value: this.value,
-      selectedLabel: this.selectedLabel,
+      selectedLabel: this.resolvedLabel,
       isOpen: this.isOpen,
       isRendered: this.isRendered,
       disabled: this.args.disabled ?? false,
@@ -270,7 +271,6 @@ class SelectContent extends Component<SelectContentSignature> {
           this.x = x;
           this.y = y;
           this.triggerWidth = triggerElement.offsetWidth;
-          // Set trigger width as CSS variable
           element.style.setProperty(
             '--select-trigger-width',
             `${triggerElement.offsetWidth}px`

@@ -4,8 +4,6 @@ import { tracked } from '@glimmer/tracking';
 
 import { cn } from '@/lib/utils';
 
-import type Owner from '@ember/owner';
-
 type Variant = 'default' | 'outline';
 type Size = 'default' | 'sm' | 'lg';
 
@@ -49,15 +47,15 @@ function toggleVariants(
 }
 
 class Toggle extends Component<ToggleSignature> {
-  @tracked internalPressed: boolean;
-
-  constructor(owner: Owner, args: ToggleSignature['Args']) {
-    super(owner, args);
-    this.internalPressed = args.pressed ?? args.defaultPressed ?? false;
-  }
+  @tracked internalPressed?: boolean;
 
   get pressed() {
-    return this.args.pressed ?? this.internalPressed;
+    return (
+      this.args.pressed ??
+      this.internalPressed ??
+      this.args.defaultPressed ??
+      false
+    );
   }
 
   get classes() {
