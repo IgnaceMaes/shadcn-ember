@@ -1,5 +1,6 @@
 import { on } from '@ember/modifier';
 import { htmlSafe } from '@ember/template';
+import { next } from '@ember/runloop';
 import {
   computePosition,
   flip,
@@ -47,6 +48,7 @@ class Tooltip extends Component<TooltipSignature> {
   @tracked currentOpen?: boolean;
   @tracked isOpenOrClosing = false;
   triggerElement: HTMLElement | null = null;
+  shouldClose = false;
 
   get isOpen() {
     return this.args.open ?? this.currentOpen ?? this.args.defaultOpen ?? false;
@@ -58,10 +60,18 @@ class Tooltip extends Component<TooltipSignature> {
 
   setOpen = (open: boolean) => {
     if (open) {
+      this.shouldClose = false;
       this.isOpenOrClosing = true;
       this.currentOpen = true;
     } else {
-      this.currentOpen = false;
+      this.shouldClose = true;
+      // eslint-disable-next-line ember/no-runloop
+      next(() => {
+        if (this.shouldClose) {
+          this.currentOpen = false;
+          this.shouldClose = false;
+        }
+      });
     }
     this.args.onOpenChange?.(open);
   };
@@ -227,7 +237,7 @@ class TooltipContent extends Component<TooltipContentSignature> {
         placement,
         strategy: 'fixed',
         middleware: [
-          offset(this.args.sideOffset ?? 8),
+          offset(this.args.sideOffset ?? 10),
           flip(),
           shift({ padding: 8 }),
           arrow({ element: this.arrowElement! }),
@@ -303,6 +313,14 @@ class TooltipContent extends Component<TooltipContentSignature> {
     }
   };
 
+  handleMouseEnter = () => {
+    this.context.setOpen(true);
+  };
+
+  handleMouseLeave = () => {
+    this.context.setOpen(false);
+  };
+
   <template>
     {{#if this.context.isRendered}}
       {{#in-element this.destinationElement insertBefore=null}}
@@ -318,6 +336,8 @@ class TooltipContent extends Component<TooltipContentSignature> {
           role="tooltip"
           style={{this.positionStyle}}
           {{on "animationend" this.handleAnimationEnd}}
+          {{on "mouseenter" this.handleMouseEnter}}
+          {{on "mouseleave" this.handleMouseLeave}}
           {{this.positionContent}}
           ...attributes
         >
