@@ -47,6 +47,7 @@ interface SelectSignature {
   Args: {
     value?: string;
     defaultValue?: string;
+    valueLabel?: string;
     onValueChange?: (value: string) => void;
     disabled?: boolean;
     name?: string;
@@ -68,6 +69,10 @@ class Select extends Component<SelectSignature> {
     return (
       this.args.value ?? this.selectedValue ?? this.args.defaultValue ?? ''
     );
+  }
+
+  get resolvedLabel() {
+    return this.selectedLabel || this.args.valueLabel || '';
   }
 
   toggle = () => {
@@ -107,7 +112,7 @@ class Select extends Component<SelectSignature> {
   get context(): SelectContextValue {
     return {
       value: this.value,
-      selectedLabel: this.selectedLabel,
+      selectedLabel: this.resolvedLabel,
       isOpen: this.isOpen,
       isRendered: this.isRendered,
       disabled: this.args.disabled ?? false,

@@ -31,6 +31,10 @@ class ThemeSelector extends Component<ThemeSelectorSignature> {
       : this.theme.currentColorTheme;
   }
 
+  get valueLabel() {
+    return THEMES.find((t) => t.name === this.value)?.label ?? '';
+  }
+
   setActiveTheme = (value: string) => {
     this.theme.setColorTheme(value);
   };
@@ -40,7 +44,11 @@ class ThemeSelector extends Component<ThemeSelectorSignature> {
       <Label @class="sr-only" @for="theme-selector">
         Theme
       </Label>
-      <Select @onValueChange={{this.setActiveTheme}} @value={{this.value}}>
+      <Select
+        @onValueChange={{this.setActiveTheme}}
+        @value={{this.value}}
+        @valueLabel={{this.valueLabel}}
+      >
         <SelectTrigger
           @class="bg-secondary text-secondary-foreground border-secondary justify-start shadow-none *:data-[slot=select-value]:w-12"
           @size="sm"
@@ -65,5 +73,4 @@ class ThemeSelector extends Component<ThemeSelectorSignature> {
   </template>
 }
 
-export { ThemeSelector };
 export default ThemeSelector;
