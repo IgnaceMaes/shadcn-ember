@@ -1,18 +1,8 @@
 {
   "solution": {
     "shadcn-ember": {
-      "impact": "patch",
-      "oldVersion": "0.0.1",
-      "newVersion": "0.0.2",
-      "tagName": "latest",
-      "constraints": [
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :bug: Bug Fix"
-        }
-      ],
-      "pkgJSONPath": "./packages/cli/package.json"
+      "oldVersion": "0.0.2"
     }
   },
-  "description": "## Release (2026-01-17)\n\n* shadcn-ember 0.0.2 (patch)\n\n#### :bug: Bug Fix\n* `shadcn-ember`\n  * [#9](https://github.com/IgnaceMaes/shadcn-ember/pull/9) chore: fix command name ([@IgnaceMaes](https://github.com/IgnaceMaes))\n\n#### Committers: 1\n- Ignace Maes ([@IgnaceMaes](https://github.com/IgnaceMaes))\n"
+  "description": "## Release (2026-01-17)\n\n\n\n#### :bug: Bug Fix\n* [#11](https://github.com/IgnaceMaes/shadcn-ember/pull/11) chore: does this trigger a relaase? ([@IgnaceMaes](https://github.com/IgnaceMaes))\n\n#### Committers: 1\n- Ignace Maes ([@IgnaceMaes](https://github.com/IgnaceMaes))\n"
 }
