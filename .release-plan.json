@@ -1,8 +1,18 @@
 {
   "solution": {
     "shadcn-ember": {
-      "oldVersion": "0.0.2"
+      "impact": "patch",
+      "oldVersion": "0.0.2",
+      "newVersion": "0.0.3",
+      "tagName": "latest",
+      "constraints": [
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :bug: Bug Fix"
+        }
+      ],
+      "pkgJSONPath": "./packages/cli/package.json"
     }
   },
-  "description": "## Release (2026-01-17)\n\n\n\n#### :bug: Bug Fix\n* [#11](https://github.com/IgnaceMaes/shadcn-ember/pull/11) chore: does this trigger a relaase? ([@IgnaceMaes](https://github.com/IgnaceMaes))\n\n#### Committers: 1\n- Ignace Maes ([@IgnaceMaes](https://github.com/IgnaceMaes))\n"
+  "description": "## Release (2026-01-17)\n\n* shadcn-ember 0.0.3 (patch)\n\n#### :bug: Bug Fix\n* `shadcn-ember`\n  * [#12](https://github.com/IgnaceMaes/shadcn-ember/pull/12) fix: build first ([@IgnaceMaes](https://github.com/IgnaceMaes))\n* Other\n  * [#11](https://github.com/IgnaceMaes/shadcn-ember/pull/11) chore: does this trigger a relaase? ([@IgnaceMaes](https://github.com/IgnaceMaes))\n\n#### :house: Internal\n* [#10](https://github.com/IgnaceMaes/shadcn-ember/pull/10) Prepare Release vnull ([@github-actions[bot]](https://github.com/apps/github-actions))\n\n#### Committers: 2\n- GitHub Actions [Bot] ([@github-actions](https://github.com/apps/github-actions))\n- Ignace Maes ([@IgnaceMaes](https://github.com/IgnaceMaes))\n"
 }
