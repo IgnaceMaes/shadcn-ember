@@ -5,7 +5,7 @@ import compatModules from '@embroider/virtual/compat-modules';
 import loadInitializers from 'ember-load-initializers';
 import Resolver from 'ember-resolver';
 
-import config from 'shadcn-ember/config/environment';
+import config from 'shadcn-ember-docs/config/environment';
 import './app.css';
 
 // if (macroCondition(isDevelopingApp())) {

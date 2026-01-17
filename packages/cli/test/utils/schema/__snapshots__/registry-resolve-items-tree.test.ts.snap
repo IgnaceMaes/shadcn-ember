@@ -1,0 +1,1045 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`registryResolveItemTree > should resolve index 1`] = `
+{
+  "css": {},
+  "cssVars": {
+    "dark": {},
+    "light": {
+      "radius": "0.5rem",
+    },
+    "theme": {},
+  },
+  "dependencies": [
+    "tailwindcss-animate",
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge",
+  ],
+  "devDependencies": [],
+  "docs": "",
+  "files": [
+    {
+      "content": "import { clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+export function cn(...inputs: Parameters<typeof clsx>) {
+  return twMerge(clsx(inputs))
+}
+",
+      "path": "lib/utils.ts",
+      "target": "",
+      "type": "registry:lib",
+    },
+    {
+      "content": "export { default as Label } from "./Label.gts"
+",
+      "path": "ui/label/index.ts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "import Component from '@glimmer/component';
+
+import { cn } from '@/lib/utils';
+
+interface LabelSignature {
+  Element: HTMLLabelElement;
+  Args: {
+    class?: string;
+    for?: string;
+  };
+  Blocks: {
+    default: [];
+  };
+}
+
+class Label extends Component<LabelSignature> {
+  get classes() {
+    return cn(
+      'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
+      this.args.class
+    );
+  }
+
+  <template>
+    <label class={{this.classes}} for={{@for}} ...attributes>
+      {{yield}}
+    </label>
+  </template>
+}
+
+export { Label };
+",
+      "path": "ui/label/Label.gts",
+      "target": "",
+      "type": "registry:ui",
+    },
+  ],
+  "tailwind": {
+    "config": {
+      "plugins": [
+        "require("tailwindcss-animate")",
+      ],
+      "theme": {
+        "extend": {
+          "borderRadius": {
+            "lg": "var(--radius)",
+            "md": "calc(var(--radius) - 2px)",
+            "sm": "calc(var(--radius) - 4px)",
+          },
+          "colors": {},
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`registryResolveItemTree > should resolve items tree 1`] = `
+{
+  "css": {},
+  "cssVars": {},
+  "dependencies": [],
+  "devDependencies": [],
+  "docs": "",
+  "files": [
+    {
+      "content": "import Component from '@glimmer/component';
+
+import { cn } from '@/lib/utils';
+
+type Variant = 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
+type Size = 'default' | 'xs' | 'sm' | 'lg' | 'icon';
+
+interface ButtonSignature {
+  Element: HTMLButtonElement;
+  Args: {
+    variant?: Variant;
+    size?: Size;
+    class?: string;
+    asChild?: boolean;
+    type?: 'button' | 'submit' | 'reset';
+    disabled?: boolean;
+  };
+  Blocks: {
+    default: [];
+  };
+}
+
+function buttonVariants(
+  variant: Variant = 'default',
+  size: Size = 'default',
+  className?: string
+): string {
+  const baseClasses =
+    \"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0\";
+
+  const variantClasses: Record<Variant, string> = {
+    default: 'bg-primary text-primary-foreground shadow hover:bg-primary/90',
+    destructive: 'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
+    outline: 'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
+    secondary: 'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
+    ghost: 'hover:bg-accent hover:text-accent-foreground',
+    link: 'text-primary underline-offset-4 hover:underline',
+  };
+
+  const sizeClasses: Record<Size, string> = {
+    default: 'h-9 px-4 py-2',
+    xs: 'h-7 rounded px-2',
+    sm: 'h-8 rounded-md px-3 text-xs',
+    lg: 'h-10 rounded-md px-8',
+    icon: 'h-9 w-9',
+  };
+
+  return cn(baseClasses, variantClasses[variant], sizeClasses[size], className);
+}
+
+class Button extends Component<ButtonSignature> {
+  get classes() {
+    return buttonVariants(
+      this.args.variant ?? 'default',
+      this.args.size ?? 'default',
+      this.args.class
+    );
+  }
+
+  <template>
+    {{#if @asChild}}
+      {{yield this.classes}}
+    {{else}}
+      <button
+        class={{this.classes}}
+        disabled={{@disabled}}
+        type={{if @type @type \"button\"}}
+        ...attributes
+      >
+        {{yield}}
+      </button>
+    {{/if}}
+  </template>
+}
+
+export { Button, buttonVariants };
+",
+      "path": "ui/button/Button.gts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "export { Button, buttonVariants } from \"./Button.gts\"
+",
+      "path": "ui/button/index.ts",
+      "target": "",
+      "type": "registry:ui",
+    },
+  ],
+  "tailwind": {},
+}
+`;
+
+exports[`registryResolveItemTree > should resolve multiple items tree 1`] = `
+{
+  "css": {},
+  "cssVars": {},
+  "dependencies": [],
+  "devDependencies": [],
+  "docs": "",
+  "files": [
+    {
+      "content": "<script setup lang="ts">
+import type { PrimitiveProps } from "reka-ui"
+import type { HTMLAttributes } from "vue"
+import type { ButtonVariants } from "."
+import { Primitive } from "reka-ui"
+import { cn } from "@/lib/utils"
+import { buttonVariants } from "."
+
+interface Props extends PrimitiveProps {
+  variant?: ButtonVariants["variant"]
+  size?: ButtonVariants["size"]
+  class?: HTMLAttributes["class"]
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  as: "button",
+})
+</script>
+
+<template>
+  <Primitive
+    :as="as"
+    :as-child="asChild"
+    :class="cn(buttonVariants({ variant, size }), props.class)"
+  >
+    <slot />
+  </Primitive>
+</template>
+",
+      "path": "ui/button/Button.gts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "import type { VariantProps } from "class-variance-authority"
+import { cva } from "class-variance-authority"
+
+export { default as Button } from "./Button.gts"
+
+export const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        destructive:
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        outline:
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        secondary:
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-9 rounded-md px-3",
+        lg: "h-11 rounded-md px-8",
+        icon: "h-10 w-10",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  },
+)
+
+export type ButtonVariants = VariantProps<typeof buttonVariants>
+",
+      "path": "ui/button/index.ts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "export { default as Input } from "./Input.gts"
+",
+      "path": "ui/input/index.ts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "<script setup lang="ts">
+import type { HTMLAttributes } from "vue"
+import { useVModel } from "@vueuse/core"
+import { cn } from "@/lib/utils"
+
+const props = defineProps<{
+  defaultValue?: string | number
+  modelValue?: string | number
+  class?: HTMLAttributes["class"]
+}>()
+
+const emits = defineEmits<{
+  (e: "update:modelValue", payload: string | number): void
+}>()
+
+const modelValue = useVModel(props, "modelValue", emits, {
+  passive: true,
+  defaultValue: props.defaultValue,
+})
+</script>
+
+<template>
+  <input v-model="modelValue" :class="cn('flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-foreground file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50', props.class)">
+</template>
+",
+      "path": "ui/input/Input.gts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "<script setup lang="ts">
+import type { ListboxRootEmits, ListboxRootProps } from "reka-ui"
+import type { HTMLAttributes } from "vue"
+import { reactiveOmit } from "@vueuse/core"
+import { ListboxRoot, useFilter, useForwardPropsEmits } from "reka-ui"
+import { reactive, ref, watch } from "vue"
+import { cn } from "@/lib/utils"
+import { provideCommandContext } from "."
+
+const props = withDefaults(defineProps<ListboxRootProps & { class?: HTMLAttributes["class"] }>(), {
+  modelValue: "",
+})
+
+const emits = defineEmits<ListboxRootEmits>()
+
+const delegatedProps = reactiveOmit(props, "class")
+
+const forwarded = useForwardPropsEmits(delegatedProps, emits)
+
+const allItems = ref<Map<string, string>>(new Map())
+const allGroups = ref<Map<string, Set<string>>>(new Map())
+
+const { contains } = useFilter({ sensitivity: "base" })
+const filterState = reactive({
+  search: "",
+  filtered: {
+    /** The count of all visible items. */
+    count: 0,
+    /** Map from visible item id to its search score. */
+    items: new Map() as Map<string, number>,
+    /** Set of groups with at least one visible item. */
+    groups: new Set() as Set<string>,
+  },
+})
+
+function filterItems() {
+  if (!filterState.search) {
+    filterState.filtered.count = allItems.value.size
+    // Do nothing, each item will know to show itself because search is empty
+    return
+  }
+
+  // Reset the groups
+  filterState.filtered.groups = new Set()
+  let itemCount = 0
+
+  // Check which items should be included
+  for (const [id, value] of allItems.value) {
+    const score = contains(value, filterState.search)
+    filterState.filtered.items.set(id, score ? 1 : 0)
+    if (score)
+      itemCount++
+  }
+
+  // Check which groups have at least 1 item shown
+  for (const [groupId, group] of allGroups.value) {
+    for (const itemId of group) {
+      if (filterState.filtered.items.get(itemId)! > 0) {
+        filterState.filtered.groups.add(groupId)
+        break
+      }
+    }
+  }
+
+  filterState.filtered.count = itemCount
+}
+
+function handleSelect() {
+  filterState.search = ""
+}
+
+watch(() => filterState.search, () => {
+  filterItems()
+})
+
+provideCommandContext({
+  allItems,
+  allGroups,
+  filterState,
+})
+</script>
+
+<template>
+  <ListboxRoot
+    v-bind="forwarded"
+    :class="cn('flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground', props.class)"
+  >
+    <slot />
+  </ListboxRoot>
+</template>
+",
+      "path": "ui/command/Command.gts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "<script setup lang="ts">
+import type { DialogRootEmits, DialogRootProps } from "reka-ui"
+import { useForwardPropsEmits } from "reka-ui"
+import { Dialog, DialogContent } from "@/registry/default/ui/dialog"
+import Command from "./Command.gts"
+
+const props = defineProps<DialogRootProps>()
+const emits = defineEmits<DialogRootEmits>()
+
+const forwarded = useForwardPropsEmits(props, emits)
+</script>
+
+<template>
+  <Dialog v-bind="forwarded">
+    <DialogContent class="overflow-hidden p-0 shadow-lg">
+      <Command class="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
+        <slot />
+      </Command>
+    </DialogContent>
+  </Dialog>
+</template>
+",
+      "path": "ui/command/CommandDialog.gts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "<script setup lang="ts">
+import type { PrimitiveProps } from "reka-ui"
+import type { HTMLAttributes } from "vue"
+import { reactiveOmit } from "@vueuse/core"
+import { Primitive } from "reka-ui"
+import { computed } from "vue"
+import { cn } from "@/lib/utils"
+import { useCommand } from "."
+
+const props = defineProps<PrimitiveProps & { class?: HTMLAttributes["class"] }>()
+
+const delegatedProps = reactiveOmit(props, "class")
+
+const { filterState } = useCommand()
+const isRender = computed(() => !!filterState.search && filterState.filtered.count === 0,
+)
+</script>
+
+<template>
+  <Primitive v-if="isRender" v-bind="delegatedProps" :class="cn('py-6 text-center text-sm', props.class)">
+    <slot />
+  </Primitive>
+</template>
+",
+      "path": "ui/command/CommandEmpty.gts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "<script setup lang="ts">
+import type { ListboxGroupProps } from "reka-ui"
+import type { HTMLAttributes } from "vue"
+import { reactiveOmit } from "@vueuse/core"
+import { ListboxGroup, ListboxGroupLabel, useId } from "reka-ui"
+import { computed, onMounted, onUnmounted } from "vue"
+import { cn } from "@/lib/utils"
+import { provideCommandGroupContext, useCommand } from "."
+
+const props = defineProps<ListboxGroupProps & {
+  class?: HTMLAttributes["class"]
+  heading?: string
+}>()
+
+const delegatedProps = reactiveOmit(props, "class")
+
+const { allGroups, filterState } = useCommand()
+const id = useId()
+
+const isRender = computed(() => !filterState.search ? true : filterState.filtered.groups.has(id))
+
+provideCommandGroupContext({ id })
+onMounted(() => {
+  if (!allGroups.value.has(id))
+    allGroups.value.set(id, new Set())
+})
+onUnmounted(() => {
+  allGroups.value.delete(id)
+})
+</script>
+
+<template>
+  <ListboxGroup
+    v-bind="delegatedProps"
+    :id="id"
+    :class="cn('overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground', props.class)"
+    :hidden="isRender ? undefined : true"
+  >
+    <ListboxGroupLabel v-if="heading" class="px-2 py-1.5 text-xs font-medium text-muted-foreground">
+      {{ heading }}
+    </ListboxGroupLabel>
+    <slot />
+  </ListboxGroup>
+</template>
+",
+      "path": "ui/command/CommandGroup.gts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "<script setup lang="ts">
+import type { ListboxFilterProps } from "reka-ui"
+import type { HTMLAttributes } from "vue"
+import { reactiveOmit } from "@vueuse/core"
+import { Search } from "lucide-vue-next"
+import { ListboxFilter, useForwardProps } from "reka-ui"
+import { cn } from "@/lib/utils"
+import { useCommand } from "."
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const props = defineProps<ListboxFilterProps & {
+  class?: HTMLAttributes["class"]
+}>()
+
+const delegatedProps = reactiveOmit(props, "class")
+
+const forwardedProps = useForwardProps(delegatedProps)
+
+const { filterState } = useCommand()
+</script>
+
+<template>
+  <div class="flex items-center border-b px-3" cmdk-input-wrapper>
+    <Search class="mr-2 h-4 w-4 shrink-0 opacity-50" />
+    <ListboxFilter
+      v-bind="{ ...forwardedProps, ...$attrs }"
+      v-model="filterState.search"
+      auto-focus
+      :class="cn('flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50', props.class)"
+    />
+  </div>
+</template>
+",
+      "path": "ui/command/CommandInput.gts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "<script setup lang="ts">
+import type { ListboxItemEmits, ListboxItemProps } from "reka-ui"
+import type { HTMLAttributes } from "vue"
+import { reactiveOmit, useCurrentElement } from "@vueuse/core"
+import { ListboxItem, useForwardPropsEmits, useId } from "reka-ui"
+import { computed, onMounted, onUnmounted, ref } from "vue"
+import { cn } from "@/lib/utils"
+import { useCommand, useCommandGroup } from "."
+
+const props = defineProps<ListboxItemProps & { class?: HTMLAttributes["class"] }>()
+const emits = defineEmits<ListboxItemEmits>()
+
+const delegatedProps = reactiveOmit(props, "class")
+
+const forwarded = useForwardPropsEmits(delegatedProps, emits)
+
+const id = useId()
+const { filterState, allItems, allGroups } = useCommand()
+const groupContext = useCommandGroup()
+
+const isRender = computed(() => {
+  if (!filterState.search) {
+    return true
+  }
+  else {
+    const filteredCurrentItem = filterState.filtered.items.get(id)
+    // If the filtered items is undefined means not in the all times map yet
+    // Do the first render to add into the map
+    if (filteredCurrentItem === undefined) {
+      return true
+    }
+
+    // Check with filter
+    return filteredCurrentItem > 0
+  }
+})
+
+const itemRef = ref()
+const currentElement = useCurrentElement(itemRef)
+onMounted(() => {
+  if (!(currentElement.value instanceof HTMLElement))
+    return
+
+  // textValue to perform filter
+  allItems.value.set(id, currentElement.value.textContent ?? props?.value!.toString())
+
+  const groupId = groupContext?.id
+  if (groupId) {
+    if (!allGroups.value.has(groupId)) {
+      allGroups.value.set(groupId, new Set([id]))
+    }
+    else {
+      allGroups.value.get(groupId)?.add(id)
+    }
+  }
+})
+onUnmounted(() => {
+  allItems.value.delete(id)
+})
+</script>
+
+<template>
+  <ListboxItem
+    v-if="isRender"
+    v-bind="forwarded"
+    :id="id"
+    ref="itemRef"
+    :class="cn('relative flex cursor-default gap-2 select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0', props.class)"
+    @select="() => {
+      filterState.search = ''
+    }"
+  >
+    <slot />
+  </ListboxItem>
+</template>
+",
+      "path": "ui/command/CommandItem.gts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "<script setup lang="ts">
+import type { ListboxContentProps } from "reka-ui"
+import type { HTMLAttributes } from "vue"
+import { reactiveOmit } from "@vueuse/core"
+import { ListboxContent, useForwardProps } from "reka-ui"
+import { cn } from "@/lib/utils"
+
+const props = defineProps<ListboxContentProps & { class?: HTMLAttributes["class"] }>()
+
+const delegatedProps = reactiveOmit(props, "class")
+
+const forwarded = useForwardProps(delegatedProps)
+</script>
+
+<template>
+  <ListboxContent v-bind="forwarded" :class="cn('max-h-[300px] overflow-y-auto overflow-x-hidden', props.class)">
+    <div role="presentation">
+      <slot />
+    </div>
+  </ListboxContent>
+</template>
+",
+      "path": "ui/command/CommandList.gts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "<script setup lang="ts">
+import type { SeparatorProps } from "reka-ui"
+import type { HTMLAttributes } from "vue"
+import { reactiveOmit } from "@vueuse/core"
+import { Separator } from "reka-ui"
+import { cn } from "@/lib/utils"
+
+const props = defineProps<SeparatorProps & { class?: HTMLAttributes["class"] }>()
+
+const delegatedProps = reactiveOmit(props, "class")
+</script>
+
+<template>
+  <Separator
+    v-bind="delegatedProps"
+    :class="cn('-mx-1 h-px bg-border', props.class)"
+  >
+    <slot />
+  </Separator>
+</template>
+",
+      "path": "ui/command/CommandSeparator.gts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "<script setup lang="ts">
+import type { HTMLAttributes } from "vue"
+import { cn } from "@/lib/utils"
+
+const props = defineProps<{
+  class?: HTMLAttributes["class"]
+}>()
+</script>
+
+<template>
+  <span :class="cn('ml-auto text-xs tracking-widest text-muted-foreground', props.class)">
+    <slot />
+  </span>
+</template>
+",
+      "path": "ui/command/CommandShortcut.gts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "import type { Ref } from "vue"
+import { createContext } from "reka-ui"
+
+export { default as Command } from "./Command.gts"
+export { default as CommandDialog } from "./CommandDialog.gts"
+export { default as CommandEmpty } from "./CommandEmpty.gts"
+export { default as CommandGroup } from "./CommandGroup.gts"
+export { default as CommandInput } from "./CommandInput.gts"
+export { default as CommandItem } from "./CommandItem.gts"
+export { default as CommandList } from "./CommandList.gts"
+export { default as CommandSeparator } from "./CommandSeparator.gts"
+export { default as CommandShortcut } from "./CommandShortcut.gts"
+
+export const [useCommand, provideCommandContext] = createContext<{
+  allItems: Ref<Map<string, string>>
+  allGroups: Ref<Map<string, Set<string>>>
+  filterState: {
+    search: string
+    filtered: { count: number, items: Map<string, number>, groups: Set<string> }
+  }
+}>("Command")
+
+export const [useCommandGroup, provideCommandGroupContext] = createContext<{
+  id?: string
+}>("CommandGroup")
+",
+      "path": "ui/command/index.ts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "<script setup lang="ts">
+import type { DialogRootEmits, DialogRootProps } from "reka-ui"
+import { DialogRoot, useForwardPropsEmits } from "reka-ui"
+
+const props = defineProps<DialogRootProps>()
+const emits = defineEmits<DialogRootEmits>()
+
+const forwarded = useForwardPropsEmits(props, emits)
+</script>
+
+<template>
+  <DialogRoot v-bind="forwarded">
+    <slot />
+  </DialogRoot>
+</template>
+",
+      "path": "ui/dialog/Dialog.gts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "<script setup lang="ts">
+import type { DialogCloseProps } from "reka-ui"
+import { DialogClose } from "reka-ui"
+
+const props = defineProps<DialogCloseProps>()
+</script>
+
+<template>
+  <DialogClose v-bind="props">
+    <slot />
+  </DialogClose>
+</template>
+",
+      "path": "ui/dialog/DialogClose.gts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "<script setup lang="ts">
+import type { DialogContentEmits, DialogContentProps } from "reka-ui"
+import type { HTMLAttributes } from "vue"
+import { reactiveOmit } from "@vueuse/core"
+import { X } from "lucide-vue-next"
+import {
+  DialogClose,
+  DialogContent,
+  DialogOverlay,
+  DialogPortal,
+  useForwardPropsEmits,
+} from "reka-ui"
+import { cn } from "@/lib/utils"
+
+const props = defineProps<DialogContentProps & { class?: HTMLAttributes["class"] }>()
+const emits = defineEmits<DialogContentEmits>()
+
+const delegatedProps = reactiveOmit(props, "class")
+
+const forwarded = useForwardPropsEmits(delegatedProps, emits)
+</script>
+
+<template>
+  <DialogPortal>
+    <DialogOverlay
+      class="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
+    />
+    <DialogContent
+      v-bind="forwarded"
+      :class="
+        cn(
+          'fixed left-1/2 top-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg',
+          props.class,
+        )"
+    >
+      <slot />
+
+      <DialogClose
+        class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
+      >
+        <X class="w-4 h-4" />
+        <span class="sr-only">Close</span>
+      </DialogClose>
+    </DialogContent>
+  </DialogPortal>
+</template>
+",
+      "path": "ui/dialog/DialogContent.gts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "<script setup lang="ts">
+import type { DialogDescriptionProps } from "reka-ui"
+import type { HTMLAttributes } from "vue"
+import { reactiveOmit } from "@vueuse/core"
+import { DialogDescription, useForwardProps } from "reka-ui"
+import { cn } from "@/lib/utils"
+
+const props = defineProps<DialogDescriptionProps & { class?: HTMLAttributes["class"] }>()
+
+const delegatedProps = reactiveOmit(props, "class")
+
+const forwardedProps = useForwardProps(delegatedProps)
+</script>
+
+<template>
+  <DialogDescription
+    v-bind="forwardedProps"
+    :class="cn('text-sm text-muted-foreground', props.class)"
+  >
+    <slot />
+  </DialogDescription>
+</template>
+",
+      "path": "ui/dialog/DialogDescription.gts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "<script setup lang="ts">
+import type { HTMLAttributes } from "vue"
+import { cn } from "@/lib/utils"
+
+const props = defineProps<{ class?: HTMLAttributes["class"] }>()
+</script>
+
+<template>
+  <div
+    :class="
+      cn(
+        'flex flex-col-reverse sm:flex-row sm:justify-end sm:gap-x-2',
+        props.class,
+      )
+    "
+  >
+    <slot />
+  </div>
+</template>
+",
+      "path": "ui/dialog/DialogFooter.gts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "<script setup lang="ts">
+import type { HTMLAttributes } from "vue"
+import { cn } from "@/lib/utils"
+
+const props = defineProps<{
+  class?: HTMLAttributes["class"]
+}>()
+</script>
+
+<template>
+  <div
+    :class="cn('flex flex-col gap-y-1.5 text-center sm:text-left', props.class)"
+  >
+    <slot />
+  </div>
+</template>
+",
+      "path": "ui/dialog/DialogHeader.gts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "<script setup lang="ts">
+import type { DialogContentEmits, DialogContentProps } from "reka-ui"
+import type { HTMLAttributes } from "vue"
+import { reactiveOmit } from "@vueuse/core"
+import { X } from "lucide-vue-next"
+import {
+  DialogClose,
+  DialogContent,
+  DialogOverlay,
+  DialogPortal,
+  useForwardPropsEmits,
+} from "reka-ui"
+import { cn } from "@/lib/utils"
+
+const props = defineProps<DialogContentProps & { class?: HTMLAttributes["class"] }>()
+const emits = defineEmits<DialogContentEmits>()
+
+const delegatedProps = reactiveOmit(props, "class")
+
+const forwarded = useForwardPropsEmits(delegatedProps, emits)
+</script>
+
+<template>
+  <DialogPortal>
+    <DialogOverlay
+      class="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
+    >
+      <DialogContent
+        :class="
+          cn(
+            'relative z-50 grid w-full max-w-lg my-8 gap-4 border border-border bg-background p-6 shadow-lg duration-200 sm:rounded-lg md:w-full',
+            props.class,
+          )
+        "
+        v-bind="forwarded"
+        @pointer-down-outside="(event) => {
+          const originalEvent = event.detail.originalEvent;
+          const target = originalEvent.target as HTMLElement;
+          if (originalEvent.offsetX > target.clientWidth || originalEvent.offsetY > target.clientHeight) {
+            event.preventDefault();
+          }
+        }"
+      >
+        <slot />
+
+        <DialogClose
+          class="absolute top-3 right-3 p-0.5 transition-colors rounded-md hover:bg-secondary"
+        >
+          <X class="w-4 h-4" />
+          <span class="sr-only">Close</span>
+        </DialogClose>
+      </DialogContent>
+    </DialogOverlay>
+  </DialogPortal>
+</template>
+",
+      "path": "ui/dialog/DialogScrollContent.gts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "<script setup lang="ts">
+import type { DialogTitleProps } from "reka-ui"
+import type { HTMLAttributes } from "vue"
+import { reactiveOmit } from "@vueuse/core"
+import { DialogTitle, useForwardProps } from "reka-ui"
+import { cn } from "@/lib/utils"
+
+const props = defineProps<DialogTitleProps & { class?: HTMLAttributes["class"] }>()
+
+const delegatedProps = reactiveOmit(props, "class")
+
+const forwardedProps = useForwardProps(delegatedProps)
+</script>
+
+<template>
+  <DialogTitle
+    v-bind="forwardedProps"
+    :class="
+      cn(
+        'text-lg font-semibold leading-none tracking-tight',
+        props.class,
+      )
+    "
+  >
+    <slot />
+  </DialogTitle>
+</template>
+",
+      "path": "ui/dialog/DialogTitle.gts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "<script setup lang="ts">
+import type { DialogTriggerProps } from "reka-ui"
+import { DialogTrigger } from "reka-ui"
+
+const props = defineProps<DialogTriggerProps>()
+</script>
+
+<template>
+  <DialogTrigger v-bind="props">
+    <slot />
+  </DialogTrigger>
+</template>
+",
+      "path": "ui/dialog/DialogTrigger.gts",
+      "target": "",
+      "type": "registry:ui",
+    },
+    {
+      "content": "export { default as Dialog } from "./Dialog.gts"
+export { default as DialogClose } from "./DialogClose.gts"
+export { default as DialogContent } from "./DialogContent.gts"
+export { default as DialogDescription } from "./DialogDescription.gts"
+export { default as DialogFooter } from "./DialogFooter.gts"
+export { default as DialogHeader } from "./DialogHeader.gts"
+export { default as DialogScrollContent } from "./DialogScrollContent.gts"
+export { default as DialogTitle } from "./DialogTitle.gts"
+export { default as DialogTrigger } from "./DialogTrigger.gts"
+",
+      "path": "ui/dialog/index.ts",
+      "target": "",
+      "type": "registry:ui",
+    },
+  ],
+  "tailwind": {},
+}
+`;

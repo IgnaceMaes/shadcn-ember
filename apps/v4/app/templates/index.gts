@@ -18,11 +18,11 @@ import SpinnerBadge from '@/components/docs/examples/spinner-badge';
 import SpinnerEmpty from '@/components/docs/examples/spinner-empty';
 import ThemeSelector from '@/components/theme-selector';
 import { Button } from '@/components/ui/button';
-import ButtonGroupInputGroup from 'shadcn-ember/components/docs/examples/button-group-input-group';
-import EmptyAvatarGroup from 'shadcn-ember/components/docs/examples/empty-avatar-group';
-import { ExamplesNav } from 'shadcn-ember/components/examples-nav';
-import { PageNav } from 'shadcn-ember/components/page-nav';
-import { FieldSeparator } from 'shadcn-ember/components/ui/field';
+import ButtonGroupInputGroup from 'shadcn-ember-docs/components/docs/examples/button-group-input-group';
+import EmptyAvatarGroup from 'shadcn-ember-docs/components/docs/examples/empty-avatar-group';
+import { ExamplesNav } from 'shadcn-ember-docs/components/examples-nav';
+import { PageNav } from 'shadcn-ember-docs/components/page-nav';
+import { FieldSeparator } from 'shadcn-ember-docs/components/ui/field';
 
 import type ThemeService from '@/services/theme';
 

@@ -1,0 +1,104 @@
+{
+  "name": "shadcn-ember",
+  "type": "module",
+  "version": "0.0.0",
+  "description": "shadcn/ui, but for Ember",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IgnaceMaes/shadcn-ember.git",
+    "directory": "packages/cli"
+  },
+  "keywords": [
+    "components",
+    "ui",
+    "ember",
+    "glimmer",
+    "tailwind",
+    "shadcn",
+    "shadcn-ember"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./registry": {
+      "types": "./dist/registry/index.d.ts",
+      "default": "./dist/registry/index.js"
+    },
+    "./schema": {
+      "types": "./dist/schema/index.d.ts",
+      "default": "./dist/schema/index.js"
+    },
+    "./mcp": {
+      "types": "./dist/mcp/index.d.ts",
+      "default": "./dist/mcp/index.js"
+    }
+  },
+  "bin": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsdown --watch",
+    "build": "tsdown",
+    "typecheck": "tsc --noEmit",
+    "clean": "node ./scripts/rimraf.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "start:dev": "REGISTRY_URL=http://localhost:3000/r node dist/index.js",
+    "start": "node dist/index.js",
+    "release": "changeset version",
+    "pub:beta": "pnpm build && pnpm publish --no-git-checks --access public --tag beta",
+    "pub:next": "pnpm build && pnpm publish --no-git-checks --access public --tag next",
+    "pub:release": "pnpm build && pnpm publish  --no-git-checks --access public",
+    "test": "vitest run",
+    "test:update": "vitest run -u",
+    "test:ui": "vitest --ui"
+  },
+  "dependencies": {
+    "@codemod-utils/ast-template-tag": "^0.6.0",
+    "@dotenvx/dotenvx": "^1.51.1",
+    "@modelcontextprotocol/sdk": "^1.24.3",
+    "c12": "^3.3.2",
+    "commander": "^14.0.2",
+    "consola": "^3.4.2",
+    "dedent": "^1.7.0",
+    "deepmerge": "^4.3.1",
+    "diff": "^8.0.2",
+    "fs-extra": "^11.3.2",
+    "fuzzysort": "^3.1.0",
+    "get-tsconfig": "^4.13.0",
+    "magic-string": "^0.30.21",
+    "nypm": "^0.6.2",
+    "ofetch": "^1.5.1",
+    "ora": "^9.0.0",
+    "pathe": "catalog:",
+    "postcss": "^8.5.6",
+    "prompts": "^2.4.2",
+    "semver": "^7.7.3",
+    "stringify-object": "^6.0.0",
+    "tailwindcss": "^4.1.17",
+    "tinyexec": "^1.0.2",
+    "tinyglobby": "catalog:",
+    "ts-morph": "^27.0.2",
+    "undici": "^7.16.0",
+    "zod": "catalog:",
+    "zod-to-json-schema": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "catalog:",
+    "@types/prompts": "^2.4.9",
+    "@types/semver": "^7.7.1",
+    "@types/stringify-object": "^4.0.5",
+    "msw": "^2.12.4",
+    "tsdown": "^0.17.2",
+    "type-fest": "^5.3.1",
+    "typescript": "catalog:"
+  }
+}

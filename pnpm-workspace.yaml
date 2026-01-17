@@ -1,2 +1,10 @@
 packages:
   - 'apps/*'
+  - 'packages/*'
+
+catalog:
+  '@types/node': ^24
+  pathe: ^2.0.3
+  tinyglobby: ^0.2.15
+  typescript: ^5.9.3
+  zod: ^3.25.76

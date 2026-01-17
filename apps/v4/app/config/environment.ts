@@ -1,7 +1,7 @@
 import { assert } from '@ember/debug';
 import loadConfigFromMeta from '@embroider/config-meta-loader';
 
-const config = loadConfigFromMeta('shadcn-ember') as unknown;
+const config = loadConfigFromMeta('shadcn-ember-docs') as unknown;
 
 assert(
   'config is not an object',

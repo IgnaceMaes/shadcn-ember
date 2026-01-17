@@ -1,0 +1,464 @@
+import type { Registry } from '../../../packages/cli/src/registry/schema';
+
+export const ui: Registry['items'] = [
+  {
+    name: 'accordion',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/accordion.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'alert',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/alert.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'aspect-ratio',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/aspect-ratio.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'avatar',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/avatar.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'badge',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/badge.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'breadcrumb',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/breadcrumb.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'button-group',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/button-group.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'button',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/button.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'card',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/card.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'checkbox',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/checkbox.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'collapsible',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/collapsible.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'command',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/command.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'context-menu',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/context-menu.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'dialog',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/dialog.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'dropdown-menu',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/dropdown-menu.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'empty',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/empty.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'field',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/field.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'hover-card',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/hover-card.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'input-group',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/input-group.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'input-otp',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/input-otp.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'input',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/input.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'item',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/item.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'kbd',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/kbd.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'label',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/label.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'native-select',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/native-select.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'pagination',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/pagination.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'popover',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/popover.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'progress',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/progress.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'radio-group',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/radio-group.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'scroll-area',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/scroll-area.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'select',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/select.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'separator',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/separator.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'sheet',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/sheet.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'sidebar',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/sidebar.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'skeleton',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/skeleton.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'slider',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/slider.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'spinner',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/spinner.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'switch',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/switch.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'table',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/table.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'tabs',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/tabs.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'textarea',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/textarea.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'toast',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/toast.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'toaster',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/toaster.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'toggle-group',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/toggle-group.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'toggle',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/toggle.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'tooltip',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/tooltip.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+];

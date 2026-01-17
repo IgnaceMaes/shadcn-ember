@@ -1,11 +1,11 @@
 {
   "extends": "@ember/app-tsconfig",
-  "include": ["app", "tests", "types"],
+  "include": ["app", "tests", "types", "registry/**/*", "scripts"],
   "compilerOptions": {
     "allowJs": true,
     "paths": {
-      "shadcn-ember/tests/*": ["./tests/*"],
-      "shadcn-ember/*": ["./app/*"],
+      "shadcn-ember-docs/tests/*": ["./tests/*"],
+      "shadcn-ember-docs/*": ["./app/*"],
       "*": ["./types/*"],
       "@/*": ["./app/*"]
     },

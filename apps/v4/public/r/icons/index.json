@@ -1,0 +1,224 @@
+{
+  "AlertCircle": {
+    "lucide": "AlertCircle",
+    "radix": "ExclamationTriangleIcon",
+    "tabler": "IconExclamationCircle",
+    "phosphor": "PhWarningCircle"
+  },
+  "ArrowLeft": {
+    "lucide": "ArrowLeft",
+    "radix": "ArrowLeftIcon",
+    "tabler": "IconArrowLeft",
+    "phosphor": "PhArrowLeft"
+  },
+  "ArrowRight": {
+    "lucide": "ArrowRight",
+    "radix": "ArrowRightIcon",
+    "tabler": "IconArrowRight",
+    "phosphor": "PhArrowRight"
+  },
+  "ArrowUpDown": {
+    "lucide": "ArrowUpDown",
+    "radix": "CaretSortIcon",
+    "tabler": "IconArrowsSort",
+    "phosphor": "PhArrowsVertical"
+  },
+  "BellRing": {
+    "lucide": "BellRing",
+    "radix": "BellIcon",
+    "tabler": "IconBellRinging",
+    "phosphor": "PhBellRinging"
+  },
+  "Bold": {
+    "lucide": "Bold",
+    "radix": "FontBoldIcon",
+    "tabler": "IconBold",
+    "phosphor": "PhTextB"
+  },
+  "Calculator": {
+    "lucide": "Calculator",
+    "radix": "ComponentPlaceholderIcon",
+    "tabler": "IconCalculator",
+    "phosphor": "PhCalculator"
+  },
+  "Calendar": {
+    "lucide": "Calendar",
+    "radix": "CalendarIcon",
+    "tabler": "IconCalendar",
+    "phosphor": "PhCalendarBlank"
+  },
+  "Check": {
+    "lucide": "Check",
+    "radix": "CheckIcon",
+    "tabler": "IconCheck",
+    "phosphor": "PhCheck"
+  },
+  "ChevronDown": {
+    "lucide": "ChevronDown",
+    "radix": "ChevronDownIcon",
+    "tabler": "IconChevronDown",
+    "phosphor": "PhCaretDown"
+  },
+  "ChevronLeft": {
+    "lucide": "ChevronLeft",
+    "radix": "ChevronLeftIcon",
+    "tabler": "IconChevronLeft",
+    "phosphor": "PhCaretLeft"
+  },
+  "ChevronRight": {
+    "lucide": "ChevronRight",
+    "radix": "ChevronRightIcon",
+    "tabler": "IconChevronRight",
+    "phosphor": "PhCaretRight"
+  },
+  "ChevronUp": {
+    "lucide": "ChevronUp",
+    "radix": "ChevronUpIcon",
+    "tabler": "IconChevronUp",
+    "phosphor": "PhCaretUp"
+  },
+  "ChevronsUpDown": {
+    "lucide": "ChevronsUpDown",
+    "radix": "CaretSortIcon",
+    "tabler": "IconSelector",
+    "phosphor": "PhCaretUpDown"
+  },
+  "Circle": {
+    "lucide": "Circle",
+    "radix": "DotFilledIcon",
+    "tabler": "IconCircle",
+    "phosphor": "PhCircle"
+  },
+  "Copy": {
+    "lucide": "Copy",
+    "radix": "CopyIcon",
+    "tabler": "IconCopy",
+    "phosphor": "PhCopy"
+  },
+  "CreditCard": {
+    "lucide": "CreditCard",
+    "radix": "ComponentPlaceholderIcon",
+    "tabler": "IconCreditCard",
+    "phosphor": "PhCreditCard"
+  },
+  "GripVertical": {
+    "lucide": "GripVertical",
+    "radix": "DragHandleDots2Icon",
+    "tabler": "IconGripVertical",
+    "phosphor": "PhDotsSixVertical"
+  },
+  "Italic": {
+    "lucide": "Italic",
+    "radix": "FontItalicIcon",
+    "tabler": "IconItalic",
+    "phosphor": "PhTextItalic"
+  },
+  "Loader2": {
+    "lucide": "Loader2",
+    "radix": "ReloadIcon",
+    "tabler": "IconLoader2",
+    "phosphor": "PhCircleNotch"
+  },
+  "Mail": {
+    "lucide": "Mail",
+    "radix": "EnvelopeClosedIcon",
+    "tabler": "IconMail",
+    "phosphor": "PhEnvelopeSimple"
+  },
+  "MailOpen": {
+    "lucide": "MailOpen",
+    "radix": "EnvelopeOpenIcon",
+    "tabler": "IconMailOpened",
+    "phosphor": "PhEnvelopeSimpleOpen"
+  },
+  "Minus": {
+    "lucide": "Minus",
+    "radix": "MinusIcon",
+    "tabler": "IconMinus",
+    "phosphor": "PhMinus"
+  },
+  "Moon": {
+    "lucide": "Moon",
+    "radix": "MoonIcon",
+    "tabler": "IconMoon",
+    "phosphor": "PhMoon"
+  },
+  "MoreHorizontal": {
+    "lucide": "MoreHorizontal",
+    "radix": "DotsHorizontalIcon",
+    "tabler": "IconDots",
+    "phosphor": "PhDotsThree"
+  },
+  "PanelLeft": {
+    "lucide": "PanelLeft",
+    "radix": "ViewVerticalIcon",
+    "tabler": "IconLayoutSidebar",
+    "phosphor": "PhSidebarSimple"
+  },
+  "Plus": {
+    "lucide": "Plus",
+    "radix": "PlusIcon",
+    "tabler": "IconPlus",
+    "phosphor": "PhPlus"
+  },
+  "Search": {
+    "lucide": "Search",
+    "radix": "MagnifyingGlassIcon",
+    "tabler": "IconSearch",
+    "phosphor": "PhMagnifyingGlass"
+  },
+  "Send": {
+    "lucide": "Send",
+    "radix": "PaperPlaneIcon",
+    "tabler": "IconSend",
+    "phosphor": "PhPaperPlaneTilt"
+  },
+  "Settings": {
+    "lucide": "Settings",
+    "radix": "GearIcon",
+    "tabler": "IconSettings",
+    "phosphor": "PhGear"
+  },
+  "Slash": {
+    "lucide": "Slash",
+    "radix": "SlashIcon",
+    "tabler": "IconSlash",
+    "phosphor": "PhCaretRight"
+  },
+  "Smile": {
+    "lucide": "Smile",
+    "radix": "FaceIcon",
+    "tabler": "IconMoodSmile",
+    "phosphor": "PhSmiley"
+  },
+  "Sun": {
+    "lucide": "Sun",
+    "radix": "SunIcon",
+    "tabler": "IconSun",
+    "phosphor": "PhSun"
+  },
+  "Terminal": {
+    "lucide": "Terminal",
+    "radix": "RocketIcon",
+    "tabler": "IconTerminal",
+    "phosphor": "PhTerminal"
+  },
+  "Underline": {
+    "lucide": "Underline",
+    "radix": "UnderlineIcon",
+    "tabler": "IconUnderline",
+    "phosphor": "PhTextUnderline"
+  },
+  "User": {
+    "lucide": "User",
+    "radix": "PersonIcon",
+    "tabler": "IconUser",
+    "phosphor": "PhUser"
+  },
+  "X": {
+    "lucide": "X",
+    "radix": "Cross2Icon",
+    "tabler": "IconX",
+    "phosphor": "PhX"
+  }
+}
