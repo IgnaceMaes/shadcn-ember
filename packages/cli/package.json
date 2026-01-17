@@ -46,6 +46,7 @@
   "scripts": {
     "dev": "tsdown --watch",
     "build": "tsdown",
+    "prepublishOnly": "pnpm build",
     "typecheck": "tsc --noEmit",
     "clean": "node ./scripts/rimraf.js",
     "lint": "eslint .",
