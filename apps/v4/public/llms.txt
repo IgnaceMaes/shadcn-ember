@@ -14,6 +14,19 @@
 
 - [Vite](https://shadcn-ember.com/docs/installation/vite): Install shadcn-ember in a Vite-based Ember app (recommended).
 - [Astro](https://shadcn-ember.com/docs/installation/astro): Install shadcn-ember in an Astro project with Ember integration.
+- [Manual](https://shadcn-ember.com/docs/installation/manual): Manual installation and configuration guide.
+
+## CLI
+
+shadcn-ember provides a CLI for easy component installation and project setup:
+
+- [CLI Documentation](https://shadcn-ember.com/docs/cli): Complete CLI reference and usage guide.
+
+**Main Commands:**
+
+- `npx shadcn-ember@latest init` - Initialize configuration and dependencies for a new project
+- `npx shadcn-ember@latest add [component]` - Add components to your project
+- `npx shadcn-ember@latest view [item]` - View items from the registry before installing
 
 ## Components
 
