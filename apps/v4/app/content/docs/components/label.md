@@ -10,7 +10,7 @@ description: Renders an accessible label associated with controls.
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add label
+npx shadcn-ember@latest add label
 ```
 
 ### Manual

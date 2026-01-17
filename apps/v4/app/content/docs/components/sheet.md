@@ -10,7 +10,7 @@ description: Extends the Dialog component to display content that complements th
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add sheet
+npx shadcn-ember@latest add sheet
 ```
 
 ### Manual

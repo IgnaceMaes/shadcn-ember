@@ -10,7 +10,7 @@ description: An image element with a fallback for representing the user.
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add avatar
+npx shadcn-ember@latest add avatar
 ```
 
 ### Manual

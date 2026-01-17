@@ -10,7 +10,7 @@ description: A set of checkable buttons—known as radio buttons—where no more
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add radio-group
+npx shadcn-ember@latest add radio-group
 ```
 
 ### Manual

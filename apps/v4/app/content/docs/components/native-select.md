@@ -13,7 +13,7 @@ description: A styled native HTML select element with consistent design system i
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add native-select
+npx shadcn-ember@latest add native-select
 ```
 
 ### Manual

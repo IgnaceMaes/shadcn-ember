@@ -10,7 +10,7 @@ description: A container that groups related buttons together with consistent st
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add button-group
+npx shadcn-ember@latest add button-group
 ```
 
 ### Manual

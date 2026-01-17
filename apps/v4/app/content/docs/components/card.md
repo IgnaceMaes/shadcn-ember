@@ -10,7 +10,7 @@ description: Displays a card with header, content, and footer.
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add card
+npx shadcn-ember@latest add card
 ```
 
 ### Manual

@@ -10,7 +10,7 @@ description: Pagination with page navigation, next and previous links.
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add pagination
+npx shadcn-ember@latest add pagination
 ```
 
 ### Manual

@@ -10,7 +10,7 @@ description: A set of two-state buttons that can be toggled on or off.
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add toggle-group
+npx shadcn-ember@latest add toggle-group
 ```
 
 ### Manual

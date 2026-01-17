@@ -10,7 +10,7 @@ description: Use the Empty component to display an empty state.
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add empty
+npx shadcn-ember@latest add empty
 ```
 
 ### Manual

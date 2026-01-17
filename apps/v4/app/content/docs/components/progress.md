@@ -10,7 +10,7 @@ description: Displays an indicator showing the completion progress of a task, ty
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add progress
+npx shadcn-ember@latest add progress
 ```
 
 ### Manual

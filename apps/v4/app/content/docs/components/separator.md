@@ -10,7 +10,7 @@ description: Visually or semantically separates content.
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add separator
+npx shadcn-ember@latest add separator
 ```
 
 ### Manual

@@ -10,7 +10,7 @@ description: A set of layered sections of content—known as tab panels—that a
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add tabs
+npx shadcn-ember@latest add tabs
 ```
 
 ### Manual

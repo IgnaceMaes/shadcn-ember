@@ -10,7 +10,7 @@ description: A control that allows the user to toggle between checked and not ch
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add switch
+npx shadcn-ember@latest add switch
 ```
 
 ### Manual

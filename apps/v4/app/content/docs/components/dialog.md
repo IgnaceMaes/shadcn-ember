@@ -11,7 +11,7 @@ featured: true
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add dialog
+npx shadcn-ember@latest add dialog
 ```
 
 ### Manual

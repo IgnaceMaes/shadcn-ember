@@ -10,7 +10,7 @@ description: Displays a callout for user attention.
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add alert
+npx shadcn-ember@latest add alert
 ```
 
 ### Manual

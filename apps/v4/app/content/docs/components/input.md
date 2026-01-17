@@ -10,7 +10,7 @@ description: Displays a form input field or a component that looks like an input
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add input
+npx shadcn-ember@latest add input
 ```
 
 ### Manual

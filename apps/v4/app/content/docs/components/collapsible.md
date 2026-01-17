@@ -10,7 +10,7 @@ description: An interactive component which expands/collapses a panel.
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add collapsible
+npx shadcn-ember@latest add collapsible
 ```
 
 ### Manual

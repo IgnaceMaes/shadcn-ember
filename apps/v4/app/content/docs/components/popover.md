@@ -10,7 +10,7 @@ description: Displays rich content in a portal, triggered by a button.
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add popover
+npx shadcn-ember@latest add popover
 ```
 
 ### Manual

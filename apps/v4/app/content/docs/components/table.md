@@ -10,7 +10,7 @@ description: A responsive table component.
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add table
+npx shadcn-ember@latest add table
 ```
 
 ### Manual

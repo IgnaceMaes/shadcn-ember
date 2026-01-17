@@ -10,7 +10,7 @@ description: Display additional information or actions to an input or textarea.
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add input-group
+npx shadcn-ember@latest add input-group
 ```
 
 ### Manual

@@ -10,7 +10,7 @@ description: A vertically stacked set of interactive headings that each reveal a
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add accordion
+npx shadcn-ember@latest add accordion
 ```
 
 ### Manual

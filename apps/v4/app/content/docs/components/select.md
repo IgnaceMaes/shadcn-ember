@@ -10,7 +10,7 @@ description: Displays a list of options for the user to pick from—triggered by
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add select
+npx shadcn-ember@latest add select
 ```
 
 ### Manual

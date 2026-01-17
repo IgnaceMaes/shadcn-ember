@@ -10,7 +10,7 @@ description: An indicator that can be used to show a loading state.
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add spinner
+npx shadcn-ember@latest add spinner
 ```
 
 ### Manual

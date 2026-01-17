@@ -10,7 +10,7 @@ description: Displays content within a desired ratio.
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add aspect-ratio
+npx shadcn-ember@latest add aspect-ratio
 ```
 
 ### Manual

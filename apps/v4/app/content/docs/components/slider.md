@@ -10,7 +10,7 @@ description: An input where the user selects a value from within a given range.
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add slider
+npx shadcn-ember@latest add slider
 ```
 
 ### Manual

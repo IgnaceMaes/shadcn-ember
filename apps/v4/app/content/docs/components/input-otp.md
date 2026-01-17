@@ -10,7 +10,7 @@ description: Accessible one-time password component with copy paste functionalit
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add input-otp
+npx shadcn-ember@latest add input-otp
 ```
 
 ### Manual

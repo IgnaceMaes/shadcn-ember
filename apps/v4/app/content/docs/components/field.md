@@ -11,7 +11,7 @@ component: true
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add field
+npx shadcn-ember@latest add field
 ```
 
 ### Manual

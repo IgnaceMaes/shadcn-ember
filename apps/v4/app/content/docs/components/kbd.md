@@ -10,7 +10,7 @@ description: Used to display textual user input from keyboard.
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add kbd
+npx shadcn-ember@latest add kbd
 ```
 
 ### Manual

@@ -10,7 +10,7 @@ description: Use to show a placeholder while content is loading.
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add skeleton
+npx shadcn-ember@latest add skeleton
 ```
 
 ### Manual

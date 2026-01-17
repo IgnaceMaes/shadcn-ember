@@ -10,7 +10,7 @@ description: Displays a badge or a component that looks like a badge.
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add badge
+npx shadcn-ember@latest add badge
 ```
 
 ### Manual

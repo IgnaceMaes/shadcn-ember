@@ -10,7 +10,7 @@ description: Displays a menu to the user — such as a set of actions or functio
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add context-menu
+npx shadcn-ember@latest add context-menu
 ```
 
 ### Manual

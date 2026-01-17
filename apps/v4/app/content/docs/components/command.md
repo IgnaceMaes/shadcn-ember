@@ -14,7 +14,7 @@ The `<Command />` component uses the [`cmdk`](https://cmdk.paco.me) component by
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add command
+npx shadcn-ember@latest add command
 ```
 
 ### Manual

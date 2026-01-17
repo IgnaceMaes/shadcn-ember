@@ -10,7 +10,7 @@ description: A popup that displays information related to an element when the el
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add tooltip
+npx shadcn-ember@latest add tooltip
 ```
 
 ### Manual

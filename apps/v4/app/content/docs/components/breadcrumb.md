@@ -10,7 +10,7 @@ description: Displays the path to the current resource using a hierarchy of link
 ### CLI
 
 ```bash
-npx embercli-shadcn@latest add breadcrumb
+npx shadcn-ember@latest add breadcrumb
 ```
 
 ### Manual
