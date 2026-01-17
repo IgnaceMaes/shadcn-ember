@@ -1,14 +1,14 @@
-import type { Registry } from "../../../packages/cli/src/registry/schema"
+import { baseColorsV4 } from './registry-base-colors';
 
-import { baseColorsV4 } from "./registry-base-colors"
+import type { Registry } from '../../../packages/cli/src/registry/schema';
 
 // Create a theme for each color in the base colors.
-export const themes: Registry["items"] = Object.keys(baseColorsV4).map(
+export const themes: Registry['items'] = Object.keys(baseColorsV4).map(
   (color) => {
     return {
       name: `theme-${color}`,
-      type: "registry:theme",
+      type: 'registry:theme',
       cssVars: baseColorsV4[color as keyof typeof baseColorsV4],
-    }
-  },
-)
+    };
+  }
+);

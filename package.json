@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "pnpm --filter shadcn-ember-docs dev",
     "build": "pnpm --filter shadcn-ember-docs build",
+    "format": "pnpm --filter shadcn-ember-docs format",
     "lint": "pnpm --filter shadcn-ember-docs lint",
     "lint:fix": "pnpm --filter shadcn-ember-docs lint:fix",
     "dev:cli": "pnpm --filter shadcn-ember dev",

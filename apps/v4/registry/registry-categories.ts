@@ -1,2 +1,1 @@
-export const registryCategories = [
-]
+export const registryCategories = [];
