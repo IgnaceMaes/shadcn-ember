@@ -2,6 +2,23 @@
 
 ## Release (2026-01-17)
 
+* shadcn-ember 0.0.3 (patch)
+
+#### :bug: Bug Fix
+* `shadcn-ember`
+  * [#12](https://github.com/IgnaceMaes/shadcn-ember/pull/12) fix: build first ([@IgnaceMaes](https://github.com/IgnaceMaes))
+* Other
+  * [#11](https://github.com/IgnaceMaes/shadcn-ember/pull/11) chore: does this trigger a relaase? ([@IgnaceMaes](https://github.com/IgnaceMaes))
+
+#### :house: Internal
+* [#10](https://github.com/IgnaceMaes/shadcn-ember/pull/10) Prepare Release vnull ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+#### Committers: 2
+- GitHub Actions [Bot] ([@github-actions](https://github.com/apps/github-actions))
+- Ignace Maes ([@IgnaceMaes](https://github.com/IgnaceMaes))
+
+## Release (2026-01-17)
+
 
 
 #### :bug: Bug Fix

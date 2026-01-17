@@ -1,7 +1,7 @@
 {
   "name": "shadcn-ember",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "shadcn/ui, but for Ember",
   "publishConfig": {
     "access": "public"
@@ -46,6 +46,7 @@
   "scripts": {
     "dev": "tsdown --watch",
     "build": "tsdown",
+    "prepublishOnly": "pnpm build",
     "typecheck": "tsc --noEmit",
     "clean": "node ./scripts/rimraf.js",
     "lint": "eslint .",
