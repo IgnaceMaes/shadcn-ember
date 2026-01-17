@@ -6,7 +6,6 @@ import { cn } from '@/lib/utils';
 
 import type { TOC } from '@ember/component/template-only';
 
-// FieldSet Component
 interface FieldSetSignature {
   Element: HTMLFieldSetElement;
   Args: {
@@ -33,7 +32,6 @@ class FieldSet extends Component<FieldSetSignature> {
   </template>
 }
 
-// FieldLegend Component
 interface FieldLegendSignature {
   Element: HTMLLegendElement;
   Args: {
@@ -71,7 +69,6 @@ class FieldLegend extends Component<FieldLegendSignature> {
   </template>
 }
 
-// FieldGroup Component
 interface FieldGroupSignature {
   Element: HTMLDivElement;
   Args: {
@@ -97,7 +94,6 @@ class FieldGroup extends Component<FieldGroupSignature> {
   </template>
 }
 
-// Field Component
 type Orientation = 'vertical' | 'horizontal' | 'responsive';
 
 interface FieldSignature {
@@ -163,7 +159,6 @@ class Field extends Component<FieldSignature> {
   </template>
 }
 
-// FieldContent Component
 interface FieldContentSignature {
   Element: HTMLDivElement;
   Args: {
@@ -189,7 +184,6 @@ class FieldContent extends Component<FieldContentSignature> {
   </template>
 }
 
-// FieldLabel Component
 interface FieldLabelSignature {
   Element: HTMLLabelElement;
   Args: {
@@ -223,7 +217,6 @@ class FieldLabel extends Component<FieldLabelSignature> {
   </template>
 }
 
-// FieldTitle Component
 interface FieldTitleSignature {
   Element: HTMLDivElement;
   Args: {
@@ -249,7 +242,6 @@ class FieldTitle extends Component<FieldTitleSignature> {
   </template>
 }
 
-// FieldDescription Component
 interface FieldDescriptionSignature {
   Element: HTMLParagraphElement;
   Args: {
@@ -277,7 +269,6 @@ class FieldDescription extends Component<FieldDescriptionSignature> {
   </template>
 }
 
-// FieldSeparator Component
 interface FieldSeparatorSignature {
   Element: HTMLDivElement;
   Args: {
@@ -310,7 +301,6 @@ const FieldSeparator: TOC<FieldSeparatorSignature> = <template>
   </div>
 </template>;
 
-// FieldError Component
 interface FieldErrorSignature {
   Element: HTMLDivElement;
   Args: {
