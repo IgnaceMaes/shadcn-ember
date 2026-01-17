@@ -263,7 +263,7 @@ export class ConfigMissingError extends RegistryError {
       code: RegistryErrorCode.NOT_CONFIGURED,
       context: { cwd },
       suggestion:
-        "Run 'npx shadcn@latest init' to create a components.json file, or check that you're in the correct directory.",
+        "Run 'npx shadcn-ember@latest init' to create a components.json file, or check that you're in the correct directory.",
     })
     this.name = "ConfigMissingError"
   }
