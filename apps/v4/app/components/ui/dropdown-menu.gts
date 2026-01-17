@@ -478,16 +478,10 @@ class DropdownMenuSubTrigger extends Component<DropdownMenuSubTriggerSignature> 
     const enterX = this.mouseEnterPosition.x;
     const enterY = this.mouseEnterPosition.y;
 
-    // Find the closest corner of the submenu
-    // The submenu is typically to the right, so we use left edge
     const submenuLeft = submenuRect.left;
     const submenuTop = submenuRect.top;
     const submenuBottom = submenuRect.bottom;
 
-    // Create a triangle between:
-    // 1. Mouse enter position
-    // 2. Top-left corner of submenu
-    // 3. Bottom-left corner of submenu
     return this.isPointInTriangle(
       mouseX,
       mouseY,
@@ -502,13 +496,11 @@ class DropdownMenuSubTrigger extends Component<DropdownMenuSubTriggerSignature> 
 
   handleMouseLeave = (event: MouseEvent) => {
     if (this.isMouseMovingTowardsSubmenu(event)) {
-      // Mouse might be moving towards submenu, use timeout
       const timeout = setTimeout(() => {
         this.context.setOpen(false);
       }, SUBMENU_CLOSE_DELAY);
       this.context.setPendingClose(timeout);
     } else {
-      // Mouse is moving away, close immediately
       this.context.setOpen(false);
     }
   };

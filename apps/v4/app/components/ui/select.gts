@@ -266,7 +266,6 @@ class SelectContent extends Component<SelectContentSignature> {
           this.x = x;
           this.y = y;
           this.triggerWidth = triggerElement.offsetWidth;
-          // Set trigger width as CSS variable
           element.style.setProperty(
             '--select-trigger-width',
             `${triggerElement.offsetWidth}px`

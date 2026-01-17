@@ -319,7 +319,6 @@ class FieldError extends Component<FieldErrorSignature> {
       return null;
     }
 
-    // Deduplicate errors based on message
     const errorMap = new Map<string | undefined, { message?: string }>();
     for (const error of errors) {
       if (error?.message) {

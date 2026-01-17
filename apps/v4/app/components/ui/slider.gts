@@ -54,8 +54,6 @@ class Slider extends Component<SliderSignature> {
 
   get rangePercentage() {
     if (this.values.length === 0) return { start: 0, width: 0 };
-
-    // For single value sliders, show progress from min to value
     if (this.values.length === 1) {
       const value = this.values[0];
       if (value === undefined) return { start: 0, width: 0 };
@@ -63,8 +61,6 @@ class Slider extends Component<SliderSignature> {
       const end = ((value - this.min) / (this.max - this.min)) * 100;
       return { start, width: end };
     }
-
-    // For range sliders, show progress between the two values
     const minVal = Math.min(...this.values);
     const maxVal = Math.max(...this.values);
     const start = ((minVal - this.min) / (this.max - this.min)) * 100;
@@ -104,7 +100,6 @@ class Slider extends Component<SliderSignature> {
     const slider = (event.currentTarget as HTMLElement).parentElement;
     if (!slider) return;
 
-    // Capture the pointer to receive all pointer events
     (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
 
     const updateValue = (clientPos: number) => {
@@ -147,7 +142,6 @@ class Slider extends Component<SliderSignature> {
     event.preventDefault();
     const target = event.currentTarget as HTMLElement;
 
-    // Calculate initial value and find closest thumb
     const rect = target.getBoundingClientRect();
     let percentage: number;
 
@@ -162,7 +156,6 @@ class Slider extends Component<SliderSignature> {
     const steppedValue = Math.round(rawValue / this.step) * this.step;
     const clampedValue = Math.max(this.min, Math.min(this.max, steppedValue));
 
-    // Find closest thumb
     let closestIndex = 0;
     let closestDistance = Math.abs((this.values[0] ?? 0) - clampedValue);
 
@@ -174,13 +167,11 @@ class Slider extends Component<SliderSignature> {
       }
     }
 
-    // Set initial value
     const newValue = [...this.values];
     newValue[closestIndex] = clampedValue;
     this.internalValue = newValue;
     this.args.onValueChange?.(newValue);
 
-    // Start drag operation
     (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
 
     const updateValue = (clientPos: number) => {

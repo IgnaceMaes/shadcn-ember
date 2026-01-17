@@ -44,7 +44,6 @@ const TableHeader: TOC<TableHeaderSignature> = <template>
   </thead>
 </template>;
 
-// TableBody Component
 interface TableBodySignature {
   Element: HTMLTableSectionElement;
   Args: {
@@ -88,7 +87,6 @@ const TableFooter: TOC<TableFooterSignature> = <template>
   </tfoot>
 </template>;
 
-// TableRow Component
 interface TableRowSignature {
   Element: HTMLTableRowElement;
   Args: {

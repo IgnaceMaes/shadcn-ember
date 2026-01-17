@@ -10,7 +10,6 @@ import ChevronLeft from '~icons/lucide/chevron-left';
 import ChevronRight from '~icons/lucide/chevron-right';
 import MoreHorizontal from '~icons/lucide/more-horizontal';
 
-// Pagination Root Component
 interface PaginationSignature {
   Element: HTMLElement;
   Args: {
@@ -33,7 +32,6 @@ const Pagination: TOC<PaginationSignature> = <template>
   </nav>
 </template>;
 
-// PaginationContent Component
 interface PaginationContentSignature {
   Element: HTMLUListElement;
   Args: {
@@ -54,7 +52,6 @@ const PaginationContent: TOC<PaginationContentSignature> = <template>
   </ul>
 </template>;
 
-// PaginationItem Component
 interface PaginationItemSignature {
   Element: HTMLLIElement;
   Args: {
@@ -71,7 +68,6 @@ const PaginationItem: TOC<PaginationItemSignature> = <template>
   </li>
 </template>;
 
-// PaginationLink Component
 interface PaginationLinkSignature {
   Element: HTMLAnchorElement;
   Args: {
@@ -105,7 +101,6 @@ class PaginationLink extends Component<PaginationLinkSignature> {
   </template>
 }
 
-// PaginationPrevious Component
 interface PaginationPreviousSignature {
   Element: HTMLAnchorElement;
   Args: {
@@ -128,7 +123,6 @@ const PaginationPrevious: TOC<PaginationPreviousSignature> = <template>
   </PaginationLink>
 </template>;
 
-// PaginationNext Component
 interface PaginationNextSignature {
   Element: HTMLAnchorElement;
   Args: {
@@ -151,7 +145,6 @@ const PaginationNext: TOC<PaginationNextSignature> = <template>
   </PaginationLink>
 </template>;
 
-// PaginationEllipsis Component
 interface PaginationEllipsisSignature {
   Element: HTMLSpanElement;
   Args: {

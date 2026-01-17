@@ -41,7 +41,6 @@ function sheetVariants(side: Side = 'right', className?: string): string {
   return cn(baseClasses, sideClasses[side], className);
 }
 
-// Sheet Root Component
 interface SheetSignature {
   Args: {
     open?: boolean;
@@ -98,7 +97,6 @@ class Sheet extends Component<SheetSignature> {
   </template>
 }
 
-// SheetTrigger Component
 interface SheetTriggerSignature {
   Element: HTMLButtonElement;
   Args: {
@@ -144,7 +142,6 @@ class SheetTrigger extends Component<SheetTriggerSignature> {
   </template>
 }
 
-// SheetClose Component
 interface SheetCloseSignature {
   Element: HTMLButtonElement;
   Args: {
@@ -190,7 +187,6 @@ class SheetClose extends Component<SheetCloseSignature> {
   </template>
 }
 
-// SheetPortal Component
 interface SheetPortalSignature {
   Blocks: {
     default: [];
@@ -203,7 +199,6 @@ const SheetPortal: TOC<SheetPortalSignature> = <template>
   </div>
 </template>;
 
-// SheetOverlay Component
 interface SheetOverlaySignature {
   Element: HTMLDivElement;
   Args: {
@@ -243,7 +238,6 @@ class SheetOverlay extends Component<SheetOverlaySignature> {
   </template>
 }
 
-// SheetContent Component
 interface SheetContentSignature {
   Element: HTMLDivElement;
   Args: {
@@ -318,7 +312,6 @@ class SheetContent extends Component<SheetContentSignature> {
   </template>
 }
 
-// SheetHeader Component
 interface SheetHeaderSignature {
   Element: HTMLDivElement;
   Args: {
@@ -339,7 +332,6 @@ const SheetHeader: TOC<SheetHeaderSignature> = <template>
   </div>
 </template>;
 
-// SheetFooter Component
 interface SheetFooterSignature {
   Element: HTMLDivElement;
   Args: {
@@ -360,7 +352,6 @@ const SheetFooter: TOC<SheetFooterSignature> = <template>
   </div>
 </template>;
 
-// SheetTitle Component
 interface SheetTitleSignature {
   Element: HTMLHeadingElement;
   Args: {
@@ -381,7 +372,6 @@ const SheetTitle: TOC<SheetTitleSignature> = <template>
   </h2>
 </template>;
 
-// SheetDescription Component
 interface SheetDescriptionSignature {
   Element: HTMLParagraphElement;
   Args: {
