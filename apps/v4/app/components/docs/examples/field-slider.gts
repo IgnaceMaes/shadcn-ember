@@ -4,14 +4,8 @@ import { tracked } from '@glimmer/tracking';
 import { Field, FieldDescription, FieldTitle } from '@/components/ui/field';
 import { Slider } from '@/components/ui/slider';
 
-import type Owner from '@ember/owner';
-
 class FieldSlider extends Component {
   @tracked value = [200, 800];
-
-  constructor(owner: Owner, args: object) {
-    super(owner, args);
-  }
 
   handleValueChange = (newValue: number[]) => {
     this.value = newValue;
