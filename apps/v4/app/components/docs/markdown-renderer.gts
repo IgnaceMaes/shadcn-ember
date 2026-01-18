@@ -151,6 +151,7 @@ interface ProcessedNode {
   start?: number;
   cliNodes?: ProcessedNode[];
   manualNodes?: ProcessedNode[];
+  [key: string]: unknown;
 }
 
 interface Signature {
