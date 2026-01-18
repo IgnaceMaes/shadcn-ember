@@ -32,6 +32,17 @@
       ]
     },
     {
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "dependencies": ["ember-modifier", "ember-provide-consume-context"],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/alert-dialog.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "alert",
       "type": "registry:ui",
       "files": [

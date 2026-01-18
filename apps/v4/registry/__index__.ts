@@ -38,6 +38,21 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  'alert-dialog': {
+    name: 'alert-dialog',
+    description: '',
+    type: 'registry:ui',
+    registryDependencies: undefined,
+    files: [
+      {
+        path: 'registry/new-york-v4/ui/alert-dialog.gts',
+        type: 'registry:ui',
+        target: '',
+      },
+    ],
+    categories: undefined,
+    meta: undefined,
+  },
   alert: {
     name: 'alert',
     description: '',

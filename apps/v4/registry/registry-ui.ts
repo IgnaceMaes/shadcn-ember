@@ -13,6 +13,17 @@ export const ui: Registry['items'] = [
     dependencies: ['ember-modifier', 'ember-provide-consume-context'],
   },
   {
+    name: 'alert-dialog',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/alert-dialog.gts',
+        type: 'registry:ui',
+      },
+    ],
+    dependencies: ['ember-modifier', 'ember-provide-consume-context'],
+  },
+  {
     name: 'alert',
     type: 'registry:ui',
     files: [
