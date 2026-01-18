@@ -10,8 +10,6 @@ We use it to understand how your project is set up and how to generate component
 
 > [!NOTE]
 > The `components.json` file is optional and **only required if you're using the CLI** to add components to your project. If you're using the copy and paste method, you don't need this file.
->
-> Currently, shadcn-ember does not have a CLI tool. This file is included for future compatibility and reference.
 
 ## $schema
 
