@@ -22,7 +22,7 @@ npx shadcn-ember@latest add command
 **Install the following dependencies:**
 
 ```bash
-pnpm add cmdk
+pnpm add ember-provide-consume-context tracked-built-ins
 ```
 
 **Copy and paste the command component into your project:**

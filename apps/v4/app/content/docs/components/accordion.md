@@ -15,6 +15,12 @@ npx shadcn-ember@latest add accordion
 
 ### Manual
 
+**Install the following dependencies:**
+
+```bash
+pnpm add ember-provide-consume-context
+```
+
 **Copy and paste the accordion component into your project:**
 
 <ComponentSource name="accordion" />

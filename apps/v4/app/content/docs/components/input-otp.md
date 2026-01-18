@@ -15,6 +15,12 @@ npx shadcn-ember@latest add input-otp
 
 ### Manual
 
+**Install the following dependencies:**
+
+```bash
+pnpm add ember-provide-consume-context
+```
+
 **Copy and paste the input-otp component into your project:**
 
 <ComponentSource name="input-otp" />

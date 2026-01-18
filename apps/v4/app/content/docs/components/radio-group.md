@@ -15,6 +15,12 @@ npx shadcn-ember@latest add radio-group
 
 ### Manual
 
+**Install the following dependencies:**
+
+```bash
+pnpm add ember-provide-consume-context
+```
+
 **Copy and paste the radio-group component into your project:**
 
 <ComponentSource name="radio-group" />

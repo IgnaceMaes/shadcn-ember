@@ -15,10 +15,10 @@ npx shadcn-ember@latest add context-menu
 
 ### Manual
 
-**Install the following dependency:**
+**Install the following dependencies:**
 
 ```bash
-pnpm add ember-click-outside
+pnpm add @floating-ui/dom ember-click-outside ember-provide-consume-context
 ```
 
 **Copy and paste the context menu component into your project:**

@@ -15,6 +15,12 @@ npx shadcn-ember@latest add collapsible
 
 ### Manual
 
+**Install the following dependencies:**
+
+```bash
+pnpm add ember-provide-consume-context
+```
+
 **Copy and paste the collapsible component into your project:**
 
 <ComponentSource name="collapsible" />

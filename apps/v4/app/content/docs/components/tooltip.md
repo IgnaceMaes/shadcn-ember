@@ -15,6 +15,12 @@ npx shadcn-ember@latest add tooltip
 
 ### Manual
 
+**Install the following dependencies:**
+
+```bash
+pnpm add @floating-ui/dom ember-provide-consume-context
+```
+
 **Copy and paste the tooltip component into your project:**
 
 <ComponentSource name="tooltip" />

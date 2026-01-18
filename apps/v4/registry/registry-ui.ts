@@ -4,6 +4,7 @@ export const ui: Registry['items'] = [
   {
     name: 'accordion',
     type: 'registry:ui',
+    dependencies: ['ember-modifier', 'ember-provide-consume-context'],
     files: [
       {
         path: 'ui/accordion.gts',
@@ -104,6 +105,7 @@ export const ui: Registry['items'] = [
   {
     name: 'collapsible',
     type: 'registry:ui',
+    dependencies: ['ember-provide-consume-context'],
     files: [
       {
         path: 'ui/collapsible.gts',
@@ -114,6 +116,7 @@ export const ui: Registry['items'] = [
   {
     name: 'command',
     type: 'registry:ui',
+    dependencies: ['ember-modifier', 'ember-provide-consume-context', 'tracked-built-ins'],
     files: [
       {
         path: 'ui/command.gts',
@@ -124,6 +127,7 @@ export const ui: Registry['items'] = [
   {
     name: 'context-menu',
     type: 'registry:ui',
+    dependencies: ['@floating-ui/dom', 'ember-click-outside', 'ember-modifier', 'ember-provide-consume-context'],
     files: [
       {
         path: 'ui/context-menu.gts',
@@ -134,6 +138,7 @@ export const ui: Registry['items'] = [
   {
     name: 'dialog',
     type: 'registry:ui',
+    dependencies: ['ember-modifier', 'ember-provide-consume-context'],
     files: [
       {
         path: 'ui/dialog.gts',
@@ -144,6 +149,7 @@ export const ui: Registry['items'] = [
   {
     name: 'dropdown-menu',
     type: 'registry:ui',
+    dependencies: ['@floating-ui/dom', 'ember-click-outside', 'ember-modifier', 'ember-provide-consume-context'],
     files: [
       {
         path: 'ui/dropdown-menu.gts',
@@ -174,6 +180,7 @@ export const ui: Registry['items'] = [
   {
     name: 'hover-card',
     type: 'registry:ui',
+    dependencies: ['@floating-ui/dom', 'ember-modifier', 'ember-provide-consume-context'],
     files: [
       {
         path: 'ui/hover-card.gts',
@@ -194,6 +201,7 @@ export const ui: Registry['items'] = [
   {
     name: 'input-otp',
     type: 'registry:ui',
+    dependencies: ['ember-modifier', 'ember-provide-consume-context'],
     files: [
       {
         path: 'ui/input-otp.gts',
@@ -264,6 +272,7 @@ export const ui: Registry['items'] = [
   {
     name: 'popover',
     type: 'registry:ui',
+    dependencies: ['@floating-ui/dom', 'ember-click-outside', 'ember-modifier', 'ember-provide-consume-context'],
     files: [
       {
         path: 'ui/popover.gts',
@@ -284,6 +293,7 @@ export const ui: Registry['items'] = [
   {
     name: 'radio-group',
     type: 'registry:ui',
+    dependencies: ['ember-provide-consume-context'],
     files: [
       {
         path: 'ui/radio-group.gts',
@@ -304,6 +314,7 @@ export const ui: Registry['items'] = [
   {
     name: 'select',
     type: 'registry:ui',
+    dependencies: ['@floating-ui/dom', 'ember-click-outside', 'ember-provide-consume-context'],
     files: [
       {
         path: 'ui/select.gts',
@@ -324,6 +335,7 @@ export const ui: Registry['items'] = [
   {
     name: 'sheet',
     type: 'registry:ui',
+    dependencies: ['ember-modifier', 'ember-provide-consume-context'],
     files: [
       {
         path: 'ui/sheet.gts',
@@ -334,6 +346,7 @@ export const ui: Registry['items'] = [
   {
     name: 'sidebar',
     type: 'registry:ui',
+    dependencies: ['ember-modifier', 'ember-provide-consume-context'],
     files: [
       {
         path: 'ui/sidebar.gts',
@@ -394,6 +407,7 @@ export const ui: Registry['items'] = [
   {
     name: 'tabs',
     type: 'registry:ui',
+    dependencies: ['ember-provide-consume-context'],
     files: [
       {
         path: 'ui/tabs.gts',
@@ -434,6 +448,7 @@ export const ui: Registry['items'] = [
   {
     name: 'toggle-group',
     type: 'registry:ui',
+    dependencies: ['ember-provide-consume-context'],
     files: [
       {
         path: 'ui/toggle-group.gts',
@@ -454,6 +469,7 @@ export const ui: Registry['items'] = [
   {
     name: 'tooltip',
     type: 'registry:ui',
+    dependencies: ['@floating-ui/dom', 'ember-modifier', 'ember-provide-consume-context'],
     files: [
       {
         path: 'ui/tooltip.gts',

@@ -15,6 +15,12 @@ npx shadcn-ember@latest add sheet
 
 ### Manual
 
+**Install the following dependencies:**
+
+```bash
+pnpm add ember-provide-consume-context
+```
+
 **Copy and paste the sheet component into your project:**
 
 <ComponentSource name="sheet" />

@@ -15,6 +15,12 @@ npx shadcn-ember@latest add hover-card
 
 ### Manual
 
+**Install the following dependencies:**
+
+```bash
+pnpm add @floating-ui/dom ember-provide-consume-context
+```
+
 **Copy and paste the hover-card component into your project:**
 
 <ComponentSource name="hover-card" />

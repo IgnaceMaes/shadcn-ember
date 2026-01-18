@@ -18,7 +18,7 @@ npx shadcn-ember@latest add tabs
 **Install the following dependencies:**
 
 ```bash
-npm install ember-provide-consume-context
+pnpm add ember-provide-consume-context
 ```
 
 **Copy and paste the tabs component into your project:**

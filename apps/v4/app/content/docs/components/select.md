@@ -18,7 +18,7 @@ npx shadcn-ember@latest add select
 **Install the following dependencies:**
 
 ```bash
-pnpm add ember-click-outside
+pnpm add @floating-ui/dom ember-click-outside ember-provide-consume-context
 ```
 
 **Copy and paste the select component into your project:**

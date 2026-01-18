@@ -16,6 +16,12 @@ npx shadcn-ember@latest add dialog
 
 ### Manual
 
+**Install the following dependencies:**
+
+```bash
+pnpm add ember-provide-consume-context
+```
+
 **Copy and paste the dialog component into your project:**
 
 <ComponentSource name="dialog" />

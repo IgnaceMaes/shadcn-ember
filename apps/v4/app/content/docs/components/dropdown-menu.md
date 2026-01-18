@@ -15,10 +15,10 @@ npx shadcn-ember@latest add dropdown-menu
 
 ### Manual
 
-**Install the following dependency:**
+**Install the following dependencies:**
 
 ```bash
-pnpm add ember-click-outside
+pnpm add @floating-ui/dom ember-click-outside ember-provide-consume-context
 ```
 
 **Copy and paste the dropdown menu component into your project:**
