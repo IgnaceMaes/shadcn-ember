@@ -327,13 +327,8 @@ interface AlertDialogActionSignature {
 class AlertDialogAction extends Component<AlertDialogActionSignature> {
   @consume(AlertDialogContext) context!: ContextRegistry[typeof AlertDialogContext];
 
-  handleClick = (event: MouseEvent) => {
-    // Allow the action to propagate naturally
-    // The button's click handler will be called first
-    // Then we close the dialog
-    requestAnimationFrame(() => {
-      this.context.setOpen(false);
-    });
+  handleClick = () => {
+    this.context.setOpen(false);
   };
 
   <template>
