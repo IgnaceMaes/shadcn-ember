@@ -56,7 +56,7 @@ import VolumeOffIcon from '~icons/lucide/volume-off';
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem @class="text-destructive focus:text-destructive">
+          <DropdownMenuItem @variant="destructive">
             <TrashIcon />
             Delete Conversation
           </DropdownMenuItem>
