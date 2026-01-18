@@ -117,7 +117,11 @@ export const ui: Registry['items'] = [
   {
     name: 'command',
     type: 'registry:ui',
-    dependencies: ['ember-modifier', 'ember-provide-consume-context', 'tracked-built-ins'],
+    dependencies: [
+      'ember-modifier',
+      'ember-provide-consume-context',
+      'tracked-built-ins',
+    ],
     registryDependencies: ['dialog'],
     files: [
       {
@@ -129,7 +133,12 @@ export const ui: Registry['items'] = [
   {
     name: 'context-menu',
     type: 'registry:ui',
-    dependencies: ['@floating-ui/dom', 'ember-click-outside', 'ember-modifier', 'ember-provide-consume-context'],
+    dependencies: [
+      '@floating-ui/dom',
+      'ember-click-outside',
+      'ember-modifier',
+      'ember-provide-consume-context',
+    ],
     files: [
       {
         path: 'ui/context-menu.gts',
@@ -151,7 +160,12 @@ export const ui: Registry['items'] = [
   {
     name: 'dropdown-menu',
     type: 'registry:ui',
-    dependencies: ['@floating-ui/dom', 'ember-click-outside', 'ember-modifier', 'ember-provide-consume-context'],
+    dependencies: [
+      '@floating-ui/dom',
+      'ember-click-outside',
+      'ember-modifier',
+      'ember-provide-consume-context',
+    ],
     files: [
       {
         path: 'ui/dropdown-menu.gts',
@@ -183,7 +197,11 @@ export const ui: Registry['items'] = [
   {
     name: 'hover-card',
     type: 'registry:ui',
-    dependencies: ['@floating-ui/dom', 'ember-modifier', 'ember-provide-consume-context'],
+    dependencies: [
+      '@floating-ui/dom',
+      'ember-modifier',
+      'ember-provide-consume-context',
+    ],
     files: [
       {
         path: 'ui/hover-card.gts',
@@ -277,7 +295,12 @@ export const ui: Registry['items'] = [
   {
     name: 'popover',
     type: 'registry:ui',
-    dependencies: ['@floating-ui/dom', 'ember-click-outside', 'ember-modifier', 'ember-provide-consume-context'],
+    dependencies: [
+      '@floating-ui/dom',
+      'ember-click-outside',
+      'ember-modifier',
+      'ember-provide-consume-context',
+    ],
     files: [
       {
         path: 'ui/popover.gts',
@@ -319,7 +342,11 @@ export const ui: Registry['items'] = [
   {
     name: 'select',
     type: 'registry:ui',
-    dependencies: ['@floating-ui/dom', 'ember-click-outside', 'ember-provide-consume-context'],
+    dependencies: [
+      '@floating-ui/dom',
+      'ember-click-outside',
+      'ember-provide-consume-context',
+    ],
     files: [
       {
         path: 'ui/select.gts',
@@ -352,7 +379,14 @@ export const ui: Registry['items'] = [
     name: 'sidebar',
     type: 'registry:ui',
     dependencies: ['ember-modifier', 'ember-provide-consume-context'],
-    registryDependencies: ['button', 'input', 'separator', 'sheet', 'skeleton', 'tooltip'],
+    registryDependencies: [
+      'button',
+      'input',
+      'separator',
+      'sheet',
+      'skeleton',
+      'tooltip',
+    ],
     files: [
       {
         path: 'ui/sidebar.gts',
@@ -476,7 +510,11 @@ export const ui: Registry['items'] = [
   {
     name: 'tooltip',
     type: 'registry:ui',
-    dependencies: ['@floating-ui/dom', 'ember-modifier', 'ember-provide-consume-context'],
+    dependencies: [
+      '@floating-ui/dom',
+      'ember-modifier',
+      'ember-provide-consume-context',
+    ],
     files: [
       {
         path: 'ui/tooltip.gts',
