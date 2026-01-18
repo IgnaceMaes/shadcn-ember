@@ -102,7 +102,7 @@ npx shadcn-ember@latest add button
 
 The command above will add the `Button` component to your project. You can then import it like this:
 
-```gts title="app/components/example.gts"
+```gts showLineNumbers title="app/templates/application.gts"
 import { Button } from '@/components/ui/button';
 
 <template>

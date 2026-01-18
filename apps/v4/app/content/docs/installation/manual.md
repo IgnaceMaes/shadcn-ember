@@ -281,7 +281,7 @@ The command above will add the `Button` component to your project. You can then 
 import { Button } from '@/components/ui/button';
 
 <template>
-  <div class='flex min-h-svh flex-col items-center justify-center'>
+  <div class="flex min-h-svh flex-col items-center justify-center">
     <Button>Click me</Button>
   </div>
 </template>
