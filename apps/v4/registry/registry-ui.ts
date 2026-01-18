@@ -65,6 +65,7 @@ export const ui: Registry['items'] = [
   {
     name: 'button-group',
     type: 'registry:ui',
+    registryDependencies: ['separator'],
     files: [
       {
         path: 'ui/button-group.gts',
@@ -117,6 +118,7 @@ export const ui: Registry['items'] = [
     name: 'command',
     type: 'registry:ui',
     dependencies: ['ember-modifier', 'ember-provide-consume-context', 'tracked-built-ins'],
+    registryDependencies: ['dialog'],
     files: [
       {
         path: 'ui/command.gts',
@@ -170,6 +172,7 @@ export const ui: Registry['items'] = [
   {
     name: 'field',
     type: 'registry:ui',
+    registryDependencies: ['label', 'separator'],
     files: [
       {
         path: 'ui/field.gts',
@@ -191,6 +194,7 @@ export const ui: Registry['items'] = [
   {
     name: 'input-group',
     type: 'registry:ui',
+    registryDependencies: ['button', 'input', 'textarea'],
     files: [
       {
         path: 'ui/input-group.gts',
@@ -222,6 +226,7 @@ export const ui: Registry['items'] = [
   {
     name: 'item',
     type: 'registry:ui',
+    registryDependencies: ['separator'],
     files: [
       {
         path: 'ui/item.gts',
@@ -347,6 +352,7 @@ export const ui: Registry['items'] = [
     name: 'sidebar',
     type: 'registry:ui',
     dependencies: ['ember-modifier', 'ember-provide-consume-context'],
+    registryDependencies: ['button', 'input', 'separator', 'sheet', 'skeleton', 'tooltip'],
     files: [
       {
         path: 'ui/sidebar.gts',
@@ -449,6 +455,7 @@ export const ui: Registry['items'] = [
     name: 'toggle-group',
     type: 'registry:ui',
     dependencies: ['ember-provide-consume-context'],
+    registryDependencies: ['toggle'],
     files: [
       {
         path: 'ui/toggle-group.gts',
