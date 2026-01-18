@@ -2,6 +2,7 @@
   "$schema": "https://shadcn-ember.com/schema/registry-item.json",
   "name": "button",
   "type": "registry:ui",
+  "dependencies": ["@glimmer/component"],
   "files": [
     {
       "path": "registry/new-york-v4/ui/button.gts",

@@ -23,9 +23,17 @@ const DEPENDENCIES = new Map<string, string[]>([
   ['@glimmer/tracking', []],
   ['@ember/component', []],
   ['@ember/service', []],
+  ['@ember/modifier', []],
   ['ember-truth-helpers', []],
   ['ember-composable-helpers', []],
+  ['ember-modifier', []],
+  ['ember-provide-consume-context', []],
+  ['ember-click-outside', []],
+  ['@floating-ui/dom', []],
+  ['tracked-built-ins', []],
   ['class-variance-authority', []],
+  ['clsx', []],
+  ['tailwind-merge', []],
   ['@iconify-json/lucide', []],
 ]);
 
@@ -361,9 +369,14 @@ async function getFileDependencies(filename: string, sourceCode: string) {
   const dependencies = new Set<string>();
 
   const populateDeps = (source: string) => {
-    const peerDeps = DEPENDENCIES.get(source);
+    // Extract base package name from sub-path imports (e.g., 'ember-click-outside/modifiers/on-click-outside' -> 'ember-click-outside')
+    const packageName = source.startsWith('@')
+      ? source.split('/').slice(0, 2).join('/') // Scoped packages: @scope/package
+      : source.split('/')[0]; // Regular packages: package
+
+    const peerDeps = DEPENDENCIES.get(packageName);
     if (peerDeps !== undefined) {
-      dependencies.add(source);
+      dependencies.add(packageName);
       peerDeps.forEach((dep) => dependencies.add(dep));
     }
 
@@ -377,17 +390,28 @@ async function getFileDependencies(filename: string, sourceCode: string) {
     }
   };
 
-  // Parse imports using oxc-parser for both .ts and .gts files
-  const ast = parseSync(filename, sourceCode, {
-    sourceType: 'module',
-  });
+  // For .gts files, extract imports using regex since oxc-parser can't handle template syntax
+  if (filename.endsWith('.gts')) {
+    // Match import statements: import { ... } from 'path' or import ... from 'path'
+    const importRegex = /import\s+(?:[\w\s{},*]*)\s+from\s+['"]([^'"]+)['"]/g;
+    let match;
+    while ((match = importRegex.exec(sourceCode)) !== null) {
+      const importPath = match[1];
+      populateDeps(importPath);
+    }
+  } else {
+    // Parse imports using oxc-parser for .ts files
+    const ast = parseSync(filename, sourceCode, {
+      sourceType: 'module',
+    });
 
-  const sources = ast.program.body
-    .filter((i: any) => i.type === 'ImportDeclaration')
-    .map((i: any) => i.source);
-  sources.forEach((source: any) => {
-    populateDeps(source.value);
-  });
+    const sources = ast.program.body
+      .filter((i: any) => i.type === 'ImportDeclaration')
+      .map((i: any) => i.source);
+    sources.forEach((source: any) => {
+      populateDeps(source.value);
+    });
+  }
 
   return { registryDependencies, dependencies };
 }

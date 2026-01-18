@@ -4,12 +4,18 @@ export const ui: Registry['items'] = [
   {
     name: 'accordion',
     type: 'registry:ui',
-    dependencies: ['ember-modifier', 'ember-provide-consume-context'],
     files: [
       {
         path: 'ui/accordion.gts',
         type: 'registry:ui',
       },
+    ],
+    dependencies: [
+      '@ember/modifier',
+      '@glimmer/component',
+      '@glimmer/tracking',
+      'ember-modifier',
+      'ember-provide-consume-context',
     ],
   },
   {
@@ -21,6 +27,7 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: ['@glimmer/component'],
   },
   {
     name: 'aspect-ratio',
@@ -31,6 +38,7 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: ['@glimmer/component'],
   },
   {
     name: 'avatar',
@@ -40,6 +48,13 @@ export const ui: Registry['items'] = [
         path: 'ui/avatar.gts',
         type: 'registry:ui',
       },
+    ],
+    dependencies: [
+      '@ember/modifier',
+      '@glimmer/component',
+      '@glimmer/tracking',
+      'ember-truth-helpers',
+      '@ember/component',
     ],
   },
   {
@@ -51,6 +66,7 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: ['@glimmer/component'],
   },
   {
     name: 'breadcrumb',
@@ -61,17 +77,19 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: ['@ember/component'],
   },
   {
     name: 'button-group',
     type: 'registry:ui',
-    registryDependencies: ['separator'],
     files: [
       {
         path: 'ui/button-group.gts',
         type: 'registry:ui',
       },
     ],
+    registryDependencies: ['separator'],
+    dependencies: ['@glimmer/component'],
   },
   {
     name: 'button',
@@ -82,6 +100,7 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: ['@glimmer/component'],
   },
   {
     name: 'card',
@@ -92,6 +111,7 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: ['@ember/component'],
   },
   {
     name: 'checkbox',
@@ -102,75 +122,104 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: [
+      '@ember/modifier',
+      '@glimmer/component',
+      '@glimmer/tracking',
+    ],
   },
   {
     name: 'collapsible',
     type: 'registry:ui',
-    dependencies: ['ember-provide-consume-context'],
     files: [
       {
         path: 'ui/collapsible.gts',
         type: 'registry:ui',
       },
     ],
+    dependencies: [
+      '@ember/modifier',
+      '@glimmer/component',
+      '@glimmer/tracking',
+      'ember-provide-consume-context',
+    ],
   },
   {
     name: 'command',
     type: 'registry:ui',
-    dependencies: [
-      'ember-modifier',
-      'ember-provide-consume-context',
-      'tracked-built-ins',
-    ],
-    registryDependencies: ['dialog'],
     files: [
       {
         path: 'ui/command.gts',
         type: 'registry:ui',
       },
     ],
+    registryDependencies: ['dialog'],
+    dependencies: [
+      '@ember/modifier',
+      '@glimmer/component',
+      '@glimmer/tracking',
+      'ember-modifier',
+      'ember-provide-consume-context',
+      'tracked-built-ins',
+      '@ember/component',
+    ],
   },
   {
     name: 'context-menu',
     type: 'registry:ui',
-    dependencies: [
-      '@floating-ui/dom',
-      'ember-click-outside',
-      'ember-modifier',
-      'ember-provide-consume-context',
-    ],
     files: [
       {
         path: 'ui/context-menu.gts',
         type: 'registry:ui',
       },
     ],
+    dependencies: [
+      '@ember/modifier',
+      '@floating-ui/dom',
+      '@glimmer/component',
+      '@glimmer/tracking',
+      'ember-click-outside',
+      'ember-modifier',
+      'ember-provide-consume-context',
+      '@ember/component',
+    ],
   },
   {
     name: 'dialog',
     type: 'registry:ui',
-    dependencies: ['ember-modifier', 'ember-provide-consume-context'],
     files: [
       {
         path: 'ui/dialog.gts',
         type: 'registry:ui',
       },
     ],
+    dependencies: [
+      '@ember/modifier',
+      '@glimmer/component',
+      '@glimmer/tracking',
+      'ember-modifier',
+      'ember-provide-consume-context',
+      '@ember/component',
+    ],
   },
   {
     name: 'dropdown-menu',
     type: 'registry:ui',
-    dependencies: [
-      '@floating-ui/dom',
-      'ember-click-outside',
-      'ember-modifier',
-      'ember-provide-consume-context',
-    ],
     files: [
       {
         path: 'ui/dropdown-menu.gts',
         type: 'registry:ui',
       },
+    ],
+    dependencies: [
+      '@ember/modifier',
+      '@floating-ui/dom',
+      '@glimmer/component',
+      '@glimmer/tracking',
+      'ember-click-outside',
+      'ember-modifier',
+      'ember-provide-consume-context',
+      '@ember/component',
     ],
   },
   {
@@ -182,53 +231,70 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: [
+      '@glimmer/component',
+      'class-variance-authority',
+      '@ember/component',
+    ],
   },
   {
     name: 'field',
     type: 'registry:ui',
-    registryDependencies: ['label', 'separator'],
     files: [
       {
         path: 'ui/field.gts',
         type: 'registry:ui',
       },
     ],
+    registryDependencies: ['label', 'separator'],
+    dependencies: ['@glimmer/component', '@ember/component'],
   },
   {
     name: 'hover-card',
     type: 'registry:ui',
-    dependencies: [
-      '@floating-ui/dom',
-      'ember-modifier',
-      'ember-provide-consume-context',
-    ],
     files: [
       {
         path: 'ui/hover-card.gts',
         type: 'registry:ui',
       },
     ],
+    dependencies: [
+      '@ember/modifier',
+      '@floating-ui/dom',
+      '@glimmer/component',
+      '@glimmer/tracking',
+      'ember-modifier',
+      'ember-provide-consume-context',
+    ],
   },
   {
     name: 'input-group',
     type: 'registry:ui',
-    registryDependencies: ['button', 'input', 'textarea'],
     files: [
       {
         path: 'ui/input-group.gts',
         type: 'registry:ui',
       },
     ],
+    registryDependencies: ['button', 'input', 'textarea'],
+    dependencies: ['@ember/modifier', '@glimmer/component', '@ember/component'],
   },
   {
     name: 'input-otp',
     type: 'registry:ui',
-    dependencies: ['ember-modifier', 'ember-provide-consume-context'],
     files: [
       {
         path: 'ui/input-otp.gts',
         type: 'registry:ui',
       },
+    ],
+    dependencies: [
+      '@ember/modifier',
+      '@glimmer/component',
+      '@glimmer/tracking',
+      'ember-modifier',
+      'ember-provide-consume-context',
+      '@ember/component',
     ],
   },
   {
@@ -240,17 +306,19 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: ['@ember/component'],
   },
   {
     name: 'item',
     type: 'registry:ui',
-    registryDependencies: ['separator'],
     files: [
       {
         path: 'ui/item.gts',
         type: 'registry:ui',
       },
     ],
+    registryDependencies: ['separator'],
+    dependencies: ['@glimmer/component', '@ember/component'],
   },
   {
     name: 'kbd',
@@ -261,6 +329,7 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: ['@ember/component'],
   },
   {
     name: 'label',
@@ -271,6 +340,7 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: ['@glimmer/component'],
   },
   {
     name: 'native-select',
@@ -281,6 +351,7 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: ['@ember/component'],
   },
   {
     name: 'pagination',
@@ -291,21 +362,26 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: ['@glimmer/component', '@ember/component'],
   },
   {
     name: 'popover',
     type: 'registry:ui',
-    dependencies: [
-      '@floating-ui/dom',
-      'ember-click-outside',
-      'ember-modifier',
-      'ember-provide-consume-context',
-    ],
     files: [
       {
         path: 'ui/popover.gts',
         type: 'registry:ui',
       },
+    ],
+    dependencies: [
+      '@ember/modifier',
+      '@floating-ui/dom',
+      '@glimmer/component',
+      '@glimmer/tracking',
+      'ember-click-outside',
+      'ember-modifier',
+      'ember-provide-consume-context',
+      '@ember/component',
     ],
   },
   {
@@ -317,16 +393,22 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: ['@glimmer/component'],
   },
   {
     name: 'radio-group',
     type: 'registry:ui',
-    dependencies: ['ember-provide-consume-context'],
     files: [
       {
         path: 'ui/radio-group.gts',
         type: 'registry:ui',
       },
+    ],
+    dependencies: [
+      '@ember/modifier',
+      '@glimmer/component',
+      '@glimmer/tracking',
+      'ember-provide-consume-context',
     ],
   },
   {
@@ -338,20 +420,26 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: ['@glimmer/component', '@ember/component'],
   },
   {
     name: 'select',
     type: 'registry:ui',
-    dependencies: [
-      '@floating-ui/dom',
-      'ember-click-outside',
-      'ember-provide-consume-context',
-    ],
     files: [
       {
         path: 'ui/select.gts',
         type: 'registry:ui',
       },
+    ],
+    dependencies: [
+      '@ember/modifier',
+      '@floating-ui/dom',
+      '@glimmer/component',
+      '@glimmer/tracking',
+      'ember-click-outside',
+      'ember-modifier',
+      'ember-provide-consume-context',
+      '@ember/component',
     ],
   },
   {
@@ -363,22 +451,35 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: ['@glimmer/component'],
   },
   {
     name: 'sheet',
     type: 'registry:ui',
-    dependencies: ['ember-modifier', 'ember-provide-consume-context'],
     files: [
       {
         path: 'ui/sheet.gts',
         type: 'registry:ui',
       },
     ],
+    dependencies: [
+      '@ember/modifier',
+      '@glimmer/component',
+      '@glimmer/tracking',
+      'ember-modifier',
+      'ember-provide-consume-context',
+      '@ember/component',
+    ],
   },
   {
     name: 'sidebar',
     type: 'registry:ui',
-    dependencies: ['ember-modifier', 'ember-provide-consume-context'],
+    files: [
+      {
+        path: 'ui/sidebar.gts',
+        type: 'registry:ui',
+      },
+    ],
     registryDependencies: [
       'button',
       'input',
@@ -387,11 +488,14 @@ export const ui: Registry['items'] = [
       'skeleton',
       'tooltip',
     ],
-    files: [
-      {
-        path: 'ui/sidebar.gts',
-        type: 'registry:ui',
-      },
+    dependencies: [
+      '@ember/modifier',
+      '@glimmer/component',
+      '@glimmer/tracking',
+      'ember-modifier',
+      'ember-provide-consume-context',
+      'ember-truth-helpers',
+      '@ember/component',
     ],
   },
   {
@@ -403,6 +507,7 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: ['@ember/component'],
   },
   {
     name: 'slider',
@@ -412,6 +517,11 @@ export const ui: Registry['items'] = [
         path: 'ui/slider.gts',
         type: 'registry:ui',
       },
+    ],
+    dependencies: [
+      '@ember/modifier',
+      '@glimmer/component',
+      '@glimmer/tracking',
     ],
   },
   {
@@ -423,6 +533,7 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: ['@ember/component'],
   },
   {
     name: 'switch',
@@ -432,6 +543,11 @@ export const ui: Registry['items'] = [
         path: 'ui/switch.gts',
         type: 'registry:ui',
       },
+    ],
+    dependencies: [
+      '@ember/modifier',
+      '@glimmer/component',
+      '@glimmer/tracking',
     ],
   },
   {
@@ -443,16 +559,23 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: ['@ember/component'],
   },
   {
     name: 'tabs',
     type: 'registry:ui',
-    dependencies: ['ember-provide-consume-context'],
     files: [
       {
         path: 'ui/tabs.gts',
         type: 'registry:ui',
       },
+    ],
+    dependencies: [
+      '@ember/modifier',
+      '@glimmer/component',
+      '@glimmer/tracking',
+      'ember-provide-consume-context',
+      '@ember/component',
     ],
   },
   {
@@ -464,6 +587,7 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: ['@ember/component'],
   },
   {
     name: 'toast',
@@ -474,6 +598,7 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: ['@glimmer/component', '@ember/component'],
   },
   {
     name: 'toaster',
@@ -484,17 +609,23 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: ['@ember/component'],
   },
   {
     name: 'toggle-group',
     type: 'registry:ui',
-    dependencies: ['ember-provide-consume-context'],
-    registryDependencies: ['toggle'],
     files: [
       {
         path: 'ui/toggle-group.gts',
         type: 'registry:ui',
       },
+    ],
+    registryDependencies: ['toggle'],
+    dependencies: [
+      '@ember/modifier',
+      '@glimmer/component',
+      '@glimmer/tracking',
+      'ember-provide-consume-context',
     ],
   },
   {
@@ -506,20 +637,28 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+    dependencies: [
+      '@ember/modifier',
+      '@glimmer/component',
+      '@glimmer/tracking',
+    ],
   },
   {
     name: 'tooltip',
     type: 'registry:ui',
-    dependencies: [
-      '@floating-ui/dom',
-      'ember-modifier',
-      'ember-provide-consume-context',
-    ],
     files: [
       {
         path: 'ui/tooltip.gts',
         type: 'registry:ui',
       },
+    ],
+    dependencies: [
+      '@ember/modifier',
+      '@floating-ui/dom',
+      '@glimmer/component',
+      '@glimmer/tracking',
+      'ember-modifier',
+      'ember-provide-consume-context',
     ],
   },
 ];

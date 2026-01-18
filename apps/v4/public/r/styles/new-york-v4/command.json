@@ -2,6 +2,15 @@
   "$schema": "https://shadcn-ember.com/schema/registry-item.json",
   "name": "command",
   "type": "registry:ui",
+  "dependencies": [
+    "@ember/modifier",
+    "@glimmer/component",
+    "@glimmer/tracking",
+    "ember-modifier",
+    "ember-provide-consume-context",
+    "tracked-built-ins"
+  ],
+  "registryDependencies": ["dialog"],
   "files": [
     {
       "path": "registry/new-york-v4/ui/command.gts",

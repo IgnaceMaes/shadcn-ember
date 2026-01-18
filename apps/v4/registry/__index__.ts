@@ -117,7 +117,7 @@ export const Index: Record<string, any> = {
     name: 'button-group',
     description: '',
     type: 'registry:ui',
-    registryDependencies: undefined,
+    registryDependencies: ['separator'],
     files: [
       {
         path: 'registry/new-york-v4/ui/button-group.gts',
@@ -192,7 +192,7 @@ export const Index: Record<string, any> = {
     name: 'command',
     description: '',
     type: 'registry:ui',
-    registryDependencies: undefined,
+    registryDependencies: ['dialog'],
     files: [
       {
         path: 'registry/new-york-v4/ui/command.gts',
@@ -267,7 +267,7 @@ export const Index: Record<string, any> = {
     name: 'field',
     description: '',
     type: 'registry:ui',
-    registryDependencies: undefined,
+    registryDependencies: ['label', 'separator'],
     files: [
       {
         path: 'registry/new-york-v4/ui/field.gts',
@@ -297,7 +297,7 @@ export const Index: Record<string, any> = {
     name: 'input-group',
     description: '',
     type: 'registry:ui',
-    registryDependencies: undefined,
+    registryDependencies: ['button', 'input', 'textarea'],
     files: [
       {
         path: 'registry/new-york-v4/ui/input-group.gts',
@@ -342,7 +342,7 @@ export const Index: Record<string, any> = {
     name: 'item',
     description: '',
     type: 'registry:ui',
-    registryDependencies: undefined,
+    registryDependencies: ['separator'],
     files: [
       {
         path: 'registry/new-york-v4/ui/item.gts',
@@ -522,7 +522,14 @@ export const Index: Record<string, any> = {
     name: 'sidebar',
     description: '',
     type: 'registry:ui',
-    registryDependencies: undefined,
+    registryDependencies: [
+      'button',
+      'input',
+      'separator',
+      'sheet',
+      'skeleton',
+      'tooltip',
+    ],
     files: [
       {
         path: 'registry/new-york-v4/ui/sidebar.gts',
@@ -657,7 +664,7 @@ export const Index: Record<string, any> = {
     name: 'toggle-group',
     description: '',
     type: 'registry:ui',
-    registryDependencies: undefined,
+    registryDependencies: ['toggle'],
     files: [
       {
         path: 'registry/new-york-v4/ui/toggle-group.gts',

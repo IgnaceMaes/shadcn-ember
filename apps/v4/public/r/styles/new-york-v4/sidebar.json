@@ -2,6 +2,22 @@
   "$schema": "https://shadcn-ember.com/schema/registry-item.json",
   "name": "sidebar",
   "type": "registry:ui",
+  "dependencies": [
+    "@ember/modifier",
+    "@glimmer/component",
+    "@glimmer/tracking",
+    "ember-modifier",
+    "ember-provide-consume-context",
+    "ember-truth-helpers"
+  ],
+  "registryDependencies": [
+    "button",
+    "input",
+    "separator",
+    "sheet",
+    "skeleton",
+    "tooltip"
+  ],
   "files": [
     {
       "path": "registry/new-york-v4/ui/sidebar.gts",
