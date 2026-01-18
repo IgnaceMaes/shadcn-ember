@@ -5,10 +5,6 @@ description: Fast, composable, unstyled command menu for Ember.
 
 <ComponentPreview name="command-demo" description="A command menu" class="[&>div]:max-w-[450px]" align="start" />
 
-## About
-
-The `<Command />` component uses the [`cmdk`](https://cmdk.paco.me) component by [pacocoursey](https://twitter.com/pacocoursey).
-
 ## Installation
 
 ### CLI
