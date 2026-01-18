@@ -397,9 +397,9 @@ class NotionPromptForm extends Component {
                   <DropdownMenuItem
                     @asChild={{true}}
                     @onSelect={{this.noop}}
-                    as |classes|
+                    as |item|
                   >
-                    <label class={{classes}} for="web-search">
+                    <label class={{item.classes}} for="web-search">
                       <Globe />
                       Web Search
                       <Switch
@@ -416,9 +416,9 @@ class NotionPromptForm extends Component {
                   <DropdownMenuItem
                     @asChild={{true}}
                     @onSelect={{this.noop}}
-                    as |classes|
+                    as |item|
                   >
-                    <label class={{classes}} for="apps">
+                    <label class={{item.classes}} for="apps">
                       <Grid3x3 />
                       Apps and Integrations
                       <Switch

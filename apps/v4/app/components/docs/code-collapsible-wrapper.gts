@@ -35,19 +35,19 @@ export default class CodeCollapsibleWrapper extends Component<Signature> {
       class={{cn "group/collapsible relative md:-mx-1" @class}}
       ...attributes
     >
-      <CollapsibleTrigger @asChild={{true}} as |triggerProps|>
+      <CollapsibleTrigger @asChild={{true}} as |trigger|>
         <div class="absolute top-5 right-9 z-10 flex items-center">
           <Button
             @class="text-muted-foreground h-7 rounded-md px-2"
             @size="sm"
             @variant="ghost"
-            aria-controls={{triggerProps.aria-controls}}
-            aria-expanded={{triggerProps.aria-expanded}}
-            data-disabled={{triggerProps.data-disabled}}
-            data-slot={{triggerProps.data-slot}}
-            data-state={{triggerProps.data-state}}
-            disabled={{triggerProps.disabled}}
-            {{on "click" triggerProps.onClick}}
+            aria-controls={{trigger.aria-controls}}
+            aria-expanded={{trigger.aria-expanded}}
+            data-disabled={{trigger.data-disabled}}
+            data-slot={{trigger.data-slot}}
+            data-state={{trigger.data-state}}
+            disabled={{trigger.disabled}}
+            {{on "click" trigger.onClick}}
           >
             {{if this.isOpened "Collapse" "Expand"}}
           </Button>

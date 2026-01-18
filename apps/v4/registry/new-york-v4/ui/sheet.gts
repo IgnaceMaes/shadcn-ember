@@ -1,3 +1,4 @@
+import { hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
@@ -126,7 +127,7 @@ class SheetTrigger extends Component<SheetTriggerSignature> {
         {{on "keydown" this.handleClick}}
         ...attributes
       >
-        {{yield}}
+        {{yield (hash)}}
       </span>
     {{else}}
       <button
@@ -171,7 +172,7 @@ class SheetClose extends Component<SheetCloseSignature> {
         {{on "keydown" this.handleClick}}
         ...attributes
       >
-        {{yield}}
+        {{yield (hash)}}
       </span>
     {{else}}
       <button

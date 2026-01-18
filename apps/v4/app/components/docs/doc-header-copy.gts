@@ -105,9 +105,9 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
         </DropdownMenuTrigger>
 
         <DropdownMenuContent @align="end" @class="min-w-48">
-          <DropdownMenuItem @asChild={{true}} as |itemClass|>
+          <DropdownMenuItem @asChild={{true}} as |item|>
             <a
-              class={{itemClass}}
+              class={{item.classes}}
               href={{this.markdownUrl}}
               rel="noopener noreferrer"
               target="_blank"
@@ -117,9 +117,9 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
             </a>
           </DropdownMenuItem>
 
-          <DropdownMenuItem @asChild={{true}} as |itemClass|>
+          <DropdownMenuItem @asChild={{true}} as |item|>
             <a
-              class={{itemClass}}
+              class={{item.classes}}
               href={{this.chatGptUrl}}
               rel="noopener noreferrer"
               target="_blank"
@@ -129,9 +129,9 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
             </a>
           </DropdownMenuItem>
 
-          <DropdownMenuItem @asChild={{true}} as |itemClass|>
+          <DropdownMenuItem @asChild={{true}} as |item|>
             <a
-              class={{itemClass}}
+              class={{item.classes}}
               href={{this.claudeUrl}}
               rel="noopener noreferrer"
               target="_blank"
@@ -141,9 +141,9 @@ export default class DocHeaderCopy extends Component<DocHeaderCopySignature> {
             </a>
           </DropdownMenuItem>
 
-          <DropdownMenuItem @asChild={{true}} as |itemClass|>
+          <DropdownMenuItem @asChild={{true}} as |item|>
             <a
-              class={{itemClass}}
+              class={{item.classes}}
               href={{this.cursorUrl}}
               rel="noopener noreferrer"
               target="_blank"

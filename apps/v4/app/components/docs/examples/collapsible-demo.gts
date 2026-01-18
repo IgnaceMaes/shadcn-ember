@@ -28,17 +28,17 @@ export default class CollapsibleDemo extends Component {
         <h4 class="text-sm font-semibold">
           @peduarte starred 3 repositories
         </h4>
-        <CollapsibleTrigger @asChild={{true}} as |triggerProps|>
+        <CollapsibleTrigger @asChild={{true}} as |trigger|>
           <Button
             @size="icon"
             @variant="ghost"
-            aria-controls={{triggerProps.aria-controls}}
-            aria-expanded={{triggerProps.aria-expanded}}
+            aria-controls={{trigger.aria-controls}}
+            aria-expanded={{trigger.aria-expanded}}
             class="size-8"
-            data-disabled={{triggerProps.data-disabled}}
-            data-state={{triggerProps.data-state}}
-            disabled={{triggerProps.disabled}}
-            {{on "click" triggerProps.onClick}}
+            data-disabled={{trigger.data-disabled}}
+            data-state={{trigger.data-state}}
+            disabled={{trigger.disabled}}
+            {{on "click" trigger.onClick}}
           >
             <ChevronsUpDown />
             <span class="sr-only">Toggle</span>

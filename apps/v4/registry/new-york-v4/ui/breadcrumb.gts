@@ -1,3 +1,5 @@
+import { hash } from '@ember/helper';
+
 import { cn } from '@/lib/utils';
 
 import type { TOC } from '@ember/component/template-only';
@@ -78,13 +80,15 @@ interface BreadcrumbLinkSignature {
     asChild?: boolean;
   };
   Blocks: {
-    default: [string?];
+    default: [{ classes: string }?];
   };
 }
 
 const BreadcrumbLink: TOC<BreadcrumbLinkSignature> = <template>
   {{#if @asChild}}
-    {{yield (cn "hover:text-foreground transition-colors" @class)}}
+    {{yield
+      (hash classes=(cn "hover:text-foreground transition-colors" @class))
+    }}
   {{else}}
     <a
       class={{cn "hover:text-foreground transition-colors" @class}}

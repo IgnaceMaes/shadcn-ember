@@ -1,3 +1,4 @@
+import { hash } from '@ember/helper';
 import Component from '@glimmer/component';
 
 import { cn } from '@/lib/utils';
@@ -12,7 +13,7 @@ interface BadgeSignature {
     asChild?: boolean;
   };
   Blocks: {
-    default: [string?];
+    default: [{ classes: string }?];
   };
 }
 
@@ -44,7 +45,7 @@ class Badge extends Component<BadgeSignature> {
 
   <template>
     {{#if @asChild}}
-      {{yield this.classes}}
+      {{yield (hash classes=this.classes)}}
     {{else}}
       <span class={{this.classes}} data-slot="badge" ...attributes>
         {{yield}}

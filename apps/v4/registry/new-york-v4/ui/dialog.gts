@@ -1,3 +1,4 @@
+import { hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
@@ -101,7 +102,7 @@ class DialogTrigger extends Component<DialogTriggerSignature> {
 
   <template>
     {{#if @asChild}}
-      {{yield}}
+      {{yield (hash)}}
     {{else}}
       <button
         class={{cn @class}}
@@ -197,7 +198,7 @@ class DialogClose extends Component<DialogCloseSignature> {
         {{on "keydown" this.handleClick}}
         ...attributes
       >
-        {{yield}}
+        {{yield (hash)}}
       </span>
     {{else}}
       <button

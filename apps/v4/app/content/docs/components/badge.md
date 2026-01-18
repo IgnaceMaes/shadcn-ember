@@ -43,8 +43,8 @@ import { LinkTo } from '@ember/routing';
 import { Badge } from '@/components/ui/badge';
 
 <template>
-  <Badge @asChild={{true}} as |classes|>
-    <LinkTo @route="index" class={{classes}}>
+  <Badge @asChild={{true}} as |badge|>
+    <LinkTo @route="index" class={{badge.classes}}>
       Badge
     </LinkTo>
   </Badge>

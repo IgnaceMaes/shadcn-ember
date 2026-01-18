@@ -1,3 +1,4 @@
+import { hash } from '@ember/helper';
 import Component from '@glimmer/component';
 
 import { Separator } from '@/components/ui/separator';
@@ -86,7 +87,7 @@ class ButtonGroupText extends Component<ButtonGroupTextSignature> {
 
   <template>
     {{#if @asChild}}
-      {{yield}}
+      {{yield (hash)}}
     {{else}}
       <div class={{this.classes}} ...attributes>
         {{yield}}

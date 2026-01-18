@@ -1,3 +1,4 @@
+import { hash } from '@ember/helper';
 import Component from '@glimmer/component';
 
 import { cn } from '@/lib/utils';
@@ -22,7 +23,7 @@ interface ButtonSignature {
     disabled?: boolean;
   };
   Blocks: {
-    default: [string?];
+    default: [{ classes: string }?];
   };
 }
 
@@ -69,7 +70,7 @@ class Button extends Component<ButtonSignature> {
 
   <template>
     {{#if @asChild}}
-      {{yield this.classes}}
+      {{yield (hash classes=this.classes)}}
     {{else}}
       <button
         class={{this.classes}}

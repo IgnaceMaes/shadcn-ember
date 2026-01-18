@@ -34,9 +34,9 @@ import FolderCode from '~icons/lucide/folder-code';
       @class="text-muted-foreground"
       @size="sm"
       @variant="link"
-      as |classes|
+      as |button|
     >
-      <a class={{classes}} href="#">
+      <a class={{button.classes}} href="#">
         Learn More
         <ArrowUpRight />
       </a>

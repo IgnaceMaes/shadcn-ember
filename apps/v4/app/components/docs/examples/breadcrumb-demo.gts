@@ -20,8 +20,8 @@ import {
   <Breadcrumb>
     <BreadcrumbList>
       <BreadcrumbItem>
-        <BreadcrumbLink @asChild={{true}} as |classes|>
-          <LinkTo @route="index" class={{classes}}>Home</LinkTo>
+        <BreadcrumbLink @asChild={{true}} as |link|>
+          <LinkTo @route="index" class={{link.classes}}>Home</LinkTo>
         </BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbSeparator />
@@ -40,11 +40,11 @@ import {
       </BreadcrumbItem>
       <BreadcrumbSeparator />
       <BreadcrumbItem>
-        <BreadcrumbLink @asChild={{true}} as |classes|>
+        <BreadcrumbLink @asChild={{true}} as |link|>
           <LinkTo
             @model="components"
             @route="docs.catch-all"
-            class={{classes}}
+            class={{link.classes}}
           >Components</LinkTo>
         </BreadcrumbLink>
       </BreadcrumbItem>

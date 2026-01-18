@@ -13,16 +13,17 @@ import {
   <Breadcrumb>
     <BreadcrumbList>
       <BreadcrumbItem>
-        <BreadcrumbLink @asChild={{true}}>
-          <LinkTo @route="index">Home</LinkTo>
+        <BreadcrumbLink @asChild={{true}} as |link|>
+          <LinkTo @route="index" class={{link.classes}}>Home</LinkTo>
         </BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbSeparator />
       <BreadcrumbItem>
-        <BreadcrumbLink @asChild={{true}}>
+        <BreadcrumbLink @asChild={{true}} as |link|>
           <LinkTo
             @model="components"
             @route="docs.catch-all"
+            class={{link.classes}}
           >Components</LinkTo>
         </BreadcrumbLink>
       </BreadcrumbItem>

@@ -56,10 +56,10 @@ import Github from '~icons/simple-icons/github';
             @size="sm"
             @variant="ghost"
             class="h-8 gap-1.5 rounded-md px-3 has-[>svg]:px-2.5 shadow-none"
-            as |class|
+            as |button|
           >
             <a
-              class={{class}}
+              class={{button.classes}}
               href="https://github.com/IgnaceMaes/shadcn-ember"
               rel="noopener noreferrer"
               target="_blank"

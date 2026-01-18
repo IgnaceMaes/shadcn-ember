@@ -33,6 +33,7 @@ npx shadcn-ember@latest mcp init --client claude
 ```
 
 **Restart Claude Code** and try the following prompts:
+
 - Show me all available components in the shadcn registry
 - Add the button, dialog and card components to my project
 - Create a contact form using components from the shadcn registry
@@ -48,6 +49,7 @@ npx shadcn-ember@latest mcp init --client cursor
 ```
 
 Open **Cursor Settings** and **Enable the MCP server** for shadcn. Then try the following prompts:
+
 - Show me all available components in the shadcn registry
 - Add the button, dialog and card components to my project
 - Create a contact form using components from the shadcn registry
@@ -61,6 +63,7 @@ npx shadcn-ember@latest mcp init --client vscode
 ```
 
 Open `.vscode/mcp.json` and click **Start** next to the shadcn server. Then try the following prompts with GitHub Copilot:
+
 - Show me all available components in the shadcn registry
 - Add the button, dialog and card components to my project
 - Create a contact form using components from the shadcn registry
@@ -85,21 +88,25 @@ args = ["shadcn-ember@latest", "mcp"]
 ```
 
 **Restart Codex** and try the following prompts:
+
 - Show me all available components in the shadcn registry
 - Add the button, dialog and card components to my project
 - Create a contact form using components from the shadcn registry
 
 ### Opencode
 
-You need to make sure opencode is installed. 
+You need to make sure opencode is installed.
 
 To install check [Opencode Documentation](https://opencode.ai/)
 
 **Run the following command** in your project:
+
 ```bash
 npx shadcn-ember@latest mcp init --client opencode
 ```
+
 **Restart opencode** and try the following prompts:
+
 - Show me all available components in the shadcn registry
 - Add the button, dialog and card components to my project
 - Create a contact form using components from the shadcn registry
@@ -235,6 +242,7 @@ To configure MCP in opencode add the shadcn server to `opencode.json`:
     }
 }
 ```
+
 See the [Opencode Documentation](https://opencode.ai/docs/mcp-servers/) for more details.
 
 ---
