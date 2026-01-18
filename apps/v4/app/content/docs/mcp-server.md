@@ -336,12 +336,3 @@ If you see the `No tools or prompts` message, try the following:
 1. **Clear the npx cache** - Run `npx clear-npx-cache`
 2. **Re-enable the MCP server** - Try to re-enable the MCP server in your MCP client
 3. **Check Logs** - In Cursor, you can see the logs under View -> Output and select `MCP: project-*` in the dropdown.
-
----
-
-## Learn More
-
-- [Registry Documentation](/docs/registry) - Complete guide to shadcn registries
-- [Namespaces](/docs/registry/namespace) - Configure multiple registry sources
-- [Authentication](/docs/registry/authentication) - Secure your private registries
-- [MCP Specification](https://modelcontextprotocol.io) - Learn about Model Context Protocol
