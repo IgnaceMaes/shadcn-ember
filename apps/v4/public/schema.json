@@ -4,7 +4,7 @@
   "properties": {
     "style": {
       "type": "string",
-      "enum": ["default"]
+      "enum": ["new-york"]
     },
     "typescript": {
       "type": "boolean",
