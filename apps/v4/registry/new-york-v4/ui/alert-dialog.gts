@@ -91,7 +91,8 @@ interface AlertDialogTriggerSignature {
 }
 
 class AlertDialogTrigger extends Component<AlertDialogTriggerSignature> {
-  @consume(AlertDialogContext) context!: ContextRegistry[typeof AlertDialogContext];
+  @consume(AlertDialogContext)
+  context!: ContextRegistry[typeof AlertDialogContext];
 
   handleClick = (event: MouseEvent) => {
     event.preventDefault();
@@ -138,7 +139,8 @@ interface AlertDialogOverlaySignature {
 }
 
 class AlertDialogOverlay extends Component<AlertDialogOverlaySignature> {
-  @consume(AlertDialogContext) context!: ContextRegistry[typeof AlertDialogContext];
+  @consume(AlertDialogContext)
+  context!: ContextRegistry[typeof AlertDialogContext];
 
   handleAnimationEnd = (event: AnimationEvent) => {
     if (event.target === event.currentTarget && !this.context.open) {
@@ -171,7 +173,8 @@ interface AlertDialogContentSignature {
 }
 
 class AlertDialogContent extends Component<AlertDialogContentSignature> {
-  @consume(AlertDialogContext) context!: ContextRegistry[typeof AlertDialogContext];
+  @consume(AlertDialogContext)
+  context!: ContextRegistry[typeof AlertDialogContext];
 
   get destinationElement() {
     return document.body;
@@ -325,7 +328,8 @@ interface AlertDialogActionSignature {
 }
 
 class AlertDialogAction extends Component<AlertDialogActionSignature> {
-  @consume(AlertDialogContext) context!: ContextRegistry[typeof AlertDialogContext];
+  @consume(AlertDialogContext)
+  context!: ContextRegistry[typeof AlertDialogContext];
 
   handleClick = () => {
     this.context.setOpen(false);
@@ -358,7 +362,8 @@ interface AlertDialogCancelSignature {
 }
 
 class AlertDialogCancel extends Component<AlertDialogCancelSignature> {
-  @consume(AlertDialogContext) context!: ContextRegistry[typeof AlertDialogContext];
+  @consume(AlertDialogContext)
+  context!: ContextRegistry[typeof AlertDialogContext];
 
   handleClick = () => {
     this.context.setOpen(false);
