@@ -372,7 +372,7 @@ async function getFileDependencies(filename: string, sourceCode: string) {
     // Extract base package name from sub-path imports (e.g., 'ember-click-outside/modifiers/on-click-outside' -> 'ember-click-outside')
     const packageName = source.startsWith('@')
       ? source.split('/').slice(0, 2).join('/') // Scoped packages: @scope/package
-      : source.split('/')[0]; // Regular packages: package
+      : source.split('/')[0]!; // Regular packages: package - always exists for non-empty strings
 
     const peerDeps = DEPENDENCIES.get(packageName);
     if (peerDeps !== undefined) {
@@ -385,8 +385,8 @@ async function getFileDependencies(filename: string, sourceCode: string) {
       !source.endsWith('.gts') &&
       !source.endsWith('.ts')
     ) {
-      const component = source.split('/').at(-1)!;
-      if (component !== 'utils') registryDependencies.add(component);
+      const component = source.split('/').at(-1);
+      if (component && component !== 'utils') registryDependencies.add(component);
     }
   };
 
@@ -397,7 +397,7 @@ async function getFileDependencies(filename: string, sourceCode: string) {
     let match;
     while ((match = importRegex.exec(sourceCode)) !== null) {
       const importPath = match[1];
-      populateDeps(importPath);
+      if (importPath) populateDeps(importPath);
     }
   } else {
     // Parse imports using oxc-parser for .ts files
