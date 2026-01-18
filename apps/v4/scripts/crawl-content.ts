@@ -19,13 +19,7 @@ function kebabCase(str: string): string {
 
 // [Dependency, [...PeerDependencies]]
 const DEPENDENCIES = new Map<string, string[]>([
-  ['@glimmer/component', []],
-  ['@glimmer/tracking', []],
-  ['@ember/component', []],
-  ['@ember/service', []],
-  ['@ember/modifier', []],
   ['ember-truth-helpers', []],
-  ['ember-composable-helpers', []],
   ['ember-modifier', []],
   ['ember-provide-consume-context', []],
   ['ember-click-outside', []],
