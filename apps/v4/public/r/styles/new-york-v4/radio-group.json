@@ -2,12 +2,7 @@
   "$schema": "https://shadcn-ember.com/schema/registry-item.json",
   "name": "radio-group",
   "type": "registry:ui",
-  "dependencies": [
-    "@ember/modifier",
-    "@glimmer/component",
-    "@glimmer/tracking",
-    "ember-provide-consume-context"
-  ],
+  "dependencies": ["ember-provide-consume-context"],
   "files": [
     {
       "path": "registry/new-york-v4/ui/radio-group.gts",

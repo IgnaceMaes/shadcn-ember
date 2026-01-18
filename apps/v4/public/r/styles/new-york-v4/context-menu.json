@@ -3,14 +3,10 @@
   "name": "context-menu",
   "type": "registry:ui",
   "dependencies": [
-    "@ember/modifier",
     "@floating-ui/dom",
-    "@glimmer/component",
-    "@glimmer/tracking",
     "ember-click-outside",
     "ember-modifier",
-    "ember-provide-consume-context",
-    "@ember/component"
+    "ember-provide-consume-context"
   ],
   "files": [
     {

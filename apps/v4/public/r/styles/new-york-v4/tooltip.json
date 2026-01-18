@@ -3,10 +3,7 @@
   "name": "tooltip",
   "type": "registry:ui",
   "dependencies": [
-    "@ember/modifier",
     "@floating-ui/dom",
-    "@glimmer/component",
-    "@glimmer/tracking",
     "ember-modifier",
     "ember-provide-consume-context"
   ],

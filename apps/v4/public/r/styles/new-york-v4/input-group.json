@@ -2,7 +2,6 @@
   "$schema": "https://shadcn-ember.com/schema/registry-item.json",
   "name": "input-group",
   "type": "registry:ui",
-  "dependencies": ["@ember/modifier", "@glimmer/component", "@ember/component"],
   "registryDependencies": ["button", "input", "textarea"],
   "files": [
     {

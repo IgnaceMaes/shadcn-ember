@@ -8,13 +8,7 @@
         "type": "registry:ui"
       }
     ],
-    "dependencies": [
-      "@ember/modifier",
-      "@glimmer/component",
-      "@glimmer/tracking",
-      "ember-modifier",
-      "ember-provide-consume-context"
-    ]
+    "dependencies": ["ember-modifier", "ember-provide-consume-context"]
   },
   {
     "name": "alert",
@@ -24,8 +18,7 @@
         "path": "ui/alert.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": ["@glimmer/component"]
+    ]
   },
   {
     "name": "aspect-ratio",
@@ -35,8 +28,7 @@
         "path": "ui/aspect-ratio.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": ["@glimmer/component"]
+    ]
   },
   {
     "name": "avatar",
@@ -47,13 +39,7 @@
         "type": "registry:ui"
       }
     ],
-    "dependencies": [
-      "@ember/modifier",
-      "@glimmer/component",
-      "@glimmer/tracking",
-      "ember-truth-helpers",
-      "@ember/component"
-    ]
+    "dependencies": ["ember-truth-helpers"]
   },
   {
     "name": "badge",
@@ -63,8 +49,7 @@
         "path": "ui/badge.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": ["@glimmer/component"]
+    ]
   },
   {
     "name": "breadcrumb",
@@ -74,8 +59,7 @@
         "path": "ui/breadcrumb.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": ["@ember/component"]
+    ]
   },
   {
     "name": "button-group",
@@ -86,8 +70,7 @@
         "type": "registry:ui"
       }
     ],
-    "registryDependencies": ["separator"],
-    "dependencies": ["@glimmer/component"]
+    "registryDependencies": ["separator"]
   },
   {
     "name": "button",
@@ -97,8 +80,7 @@
         "path": "ui/button.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": ["@glimmer/component"]
+    ]
   },
   {
     "name": "card",
@@ -108,8 +90,7 @@
         "path": "ui/card.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": ["@ember/component"]
+    ]
   },
   {
     "name": "checkbox",
@@ -119,11 +100,6 @@
         "path": "ui/checkbox.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": [
-      "@ember/modifier",
-      "@glimmer/component",
-      "@glimmer/tracking"
     ]
   },
   {
@@ -135,12 +111,7 @@
         "type": "registry:ui"
       }
     ],
-    "dependencies": [
-      "@ember/modifier",
-      "@glimmer/component",
-      "@glimmer/tracking",
-      "ember-provide-consume-context"
-    ]
+    "dependencies": ["ember-provide-consume-context"]
   },
   {
     "name": "command",
@@ -153,13 +124,9 @@
     ],
     "registryDependencies": ["dialog"],
     "dependencies": [
-      "@ember/modifier",
-      "@glimmer/component",
-      "@glimmer/tracking",
       "ember-modifier",
       "ember-provide-consume-context",
-      "tracked-built-ins",
-      "@ember/component"
+      "tracked-built-ins"
     ]
   },
   {
@@ -172,14 +139,10 @@
       }
     ],
     "dependencies": [
-      "@ember/modifier",
       "@floating-ui/dom",
-      "@glimmer/component",
-      "@glimmer/tracking",
       "ember-click-outside",
       "ember-modifier",
-      "ember-provide-consume-context",
-      "@ember/component"
+      "ember-provide-consume-context"
     ]
   },
   {
@@ -191,14 +154,7 @@
         "type": "registry:ui"
       }
     ],
-    "dependencies": [
-      "@ember/modifier",
-      "@glimmer/component",
-      "@glimmer/tracking",
-      "ember-modifier",
-      "ember-provide-consume-context",
-      "@ember/component"
-    ]
+    "dependencies": ["ember-modifier", "ember-provide-consume-context"]
   },
   {
     "name": "dropdown-menu",
@@ -210,14 +166,10 @@
       }
     ],
     "dependencies": [
-      "@ember/modifier",
       "@floating-ui/dom",
-      "@glimmer/component",
-      "@glimmer/tracking",
       "ember-click-outside",
       "ember-modifier",
-      "ember-provide-consume-context",
-      "@ember/component"
+      "ember-provide-consume-context"
     ]
   },
   {
@@ -229,11 +181,7 @@
         "type": "registry:ui"
       }
     ],
-    "dependencies": [
-      "@glimmer/component",
-      "class-variance-authority",
-      "@ember/component"
-    ]
+    "dependencies": ["class-variance-authority"]
   },
   {
     "name": "field",
@@ -244,8 +192,7 @@
         "type": "registry:ui"
       }
     ],
-    "registryDependencies": ["label", "separator"],
-    "dependencies": ["@glimmer/component", "@ember/component"]
+    "registryDependencies": ["label", "separator"]
   },
   {
     "name": "hover-card",
@@ -257,10 +204,7 @@
       }
     ],
     "dependencies": [
-      "@ember/modifier",
       "@floating-ui/dom",
-      "@glimmer/component",
-      "@glimmer/tracking",
       "ember-modifier",
       "ember-provide-consume-context"
     ]
@@ -274,12 +218,7 @@
         "type": "registry:ui"
       }
     ],
-    "registryDependencies": ["button", "input", "textarea"],
-    "dependencies": [
-      "@ember/modifier",
-      "@glimmer/component",
-      "@ember/component"
-    ]
+    "registryDependencies": ["button", "input", "textarea"]
   },
   {
     "name": "input-otp",
@@ -290,14 +229,7 @@
         "type": "registry:ui"
       }
     ],
-    "dependencies": [
-      "@ember/modifier",
-      "@glimmer/component",
-      "@glimmer/tracking",
-      "ember-modifier",
-      "ember-provide-consume-context",
-      "@ember/component"
-    ]
+    "dependencies": ["ember-modifier", "ember-provide-consume-context"]
   },
   {
     "name": "input",
@@ -307,8 +239,7 @@
         "path": "ui/input.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": ["@ember/component"]
+    ]
   },
   {
     "name": "item",
@@ -319,8 +250,7 @@
         "type": "registry:ui"
       }
     ],
-    "registryDependencies": ["separator"],
-    "dependencies": ["@glimmer/component", "@ember/component"]
+    "registryDependencies": ["separator"]
   },
   {
     "name": "kbd",
@@ -330,8 +260,7 @@
         "path": "ui/kbd.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": ["@ember/component"]
+    ]
   },
   {
     "name": "label",
@@ -341,8 +270,7 @@
         "path": "ui/label.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": ["@glimmer/component"]
+    ]
   },
   {
     "name": "native-select",
@@ -352,8 +280,7 @@
         "path": "ui/native-select.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": ["@ember/component"]
+    ]
   },
   {
     "name": "pagination",
@@ -363,8 +290,7 @@
         "path": "ui/pagination.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": ["@glimmer/component", "@ember/component"]
+    ]
   },
   {
     "name": "popover",
@@ -376,14 +302,10 @@
       }
     ],
     "dependencies": [
-      "@ember/modifier",
       "@floating-ui/dom",
-      "@glimmer/component",
-      "@glimmer/tracking",
       "ember-click-outside",
       "ember-modifier",
-      "ember-provide-consume-context",
-      "@ember/component"
+      "ember-provide-consume-context"
     ]
   },
   {
@@ -394,8 +316,7 @@
         "path": "ui/progress.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": ["@glimmer/component"]
+    ]
   },
   {
     "name": "radio-group",
@@ -406,12 +327,7 @@
         "type": "registry:ui"
       }
     ],
-    "dependencies": [
-      "@ember/modifier",
-      "@glimmer/component",
-      "@glimmer/tracking",
-      "ember-provide-consume-context"
-    ]
+    "dependencies": ["ember-provide-consume-context"]
   },
   {
     "name": "scroll-area",
@@ -421,8 +337,7 @@
         "path": "ui/scroll-area.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": ["@glimmer/component", "@ember/component"]
+    ]
   },
   {
     "name": "select",
@@ -434,14 +349,10 @@
       }
     ],
     "dependencies": [
-      "@ember/modifier",
       "@floating-ui/dom",
-      "@glimmer/component",
-      "@glimmer/tracking",
       "ember-click-outside",
       "ember-modifier",
-      "ember-provide-consume-context",
-      "@ember/component"
+      "ember-provide-consume-context"
     ]
   },
   {
@@ -452,8 +363,7 @@
         "path": "ui/separator.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": ["@glimmer/component"]
+    ]
   },
   {
     "name": "sheet",
@@ -464,14 +374,7 @@
         "type": "registry:ui"
       }
     ],
-    "dependencies": [
-      "@ember/modifier",
-      "@glimmer/component",
-      "@glimmer/tracking",
-      "ember-modifier",
-      "ember-provide-consume-context",
-      "@ember/component"
-    ]
+    "dependencies": ["ember-modifier", "ember-provide-consume-context"]
   },
   {
     "name": "sidebar",
@@ -491,13 +394,9 @@
       "tooltip"
     ],
     "dependencies": [
-      "@ember/modifier",
-      "@glimmer/component",
-      "@glimmer/tracking",
       "ember-modifier",
       "ember-provide-consume-context",
-      "ember-truth-helpers",
-      "@ember/component"
+      "ember-truth-helpers"
     ]
   },
   {
@@ -508,8 +407,7 @@
         "path": "ui/skeleton.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": ["@ember/component"]
+    ]
   },
   {
     "name": "slider",
@@ -519,11 +417,6 @@
         "path": "ui/slider.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": [
-      "@ember/modifier",
-      "@glimmer/component",
-      "@glimmer/tracking"
     ]
   },
   {
@@ -534,8 +427,7 @@
         "path": "ui/spinner.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": ["@ember/component"]
+    ]
   },
   {
     "name": "switch",
@@ -545,11 +437,6 @@
         "path": "ui/switch.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": [
-      "@ember/modifier",
-      "@glimmer/component",
-      "@glimmer/tracking"
     ]
   },
   {
@@ -560,8 +447,7 @@
         "path": "ui/table.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": ["@ember/component"]
+    ]
   },
   {
     "name": "tabs",
@@ -572,13 +458,7 @@
         "type": "registry:ui"
       }
     ],
-    "dependencies": [
-      "@ember/modifier",
-      "@glimmer/component",
-      "@glimmer/tracking",
-      "ember-provide-consume-context",
-      "@ember/component"
-    ]
+    "dependencies": ["ember-provide-consume-context"]
   },
   {
     "name": "textarea",
@@ -588,8 +468,7 @@
         "path": "ui/textarea.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": ["@ember/component"]
+    ]
   },
   {
     "name": "toast",
@@ -599,8 +478,7 @@
         "path": "ui/toast.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": ["@glimmer/component", "@ember/component"]
+    ]
   },
   {
     "name": "toaster",
@@ -610,8 +488,7 @@
         "path": "ui/toaster.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": ["@ember/component"]
+    ]
   },
   {
     "name": "toggle-group",
@@ -623,12 +500,7 @@
       }
     ],
     "registryDependencies": ["toggle"],
-    "dependencies": [
-      "@ember/modifier",
-      "@glimmer/component",
-      "@glimmer/tracking",
-      "ember-provide-consume-context"
-    ]
+    "dependencies": ["ember-provide-consume-context"]
   },
   {
     "name": "toggle",
@@ -638,11 +510,6 @@
         "path": "ui/toggle.gts",
         "type": "registry:ui"
       }
-    ],
-    "dependencies": [
-      "@ember/modifier",
-      "@glimmer/component",
-      "@glimmer/tracking"
     ]
   },
   {
@@ -655,10 +522,7 @@
       }
     ],
     "dependencies": [
-      "@ember/modifier",
       "@floating-ui/dom",
-      "@glimmer/component",
-      "@glimmer/tracking",
       "ember-modifier",
       "ember-provide-consume-context"
     ]

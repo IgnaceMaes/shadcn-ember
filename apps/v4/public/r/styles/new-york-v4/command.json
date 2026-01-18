@@ -3,13 +3,9 @@
   "name": "command",
   "type": "registry:ui",
   "dependencies": [
-    "@ember/modifier",
-    "@glimmer/component",
-    "@glimmer/tracking",
     "ember-modifier",
     "ember-provide-consume-context",
-    "tracked-built-ins",
-    "@ember/component"
+    "tracked-built-ins"
   ],
   "registryDependencies": ["dialog"],
   "files": [

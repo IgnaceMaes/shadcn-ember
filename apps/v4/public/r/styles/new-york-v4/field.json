@@ -2,7 +2,6 @@
   "$schema": "https://shadcn-ember.com/schema/registry-item.json",
   "name": "field",
   "type": "registry:ui",
-  "dependencies": ["@glimmer/component", "@ember/component"],
   "registryDependencies": ["label", "separator"],
   "files": [
     {

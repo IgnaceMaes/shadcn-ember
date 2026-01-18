@@ -3,13 +3,9 @@
   "name": "sidebar",
   "type": "registry:ui",
   "dependencies": [
-    "@ember/modifier",
-    "@glimmer/component",
-    "@glimmer/tracking",
     "ember-modifier",
     "ember-provide-consume-context",
-    "ember-truth-helpers",
-    "@ember/component"
+    "ember-truth-helpers"
   ],
   "registryDependencies": [
     "button",
