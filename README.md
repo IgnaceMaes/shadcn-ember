@@ -1,5 +1,5 @@
 <p align="center">
- <img align="center" src="https://raw.githubusercontent.com/IgnaceMaes/shadcn-ember/main/public/android-chrome-192x192.png" height="96" />
+ <img align="center" src="https://raw.githubusercontent.com/IgnaceMaes/shadcn-ember/main/apps/v4/public/android-chrome-192x192.png" height="96" />
  <h1 align="center">
   shadcn-ember
  </h1>
