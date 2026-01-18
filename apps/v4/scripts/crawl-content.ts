@@ -386,7 +386,8 @@ async function getFileDependencies(filename: string, sourceCode: string) {
       !source.endsWith('.ts')
     ) {
       const component = source.split('/').at(-1);
-      if (component && component !== 'utils') registryDependencies.add(component);
+      if (component && component !== 'utils')
+        registryDependencies.add(component);
     }
   };
 
