@@ -76,6 +76,49 @@ export default defineConfig({
 });
 ```
 
+## Configure icons
+
+shadcn-ember uses `unplugin-icons` for icon support. Install the dependencies:
+
+```bash
+npm install -D unplugin-icons @iconify-json/lucide
+```
+
+Add the plugin to your `vite.config.mjs`:
+
+```typescript {6,16} title="vite.config.mjs" showLineNumbers
+import path from 'path';
+import { defineConfig } from 'vite';
+import { extensions, classicEmberSupport, ember } from '@embroider/vite';
+import { babel } from '@rollup/plugin-babel';
+import tailwindcss from '@tailwindcss/vite';
+import Icons from 'unplugin-icons/vite';
+
+export default defineConfig({
+  plugins: [
+    classicEmberSupport(),
+    ember(),
+    babel({
+      babelHelpers: 'runtime',
+      extensions,
+    }),
+    tailwindcss(),
+    Icons({ compiler: 'ember' }),
+  ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './app'),
+    },
+  },
+});
+```
+
+Import icons like this:
+
+```typescript
+import Check from '~icons/lucide/check';
+```
+
 ## Run the CLI
 
 Run the `shadcn-ember` init command to setup your project:
