@@ -1,6 +1,5 @@
 import Component from '@glimmer/component';
 
-import { Button } from '@/components/ui/button';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,6 +11,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
 
 export default class AlertDialogDemo extends Component {
   <template>
