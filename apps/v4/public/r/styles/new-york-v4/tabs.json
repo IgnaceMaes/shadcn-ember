@@ -6,7 +6,8 @@
     "@ember/modifier",
     "@glimmer/component",
     "@glimmer/tracking",
-    "ember-provide-consume-context"
+    "ember-provide-consume-context",
+    "@ember/component"
   ],
   "files": [
     {

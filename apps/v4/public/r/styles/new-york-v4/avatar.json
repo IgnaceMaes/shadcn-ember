@@ -6,7 +6,8 @@
     "@ember/modifier",
     "@glimmer/component",
     "@glimmer/tracking",
-    "ember-truth-helpers"
+    "ember-truth-helpers",
+    "@ember/component"
   ],
   "files": [
     {

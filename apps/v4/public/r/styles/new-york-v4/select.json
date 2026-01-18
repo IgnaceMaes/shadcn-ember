@@ -7,8 +7,10 @@
     "@floating-ui/dom",
     "@glimmer/component",
     "@glimmer/tracking",
+    "ember-click-outside",
     "ember-modifier",
-    "ember-provide-consume-context"
+    "ember-provide-consume-context",
+    "@ember/component"
   ],
   "files": [
     {

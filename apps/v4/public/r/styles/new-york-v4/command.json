@@ -8,7 +8,8 @@
     "@glimmer/tracking",
     "ember-modifier",
     "ember-provide-consume-context",
-    "tracked-built-ins"
+    "tracked-built-ins",
+    "@ember/component"
   ],
   "registryDependencies": ["dialog"],
   "files": [
