@@ -88,6 +88,7 @@ function generateSidebar(): DocSidebarSection[] {
     if (
       item.route === 'docs.index' ||
       item.route === 'docs.components' ||
+      item.route === 'docs.mcp-server' ||
       item.route === 'docs.changelog'
     ) {
       sectionsSection.items.push(item);
