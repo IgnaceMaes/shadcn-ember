@@ -66,7 +66,7 @@ import Github from '~icons/simple-icons/github';
             >
               <Github class="h-4 w-4" />
               <span class="text-muted-foreground w-fit text-xs tabular-nums">
-                0.01K
+                0.02K
               </span>
             </a>
           </Button>
