@@ -8,9 +8,3 @@ export default class CustomFlashMessagesService extends FlashMessagesService {
     };
   }
 }
-
-declare module '@ember/service' {
-  interface Registry {
-    flashMessages: CustomFlashMessagesService;
-  }
-}

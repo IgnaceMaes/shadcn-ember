@@ -20,15 +20,11 @@ export default class SonnerTypes extends Component {
   };
 
   showInfo = () => {
-    this.flashMessages.info(
-      'Be at the area 10 minutes before the event time',
-    );
+    this.flashMessages.info('Be at the area 10 minutes before the event time');
   };
 
   showWarning = () => {
-    this.flashMessages.warning(
-      'Event start time cannot be earlier than 8am',
-    );
+    this.flashMessages.warning('Event start time cannot be earlier than 8am');
   };
 
   showError = () => {

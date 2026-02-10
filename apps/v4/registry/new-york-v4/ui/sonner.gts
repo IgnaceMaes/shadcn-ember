@@ -45,7 +45,7 @@ interface ToasterSignature {
 function toastStyle(
   heightMap: Record<string, number>,
   toasts: Toast[],
-  index: number,
+  index: number
 ): ReturnType<typeof htmlSafe> {
   let heightBefore = 0;
 
@@ -56,7 +56,7 @@ function toastStyle(
   const currentId = guidFor(toasts[index]);
 
   return htmlSafe(
-    `--index: ${index}; --toasts-before: ${index}; --z-index: ${toasts.length - index}; --offset: ${index * GAP + heightBefore}px; --initial-height: ${heightMap[currentId] ?? 0}px`,
+    `--index: ${index}; --toasts-before: ${index}; --z-index: ${toasts.length - index}; --offset: ${index * GAP + heightBefore}px; --initial-height: ${heightMap[currentId] ?? 0}px`
   );
 }
 
@@ -99,7 +99,7 @@ class Toaster extends Component<ToasterSignature> {
 
   get toasterStyle() {
     return htmlSafe(
-      `--front-toast-height: ${this.frontToastHeight}px; --width: ${TOAST_WIDTH}px; --gap: ${GAP}px; --normal-bg: var(--popover); --normal-text: var(--popover-foreground); --normal-border: var(--border); --border-radius: var(--radius); --offset-top: 24px; --offset-right: 24px; --offset-bottom: 24px; --offset-left: 24px; --mobile-offset-top: 16px; --mobile-offset-right: 16px; --mobile-offset-bottom: 16px; --mobile-offset-left: 16px`,
+      `--front-toast-height: ${this.frontToastHeight}px; --width: ${TOAST_WIDTH}px; --gap: ${GAP}px; --normal-bg: var(--popover); --normal-text: var(--popover-foreground); --normal-border: var(--border); --border-radius: var(--radius); --offset-top: 24px; --offset-right: 24px; --offset-bottom: 24px; --offset-left: 24px; --mobile-offset-top: 16px; --mobile-offset-right: 16px; --mobile-offset-bottom: 16px; --mobile-offset-left: 16px`
     );
   }
 
@@ -198,7 +198,11 @@ class Toaster extends Component<ToasterSignature> {
               data-swiped="false"
               data-swiping="false"
               data-type={{flash.type}}
-              data-visible={{if (lt index VISIBLE_TOASTS_AMOUNT) "true" "false"}}
+              data-visible={{if
+                (lt index VISIBLE_TOASTS_AMOUNT)
+                "true"
+                "false"
+              }}
               data-x-position={{this.xPosition}}
               data-y-position={{this.yPosition}}
               style={{toastStyle this.heightMap this.toasts index}}
