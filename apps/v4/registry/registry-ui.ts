@@ -484,6 +484,17 @@ export const ui: Registry['items'] = [
     ],
   },
   {
+    name: 'sonner',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/sonner.gts',
+        type: 'registry:ui',
+      },
+    ],
+    dependencies: ['ember-cli-flash', 'ember-modifier', 'ember-truth-helpers'],
+  },
+  {
     name: 'toast',
     type: 'registry:ui',
     files: [

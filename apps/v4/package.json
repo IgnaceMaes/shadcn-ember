@@ -125,6 +125,7 @@
     "@tailwindcss/vite": "^4.1.18",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "ember-cli-flash": "^7.0.0",
     "ember-keyboard": "^9.0.4",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.18"
