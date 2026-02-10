@@ -8,8 +8,9 @@ import { tracked } from '@glimmer/tracking';
 import { modifier } from 'ember-modifier';
 import { eq } from 'ember-truth-helpers';
 
+import type { ToastCustomFields } from '@/services/flash-messages';
 import type ThemeService from '@/services/theme';
-import type { FlashMessagesService } from 'ember-cli-flash';
+import type { FlashMessagesService, FlashObject } from 'ember-cli-flash';
 
 import CircleCheck from '~icons/lucide/circle-check';
 import Info from '~icons/lucide/info';
@@ -17,7 +18,6 @@ import Loader2 from '~icons/lucide/loader-2';
 import OctagonX from '~icons/lucide/octagon-x';
 import TriangleAlert from '~icons/lucide/triangle-alert';
 
-// Constants matching original sonner
 const VISIBLE_TOASTS_AMOUNT = 3;
 const TOAST_WIDTH = 356;
 const GAP = 14;
@@ -30,6 +30,8 @@ type Position =
   | 'bottom-center'
   | 'bottom-right';
 
+type Toast = FlashObject<ToastCustomFields> & ToastCustomFields;
+
 interface ToasterSignature {
   Element: HTMLElement;
   Args: {
@@ -40,57 +42,38 @@ interface ToasterSignature {
   };
 }
 
-function asString(value: unknown): string {
-  if (typeof value === 'string') return value;
-  if (typeof value === 'number') return String(value);
-  return '';
-}
-
-function isVisibleStr(index: number): string {
-  return index + 1 <= VISIBLE_TOASTS_AMOUNT ? 'true' : 'false';
-}
-
-function isFrontStr(index: number): string {
+function isFront(index: number): 'true' | 'false' {
   return index === 0 ? 'true' : 'false';
 }
 
-function dataStr(value: boolean | undefined): string {
-  return value ? 'true' : 'false';
+function isVisible(index: number): 'true' | 'false' {
+  return index < VISIBLE_TOASTS_AMOUNT ? 'true' : 'false';
 }
 
-function getActionLabel(action: unknown): string {
-  if (action && typeof action === 'object' && 'label' in action) {
-    return String((action as { label: string }).label);
-  }
-  return '';
-}
-
-function computeToastStyle(
+function toastStyle(
   heightMap: Record<string, number>,
-  toasts: unknown[],
+  toasts: Toast[],
   index: number,
-  totalCount: number,
 ): ReturnType<typeof htmlSafe> {
-  let toastsHeightBefore = 0;
+  let heightBefore = 0;
+
   for (let i = 0; i < index; i++) {
-    const id = guidFor(toasts[i]);
-    toastsHeightBefore += heightMap[id] ?? 0;
+    heightBefore += heightMap[guidFor(toasts[i])] ?? 0;
   }
-  const offset = index * GAP + toastsHeightBefore;
+
   const currentId = guidFor(toasts[index]);
-  const initialHeight = heightMap[currentId] ?? 0;
 
   return htmlSafe(
-    `--index: ${index}; --toasts-before: ${index}; --z-index: ${totalCount - index}; --offset: ${offset}px; --initial-height: ${initialHeight}px`,
+    `--index: ${index}; --toasts-before: ${index}; --z-index: ${toasts.length - index}; --offset: ${index * GAP + heightBefore}px; --initial-height: ${heightMap[currentId] ?? 0}px`,
   );
 }
 
 class Toaster extends Component<ToasterSignature> {
-  @service declare flashMessages: FlashMessagesService;
+  @service declare flashMessages: FlashMessagesService<ToastCustomFields>;
   @service declare theme: ThemeService;
 
   @tracked expanded = false;
-  @tracked _heightMap: Record<string, number> = {};
+  @tracked heightMap: Record<string, number> = {};
 
   get position(): Position {
     return this.args.position ?? 'bottom-right';
@@ -108,20 +91,13 @@ class Toaster extends Component<ToasterSignature> {
     return this.expanded || this.args.expand;
   }
 
-  get toasts() {
+  get toasts(): Toast[] {
     return [...this.flashMessages.arrangedQueue].reverse();
   }
 
   get frontToastHeight() {
-    if (this.toasts.length === 0) return 0;
-
-    // Look up the front toast's height first. If it hasn't been measured yet
-    // (new toast just added), fall back to the first measured toast's height.
-    // This matches React sonner where heights[0] retains the previous front
-    // toast's height until the new one is prepended.
     for (const toast of this.toasts) {
-      const id = guidFor(toast);
-      const height = this._heightMap[id];
+      const height = this.heightMap[guidFor(toast)];
 
       if (height !== undefined) return height;
     }
@@ -136,53 +112,40 @@ class Toaster extends Component<ToasterSignature> {
   }
 
   registerHeight = (id: string, height: number) => {
-    if (this._heightMap[id] === height) return;
-    this._heightMap = { ...this._heightMap, [id]: height };
+    if (this.heightMap[id] === height) return;
+    this.heightMap = { ...this.heightMap, [id]: height };
   };
 
   unregisterHeight = (id: string) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { [id]: _, ...rest } = this._heightMap;
-    this._heightMap = rest;
+    const next = { ...this.heightMap };
+    delete next[id];
+    this.heightMap = next;
   };
 
-  setupToast = modifier(
-    (element: HTMLElement, [flash]: [/* flash */ unknown]) => {
-      const id = guidFor(flash);
-      let mountRaf: number | undefined;
+  setupToast = modifier((element: HTMLElement, [flash]: [Toast]) => {
+    const id = guidFor(flash);
+    let mountRaf: number | undefined;
 
-      // First rAF: measure height and register it. This triggers a re-render
-      // so all toasts get correct offsets/heights before the enter animation.
-      const raf = requestAnimationFrame(() => {
-        const height = element.getBoundingClientRect().height;
-        this.registerHeight(id, height);
+    const raf = requestAnimationFrame(() => {
+      this.registerHeight(id, element.getBoundingClientRect().height);
 
-        // Second rAF: set mounted after the browser has painted the initial
-        // state (invisible, correct offsets). This ensures the CSS transition
-        // has a painted "from" frame to animate from — matching React sonner's
-        // useEffect(() => setMounted(true), []) which fires after paint.
-        mountRaf = requestAnimationFrame(() => {
-          element.dataset['mounted'] = 'true';
-        });
+      mountRaf = requestAnimationFrame(() => {
+        element.dataset['mounted'] = 'true';
       });
+    });
 
-      return () => {
-        cancelAnimationFrame(raf);
-
-        if (mountRaf !== undefined) cancelAnimationFrame(mountRaf);
-
-        this.unregisterHeight(id);
-      };
-    },
-  );
+    return () => {
+      cancelAnimationFrame(raf);
+      if (mountRaf !== undefined) cancelAnimationFrame(mountRaf);
+      this.unregisterHeight(id);
+    };
+  });
 
   handleMouseEnter = () => {
     this.expanded = true;
+
     for (const flash of this.flashMessages.arrangedQueue) {
-      const f = flash as Record<string, unknown>;
-      if (typeof f['preventExit'] === 'function') {
-        (f['preventExit'] as () => void)();
-      }
+      flash.preventExit();
     }
   };
 
@@ -192,30 +155,15 @@ class Toaster extends Component<ToasterSignature> {
 
   handleMouseLeave = () => {
     this.expanded = false;
+
     for (const flash of this.flashMessages.arrangedQueue) {
-      const f = flash as Record<string, unknown>;
-      if (!f['exiting'] && typeof f['allowExit'] === 'function') {
-        (f['allowExit'] as () => void)();
-      }
+      if (!flash.exiting) flash.allowExit();
     }
   };
 
-  handleAction = (flash: Record<string, unknown>) => {
-    const action = flash['action'] as
-      | { onClick?: () => void; label?: string }
-      | undefined;
-    if (action && typeof action.onClick === 'function') {
-      action.onClick();
-    }
-    if (typeof flash['destroyMessage'] === 'function') {
-      (flash['destroyMessage'] as () => void)();
-    }
-  };
-
-  handleClose = (flash: Record<string, unknown>) => {
-    if (typeof flash['destroyMessage'] === 'function') {
-      (flash['destroyMessage'] as () => void)();
-    }
+  handleAction = (flash: Toast) => {
+    flash.action?.onClick?.();
+    flash.destroyMessage();
   };
 
   <template>
@@ -245,28 +193,23 @@ class Toaster extends Component<ToasterSignature> {
             <li
               class="cn-toast"
               data-dismissible="true"
-              data-expanded={{dataStr this.isExpanded}}
-              data-front={{isFrontStr index}}
+              data-expanded={{if this.isExpanded "true" "false"}}
+              data-front={{isFront index}}
               data-index={{index}}
               data-mounted="false"
               data-promise="false"
-              data-removed={{dataStr flash.exiting}}
-              data-rich-colors={{dataStr @richColors}}
+              data-removed={{if flash.exiting "true" "false"}}
+              data-rich-colors={{if @richColors "true" "false"}}
               data-sonner-toast=""
               data-styled="true"
               data-swipe-out="false"
               data-swiped="false"
               data-swiping="false"
               data-type={{flash.type}}
-              data-visible={{isVisibleStr index}}
+              data-visible={{isVisible index}}
               data-x-position={{this.xPosition}}
               data-y-position={{this.yPosition}}
-              style={{computeToastStyle
-                this._heightMap
-                this.toasts
-                index
-                this.toasts.length
-              }}
+              style={{toastStyle this.heightMap this.toasts index}}
               tabindex="0"
               {{this.setupToast flash}}
             >
@@ -299,7 +242,7 @@ class Toaster extends Component<ToasterSignature> {
                 {{/if}}
                 {{#if flash.description}}
                   <div data-description="">
-                    {{asString flash.description}}
+                    {{flash.description}}
                   </div>
                 {{/if}}
               </div>
@@ -310,7 +253,7 @@ class Toaster extends Component<ToasterSignature> {
                   type="button"
                   {{on "click" (fn this.handleAction flash)}}
                 >
-                  {{getActionLabel flash.action}}
+                  {{flash.action.label}}
                 </button>
               {{/if}}
             </li>
