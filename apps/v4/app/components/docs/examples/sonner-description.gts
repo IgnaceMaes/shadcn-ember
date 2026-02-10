@@ -13,7 +13,6 @@ export default class SonnerDescription extends Component {
     this.flashMessages.add({
       message: 'Event has been created',
       description: 'Monday, January 3rd at 6:00pm',
-      type: 'info',
     });
   };
 

@@ -24,7 +24,6 @@ export default class SonnerPosition extends Component {
     this.position = position;
     this.flashMessages.add({
       message: 'Event has been created',
-      type: 'info',
     });
   };
 
