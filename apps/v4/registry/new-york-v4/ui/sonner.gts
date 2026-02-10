@@ -250,7 +250,7 @@ class Toaster extends Component<ToasterSignature> {
               data-index={{index}}
               data-mounted="false"
               data-promise="false"
-              data-removed="false"
+              data-removed={{dataStr flash.exiting}}
               data-rich-colors={{dataStr @richColors}}
               data-sonner-toast=""
               data-styled="true"

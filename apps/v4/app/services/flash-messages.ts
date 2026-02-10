@@ -5,6 +5,7 @@ export default class CustomFlashMessagesService extends FlashMessagesService {
     return {
       ...super.flashMessageDefaults,
       type: 'default',
+      extendedTimeout: 400,
     };
   }
 }
