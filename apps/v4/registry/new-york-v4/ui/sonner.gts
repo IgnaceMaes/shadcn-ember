@@ -6,7 +6,7 @@ import { htmlSafe } from '@ember/template';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { modifier } from 'ember-modifier';
-import { eq } from 'ember-truth-helpers';
+import { eq, lt } from 'ember-truth-helpers';
 
 import type { ToastCustomFields } from '@/services/flash-messages';
 import type ThemeService from '@/services/theme';
@@ -40,14 +40,6 @@ interface ToasterSignature {
     richColors?: boolean;
     expand?: boolean;
   };
-}
-
-function isFront(index: number): 'true' | 'false' {
-  return index === 0 ? 'true' : 'false';
-}
-
-function isVisible(index: number): 'true' | 'false' {
-  return index < VISIBLE_TOASTS_AMOUNT ? 'true' : 'false';
 }
 
 function toastStyle(
@@ -194,7 +186,7 @@ class Toaster extends Component<ToasterSignature> {
               class="cn-toast"
               data-dismissible="true"
               data-expanded={{if this.isExpanded "true" "false"}}
-              data-front={{isFront index}}
+              data-front={{if (eq index 0) "true" "false"}}
               data-index={{index}}
               data-mounted="false"
               data-promise="false"
@@ -206,7 +198,7 @@ class Toaster extends Component<ToasterSignature> {
               data-swiped="false"
               data-swiping="false"
               data-type={{flash.type}}
-              data-visible={{isVisible index}}
+              data-visible={{if (lt index VISIBLE_TOASTS_AMOUNT) "true" "false"}}
               data-x-position={{this.xPosition}}
               data-y-position={{this.yPosition}}
               style={{toastStyle this.heightMap this.toasts index}}
