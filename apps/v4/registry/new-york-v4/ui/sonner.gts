@@ -68,7 +68,7 @@ class Toaster extends Component<ToasterSignature> {
   @tracked heightMap: Record<string, number> = {};
 
   get position(): Position {
-    return this.args.position ?? 'bottom-right';
+    return this.args.position ?? 'top-center';
   }
 
   get yPosition() {
