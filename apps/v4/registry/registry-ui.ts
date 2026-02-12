@@ -440,12 +440,17 @@ export const ui: Registry['items'] = [
         path: 'ui/sonner.gts',
         type: 'registry:ui',
       },
+      {
+        path: 'ui/sonner.css',
+        type: 'registry:ui',
+      },
     ],
     registryDependencies: ['flash-messages', 'theme'],
     dependencies: [
       'ember-click-outside',
       'ember-modifier',
       'ember-truth-helpers',
+      'ember-cli-flash',
     ],
   },
   {

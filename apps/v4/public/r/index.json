@@ -444,7 +444,12 @@
       }
     ],
     "registryDependencies": ["flash-messages", "theme"],
-    "dependencies": ["ember-modifier", "ember-truth-helpers"]
+    "dependencies": [
+      "ember-click-outside",
+      "ember-modifier",
+      "ember-truth-helpers",
+      "ember-cli-flash"
+    ]
   },
   {
     "name": "spinner",

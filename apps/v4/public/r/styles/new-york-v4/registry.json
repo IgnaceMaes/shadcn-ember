@@ -21,551 +21,6 @@
       "cssVars": {}
     },
     {
-      "name": "accordion",
-      "type": "registry:ui",
-      "dependencies": ["ember-modifier", "ember-provide-consume-context"],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/accordion.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "alert-dialog",
-      "type": "registry:ui",
-      "dependencies": ["ember-modifier", "ember-provide-consume-context"],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/alert-dialog.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "alert",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/alert.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "aspect-ratio",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/aspect-ratio.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "avatar",
-      "type": "registry:ui",
-      "dependencies": ["ember-truth-helpers"],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/avatar.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "badge",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/badge.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "breadcrumb",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/breadcrumb.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "button-group",
-      "type": "registry:ui",
-      "registryDependencies": ["separator"],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/button-group.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "button",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/button.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "card",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/card.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "checkbox",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/checkbox.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "collapsible",
-      "type": "registry:ui",
-      "dependencies": ["ember-provide-consume-context"],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/collapsible.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "command",
-      "type": "registry:ui",
-      "dependencies": [
-        "ember-modifier",
-        "ember-provide-consume-context",
-        "tracked-built-ins"
-      ],
-      "registryDependencies": ["dialog"],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/command.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "context-menu",
-      "type": "registry:ui",
-      "dependencies": [
-        "@floating-ui/dom",
-        "ember-click-outside",
-        "ember-modifier",
-        "ember-provide-consume-context"
-      ],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/context-menu.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "dialog",
-      "type": "registry:ui",
-      "dependencies": ["ember-modifier", "ember-provide-consume-context"],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/dialog.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "dropdown-menu",
-      "type": "registry:ui",
-      "dependencies": [
-        "@floating-ui/dom",
-        "ember-click-outside",
-        "ember-modifier",
-        "ember-provide-consume-context"
-      ],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/dropdown-menu.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "empty",
-      "type": "registry:ui",
-      "dependencies": ["class-variance-authority"],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/empty.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "field",
-      "type": "registry:ui",
-      "registryDependencies": ["label", "separator"],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/field.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "hover-card",
-      "type": "registry:ui",
-      "dependencies": [
-        "@floating-ui/dom",
-        "ember-modifier",
-        "ember-provide-consume-context"
-      ],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/hover-card.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "input-group",
-      "type": "registry:ui",
-      "registryDependencies": ["button", "input", "textarea"],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/input-group.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "input-otp",
-      "type": "registry:ui",
-      "dependencies": ["ember-modifier", "ember-provide-consume-context"],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/input-otp.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "input",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/input.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "item",
-      "type": "registry:ui",
-      "registryDependencies": ["separator"],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/item.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "kbd",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/kbd.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "label",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/label.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "native-select",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/native-select.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "pagination",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/pagination.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "popover",
-      "type": "registry:ui",
-      "dependencies": [
-        "@floating-ui/dom",
-        "ember-click-outside",
-        "ember-modifier",
-        "ember-provide-consume-context"
-      ],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/popover.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "progress",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/progress.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "radio-group",
-      "type": "registry:ui",
-      "dependencies": ["ember-provide-consume-context"],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/radio-group.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "scroll-area",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/scroll-area.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "select",
-      "type": "registry:ui",
-      "dependencies": [
-        "@floating-ui/dom",
-        "ember-click-outside",
-        "ember-modifier",
-        "ember-provide-consume-context"
-      ],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/select.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "separator",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/separator.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "sheet",
-      "type": "registry:ui",
-      "dependencies": ["ember-modifier", "ember-provide-consume-context"],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/sheet.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "sidebar",
-      "type": "registry:ui",
-      "dependencies": [
-        "ember-modifier",
-        "ember-provide-consume-context",
-        "ember-truth-helpers"
-      ],
-      "registryDependencies": [
-        "button",
-        "input",
-        "separator",
-        "sheet",
-        "skeleton",
-        "tooltip"
-      ],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/sidebar.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "skeleton",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/skeleton.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "slider",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/slider.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "sonner",
-      "type": "registry:ui",
-      "dependencies": ["ember-modifier", "ember-truth-helpers"],
-      "registryDependencies": ["flash-messages", "theme"],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/sonner.gts",
-          "type": "registry:ui"
-        },
-        {
-          "path": "registry/new-york-v4/ui/sonner.css",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "spinner",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/spinner.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "switch",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/switch.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "table",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/table.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "tabs",
-      "type": "registry:ui",
-      "dependencies": ["ember-provide-consume-context"],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/tabs.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "textarea",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/textarea.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "toaster",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/toaster.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "toggle-group",
-      "type": "registry:ui",
-      "dependencies": ["ember-provide-consume-context"],
-      "registryDependencies": ["toggle"],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/toggle-group.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "toggle",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/toggle.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "tooltip",
-      "type": "registry:ui",
-      "dependencies": [
-        "@floating-ui/dom",
-        "ember-modifier",
-        "ember-provide-consume-context"
-      ],
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/tooltip.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
       "name": "utils",
       "type": "registry:lib",
       "dependencies": ["clsx", "tailwind-merge"],
@@ -940,6 +395,566 @@
           "sidebar-ring": "oklch(0.551 0.027 264.364)"
         }
       }
+    },
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/accordion.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["ember-modifier", "ember-provide-consume-context"]
+    },
+    {
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/alert-dialog.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["ember-modifier", "ember-provide-consume-context"]
+    },
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/alert.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "aspect-ratio",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/aspect-ratio.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/avatar.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["ember-truth-helpers"]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/badge.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/breadcrumb.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "button-group",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/button-group.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": ["separator"]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/button.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/card.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/checkbox.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/collapsible.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["ember-provide-consume-context"]
+    },
+    {
+      "name": "command",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/command.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": ["dialog"],
+      "dependencies": [
+        "ember-modifier",
+        "ember-provide-consume-context",
+        "tracked-built-ins"
+      ]
+    },
+    {
+      "name": "context-menu",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/context-menu.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@floating-ui/dom",
+        "ember-click-outside",
+        "ember-modifier",
+        "ember-provide-consume-context"
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/dialog.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["ember-modifier", "ember-provide-consume-context"]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/dropdown-menu.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@floating-ui/dom",
+        "ember-click-outside",
+        "ember-modifier",
+        "ember-provide-consume-context"
+      ]
+    },
+    {
+      "name": "empty",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/empty.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["class-variance-authority"]
+    },
+    {
+      "name": "field",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/field.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": ["label", "separator"]
+    },
+    {
+      "name": "hover-card",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/hover-card.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@floating-ui/dom",
+        "ember-modifier",
+        "ember-provide-consume-context"
+      ]
+    },
+    {
+      "name": "input-group",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/input-group.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": ["button", "input", "textarea"]
+    },
+    {
+      "name": "input-otp",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/input-otp.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["ember-modifier", "ember-provide-consume-context"]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/input.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "item",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/item.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": ["separator"]
+    },
+    {
+      "name": "kbd",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/kbd.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/label.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "native-select",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/native-select.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/pagination.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/popover.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@floating-ui/dom",
+        "ember-click-outside",
+        "ember-modifier",
+        "ember-provide-consume-context"
+      ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/progress.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/radio-group.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["ember-provide-consume-context"]
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/scroll-area.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/select.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@floating-ui/dom",
+        "ember-click-outside",
+        "ember-modifier",
+        "ember-provide-consume-context"
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/separator.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sheet",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/sheet.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["ember-modifier", "ember-provide-consume-context"]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/sidebar.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "button",
+        "input",
+        "separator",
+        "sheet",
+        "skeleton",
+        "tooltip"
+      ],
+      "dependencies": [
+        "ember-modifier",
+        "ember-provide-consume-context",
+        "ember-truth-helpers"
+      ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/skeleton.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/slider.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sonner",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/sonner.gts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/new-york-v4/ui/sonner.css",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": ["flash-messages", "theme"],
+      "dependencies": [
+        "ember-click-outside",
+        "ember-modifier",
+        "ember-truth-helpers",
+        "ember-cli-flash"
+      ]
+    },
+    {
+      "name": "spinner",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/spinner.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/switch.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/table.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/tabs.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["ember-provide-consume-context"]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/textarea.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toast",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/toast.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toaster",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/toaster.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/toggle-group.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": ["toggle"],
+      "dependencies": ["ember-provide-consume-context"]
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/toggle.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/tooltip.gts",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@floating-ui/dom",
+        "ember-modifier",
+        "ember-provide-consume-context"
+      ]
     }
   ]
 }

@@ -2,7 +2,12 @@
   "$schema": "https://shadcn-ember.com/schema/registry-item.json",
   "name": "sonner",
   "type": "registry:ui",
-  "dependencies": ["ember-modifier", "ember-truth-helpers"],
+  "dependencies": [
+    "ember-click-outside",
+    "ember-modifier",
+    "ember-truth-helpers",
+    "ember-cli-flash"
+  ],
   "registryDependencies": ["flash-messages", "theme"],
   "files": [
     {
