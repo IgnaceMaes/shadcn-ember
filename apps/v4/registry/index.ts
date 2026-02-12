@@ -15,7 +15,6 @@ import { registryItemSchema } from '../../../packages/cli/src/registry/schema';
 import type { Registry } from '../../../packages/cli/src/registry/schema';
 
 const DEPRECATED_ITEMS = [
-  'toast',
   'toast-demo',
   'toast-destructive',
   'toast-simple',

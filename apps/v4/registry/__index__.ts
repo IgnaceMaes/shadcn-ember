@@ -589,7 +589,7 @@ export const Index: Record<string, any> = {
     name: 'sonner',
     description: '',
     type: 'registry:ui',
-    registryDependencies: ['flash-messages'],
+    registryDependencies: ['toast'],
     files: [
       {
         path: 'registry/new-york-v4/ui/sonner.gts',
@@ -675,21 +675,6 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
-  toaster: {
-    name: 'toaster',
-    description: '',
-    type: 'registry:ui',
-    registryDependencies: undefined,
-    files: [
-      {
-        path: 'registry/new-york-v4/ui/toaster.gts',
-        type: 'registry:ui',
-        target: '',
-      },
-    ],
-    categories: undefined,
-    meta: undefined,
-  },
   'toggle-group': {
     name: 'toggle-group',
     description: '',
@@ -750,16 +735,16 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
-  'flash-messages': {
-    name: 'flash-messages',
+  toast: {
+    name: 'toast',
     description: '',
     type: 'registry:composable',
     registryDependencies: undefined,
     files: [
       {
-        path: 'registry/new-york-v4/services/flash-messages.ts',
+        path: 'registry/new-york-v4/services/toast.ts',
         type: 'registry:composable',
-        target: 'app/services/flash-messages.ts',
+        target: 'app/services/toast.ts',
       },
     ],
     categories: undefined,

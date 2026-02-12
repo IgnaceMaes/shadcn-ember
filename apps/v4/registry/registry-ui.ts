@@ -441,7 +441,7 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
-    registryDependencies: ['flash-messages'],
+    registryDependencies: ['toast'],
     dependencies: [
       'ember-click-outside',
       'ember-modifier',
@@ -496,26 +496,6 @@ export const ui: Registry['items'] = [
     files: [
       {
         path: 'ui/textarea.gts',
-        type: 'registry:ui',
-      },
-    ],
-  },
-  {
-    name: 'toast',
-    type: 'registry:ui',
-    files: [
-      {
-        path: 'ui/toast.gts',
-        type: 'registry:ui',
-      },
-    ],
-  },
-  {
-    name: 'toaster',
-    type: 'registry:ui',
-    files: [
-      {
-        path: 'ui/toaster.gts',
         type: 'registry:ui',
       },
     ],

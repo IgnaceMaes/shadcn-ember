@@ -159,16 +159,4 @@ export const BUILTIN_MODULES = new Set([
 ])
 
 export const DEPRECATED_COMPONENTS = [
-  {
-    name: "toast",
-    deprecatedBy: "sonner",
-    message:
-      "The toast component is deprecated. Use the sonner component instead.",
-  },
-  {
-    name: "toaster",
-    deprecatedBy: "sonner",
-    message:
-      "The toaster component is deprecated. Use the sonner component instead.",
-  },
 ]

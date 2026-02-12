@@ -2,13 +2,13 @@ import type { Registry } from '../../../packages/cli/src/registry/schema';
 
 export const composables: Registry['items'] = [
   {
-    name: 'flash-messages',
+    name: 'toast',
     type: 'registry:composable',
     files: [
       {
-        path: 'services/flash-messages.ts',
+        path: 'services/toast.ts',
         type: 'registry:composable',
-        target: 'app/services/flash-messages.ts',
+        target: 'app/services/toast.ts',
       },
     ],
     dependencies: ['ember-cli-flash'],

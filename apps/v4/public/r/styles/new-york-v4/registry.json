@@ -460,7 +460,7 @@
         "ember-truth-helpers",
         "ember-cli-flash"
       ],
-      "registryDependencies": ["flash-messages"],
+      "registryDependencies": ["toast"],
       "files": [
         {
           "path": "registry/new-york-v4/ui/sonner.gts",
@@ -520,16 +520,6 @@
       ]
     },
     {
-      "name": "toaster",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/new-york-v4/ui/toaster.gts",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
       "name": "toggle-group",
       "type": "registry:ui",
       "dependencies": ["ember-provide-consume-context"],
@@ -578,14 +568,14 @@
       ]
     },
     {
-      "name": "flash-messages",
+      "name": "toast",
       "type": "registry:composable",
       "dependencies": ["ember-cli-flash"],
       "files": [
         {
-          "path": "registry/new-york-v4/services/flash-messages.ts",
+          "path": "registry/new-york-v4/services/toast.ts",
           "type": "registry:composable",
-          "target": "app/services/flash-messages.ts"
+          "target": "app/services/toast.ts"
         }
       ]
     },
