@@ -596,11 +596,6 @@ export const Index: Record<string, any> = {
         type: 'registry:ui',
         target: '',
       },
-      {
-        path: 'registry/new-york-v4/ui/sonner.css',
-        type: 'registry:ui',
-        target: '',
-      },
     ],
     categories: undefined,
     meta: undefined,

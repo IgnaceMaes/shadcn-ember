@@ -9,8 +9,6 @@ import { crawlBlock, crawlUI } from './crawl-content';
 import { registry } from '../registry/index';
 import { ui } from '../registry/registry-ui';
 
-import type { RegistryItem } from '../../../packages/cli/src/registry/schema';
-
 async function writeFile(path: string, payload: any) {
   return fs.writeFile(path, `${payload}\n`, 'utf8');
 }
@@ -26,8 +24,6 @@ export const ui: Registry["items"] = ${JSON.stringify(result ?? '', null, 2)}`
   );
 
   exec(`eslint --fix registry/registry-ui.ts`);
-
-  return result;
 }
 
 // Generate /registry/new-york-v4/registry-blocks.ts
@@ -41,8 +37,6 @@ export const blocks: Registry["items"] = ${JSON.stringify(result ?? '', null, 2)
   );
 
   exec(`eslint --fix registry/registry-blocks.ts`);
-
-  return result;
 }
 
 // Generate /registry/new-york-v4/registry-charts.ts
@@ -56,8 +50,6 @@ export const charts: Registry["items"] = ${JSON.stringify(result ?? '', null, 2)
   );
 
   exec(`eslint --fix registry/registry-charts.ts`);
-
-  return result;
 }
 
 async function buildRegistryIndex() {
@@ -112,34 +104,11 @@ export const Index: Record<string, any> = {`;
   await fs.writeFile(path.join(process.cwd(), 'registry/__index__.ts'), index);
 }
 
-async function buildRegistryJsonFile(freshItems: {
-  ui: RegistryItem[];
-  blocks: RegistryItem[];
-  charts: RegistryItem[];
-}) {
-  // Rebuild registry with fresh crawl results instead of the stale
-  // top-level import (which was resolved before the TS files were rewritten).
-  const staleNames = new Set([
-    ...freshItems.ui.map((i) => i.name),
-    ...freshItems.blocks.map((i) => i.name),
-    ...freshItems.charts.map((i) => i.name),
-  ]);
-  const freshRegistry = {
-    ...registry,
-    items: [
-      // Keep non-ui/blocks/charts items from the static import (styles, lib, etc.)
-      ...registry.items.filter((item: any) => !staleNames.has(item.name)),
-      // Use the freshly crawled results
-      ...freshItems.ui,
-      ...freshItems.blocks,
-      ...freshItems.charts,
-    ],
-  };
-
+async function buildRegistryJsonFile() {
   // 1. Fix the path for registry items.
   const fixedRegistry = {
-    ...freshRegistry,
-    items: freshRegistry.items.map((item: any) => {
+    ...registry,
+    items: registry.items.map((item: any) => {
       const files = item.files?.map((file: any) => {
         return {
           ...file,
@@ -276,9 +245,9 @@ async function buildBlocksIndex() {
 
 async function main() {
   try {
-    const freshUI = await buildRegistryUI();
-    const freshBlocks = await buildRegistryBlocks();
-    const freshCharts = await buildRegistryCharts();
+    await buildRegistryUI();
+    await buildRegistryBlocks();
+    await buildRegistryCharts();
 
     console.log('🗂️ Building registry/__index__.ts...');
     await buildRegistryIndex();
@@ -287,11 +256,7 @@ async function main() {
     await buildBlocksIndex();
 
     console.log('💅 Building registry.json...');
-    await buildRegistryJsonFile({
-      ui: freshUI,
-      blocks: freshBlocks,
-      charts: freshCharts,
-    });
+    await buildRegistryJsonFile();
 
     console.log('🏗️ Building registry...');
     await buildRegistry();
