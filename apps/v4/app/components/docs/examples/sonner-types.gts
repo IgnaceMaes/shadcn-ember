@@ -4,10 +4,10 @@ import Component from '@glimmer/component';
 
 import { Button } from '@/components/ui/button';
 
-import type CustomFlashMessagesService from '@/services/flash-messages';
+import type FlashMessagesService from '@/services/flash-messages';
 
 export default class SonnerTypes extends Component {
-  @service declare flashMessages: CustomFlashMessagesService;
+  @service declare flashMessages: FlashMessagesService;
 
   showDefault = () => {
     this.flashMessages.add({

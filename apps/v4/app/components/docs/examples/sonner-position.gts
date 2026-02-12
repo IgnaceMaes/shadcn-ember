@@ -6,7 +6,7 @@ import { tracked } from '@glimmer/tracking';
 import { Button } from '@/components/ui/button';
 import { Toaster } from '@/components/ui/sonner';
 
-import type { FlashMessagesService } from 'ember-cli-flash';
+import type FlashMessagesService from '@/services/flash-messages';
 
 type Position =
   | 'top-left'

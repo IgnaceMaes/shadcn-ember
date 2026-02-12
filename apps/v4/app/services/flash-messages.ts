@@ -1,4 +1,4 @@
-import { FlashMessagesService } from 'ember-cli-flash';
+import { FlashMessagesService as BaseFlashMessagesService } from 'ember-cli-flash';
 
 import type { FlashObjectOptions } from 'ember-cli-flash';
 
@@ -15,7 +15,7 @@ interface PromiseOptions<T> {
   error: string | ((error: unknown) => string);
 }
 
-export default class CustomFlashMessagesService extends FlashMessagesService<ToastCustomFields> {
+export default class FlashMessagesService extends BaseFlashMessagesService<ToastCustomFields> {
   declare error: (message: string, options?: Options) => this;
   declare loading: (message: string, options?: Options) => this;
 
@@ -59,6 +59,6 @@ export default class CustomFlashMessagesService extends FlashMessagesService<Toa
 
 declare module '@ember/service' {
   interface Registry {
-    flashMessages: CustomFlashMessagesService;
+    flashMessages: FlashMessagesService;
   }
 }
