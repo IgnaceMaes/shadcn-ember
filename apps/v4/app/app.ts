@@ -7,7 +7,6 @@ import Resolver from 'ember-resolver';
 
 import config from 'shadcn-ember-docs/config/environment';
 import './app.css';
-import './sonner.css';
 
 // if (macroCondition(isDevelopingApp())) {
 //   importSync('./deprecation-workflow');

@@ -19,6 +19,8 @@ import Loader2 from '~icons/lucide/loader-2';
 import OctagonX from '~icons/lucide/octagon-x';
 import TriangleAlert from '~icons/lucide/triangle-alert';
 
+import './sonner.css';
+
 const VISIBLE_TOASTS_AMOUNT = 3;
 const TOAST_WIDTH = 356;
 const GAP = 14;
