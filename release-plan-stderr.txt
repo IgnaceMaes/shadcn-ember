@@ -1,0 +1,6 @@
+# Unlabeled Changes
+
+* [#17](https://github.com/IgnaceMaes/shadcn-ember/pull/17) feat: sonner component ([@IgnaceMaes](https://github.com/IgnaceMaes))
+
+
+*Cannot plan release until the above changes are labeled*.
