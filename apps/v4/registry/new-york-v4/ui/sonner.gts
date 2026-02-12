@@ -10,7 +10,6 @@ import { modifier } from 'ember-modifier';
 import { eq, lt } from 'ember-truth-helpers';
 
 import type { ToastCustomFields } from '@/services/flash-messages';
-import type ThemeService from '@/services/theme';
 import type { FlashMessagesService, FlashObject } from 'ember-cli-flash';
 
 import CircleCheck from '~icons/lucide/circle-check';
@@ -75,11 +74,30 @@ function toastType(toasts: Toast[], flash: Toast): string | undefined {
 
 class Toaster extends Component<ToasterSignature> {
   @service declare flashMessages: FlashMessagesService<ToastCustomFields>;
-  @service declare theme: ThemeService;
 
   @tracked expanded = false;
   @tracked heightMap: Record<string, number> = {};
+  @tracked resolvedTheme: 'light' | 'dark' =
+    document.documentElement.classList.contains('dark') ? 'dark' : 'light';
   expandedAt = 0;
+
+  themeObserver = new MutationObserver(() => {
+    this.resolvedTheme =
+      document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+  });
+
+  constructor(owner: unknown, args: ToasterSignature['Args']) {
+    super(owner, args);
+    this.themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+  }
+
+  willDestroy(): void {
+    super.willDestroy();
+    this.themeObserver.disconnect();
+  }
 
   get position(): Position {
     return this.args.position ?? 'top-center';
@@ -201,7 +219,7 @@ class Toaster extends Component<ToasterSignature> {
       {{#if this.toasts.length}}
         <ol
           class="toaster group"
-          data-sonner-theme={{this.theme.resolvedTheme}}
+          data-sonner-theme={{this.resolvedTheme}}
           data-sonner-toaster="true"
           data-x-position={{this.xPosition}}
           data-y-position={{this.yPosition}}

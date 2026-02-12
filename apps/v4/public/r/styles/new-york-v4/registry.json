@@ -32,6 +32,18 @@
       ]
     },
     {
+      "name": "flash-messages",
+      "type": "registry:composable",
+      "dependencies": ["ember-cli-flash"],
+      "files": [
+        {
+          "path": "registry/new-york-v4/services/flash-messages.ts",
+          "type": "registry:composable",
+          "target": "app/services/flash-messages.ts"
+        }
+      ]
+    },
+    {
       "name": "theme-stone",
       "type": "registry:theme",
       "cssVars": {
@@ -840,7 +852,7 @@
           "type": "registry:ui"
         }
       ],
-      "registryDependencies": ["flash-messages", "theme"],
+      "registryDependencies": ["flash-messages"],
       "dependencies": [
         "ember-click-outside",
         "ember-modifier",

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://shadcn-ember.com/schema/registry-item.json",
+  "name": "flash-messages",
+  "type": "registry:composable",
+  "dependencies": ["ember-cli-flash"],
+  "files": [
+    {
+      "path": "registry/new-york-v4/services/flash-messages.ts",
+      "content": "import { FlashMessagesService as BaseFlashMessagesService } from 'ember-cli-flash';\n\nimport type { FlashObjectOptions } from 'ember-cli-flash';\n\nexport interface ToastCustomFields extends Record<string, unknown> {\n  description?: string;\n  action?: { label: string; onClick?: () => void };\n}\n\ntype Options = FlashObjectOptions & ToastCustomFields;\n\ninterface PromiseOptions<T> {\n  loading: string;\n  success: string | ((data: T) => string);\n  error: string | ((error: unknown) => string);\n}\n\nexport default class FlashMessagesService extends BaseFlashMessagesService<ToastCustomFields> {\n  declare error: (message: string, options?: Options) => this;\n  declare loading: (message: string, options?: Options) => this;\n\n  get flashMessageDefaults() {\n    return {\n      ...super.flashMessageDefaults,\n      type: 'default',\n      extendedTimeout: 400,\n      types: [...super.flashMessageDefaults.types, 'error', 'loading'],\n    };\n  }\n\n  promise<T>(\n    promise: Promise<T> | (() => Promise<T>),\n    options: PromiseOptions<T>\n  ): Promise<T> {\n    const flash = this.add({\n      message: options.loading,\n      type: 'loading',\n      sticky: true,\n    }).getFlashObject();\n\n    const p = typeof promise === 'function' ? promise() : promise;\n\n    p.then(\n      (data) => {\n        flash.type = 'success';\n        flash.message =\n          typeof options.success === 'function'\n            ? options.success(data)\n            : options.success;\n        flash.sticky = false;\n        // `type` isn't tracked on FlashObject, so reassign queue to trigger re-render\n        this.queue = [...this.queue];\n      },\n      (err) => {\n        flash.type = 'error';\n        flash.message =\n          typeof options.error === 'function'\n            ? options.error(err)\n            : options.error;\n        flash.sticky = false;\n        this.queue = [...this.queue];\n      }\n    );\n\n    return p;\n  }\n}\n\ndeclare module '@ember/service' {\n  interface Registry {\n    flashMessages: FlashMessagesService;\n  }\n}\n",
+      "type": "registry:composable",
+      "target": "app/services/flash-messages.ts"
+    }
+  ]
+}

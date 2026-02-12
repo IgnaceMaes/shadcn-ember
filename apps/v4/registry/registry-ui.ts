@@ -445,7 +445,7 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
-    registryDependencies: ['flash-messages', 'theme'],
+    registryDependencies: ['flash-messages'],
     dependencies: [
       'ember-click-outside',
       'ember-modifier',

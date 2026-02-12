@@ -589,7 +589,7 @@ export const Index: Record<string, any> = {
     name: 'sonner',
     description: '',
     type: 'registry:ui',
-    registryDependencies: ['flash-messages', 'theme'],
+    registryDependencies: ['flash-messages'],
     files: [
       {
         path: 'registry/new-york-v4/ui/sonner.gts',
@@ -750,6 +750,21 @@ export const Index: Record<string, any> = {
         path: 'registry/new-york-v4/lib/utils.ts',
         type: 'registry:lib',
         target: '',
+      },
+    ],
+    categories: undefined,
+    meta: undefined,
+  },
+  'flash-messages': {
+    name: 'flash-messages',
+    description: '',
+    type: 'registry:composable',
+    registryDependencies: undefined,
+    files: [
+      {
+        path: 'registry/new-york-v4/services/flash-messages.ts',
+        type: 'registry:composable',
+        target: 'app/services/flash-messages.ts',
       },
     ],
     categories: undefined,
