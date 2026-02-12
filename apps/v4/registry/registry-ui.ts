@@ -442,7 +442,11 @@ export const ui: Registry['items'] = [
       },
     ],
     registryDependencies: ['flash-messages', 'theme'],
-    dependencies: ['ember-modifier', 'ember-truth-helpers'],
+    dependencies: [
+      'ember-click-outside',
+      'ember-modifier',
+      'ember-truth-helpers',
+    ],
   },
   {
     name: 'spinner',
