@@ -82,8 +82,9 @@ class Toaster extends Component<ToasterSignature> {
   expandedAt = 0;
 
   themeObserver = new MutationObserver(() => {
-    this.resolvedTheme =
-      document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    this.resolvedTheme = document.documentElement.classList.contains('dark')
+      ? 'dark'
+      : 'light';
   });
 
   constructor(owner: unknown, args: ToasterSignature['Args']) {
