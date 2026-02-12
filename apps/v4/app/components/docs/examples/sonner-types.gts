@@ -31,18 +31,18 @@ export default class SonnerTypes extends Component {
     this.flashMessages.error('Event has not been created');
   };
 
-  showLoading = () => {
-    const flash = this.flashMessages.add({
-      message: 'Creating event...',
-      type: 'loading',
-      sticky: true,
-    }).getFlashObject();
-
-    // Simulate async work
-    setTimeout(() => {
-      flash.destroyMessage();
-      this.flashMessages.success('Event has been created');
-    }, 2000);
+  showPromise = () => {
+    void this.flashMessages.promise<{ name: string }>(
+      () =>
+        new Promise((resolve) =>
+          setTimeout(() => resolve({ name: 'Event' }), 2000),
+        ),
+      {
+        loading: 'Loading...',
+        success: (data) => `${data.name} has been created`,
+        error: 'Error',
+      },
+    );
   };
 
   <template>
@@ -62,8 +62,8 @@ export default class SonnerTypes extends Component {
       <Button @variant="outline" {{on "click" this.showError}}>
         Error
       </Button>
-      <Button @variant="outline" {{on "click" this.showLoading}}>
-        Loading
+      <Button @variant="outline" {{on "click" this.showPromise}}>
+        Promise
       </Button>
     </div>
   </template>

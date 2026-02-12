@@ -60,6 +60,16 @@ function toastStyle(
   );
 }
 
+/**
+ * Reads `flash.type` while consuming the tracked `toasts` array,
+ * so Glimmer re-evaluates when the queue is reassigned (e.g. after
+ * a promise toast transitions from loading → success/error).
+ */
+function toastType(toasts: Toast[], flash: Toast): string | undefined {
+  void toasts.length;
+  return flash.type;
+}
+
 class Toaster extends Component<ToasterSignature> {
   @service declare flashMessages: FlashMessagesService<ToastCustomFields>;
   @service declare theme: ThemeService;
@@ -182,6 +192,7 @@ class Toaster extends Component<ToasterSignature> {
           ...attributes
         >
           {{#each this.toasts as |flash index|}}
+            {{#let (toastType this.toasts flash) as |type|}}
             <li
               class="cn-toast"
               data-dismissible="true"
@@ -197,7 +208,7 @@ class Toaster extends Component<ToasterSignature> {
               data-swipe-out="false"
               data-swiped="false"
               data-swiping="false"
-              data-type={{flash.type}}
+              data-type={{type}}
               data-visible={{if
                 (lt index VISIBLE_TOASTS_AMOUNT)
                 "true"
@@ -209,23 +220,23 @@ class Toaster extends Component<ToasterSignature> {
               tabindex="0"
               {{this.setupToast flash}}
             >
-              {{#if (eq flash.type "success")}}
+              {{#if (eq type "success")}}
                 <div data-icon="">
                   <CircleCheck class="size-4" />
                 </div>
-              {{else if (eq flash.type "info")}}
+              {{else if (eq type "info")}}
                 <div data-icon="">
                   <Info class="size-4" />
                 </div>
-              {{else if (eq flash.type "warning")}}
+              {{else if (eq type "warning")}}
                 <div data-icon="">
                   <TriangleAlert class="size-4" />
                 </div>
-              {{else if (eq flash.type "error")}}
+              {{else if (eq type "error")}}
                 <div data-icon="">
                   <OctagonX class="size-4" />
                 </div>
-              {{else if (eq flash.type "loading")}}
+              {{else if (eq type "loading")}}
                 <div data-icon="">
                   <Loader2 class="size-4 animate-spin" />
                 </div>
@@ -253,6 +264,7 @@ class Toaster extends Component<ToasterSignature> {
                 </button>
               {{/if}}
             </li>
+            {{/let}}
           {{/each}}
         </ol>
       {{/if}}
