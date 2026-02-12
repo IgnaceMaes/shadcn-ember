@@ -4,10 +4,10 @@ import Component from '@glimmer/component';
 
 import { Button } from '@/components/ui/button';
 
-import type { FlashMessagesService } from 'ember-cli-flash';
+import type CustomFlashMessagesService from '@/services/flash-messages';
 
 export default class SonnerTypes extends Component {
-  @service declare flashMessages: FlashMessagesService;
+  @service declare flashMessages: CustomFlashMessagesService;
 
   showDefault = () => {
     this.flashMessages.add({
@@ -28,7 +28,21 @@ export default class SonnerTypes extends Component {
   };
 
   showError = () => {
-    this.flashMessages.danger('Event has not been created');
+    this.flashMessages.error('Event has not been created');
+  };
+
+  showLoading = () => {
+    const flash = this.flashMessages.add({
+      message: 'Creating event...',
+      type: 'loading',
+      sticky: true,
+    }).getFlashObject();
+
+    // Simulate async work
+    setTimeout(() => {
+      flash.destroyMessage();
+      this.flashMessages.success('Event has been created');
+    }, 2000);
   };
 
   <template>
@@ -47,6 +61,9 @@ export default class SonnerTypes extends Component {
       </Button>
       <Button @variant="outline" {{on "click" this.showError}}>
         Error
+      </Button>
+      <Button @variant="outline" {{on "click" this.showLoading}}>
+        Loading
       </Button>
     </div>
   </template>
