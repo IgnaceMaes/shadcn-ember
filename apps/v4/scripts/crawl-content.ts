@@ -23,6 +23,7 @@ const DEPENDENCIES = new Map<string, string[]>([
   ['ember-modifier', []],
   ['ember-provide-consume-context', []],
   ['ember-click-outside', []],
+  ['ember-cli-flash', []],
   ['@floating-ui/dom', []],
   ['tracked-built-ins', []],
   ['class-variance-authority', []],
@@ -54,10 +55,13 @@ export async function crawlUI(rootPath: string) {
       const source = await readFile(filepath, { encoding: 'utf8' });
       const relativePath = join('ui', dirent.name);
 
-      const file = {
-        path: relativePath,
-        type,
-      };
+      const files: RegistryFile[] = [{ path: relativePath, type }];
+
+      // Check for co-located .css file
+      const cssFileName = `${name}.css`;
+      if (dir.some((d) => d.isFile() && d.name === cssFileName)) {
+        files.push({ path: join('ui', cssFileName), type });
+      }
 
       const { dependencies, registryDependencies } = await getFileDependencies(
         filepath,
@@ -67,7 +71,7 @@ export async function crawlUI(rootPath: string) {
       uiRegistry.push({
         name,
         type,
-        files: [file],
+        files,
         registryDependencies: registryDependencies.size
           ? Array.from(registryDependencies)
           : undefined,
