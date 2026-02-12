@@ -35,13 +35,13 @@ export default class SonnerTypes extends Component {
     void this.flashMessages.promise<{ name: string }>(
       () =>
         new Promise((resolve) =>
-          setTimeout(() => resolve({ name: 'Event' }), 2000),
+          setTimeout(() => resolve({ name: 'Event' }), 2000)
         ),
       {
         loading: 'Loading...',
         success: (data) => `${data.name} has been created`,
         error: 'Error',
-      },
+      }
     );
   };
 

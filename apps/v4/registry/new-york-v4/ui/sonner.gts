@@ -193,77 +193,77 @@ class Toaster extends Component<ToasterSignature> {
         >
           {{#each this.toasts as |flash index|}}
             {{#let (toastType this.toasts flash) as |type|}}
-            <li
-              class="cn-toast"
-              data-dismissible="true"
-              data-expanded={{if this.isExpanded "true" "false"}}
-              data-front={{if (eq index 0) "true" "false"}}
-              data-index={{index}}
-              data-mounted="false"
-              data-promise="false"
-              data-removed={{if flash.exiting "true" "false"}}
-              data-rich-colors={{if @richColors "true" "false"}}
-              data-sonner-toast=""
-              data-styled="true"
-              data-swipe-out="false"
-              data-swiped="false"
-              data-swiping="false"
-              data-type={{type}}
-              data-visible={{if
-                (lt index VISIBLE_TOASTS_AMOUNT)
-                "true"
-                "false"
-              }}
-              data-x-position={{this.xPosition}}
-              data-y-position={{this.yPosition}}
-              style={{toastStyle this.heightMap this.toasts index}}
-              tabindex="0"
-              {{this.setupToast flash}}
-            >
-              {{#if (eq type "success")}}
-                <div data-icon="">
-                  <CircleCheck class="size-4" />
-                </div>
-              {{else if (eq type "info")}}
-                <div data-icon="">
-                  <Info class="size-4" />
-                </div>
-              {{else if (eq type "warning")}}
-                <div data-icon="">
-                  <TriangleAlert class="size-4" />
-                </div>
-              {{else if (eq type "error")}}
-                <div data-icon="">
-                  <OctagonX class="size-4" />
-                </div>
-              {{else if (eq type "loading")}}
-                <div data-icon="">
-                  <Loader2 class="size-4 animate-spin" />
-                </div>
-              {{/if}}
-              <div data-content="">
-                {{#if flash.message}}
-                  <div data-title="">
-                    {{flash.message}}
+              <li
+                class="cn-toast"
+                data-dismissible="true"
+                data-expanded={{if this.isExpanded "true" "false"}}
+                data-front={{if (eq index 0) "true" "false"}}
+                data-index={{index}}
+                data-mounted="false"
+                data-promise="false"
+                data-removed={{if flash.exiting "true" "false"}}
+                data-rich-colors={{if @richColors "true" "false"}}
+                data-sonner-toast=""
+                data-styled="true"
+                data-swipe-out="false"
+                data-swiped="false"
+                data-swiping="false"
+                data-type={{type}}
+                data-visible={{if
+                  (lt index VISIBLE_TOASTS_AMOUNT)
+                  "true"
+                  "false"
+                }}
+                data-x-position={{this.xPosition}}
+                data-y-position={{this.yPosition}}
+                style={{toastStyle this.heightMap this.toasts index}}
+                tabindex="0"
+                {{this.setupToast flash}}
+              >
+                {{#if (eq type "success")}}
+                  <div data-icon="">
+                    <CircleCheck class="size-4" />
+                  </div>
+                {{else if (eq type "info")}}
+                  <div data-icon="">
+                    <Info class="size-4" />
+                  </div>
+                {{else if (eq type "warning")}}
+                  <div data-icon="">
+                    <TriangleAlert class="size-4" />
+                  </div>
+                {{else if (eq type "error")}}
+                  <div data-icon="">
+                    <OctagonX class="size-4" />
+                  </div>
+                {{else if (eq type "loading")}}
+                  <div data-icon="">
+                    <Loader2 class="size-4 animate-spin" />
                   </div>
                 {{/if}}
-                {{#if flash.description}}
-                  <div data-description="">
-                    {{flash.description}}
-                  </div>
+                <div data-content="">
+                  {{#if flash.message}}
+                    <div data-title="">
+                      {{flash.message}}
+                    </div>
+                  {{/if}}
+                  {{#if flash.description}}
+                    <div data-description="">
+                      {{flash.description}}
+                    </div>
+                  {{/if}}
+                </div>
+                {{#if flash.action}}
+                  <button
+                    data-action="true"
+                    data-button="true"
+                    type="button"
+                    {{on "click" (fn this.handleAction flash)}}
+                  >
+                    {{flash.action.label}}
+                  </button>
                 {{/if}}
-              </div>
-              {{#if flash.action}}
-                <button
-                  data-action="true"
-                  data-button="true"
-                  type="button"
-                  {{on "click" (fn this.handleAction flash)}}
-                >
-                  {{flash.action.label}}
-                </button>
-              {{/if}}
-            </li>
+              </li>
             {{/let}}
           {{/each}}
         </ol>

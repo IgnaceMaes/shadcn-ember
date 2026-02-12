@@ -89,8 +89,8 @@ Use the `@position` arg to change the position of the toaster.
 
 ## API Reference
 
-| Arg           | Type                                                                                              | Default          | Description                                              |
-| ------------- | ------------------------------------------------------------------------------------------------- | ---------------- | -------------------------------------------------------- |
+| Arg           | Type                                                                                              | Default        | Description                                              |
+| ------------- | ------------------------------------------------------------------------------------------------- | -------------- | -------------------------------------------------------- |
 | `@position`   | `'top-left' \| 'top-center' \| 'top-right' \| 'bottom-left' \| 'bottom-center' \| 'bottom-right'` | `'top-center'` | Position of the toaster on the screen.                   |
-| `@richColors` | `boolean`                                                                                         | `false`          | When `true`, applies colored backgrounds per toast type. |
-| `@class`      | `string`                                                                                          | —                | Additional CSS classes for the toaster container.        |
+| `@richColors` | `boolean`                                                                                         | `false`        | When `true`, applies colored backgrounds per toast type. |
+| `@class`      | `string`                                                                                          | —              | Additional CSS classes for the toaster container.        |

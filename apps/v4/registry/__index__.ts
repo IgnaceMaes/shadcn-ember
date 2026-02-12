@@ -660,6 +660,26 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  sonner: {
+    name: 'sonner',
+    description: '',
+    type: 'registry:ui',
+    registryDependencies: undefined,
+    files: [
+      {
+        path: 'registry/new-york-v4/ui/sonner.gts',
+        type: 'registry:ui',
+        target: '',
+      },
+      {
+        path: 'registry/new-york-v4/services/flash-messages.ts',
+        type: 'registry:ui',
+        target: '',
+      },
+    ],
+    categories: undefined,
+    meta: undefined,
+  },
   toaster: {
     name: 'toaster',
     description: '',

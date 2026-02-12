@@ -433,6 +433,18 @@ export const ui: Registry['items'] = [
     ],
   },
   {
+    name: 'sonner',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/sonner.gts',
+        type: 'registry:ui',
+      },
+    ],
+    registryDependencies: ['flash-messages', 'theme'],
+    dependencies: ['ember-modifier', 'ember-truth-helpers'],
+  },
+  {
     name: 'spinner',
     type: 'registry:ui',
     files: [
@@ -482,21 +494,6 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
-  },
-  {
-    name: 'sonner',
-    type: 'registry:ui',
-    files: [
-      {
-        path: 'ui/sonner.gts',
-        type: 'registry:ui',
-      },
-      {
-        path: 'services/flash-messages.ts',
-        type: 'registry:ui',
-      },
-    ],
-    dependencies: ['ember-cli-flash', 'ember-modifier', 'ember-truth-helpers'],
   },
   {
     name: 'toast',

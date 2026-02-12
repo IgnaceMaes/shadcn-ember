@@ -28,7 +28,10 @@ export default class FlashMessagesService extends BaseFlashMessagesService<Toast
     };
   }
 
-  promise<T>(promise: Promise<T> | (() => Promise<T>), options: PromiseOptions<T>): Promise<T> {
+  promise<T>(
+    promise: Promise<T> | (() => Promise<T>),
+    options: PromiseOptions<T>
+  ): Promise<T> {
     const flash = this.add({
       message: options.loading,
       type: 'loading',
@@ -40,17 +43,23 @@ export default class FlashMessagesService extends BaseFlashMessagesService<Toast
     p.then(
       (data) => {
         flash.type = 'success';
-        flash.message = typeof options.success === 'function' ? options.success(data) : options.success;
+        flash.message =
+          typeof options.success === 'function'
+            ? options.success(data)
+            : options.success;
         flash.sticky = false;
         // `type` isn't tracked on FlashObject, so reassign queue to trigger re-render
         this.queue = [...this.queue];
       },
       (err) => {
         flash.type = 'error';
-        flash.message = typeof options.error === 'function' ? options.error(err) : options.error;
+        flash.message =
+          typeof options.error === 'function'
+            ? options.error(err)
+            : options.error;
         flash.sticky = false;
         this.queue = [...this.queue];
-      },
+      }
     );
 
     return p;
