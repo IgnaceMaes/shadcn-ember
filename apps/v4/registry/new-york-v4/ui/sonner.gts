@@ -10,6 +10,7 @@ import { modifier } from 'ember-modifier';
 import { eq, lt } from 'ember-truth-helpers';
 
 import type { ToastCustomFields } from '@/services/flash-messages';
+import type Owner from '@ember/owner';
 import type { FlashMessagesService, FlashObject } from 'ember-cli-flash';
 
 import CircleCheck from '~icons/lucide/circle-check';
@@ -87,7 +88,7 @@ class Toaster extends Component<ToasterSignature> {
       : 'light';
   });
 
-  constructor(owner: unknown, args: ToasterSignature['Args']) {
+  constructor(owner: Owner, args: ToasterSignature['Args']) {
     super(owner, args);
     this.themeObserver.observe(document.documentElement, {
       attributes: true,
