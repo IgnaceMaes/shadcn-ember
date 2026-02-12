@@ -6,7 +6,7 @@ import { tracked } from '@glimmer/tracking';
 import { Button } from '@/components/ui/button';
 import { Toaster } from '@/components/ui/sonner';
 
-import type FlashMessagesService from '@/services/flash-messages';
+import type ToastService from '@/services/toast';
 
 type Position =
   | 'top-left'
@@ -17,12 +17,12 @@ type Position =
   | 'bottom-right';
 
 export default class SonnerPosition extends Component {
-  @service declare flashMessages: FlashMessagesService;
+  @service declare toast: ToastService;
   @tracked position: Position = 'top-center';
 
   showToast = (position: Position) => {
     this.position = position;
-    this.flashMessages.add({
+    this.toast.add({
       message: 'Event has been created',
     });
   };

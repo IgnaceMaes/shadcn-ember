@@ -4,13 +4,13 @@ import Component from '@glimmer/component';
 
 import { Button } from '@/components/ui/button';
 
-import type FlashMessagesService from '@/services/flash-messages';
+import type ToastService from '@/services/toast';
 
 export default class SonnerDemo extends Component {
-  @service declare flashMessages: FlashMessagesService;
+  @service declare toast: ToastService;
 
   showToast = () => {
-    this.flashMessages.add({
+    this.toast.add({
       message: 'Event has been created',
       description: 'Sunday, December 03, 2023 at 9:00 AM',
       action: {

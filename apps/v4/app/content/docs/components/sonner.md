@@ -31,7 +31,7 @@ pnpm add ember-cli-flash
 
 **Update the import paths to match your project setup.**
 
-The installation also includes a custom `flash-messages` service that overrides the default flash message type from `"info"` to `"default"`. This ensures that `flashMessages.add()` creates plain toasts without icons, matching the original sonner behavior where only `toast.success()`, `toast.info()`, etc. show icons.
+The installation also includes a custom `toast` service that overrides the default flash message type from `"info"` to `"default"`. This ensures that `toast.add()` creates plain toasts without icons, matching the original sonner behavior where only `toast.success()`, `toast.info()`, etc. show icons.
 
 **Add the Toaster component to your application template:**
 
@@ -54,17 +54,17 @@ import { Toaster } from '@/components/ui/sonner';
 <Toaster />
 ```
 
-To show a toast, inject the `flashMessages` service and call one of its methods:
+To show a toast, inject the `toast` service and call one of its methods:
 
 ```gts showLineNumbers
 import { service } from '@ember/service';
-import type { FlashMessagesService } from 'ember-cli-flash';
+import type ToastService from '@/services/toast';
 
 class MyComponent extends Component {
-  @service declare flashMessages: FlashMessagesService;
+  @service declare toast: ToastService;
 
   showToast = () => {
-    this.flashMessages.add({
+    this.toast.add({
       message: 'Event has been created.',
     });
   };

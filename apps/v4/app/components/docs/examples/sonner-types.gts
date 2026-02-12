@@ -4,35 +4,35 @@ import Component from '@glimmer/component';
 
 import { Button } from '@/components/ui/button';
 
-import type FlashMessagesService from '@/services/flash-messages';
+import type ToastService from '@/services/toast';
 
 export default class SonnerTypes extends Component {
-  @service declare flashMessages: FlashMessagesService;
+  @service declare toast: ToastService;
 
   showDefault = () => {
-    this.flashMessages.add({
+    this.toast.add({
       message: 'Event has been created',
     });
   };
 
   showSuccess = () => {
-    this.flashMessages.success('Event has been created');
+    this.toast.success('Event has been created');
   };
 
   showInfo = () => {
-    this.flashMessages.info('Be at the area 10 minutes before the event time');
+    this.toast.info('Be at the area 10 minutes before the event time');
   };
 
   showWarning = () => {
-    this.flashMessages.warning('Event start time cannot be earlier than 8am');
+    this.toast.warning('Event start time cannot be earlier than 8am');
   };
 
   showError = () => {
-    this.flashMessages.error('Event has not been created');
+    this.toast.error('Event has not been created');
   };
 
   showPromise = () => {
-    void this.flashMessages.promise<{ name: string }>(
+    void this.toast.promise<{ name: string }>(
       () =>
         new Promise((resolve) =>
           setTimeout(() => resolve({ name: 'Event' }), 2000)

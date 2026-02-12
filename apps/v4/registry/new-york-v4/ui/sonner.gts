@@ -9,15 +9,17 @@ import onClickOutside from 'ember-click-outside/modifiers/on-click-outside';
 import { modifier } from 'ember-modifier';
 import { eq, lt } from 'ember-truth-helpers';
 
-import type { ToastCustomFields } from '@/services/flash-messages';
+import type { ToastCustomFields } from '@/services/toast';
+import type ToastService from '@/services/toast';
 import type Owner from '@ember/owner';
-import type { FlashMessagesService, FlashObject } from 'ember-cli-flash';
+import type { FlashObject } from 'ember-cli-flash';
 
 import CircleCheck from '~icons/lucide/circle-check';
 import Info from '~icons/lucide/info';
 import Loader2 from '~icons/lucide/loader-2';
 import OctagonX from '~icons/lucide/octagon-x';
 import TriangleAlert from '~icons/lucide/triangle-alert';
+
 
 const VISIBLE_TOASTS_AMOUNT = 3;
 const TOAST_WIDTH = 356;
@@ -72,7 +74,7 @@ function toastType(toasts: Toast[], flash: Toast): string | undefined {
 }
 
 class Toaster extends Component<ToasterSignature> {
-  @service declare flashMessages: FlashMessagesService<ToastCustomFields>;
+  @service declare toast: ToastService;
 
   @tracked expanded = false;
   @tracked heightMap: Record<string, number> = {};
@@ -116,7 +118,7 @@ class Toaster extends Component<ToasterSignature> {
   }
 
   get toasts(): Toast[] {
-    return [...this.flashMessages.arrangedQueue].reverse();
+    return [...this.toast.arrangedQueue].reverse();
   }
 
   get frontToastHeight() {
@@ -168,7 +170,7 @@ class Toaster extends Component<ToasterSignature> {
   collapseToasts = () => {
     const expandedDuration = Date.now() - this.expandedAt;
 
-    for (const flash of this.flashMessages.arrangedQueue) {
+    for (const flash of this.toast.arrangedQueue) {
       if (!flash.exiting) {
         flash.timeout += expandedDuration;
         flash.allowExit();
@@ -188,7 +190,7 @@ class Toaster extends Component<ToasterSignature> {
     this.expanded = true;
     this.expandedAt = Date.now();
 
-    for (const flash of this.flashMessages.arrangedQueue) {
+    for (const flash of this.toast.arrangedQueue) {
       flash.preventExit();
       flash.pauseTimer();
     }
