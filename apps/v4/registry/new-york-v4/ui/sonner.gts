@@ -77,6 +77,7 @@ class Toaster extends Component<ToasterSignature> {
 
   @tracked expanded = false;
   @tracked heightMap: Record<string, number> = {};
+  expandedAt = 0;
 
   get position(): Position {
     return this.args.position ?? 'top-center';
@@ -144,21 +145,32 @@ class Toaster extends Component<ToasterSignature> {
     };
   });
 
+  collapseToasts = () => {
+    const expandedDuration = Date.now() - this.expandedAt;
+
+    for (const flash of this.flashMessages.arrangedQueue) {
+      if (!flash.exiting) {
+        flash.timeout += expandedDuration;
+        flash.allowExit();
+        flash.resumeTimer();
+      }
+    }
+  };
+
   handleClickOutside = () => {
     if (!this.expanded) return;
 
     this.expanded = false;
-
-    for (const flash of this.flashMessages.arrangedQueue) {
-      if (!flash.exiting) flash.allowExit();
-    }
+    this.collapseToasts();
   };
 
   handleMouseEnter = () => {
     this.expanded = true;
+    this.expandedAt = Date.now();
 
     for (const flash of this.flashMessages.arrangedQueue) {
       flash.preventExit();
+      flash.pauseTimer();
     }
   };
 
@@ -168,10 +180,7 @@ class Toaster extends Component<ToasterSignature> {
 
   handleMouseLeave = () => {
     this.expanded = false;
-
-    for (const flash of this.flashMessages.arrangedQueue) {
-      if (!flash.exiting) flash.allowExit();
-    }
+    this.collapseToasts();
   };
 
   handleAction = (flash: Toast) => {
