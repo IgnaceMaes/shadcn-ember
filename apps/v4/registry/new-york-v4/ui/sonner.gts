@@ -5,6 +5,7 @@ import { service } from '@ember/service';
 import { htmlSafe } from '@ember/template';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import onClickOutside from 'ember-click-outside/modifiers/on-click-outside';
 import { modifier } from 'ember-modifier';
 import { eq, lt } from 'ember-truth-helpers';
 
@@ -143,6 +144,16 @@ class Toaster extends Component<ToasterSignature> {
     };
   });
 
+  handleClickOutside = () => {
+    if (!this.expanded) return;
+
+    this.expanded = false;
+
+    for (const flash of this.flashMessages.arrangedQueue) {
+      if (!flash.exiting) flash.allowExit();
+    }
+  };
+
   handleMouseEnter = () => {
     this.expanded = true;
 
@@ -189,6 +200,7 @@ class Toaster extends Component<ToasterSignature> {
           {{on "mouseenter" this.handleMouseEnter}}
           {{on "mouseleave" this.handleMouseLeave}}
           {{on "mousemove" this.handleMouseMove}}
+          {{onClickOutside this.handleClickOutside}}
           ...attributes
         >
           {{#each this.toasts as |flash index|}}
