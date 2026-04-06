@@ -62,6 +62,13 @@ export default defineConfig({
       rehydrate: true,
     }),
   ],
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(import.meta.dirname, 'index.html'),
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': resolve(import.meta.dirname, './app'),
