@@ -1,4 +1,4 @@
-import { readdirSync } from 'node:fs';
+import { existsSync, readdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import { extensions, ember } from '@embroider/vite';
@@ -61,6 +61,38 @@ export default defineConfig({
       routes: ['index', 'blocks', ...docsRoutes],
       rehydrate: true,
     }),
+    {
+      name: 'debug-build',
+      config() {
+        console.log('[debug] cwd:', process.cwd());
+        console.log(
+          '[debug] existsSync index.html:',
+          existsSync('index.html'),
+        );
+        console.log(
+          '[debug] existsSync abs:',
+          existsSync(resolve(import.meta.dirname, 'index.html')),
+        );
+      },
+      configResolved(config) {
+        console.log('[debug] build.outDir:', config.build.outDir);
+        console.log(
+          '[debug] rollupOptions.input:',
+          JSON.stringify(config.build.rollupOptions?.input),
+        );
+        console.log(
+          '[debug] client.build.outDir:',
+          config.environments?.client?.build?.outDir,
+        );
+      },
+      writeBundle(options, bundle) {
+        const htmlFiles = Object.keys(bundle).filter((k) =>
+          k.endsWith('.html'),
+        );
+        console.log('[debug] writeBundle dir:', options.dir);
+        console.log('[debug] HTML files in bundle:', htmlFiles);
+      },
+    },
   ],
   build: {
     rollupOptions: {
