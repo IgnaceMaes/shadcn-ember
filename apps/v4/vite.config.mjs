@@ -61,8 +61,7 @@ export default defineConfig({
             (err?.name === 'DOMException' && msg.includes('removeChild')) ||
             (err instanceof ReferenceError &&
               msg.includes('window is not defined')) ||
-            (err instanceof RangeError &&
-              msg.includes('Maximum call stack'))
+            (err instanceof RangeError && msg.includes('Maximum call stack'))
           ) {
             return;
           }
