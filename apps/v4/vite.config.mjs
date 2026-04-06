@@ -12,7 +12,7 @@ function getDocsRoutes(dir, prefix = 'docs') {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
     if (entry.isDirectory()) {
       routes.push(
-        ...getDocsRoutes(join(dir, entry.name), `${prefix}/${entry.name}`)
+        ...getDocsRoutes(join(dir, entry.name), `${prefix}/${entry.name}`),
       );
     } else if (entry.name.endsWith('.md')) {
       const name = entry.name.replace('.md', '');
