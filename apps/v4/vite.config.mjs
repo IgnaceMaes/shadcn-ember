@@ -1,4 +1,4 @@
-import { existsSync, readdirSync } from 'node:fs';
+import { readdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import { extensions, ember } from '@embroider/vite';
@@ -28,26 +28,6 @@ function getDocsRoutes(dir, prefix = 'docs') {
 
 const docsRoutes = getDocsRoutes(join(import.meta.dirname, 'app/content/docs'));
 
-// Suppress expected errors during SSG cleanup.
-// Ember's Backburner schedules destruction tasks via native setTimeout after
-// HappyDOM globals are restored. These tasks reference browser globals or DOM
-// nodes that are no longer available. The HTML has already been extracted at
-// this point, so it's safe to ignore these cleanup errors.
-// The RangeError is from ember-provide-consume-context's @consume decorator
-// recursing when re-rendering across SSG pages (known SSR limitation).
-process.on('uncaughtException', (err) => {
-  const msg = err?.message ?? '';
-  if (
-    (err?.name === 'DOMException' && msg.includes('removeChild')) ||
-    (err instanceof ReferenceError && msg.includes('window is not defined')) ||
-    (err instanceof RangeError && msg.includes('Maximum call stack'))
-  ) {
-    return;
-  }
-  console.error(err);
-  process.exit(1);
-});
-
 export default defineConfig({
   plugins: [
     ember(),
@@ -61,36 +41,34 @@ export default defineConfig({
       routes: ['index', 'blocks', ...docsRoutes],
       rehydrate: true,
     }),
+    // Suppress expected errors during SSG cleanup.
+    // Ember's Backburner schedules destruction tasks via native setTimeout
+    // after HappyDOM globals are restored. These tasks reference browser
+    // globals or DOM nodes that are no longer available. The HTML has already
+    // been extracted at this point, so it's safe to ignore these cleanup
+    // errors. The RangeError is from ember-provide-consume-context's
+    // @consume decorator recursing when re-rendering across SSG pages
+    // (known SSR limitation).
+    //
+    // This handler is installed in closeBundle (not at module scope) so it
+    // only suppresses errors during the SSG phase, not during the main build.
     {
-      name: 'debug-build',
-      config() {
-        console.log('[debug] cwd:', process.cwd());
-        console.log(
-          '[debug] existsSync index.html:',
-          existsSync('index.html'),
-        );
-        console.log(
-          '[debug] existsSync abs:',
-          existsSync(resolve(import.meta.dirname, 'index.html')),
-        );
-      },
-      configResolved(config) {
-        console.log('[debug] build.outDir:', config.build.outDir);
-        console.log(
-          '[debug] rollupOptions.input:',
-          JSON.stringify(config.build.rollupOptions?.input),
-        );
-        console.log(
-          '[debug] client.build.outDir:',
-          config.environments?.client?.build?.outDir,
-        );
-      },
-      writeBundle(options, bundle) {
-        const htmlFiles = Object.keys(bundle).filter((k) =>
-          k.endsWith('.html'),
-        );
-        console.log('[debug] writeBundle dir:', options.dir);
-        console.log('[debug] HTML files in bundle:', htmlFiles);
+      name: 'ssg-error-handler',
+      closeBundle() {
+        process.on('uncaughtException', (err) => {
+          const msg = err?.message ?? '';
+          if (
+            (err?.name === 'DOMException' && msg.includes('removeChild')) ||
+            (err instanceof ReferenceError &&
+              msg.includes('window is not defined')) ||
+            (err instanceof RangeError &&
+              msg.includes('Maximum call stack'))
+          ) {
+            return;
+          }
+          console.error(err);
+          process.exit(1);
+        });
       },
     },
   ],
