@@ -1,3 +1,9 @@
+declare module 'ember-keyboard/services/keyboard' {
+  import Service from '@ember/service';
+
+  export default class KeyboardService extends Service {}
+}
+
 declare module 'ember-keyboard/helpers/on-key' {
   import Helper from '@ember/component/helper';
 

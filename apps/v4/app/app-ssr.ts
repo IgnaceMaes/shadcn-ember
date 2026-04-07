@@ -7,7 +7,7 @@ import EmberApp from 'ember-strict-application-resolver';
 import config from './config/environment.ts';
 import Router from './router.ts';
 
-export default class App extends EmberApp {
+class App extends EmberApp {
   modulePrefix = config.modulePrefix;
   modules = {
     './router': Router,
@@ -24,3 +24,7 @@ App.initializer({
   name: 'glimmer-overrides',
   ...GlimmerOverridesInitializer,
 });
+
+export function createSsrApp() {
+  return App.create({ ...config.APP, autoboot: false });
+}
