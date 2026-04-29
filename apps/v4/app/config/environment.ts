@@ -1,33 +1,26 @@
-import { assert } from '@ember/debug';
-import loadConfigFromMeta from '@embroider/config-meta-loader';
+const ENV = {
+  modulePrefix: 'shadcn-ember-docs',
+  environment: import.meta.env?.DEV ? 'development' : 'production',
+  rootURL: '/',
+  locationType: 'history',
+  EmberENV: {
+    EXTEND_PROTOTYPES: false,
+    FEATURES: {},
+  },
+  APP: {} as Record<string, unknown>,
+  'ember-shiki': {
+    defaultLanguages: [
+      'gjs',
+      'gts',
+      'typescript',
+      'javascript',
+      'tsx',
+      'bash',
+      'css',
+      'json',
+    ],
+    defaultThemes: ['github-dark', 'github-light'],
+  },
+};
 
-const config = loadConfigFromMeta('shadcn-ember-docs') as unknown;
-
-assert(
-  'config is not an object',
-  typeof config === 'object' && config !== null
-);
-assert(
-  'modulePrefix was not detected on your config',
-  'modulePrefix' in config && typeof config.modulePrefix === 'string'
-);
-assert(
-  'locationType was not detected on your config',
-  'locationType' in config && typeof config.locationType === 'string'
-);
-assert(
-  'rootURL was not detected on your config',
-  'rootURL' in config && typeof config.rootURL === 'string'
-);
-assert(
-  'APP was not detected on your config',
-  'APP' in config && typeof config.APP === 'object'
-);
-
-export default config as {
-  modulePrefix: string;
-  podModulePrefix?: string;
-  locationType: string;
-  rootURL: string;
-  APP: Record<string, unknown>;
-} & Record<string, unknown>;
+export default ENV;
