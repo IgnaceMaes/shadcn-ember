@@ -1,0 +1,10 @@
+# Unlabeled Changes
+
+* `shadcn-ember`
+  * [#20](https://github.com/IgnaceMaes/shadcn-ember/pull/20) Updated @codemod-utils/ast-template-tag to 2.3.0 ([@ijlee2](https://github.com/ijlee2))
+* Other
+  * [#19](https://github.com/IgnaceMaes/shadcn-ember/pull/19) Update star count to 0.03K ([@Copilot](https://github.com/apps/copilot-swe-agent))
+  * [#17](https://github.com/IgnaceMaes/shadcn-ember/pull/17) feat: sonner component ([@IgnaceMaes](https://github.com/IgnaceMaes))
+
+
+*Cannot plan release until the above changes are labeled*.
