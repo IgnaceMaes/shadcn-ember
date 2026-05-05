@@ -2,6 +2,17 @@
 
 ## Release (2026-05-05)
 
+* shadcn-ember 0.2.1 (patch)
+
+#### :bug: Bug Fix
+* `shadcn-ember`
+  * [#24](https://github.com/IgnaceMaes/shadcn-ember/pull/24) fix: exclude components without class arg ([@IgnaceMaes](https://github.com/IgnaceMaes))
+
+#### Committers: 1
+- Ignace Maes ([@IgnaceMaes](https://github.com/IgnaceMaes))
+
+## Release (2026-05-05)
+
 * shadcn-ember 0.2.0 (minor)
 
 #### :rocket: Enhancement
