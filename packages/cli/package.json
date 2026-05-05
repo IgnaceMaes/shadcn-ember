@@ -37,6 +37,10 @@
     "./mcp": {
       "types": "./dist/mcp/index.d.ts",
       "default": "./dist/mcp/index.js"
+    },
+    "./eslint": {
+      "types": "./dist/eslint/index.d.ts",
+      "default": "./dist/eslint/index.js"
     }
   },
   "bin": "./dist/index.js",
@@ -60,6 +64,18 @@
     "test": "vitest run",
     "test:update": "vitest run -u",
     "test:ui": "vitest --ui"
+  },
+  "peerDependencies": {
+    "ember-eslint-parser": ">=0.5.0",
+    "eslint": ">=9.0.0"
+  },
+  "peerDependenciesMeta": {
+    "ember-eslint-parser": {
+      "optional": true
+    },
+    "eslint": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@codemod-utils/ast-template-tag": "^2.3.0",
@@ -97,6 +113,8 @@
     "@types/prompts": "^2.4.9",
     "@types/semver": "^7.7.1",
     "@types/stringify-object": "^4.0.5",
+    "ember-eslint-parser": "^0.5.13",
+    "eslint": "^9.21.0",
     "msw": "^2.12.4",
     "tsdown": "^0.17.2",
     "type-fest": "^5.3.1",
