@@ -10,7 +10,7 @@ const SHADCN_COMPONENTS = new Set([
   // accordion
   'Accordion', 'AccordionItem', 'AccordionTrigger', 'AccordionContent',
   // alert-dialog
-  'AlertDialog', 'AlertDialogTrigger', 'AlertDialogPortal', 'AlertDialogOverlay', 'AlertDialogContent', 'AlertDialogHeader', 'AlertDialogFooter', 'AlertDialogTitle', 'AlertDialogDescription', 'AlertDialogAction', 'AlertDialogCancel',
+  'AlertDialog', 'AlertDialogTrigger', 'AlertDialogOverlay', 'AlertDialogContent', 'AlertDialogHeader', 'AlertDialogFooter', 'AlertDialogTitle', 'AlertDialogDescription', 'AlertDialogAction', 'AlertDialogCancel',
   // alert
   'Alert', 'AlertTitle', 'AlertDescription',
   // aspect-ratio
@@ -30,21 +30,21 @@ const SHADCN_COMPONENTS = new Set([
   // checkbox
   'Checkbox',
   // collapsible
-  'Collapsible', 'CollapsibleTrigger', 'CollapsibleContent',
+  'CollapsibleTrigger', 'CollapsibleContent',
   // command
   'Command', 'CommandDialog', 'CommandInput', 'CommandList', 'CommandEmpty', 'CommandGroup', 'CommandItem', 'CommandShortcut', 'CommandSeparator',
   // context-menu
-  'ContextMenu', 'ContextMenuTrigger', 'ContextMenuGroup', 'ContextMenuPortal', 'ContextMenuSub', 'ContextMenuRadioGroup', 'ContextMenuSubTrigger', 'ContextMenuSubContent', 'ContextMenuContent', 'ContextMenuItem', 'ContextMenuCheckboxItem', 'ContextMenuRadioItem', 'ContextMenuLabel', 'ContextMenuSeparator', 'ContextMenuShortcut',
+  'ContextMenuTrigger', 'ContextMenuGroup', 'ContextMenuRadioGroup', 'ContextMenuSubTrigger', 'ContextMenuSubContent', 'ContextMenuContent', 'ContextMenuItem', 'ContextMenuCheckboxItem', 'ContextMenuRadioItem', 'ContextMenuLabel', 'ContextMenuSeparator', 'ContextMenuShortcut',
   // dialog
-  'Dialog', 'DialogTrigger', 'DialogPortal', 'DialogOverlay', 'DialogContent', 'DialogHeader', 'DialogFooter', 'DialogTitle', 'DialogDescription', 'DialogClose',
+  'Dialog', 'DialogTrigger', 'DialogOverlay', 'DialogContent', 'DialogHeader', 'DialogFooter', 'DialogTitle', 'DialogDescription', 'DialogClose',
   // dropdown-menu
-  'DropdownMenu', 'DropdownMenuTrigger', 'DropdownMenuGroup', 'DropdownMenuPortal', 'DropdownMenuSub', 'DropdownMenuRadioGroup', 'DropdownMenuSubTrigger', 'DropdownMenuSubContent', 'DropdownMenuContent', 'DropdownMenuItem', 'DropdownMenuCheckboxItem', 'DropdownMenuRadioItem', 'DropdownMenuLabel', 'DropdownMenuSeparator', 'DropdownMenuShortcut',
+  'DropdownMenuTrigger', 'DropdownMenuGroup', 'DropdownMenuRadioGroup', 'DropdownMenuSubTrigger', 'DropdownMenuSubContent', 'DropdownMenuContent', 'DropdownMenuItem', 'DropdownMenuCheckboxItem', 'DropdownMenuRadioItem', 'DropdownMenuLabel', 'DropdownMenuSeparator', 'DropdownMenuShortcut',
   // empty
   'Empty', 'EmptyHeader', 'EmptyMedia', 'EmptyTitle', 'EmptyDescription', 'EmptyContent',
   // field
   'FieldSet', 'FieldLegend', 'Field', 'FieldGroup', 'FieldContent', 'FieldLabel', 'FieldDescription', 'FieldSeparator', 'FieldError', 'FieldTitle',
   // hover-card
-  'HoverCard', 'HoverCardTrigger', 'HoverCardContent',
+  'HoverCardTrigger', 'HoverCardContent',
   // input-group
   'InputGroup', 'InputGroupAddon', 'InputGroupButton', 'InputGroupText', 'InputGroupInput', 'InputGroupTextarea',
   // input-otp
@@ -58,11 +58,11 @@ const SHADCN_COMPONENTS = new Set([
   // label
   'Label',
   // native-select
-  'NativeSelect', 'NativeSelectOption', 'NativeSelectOptGroup',
+  'NativeSelect', 'NativeSelectOptGroup',
   // pagination
   'Pagination', 'PaginationContent', 'PaginationItem', 'PaginationLink', 'PaginationPrevious', 'PaginationNext', 'PaginationEllipsis',
   // popover
-  'Popover', 'PopoverTrigger', 'PopoverContent', 'PopoverAnchor',
+  'PopoverTrigger', 'PopoverContent', 'PopoverAnchor',
   // progress
   'Progress',
   // radio-group
@@ -70,11 +70,11 @@ const SHADCN_COMPONENTS = new Set([
   // scroll-area
   'ScrollArea', 'ScrollBar',
   // select
-  'Select', 'SelectTrigger', 'SelectValue', 'SelectContent', 'SelectGroup', 'SelectLabel', 'SelectItem', 'SelectSeparator', 'SelectScrollUpButton', 'SelectScrollDownButton',
+  'SelectTrigger', 'SelectValue', 'SelectContent', 'SelectGroup', 'SelectLabel', 'SelectItem', 'SelectSeparator', 'SelectScrollUpButton', 'SelectScrollDownButton',
   // separator
   'Separator',
   // sheet
-  'Sheet', 'SheetTrigger', 'SheetClose', 'SheetPortal', 'SheetOverlay', 'SheetContent', 'SheetHeader', 'SheetFooter', 'SheetTitle', 'SheetDescription',
+  'SheetTrigger', 'SheetClose', 'SheetOverlay', 'SheetContent', 'SheetHeader', 'SheetFooter', 'SheetTitle', 'SheetDescription',
   // sidebar
   'SidebarProvider', 'Sidebar', 'SidebarTrigger', 'SidebarRail', 'SidebarInset', 'SidebarInput', 'SidebarHeader', 'SidebarFooter', 'SidebarSeparator', 'SidebarContent', 'SidebarGroup', 'SidebarGroupLabel', 'SidebarGroupAction', 'SidebarGroupContent', 'SidebarMenu', 'SidebarMenuItem', 'SidebarMenuButton', 'SidebarMenuAction', 'SidebarMenuBadge', 'SidebarMenuSkeleton', 'SidebarMenuSub', 'SidebarMenuSubItem', 'SidebarMenuSubButton',
   // skeleton
@@ -98,7 +98,7 @@ const SHADCN_COMPONENTS = new Set([
   // toggle
   'Toggle',
   // tooltip
-  'Tooltip', 'TooltipTrigger', 'TooltipContent',
+  'TooltipTrigger', 'TooltipContent',
 ])
 
 function isShadcnComponent(tag: string): boolean {
