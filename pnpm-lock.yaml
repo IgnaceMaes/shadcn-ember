@@ -406,6 +406,12 @@ importers:
       '@types/stringify-object':
         specifier: ^4.0.5
         version: 4.0.5
+      ember-eslint-parser:
+        specifier: ^0.5.13
+        version: 0.5.13(@babel/core@7.28.5)(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+      eslint:
+        specifier: ^9.21.0
+        version: 9.39.2(jiti@2.6.1)
       msw:
         specifier: ^2.12.4
         version: 2.12.7(@types/node@24.10.4)(typescript@5.9.3)

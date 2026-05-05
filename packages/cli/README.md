@@ -38,6 +38,29 @@ npx shadcn-ember add
 
 Visit http://shadcn-ember.com to view the documentation.
 
+## ESLint Plugin
+
+This package includes an ESLint plugin with rules specific to shadcn-ember components.
+
+### Setup
+
+Make sure you have `ember-eslint-parser` installed, then add the recommended config to your `eslint.config.mjs`:
+
+```js
+import shadcnEmber from 'shadcn-ember/eslint';
+
+export default [
+  ...shadcnEmber.configs.recommended,
+  // your other config...
+];
+```
+
+### Rules
+
+| Rule | Description | Fixable |
+| --- | --- | --- |
+| [require-class-arg](docs/rules/require-class-arg.md) | Require `@class` instead of `class` on component invocations | 🔧 |
+
 ## Aknowledgements
 
 This is a fork of `shadcn-vue` CLI, adapted for Ember.
