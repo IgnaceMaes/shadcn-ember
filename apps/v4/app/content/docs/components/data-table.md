@@ -334,17 +334,19 @@ function formatCurrency(value: number): string {
 }
 
 // In the template:
-{{#each (call row.getVisibleCells) as |cell|}}
-  <TableCell>
-    {{#if (eq cell.column.id "amount")}}
-      <div class="text-right font-medium">
-        {{formatCurrency (call cell.getValue)}}
-      </div>
-    {{else}}
-      {{call cell.getValue}}
-    {{/if}}
-  </TableCell>
-{{/each}}
+<template>
+  {{#each (call row.getVisibleCells) as |cell|}}
+    <TableCell>
+      {{#if (eq cell.column.id "amount")}}
+        <div class="text-right font-medium">
+          {{formatCurrency (call cell.getValue)}}
+        </div>
+      {{else}}
+        {{call cell.getValue}}
+      {{/if}}
+    </TableCell>
+  {{/each}}
+</template>
 ```
 
 You can use the same approach to format other cells and headers.
@@ -385,27 +387,29 @@ copyPaymentId = (id: string) => {
 };
 
 // In the template, inside the cell loop:
-{{#if (eq cell.column.id "actions")}}
-  <DropdownMenu>
-    <DropdownMenuTrigger @asChild={{true}} as |trigger|>
-      <Button @variant="ghost" @class="h-8 w-8 p-0" {{trigger.modifiers}}>
-        <span class="sr-only">Open menu</span>
-        <Ellipsis class="h-4 w-4" />
-      </Button>
-    </DropdownMenuTrigger>
-    <DropdownMenuContent @align="end">
-      <DropdownMenuLabel>Actions</DropdownMenuLabel>
-      <DropdownMenuItem
-        @onSelect={{fn this.copyPaymentId row.original.id}}
-      >
-        Copy payment ID
-      </DropdownMenuItem>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem>View customer</DropdownMenuItem>
-      <DropdownMenuItem>View payment details</DropdownMenuItem>
-    </DropdownMenuContent>
-  </DropdownMenu>
-{{/if}}
+<template>
+  {{#if (eq cell.column.id "actions")}}
+    <DropdownMenu>
+      <DropdownMenuTrigger @asChild={{true}} as |trigger|>
+        <Button @variant="ghost" @class="h-8 w-8 p-0" {{trigger.modifiers}}>
+          <span class="sr-only">Open menu</span>
+          <Ellipsis class="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent @align="end">
+        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuItem
+          @onSelect={{fn this.copyPaymentId row.original.id}}
+        >
+          Copy payment ID
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>View customer</DropdownMenuItem>
+        <DropdownMenuItem>View payment details</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  {{/if}}
+</template>
 ```
 
 You can access the row data using `row.original` in the template to handle actions for your row.
@@ -534,12 +538,14 @@ toggleEmailSorting = () => {
 };
 
 // In the template header:
-{{#if (eq header.column.id "email")}}
-  <Button @variant="ghost" {{on "click" this.toggleEmailSorting}}>
-    Email
-    <ArrowUpDown class="ml-2 h-4 w-4" />
-  </Button>
-{{/if}}
+<template>
+  {{#if (eq header.column.id "email")}}
+    <Button @variant="ghost" {{on "click" this.toggleEmailSorting}}>
+      Email
+      <ArrowUpDown class="ml-2 h-4 w-4" />
+    </Button>
+  {{/if}}
+</template>
 ```
 
 This will automatically sort the table (asc and desc) when the user clicks on the header cell.
