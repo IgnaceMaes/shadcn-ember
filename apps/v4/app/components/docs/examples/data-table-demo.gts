@@ -92,8 +92,7 @@ interface TableCellRef {
   getValue: () => unknown;
 }
 
-const cellValue = (cell: TableCellRef): string =>
-  cell.getValue() as string;
+const cellValue = (cell: TableCellRef): string => cell.getValue() as string;
 
 const cellAmount = (cell: TableCellRef): string =>
   new Intl.NumberFormat('en-US', {
@@ -209,9 +208,7 @@ class DataTableDemo extends Component {
   }
 
   get emailFilterValue(): string {
-    return (
-      (this.table.getColumn('email')?.getFilterValue() as string) ?? ''
-    );
+    return (this.table.getColumn('email')?.getFilterValue() as string) ?? '';
   }
 
   get headerGroups() {
@@ -247,9 +244,7 @@ class DataTableDemo extends Component {
   }
 
   get hidableColumns() {
-    return this.table
-      .getAllColumns()
-      .filter((column) => column.getCanHide());
+    return this.table.getAllColumns().filter((column) => column.getCanHide());
   }
 
   get isAllPageRowsSelected() {
@@ -304,11 +299,7 @@ class DataTableDemo extends Component {
         />
         <DropdownMenu>
           <DropdownMenuTrigger @asChild={{true}} as |trigger|>
-            <Button
-              @class="ml-auto"
-              @variant="outline"
-              {{trigger.modifiers}}
-            >
+            <Button @class="ml-auto" @variant="outline" {{trigger.modifiers}}>
               Columns
               <ChevronDown class="ml-2 h-4 w-4" />
             </Button>
@@ -364,9 +355,7 @@ class DataTableDemo extends Component {
           <TableBody>
             {{#if this.hasRows}}
               {{#each this.rows as |row|}}
-                <TableRow
-                  data-state={{if (rowSelected row) "selected"}}
-                >
+                <TableRow data-state={{if (rowSelected row) "selected"}}>
                   {{#each (rowCells row) as |cell|}}
                     <TableCell>
                       {{#if (eq cell.column.id "select")}}
@@ -385,10 +374,7 @@ class DataTableDemo extends Component {
                         </div>
                       {{else if (eq cell.column.id "actions")}}
                         <DropdownMenu>
-                          <DropdownMenuTrigger
-                            @asChild={{true}}
-                            as |trigger|
-                          >
+                          <DropdownMenuTrigger @asChild={{true}} as |trigger|>
                             <Button
                               @class="h-8 w-8 p-0"
                               @variant="ghost"
