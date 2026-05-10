@@ -267,6 +267,25 @@ export function cn(...inputs: ClassValue[]) {
 }
 ```
 
+## Set up ESLint plugin
+
+shadcn-ember ships an ESLint plugin that catches common mistakes. Install it and add the recommended config:
+
+```bash
+npm install -D shadcn-ember
+```
+
+```js title="eslint.config.mjs"
+import { configs as shadcnEmberConfigs } from 'shadcn-ember/eslint';
+
+export default [
+  // ...your other config
+  ...shadcnEmberConfigs.recommended,
+];
+```
+
+See the [ESLint Plugin](/docs/eslint) page for more details.
+
 ## Add Components
 
 You can now start adding components to your project:

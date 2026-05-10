@@ -71,7 +71,7 @@ export default class DropdownMenuDialogDemo extends Component {
             Provide a name for your new file. Click create when you're done.
           </DialogDescription>
         </DialogHeader>
-        <FieldGroup class="pb-3">
+        <FieldGroup @class="pb-3">
           <Field>
             <FieldLabel for="filename">File Name</FieldLabel>
             <Input id="filename" name="filename" placeholder="document.txt" />
@@ -97,7 +97,7 @@ export default class DropdownMenuDialogDemo extends Component {
             Anyone with the link will be able to view this file.
           </DialogDescription>
         </DialogHeader>
-        <FieldGroup class="py-3">
+        <FieldGroup @class="py-3">
           <Field>
             <Label for="email">Email Address</Label>
             <Input

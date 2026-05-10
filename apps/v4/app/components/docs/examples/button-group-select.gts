@@ -42,7 +42,7 @@ export default class ButtonGroupSelect extends Component {
           @onValueChange={{this.handleCurrencyChange}}
           @value={{this.currency}}
         >
-          <SelectTrigger class="font-mono">{{this.currency}}</SelectTrigger>
+          <SelectTrigger @class="font-mono">{{this.currency}}</SelectTrigger>
           <SelectContent @class="min-w-24">
             {{#each CURRENCIES as |currency|}}
               <SelectItem @value={{currency.value}}>

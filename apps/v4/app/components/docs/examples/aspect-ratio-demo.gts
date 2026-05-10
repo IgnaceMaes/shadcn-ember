@@ -4,7 +4,7 @@ const ratio = 16 / 9;
 
 <template>
   <div class="w-full max-w-xl">
-    <AspectRatio @ratio={{ratio}} class="bg-muted rounded-lg overflow-hidden">
+    <AspectRatio @class="bg-muted rounded-lg overflow-hidden" @ratio={{ratio}}>
       <img
         alt="Decorative by Drew Beamer"
         class="h-full w-full rounded-lg object-cover"

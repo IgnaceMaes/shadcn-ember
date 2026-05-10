@@ -6,9 +6,9 @@ import PlusIcon from '~icons/lucide/plus';
 
 <template>
   <ButtonGroup
+    @class="h-fit"
     @orientation="vertical"
     aria-label="Media controls"
-    class="h-fit"
   >
     <Button @size="icon" @variant="outline">
       <PlusIcon />

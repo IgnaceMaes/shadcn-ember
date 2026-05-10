@@ -21,7 +21,7 @@ import Github from '~icons/simple-icons/github';
         class="3xl:fixed:container flex h-(--header-height) items-center **:data-[slot=separator]:!h-4"
       >
         <DocLinkTo @route="index" class="flex">
-          <Button @size="icon" @variant="ghost" class="size-8">
+          <Button @class="size-8" @size="icon" @variant="ghost">
             <PhNotches @weight="bold" class="text-[#E04E39]" />
             <span class="sr-only">shadcn-ember</span>
           </Button>
@@ -50,12 +50,12 @@ import Github from '~icons/simple-icons/github';
           <div class="hidden w-full flex-1 md:flex md:w-auto md:flex-none">
             <CommandMenu />
           </div>
-          <Separator @orientation="vertical" class="ml-2 hidden lg:block" />
+          <Separator @class="ml-2 hidden lg:block" @orientation="vertical" />
           <Button
             @asChild={{true}}
+            @class="h-8 gap-1.5 rounded-md px-3 has-[>svg]:px-2.5 shadow-none"
             @size="sm"
             @variant="ghost"
-            class="h-8 gap-1.5 rounded-md px-3 has-[>svg]:px-2.5 shadow-none"
             as |button|
           >
             <a
