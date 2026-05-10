@@ -22,7 +22,7 @@ import ArrowUp from '~icons/lucide/arrow-up';
       <InputGroupAddon @align="block-end">
         <Spinner />
         Validating...
-        <InputGroupButton @variant="default" @class="ml-auto">
+        <InputGroupButton @class="ml-auto" @variant="default">
           <ArrowUp />
           <span class="sr-only">Send</span>
         </InputGroupButton>

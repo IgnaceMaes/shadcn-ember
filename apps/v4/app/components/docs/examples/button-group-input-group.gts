@@ -47,11 +47,11 @@ export default class ButtonGroupInputGroup extends Component {
             <Tooltip>
               <TooltipTrigger>
                 <InputGroupButton
+                  @class="data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
                   @size="icon-xs"
                   @variant="ghost"
                   aria-label="Voice Mode"
                   aria-pressed={{this.voiceEnabled}}
-                  @class="data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
                   data-active={{this.voiceEnabled}}
                   {{on "click" this.toggleVoice}}
                 >

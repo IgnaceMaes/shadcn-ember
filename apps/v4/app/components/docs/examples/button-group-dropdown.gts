@@ -23,7 +23,7 @@ import VolumeOffIcon from '~icons/lucide/volume-off';
     <Button @variant="outline">Follow</Button>
     <DropdownMenu>
       <DropdownMenuTrigger @asChild={{true}} as |trigger|>
-        <Button @variant="outline" @class="!pl-2" {{trigger.modifiers}}>
+        <Button @class="!pl-2" @variant="outline" {{trigger.modifiers}}>
           <ChevronDownIcon />
         </Button>
       </DropdownMenuTrigger>

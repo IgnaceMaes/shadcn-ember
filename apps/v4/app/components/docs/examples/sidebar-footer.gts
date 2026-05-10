@@ -41,8 +41,8 @@ import User2 from '~icons/lucide/user-2';
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent
-                @side="top"
                 @class="w-[--radix-popper-anchor-width]"
+                @side="top"
               >
                 <DropdownMenuItem>
                   <span>Account</span>

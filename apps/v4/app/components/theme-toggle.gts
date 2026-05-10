@@ -38,9 +38,9 @@ export default class ThemeToggle extends Component<ThemeToggleSignature> {
     {{onKey "d" this.handleKeyToggle}}
 
     <Button
+      @class="group/toggle extend-touch-target size-8 {{@class}}"
       @size="icon"
       @variant="ghost"
-      @class="group/toggle extend-touch-target size-8 {{@class}}"
       {{on "click" this.handleToggle}}
       ...attributes
     >

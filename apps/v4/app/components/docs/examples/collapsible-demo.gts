@@ -30,11 +30,11 @@ export default class CollapsibleDemo extends Component {
         </h4>
         <CollapsibleTrigger @asChild={{true}} as |trigger|>
           <Button
+            @class="size-8"
             @size="icon"
             @variant="ghost"
             aria-controls={{trigger.aria-controls}}
             aria-expanded={{trigger.aria-expanded}}
-            @class="size-8"
             data-disabled={{trigger.data-disabled}}
             data-state={{trigger.data-state}}
             disabled={{trigger.disabled}}
