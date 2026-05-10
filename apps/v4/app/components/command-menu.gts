@@ -82,7 +82,7 @@ export default class CommandMenu extends Component<CommandMenuSignature> {
       <Button
         @size="sm"
         @variant="outline"
-        class="relative h-8 w-full justify-start pl-3 font-normal shadow-none sm:pr-12 md:w-48 lg:w-56 xl:w-64 text-foreground dark:bg-card hover:bg-muted/50"
+        @class="relative h-8 w-full justify-start pl-3 font-normal shadow-none sm:pr-12 md:w-48 lg:w-56 xl:w-64 text-foreground dark:bg-card hover:bg-muted/50"
         {{on "click" (fn this.setOpen true)}}
       >
         <span class="hidden lg:inline-flex">Search documentation...</span>

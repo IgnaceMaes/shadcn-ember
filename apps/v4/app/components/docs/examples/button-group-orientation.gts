@@ -8,7 +8,7 @@ import PlusIcon from '~icons/lucide/plus';
   <ButtonGroup
     @orientation="vertical"
     aria-label="Media controls"
-    class="h-fit"
+    @class="h-fit"
   >
     <Button @size="icon" @variant="outline">
       <PlusIcon />

@@ -17,7 +17,7 @@ export default class SonnerDescription extends Component {
   };
 
   <template>
-    <Button @variant="outline" class="w-fit" {{on "click" this.showToast}}>
+    <Button @variant="outline" @class="w-fit" {{on "click" this.showToast}}>
       Show Toast
     </Button>
   </template>

@@ -267,6 +267,9 @@ importers:
       rimraf:
         specifier: ^6.1.2
         version: 6.1.2
+      shadcn-ember:
+        specifier: workspace:^
+        version: link:../../packages/cli
       stylelint:
         specifier: ^16.26.1
         version: 16.26.1(typescript@5.9.3)

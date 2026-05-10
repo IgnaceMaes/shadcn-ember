@@ -40,7 +40,7 @@ export default class ThemeToggle extends Component<ThemeToggleSignature> {
     <Button
       @size="icon"
       @variant="ghost"
-      class="group/toggle extend-touch-target size-8 {{@class}}"
+      @class="group/toggle extend-touch-target size-8 {{@class}}"
       {{on "click" this.handleToggle}}
       ...attributes
     >

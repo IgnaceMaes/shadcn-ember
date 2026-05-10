@@ -38,7 +38,7 @@ export default class SidebarControlled extends Component {
     <SidebarProvider
       @onOpenChange={{this.setOpen}}
       @open={{this.open}}
-      class="!min-h-full h-full"
+      @class="!min-h-full h-full"
     >
       <Sidebar>
         <SidebarContent>

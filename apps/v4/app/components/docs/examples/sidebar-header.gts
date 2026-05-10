@@ -19,7 +19,7 @@ import {
 import ChevronDown from '~icons/lucide/chevron-down';
 
 <template>
-  <SidebarProvider class="!min-h-full h-full">
+  <SidebarProvider @class="!min-h-full h-full">
     <Sidebar>
       <SidebarHeader>
         <SidebarMenu>
@@ -31,7 +31,7 @@ import ChevronDown from '~icons/lucide/chevron-down';
                   <ChevronDown class="ml-auto" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
-              <DropdownMenuContent class="w-[--radix-popper-anchor-width]">
+              <DropdownMenuContent @class="w-[--radix-popper-anchor-width]">
                 <DropdownMenuItem>
                   <span>Acme Inc</span>
                 </DropdownMenuItem>

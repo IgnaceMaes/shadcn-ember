@@ -45,7 +45,7 @@ const handleSubmit = (event: Event) => {
               </FieldDescription>
             </FieldContent>
             <Textarea
-              class="min-h-[100px] resize-none sm:min-w-[300px]"
+              @class="min-h-[100px] resize-none sm:min-w-[300px]"
               id="message"
               placeholder="Hello, world!"
               required

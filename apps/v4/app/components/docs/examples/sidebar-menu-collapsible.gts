@@ -25,7 +25,7 @@ import Forward from '~icons/lucide/forward';
 import Trash2 from '~icons/lucide/trash-2';
 
 <template>
-  <SidebarProvider class="!min-h-full h-full">
+  <SidebarProvider @class="!min-h-full h-full">
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
@@ -34,7 +34,7 @@ import Trash2 from '~icons/lucide/trash-2';
             <SidebarMenu>
               <Collapsible @defaultOpen={{true}} class="group/collapsible">
                 <SidebarMenuItem>
-                  <CollapsibleTrigger class="w-full">
+                  <CollapsibleTrigger @class="w-full">
                     <SidebarMenuButton>
                       <Folder />
                       <span>Projects</span>

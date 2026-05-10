@@ -16,14 +16,14 @@ import {
 import AppSidebar from './sidebar-07/app-sidebar.gts';
 
 <template>
-  <SidebarProvider class="!min-h-full h-full">
+  <SidebarProvider @class="!min-h-full h-full">
     <AppSidebar />
     <SidebarInset>
       <header
         class="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12"
       >
         <div class="flex items-center gap-2 px-4">
-          <SidebarTrigger class="-ml-1" />
+          <SidebarTrigger @class="-ml-1" />
           <Separator
             @class="mr-2 data-[orientation=vertical]:h-4"
             @orientation="vertical"

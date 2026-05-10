@@ -34,7 +34,7 @@ export default class CollapsibleDemo extends Component {
             @variant="ghost"
             aria-controls={{trigger.aria-controls}}
             aria-expanded={{trigger.aria-expanded}}
-            class="size-8"
+            @class="size-8"
             data-disabled={{trigger.data-disabled}}
             data-state={{trigger.data-state}}
             disabled={{trigger.disabled}}
@@ -48,7 +48,7 @@ export default class CollapsibleDemo extends Component {
       <div class="rounded-md border px-4 py-2 font-mono text-sm">
         @radix-ui/primitives
       </div>
-      <CollapsibleContent class="flex flex-col gap-2">
+      <CollapsibleContent @class="flex flex-col gap-2">
         <div class="rounded-md border px-4 py-2 font-mono text-sm">
           @radix-ui/colors
         </div>
