@@ -4,6 +4,33 @@ description: Latest updates and announcements.
 order: 10
 ---
 
+## May 2026 - ESLint Plugin
+
+shadcn-ember now ships a built-in [ESLint plugin](/docs/eslint) to help you catch common mistakes when using components.
+
+### `shadcn-ember/require-class-arg`
+
+The first rule, `require-class-arg`, enforces using `@class` instead of `class` on shadcn-ember component invocations. When you pass `class` as a regular HTML attribute, it gets forwarded via `...attributes` (splattributes) and bypasses the component's internal class merging logic using `cn()` / `cva()`. This can lead to unexpected styling where your classes don't get properly merged with the component's variant classes.
+
+The rule is auto-fixable — running `eslint --fix` will automatically replace `class` with `@class` on known shadcn-ember components.
+
+### Setup
+
+Add the recommended config to your ESLint configuration:
+
+```js title="eslint.config.mjs"
+import { configs as shadcnEmberConfigs } from 'shadcn-ember/eslint';
+
+export default [
+  // ...your other config
+  ...shadcnEmberConfigs.recommended,
+];
+```
+
+See the [ESLint Plugin](/docs/eslint) page for full documentation, or check the updated [installation guides](/docs/installation).
+
+---
+
 ## January 2026 - Initial release
 
 I'm excited to announce the initial release of shadcn-ember!
