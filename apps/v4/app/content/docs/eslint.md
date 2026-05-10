@@ -56,7 +56,7 @@ Using `@class` ensures the component merges your classes correctly.
 
 Incorrect:
 
-```gjs
+```hbs
 <Button class="w-full" />
 <Card class="my-4">content</Card>
 <Badge class="extra" @variant="destructive">text</Badge>
@@ -64,7 +64,7 @@ Incorrect:
 
 Correct:
 
-```gjs
+```hbs
 <Button @class="w-full" />
 <Card @class="my-4">content</Card>
 <Badge @class="extra" @variant="destructive">text</Badge>
@@ -72,7 +72,7 @@ Correct:
 
 Using `class` on regular HTML elements or non-shadcn components is fine and will not be flagged:
 
-```gjs
+```hbs
 <div class="my-class"></div>
 <button class="btn">click</button>
 <MyCustomComponent class="custom" />
