@@ -1,0 +1,7 @@
+# Unlabeled Changes
+
+* [#28](https://github.com/IgnaceMaes/shadcn-ember/pull/28) chore: setup eslint plugin and run fixes ([@IgnaceMaes](https://github.com/IgnaceMaes))
+* [#26](https://github.com/IgnaceMaes/shadcn-ember/pull/26) docs: data-table ([@IgnaceMaes](https://github.com/IgnaceMaes))
+
+
+*Cannot plan release until the above changes are labeled*.
