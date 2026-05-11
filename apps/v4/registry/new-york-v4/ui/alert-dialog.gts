@@ -194,10 +194,6 @@ class AlertDialogContent extends Component<AlertDialogContentSignature> {
     }
   );
 
-  handleOverlayClick = (event: MouseEvent) => {
-    event.stopPropagation();
-  };
-
   handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'Escape') {
       this.context.setOpen(false);
@@ -225,7 +221,6 @@ class AlertDialogContent extends Component<AlertDialogContentSignature> {
           role="alertdialog"
           tabindex="-1"
           {{on "animationend" this.handleAnimationEnd}}
-          {{on "click" this.handleOverlayClick}}
           {{on "keydown" this.handleKeyDown}}
           {{this.scrollLock enabled=this.context.open}}
           ...attributes

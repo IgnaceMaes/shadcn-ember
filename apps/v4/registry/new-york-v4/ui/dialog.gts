@@ -250,10 +250,6 @@ class DialogContent extends Component<DialogContentSignature> {
     }
   );
 
-  handleOverlayClick = (event: MouseEvent) => {
-    event.stopPropagation();
-  };
-
   handleCloseClick = () => {
     this.context.setOpen(false);
   };
@@ -285,7 +281,6 @@ class DialogContent extends Component<DialogContentSignature> {
           role="dialog"
           tabindex="-1"
           {{on "animationend" this.handleAnimationEnd}}
-          {{on "click" this.handleOverlayClick}}
           {{on "keydown" this.handleKeyDown}}
           {{this.scrollLock enabled=this.context.open}}
           ...attributes
