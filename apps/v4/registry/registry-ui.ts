@@ -96,6 +96,17 @@ export const ui: Registry['items'] = [
     ],
   },
   {
+    name: 'calendar',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/calendar.gts',
+        type: 'registry:ui',
+      },
+    ],
+    registryDependencies: ['button'],
+  },
+  {
     name: 'card',
     type: 'registry:ui',
     files: [

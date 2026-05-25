@@ -158,6 +158,21 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  calendar: {
+    name: 'calendar',
+    description: '',
+    type: 'registry:ui',
+    registryDependencies: ['button'],
+    files: [
+      {
+        path: 'registry/new-york-v4/ui/calendar.gts',
+        type: 'registry:ui',
+        target: '',
+      },
+    ],
+    categories: undefined,
+    meta: undefined,
+  },
   card: {
     name: 'card',
     description: '',
