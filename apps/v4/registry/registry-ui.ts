@@ -308,6 +308,22 @@ export const ui: Registry['items'] = [
     ],
   },
   {
+    name: 'menubar',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/menubar.gts',
+        type: 'registry:ui',
+      },
+    ],
+    dependencies: [
+      '@floating-ui/dom',
+      'ember-click-outside',
+      'ember-modifier',
+      'ember-provide-consume-context',
+    ],
+  },
+  {
     name: 'native-select',
     type: 'registry:ui',
     files: [

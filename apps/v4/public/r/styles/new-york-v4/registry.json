@@ -327,6 +327,22 @@
       ]
     },
     {
+      "name": "menubar",
+      "type": "registry:ui",
+      "dependencies": [
+        "@floating-ui/dom",
+        "ember-click-outside",
+        "ember-modifier",
+        "ember-provide-consume-context"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/menubar.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "native-select",
       "type": "registry:ui",
       "files": [
