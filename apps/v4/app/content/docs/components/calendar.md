@@ -162,7 +162,7 @@ import { nl } from 'date-fns/locale';
 | `@fixedWeeks`          | `boolean`                           | `false`    | Always show 6 weeks.                 |
 | `@buttonVariant`       | `'default' \| 'ghost' \| 'outline'` | `'ghost'`  | Variant for nav buttons.             |
 | `@locale`              | `Locale`                            | —          | date-fns locale for i18n.            |
-| `@weekStartsOn`        | `0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6`  | `0`        | First day of the week (0=Sun).       |
+| `@weekStartsOn`        | `0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6`   | `0`        | First day of the week (0=Sun).       |
 | `@startMonth`          | `Date`                              | —          | Earliest month navigable.            |
 | `@endMonth`            | `Date`                              | —          | Latest month navigable.              |
 | `@class`               | `string`                            | —          | Additional CSS classes.              |
