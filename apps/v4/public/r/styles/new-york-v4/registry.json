@@ -200,6 +200,17 @@
       ]
     },
     {
+      "name": "drawer",
+      "type": "registry:ui",
+      "dependencies": ["ember-modifier", "ember-provide-consume-context"],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/drawer.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "dropdown-menu",
       "type": "registry:ui",
       "dependencies": [

@@ -181,6 +181,17 @@ export const ui: Registry['items'] = [
     dependencies: ['ember-modifier', 'ember-provide-consume-context'],
   },
   {
+    name: 'drawer',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/drawer.gts',
+        type: 'registry:ui',
+      },
+    ],
+    dependencies: ['ember-modifier', 'ember-provide-consume-context'],
+  },
+  {
     name: 'dropdown-menu',
     type: 'registry:ui',
     files: [

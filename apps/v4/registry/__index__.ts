@@ -263,6 +263,21 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  drawer: {
+    name: 'drawer',
+    description: '',
+    type: 'registry:ui',
+    registryDependencies: undefined,
+    files: [
+      {
+        path: 'registry/new-york-v4/ui/drawer.gts',
+        type: 'registry:ui',
+        target: '',
+      },
+    ],
+    categories: undefined,
+    meta: undefined,
+  },
   'dropdown-menu': {
     name: 'dropdown-menu',
     description: '',
