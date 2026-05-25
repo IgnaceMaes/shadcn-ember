@@ -1,551 +1,611 @@
-import type { Registry } from '../../../packages/cli/src/registry/schema';
+import type { Registry } from "../../../packages/cli/src/registry/schema"
 
-export const ui: Registry['items'] = [
+export const ui: Registry["items"] = [
   {
-    name: 'accordion',
-    type: 'registry:ui',
-    files: [
+    "name": "accordion",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/accordion.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/accordion.gts",
+        "type": "registry:ui"
+      }
     ],
-    dependencies: ['ember-modifier', 'ember-provide-consume-context'],
+    "dependencies": [
+      "ember-modifier",
+      "ember-provide-consume-context"
+    ]
   },
   {
-    name: 'alert-dialog',
-    type: 'registry:ui',
-    files: [
+    "name": "alert-dialog",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/alert-dialog.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/alert-dialog.gts",
+        "type": "registry:ui"
+      }
     ],
-    dependencies: ['ember-modifier', 'ember-provide-consume-context'],
+    "dependencies": [
+      "ember-modifier",
+      "ember-provide-consume-context"
+    ]
   },
   {
-    name: 'alert',
-    type: 'registry:ui',
-    files: [
+    "name": "alert",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/alert.gts',
-        type: 'registry:ui',
-      },
-    ],
+        "path": "ui/alert.gts",
+        "type": "registry:ui"
+      }
+    ]
   },
   {
-    name: 'aspect-ratio',
-    type: 'registry:ui',
-    files: [
+    "name": "aspect-ratio",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/aspect-ratio.gts',
-        type: 'registry:ui',
-      },
-    ],
+        "path": "ui/aspect-ratio.gts",
+        "type": "registry:ui"
+      }
+    ]
   },
   {
-    name: 'avatar',
-    type: 'registry:ui',
-    files: [
+    "name": "avatar",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/avatar.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/avatar.gts",
+        "type": "registry:ui"
+      }
     ],
-    dependencies: ['ember-truth-helpers'],
+    "dependencies": [
+      "ember-truth-helpers"
+    ]
   },
   {
-    name: 'badge',
-    type: 'registry:ui',
-    files: [
+    "name": "badge",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/badge.gts',
-        type: 'registry:ui',
-      },
-    ],
+        "path": "ui/badge.gts",
+        "type": "registry:ui"
+      }
+    ]
   },
   {
-    name: 'breadcrumb',
-    type: 'registry:ui',
-    files: [
+    "name": "breadcrumb",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/breadcrumb.gts',
-        type: 'registry:ui',
-      },
-    ],
+        "path": "ui/breadcrumb.gts",
+        "type": "registry:ui"
+      }
+    ]
   },
   {
-    name: 'button-group',
-    type: 'registry:ui',
-    files: [
+    "name": "button-group",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/button-group.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/button-group.gts",
+        "type": "registry:ui"
+      }
     ],
-    registryDependencies: ['separator'],
+    "registryDependencies": [
+      "separator"
+    ]
   },
   {
-    name: 'button',
-    type: 'registry:ui',
-    files: [
+    "name": "button",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/button.gts',
-        type: 'registry:ui',
-      },
-    ],
+        "path": "ui/button.gts",
+        "type": "registry:ui"
+      }
+    ]
   },
   {
-    name: 'calendar',
-    type: 'registry:ui',
-    files: [
+    "name": "calendar",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/calendar.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/calendar.gts",
+        "type": "registry:ui"
+      }
     ],
-    registryDependencies: ['button'],
+    "registryDependencies": [
+      "button"
+    ]
   },
   {
-    name: 'card',
-    type: 'registry:ui',
-    files: [
+    "name": "card",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/card.gts',
-        type: 'registry:ui',
-      },
-    ],
+        "path": "ui/card.gts",
+        "type": "registry:ui"
+      }
+    ]
   },
   {
-    name: 'checkbox',
-    type: 'registry:ui',
-    files: [
+    "name": "checkbox",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/checkbox.gts',
-        type: 'registry:ui',
-      },
-    ],
+        "path": "ui/checkbox.gts",
+        "type": "registry:ui"
+      }
+    ]
   },
   {
-    name: 'collapsible',
-    type: 'registry:ui',
-    files: [
+    "name": "collapsible",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/collapsible.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/collapsible.gts",
+        "type": "registry:ui"
+      }
     ],
-    dependencies: ['ember-provide-consume-context'],
+    "dependencies": [
+      "ember-provide-consume-context"
+    ]
   },
   {
-    name: 'command',
-    type: 'registry:ui',
-    files: [
+    "name": "command",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/command.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/command.gts",
+        "type": "registry:ui"
+      }
     ],
-    registryDependencies: ['dialog'],
-    dependencies: [
-      'ember-modifier',
-      'ember-provide-consume-context',
-      'tracked-built-ins',
+    "registryDependencies": [
+      "dialog"
     ],
+    "dependencies": [
+      "ember-modifier",
+      "ember-provide-consume-context",
+      "tracked-built-ins"
+    ]
   },
   {
-    name: 'context-menu',
-    type: 'registry:ui',
-    files: [
+    "name": "context-menu",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/context-menu.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/context-menu.gts",
+        "type": "registry:ui"
+      }
     ],
-    dependencies: [
-      '@floating-ui/dom',
-      'ember-click-outside',
-      'ember-modifier',
-      'ember-provide-consume-context',
-    ],
+    "dependencies": [
+      "@floating-ui/dom",
+      "ember-click-outside",
+      "ember-modifier",
+      "ember-provide-consume-context"
+    ]
   },
   {
-    name: 'dialog',
-    type: 'registry:ui',
-    files: [
+    "name": "dialog",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/dialog.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/dialog.gts",
+        "type": "registry:ui"
+      }
     ],
-    dependencies: ['ember-modifier', 'ember-provide-consume-context'],
+    "dependencies": [
+      "ember-modifier",
+      "ember-provide-consume-context"
+    ]
   },
   {
-    name: 'dropdown-menu',
-    type: 'registry:ui',
-    files: [
+    "name": "drawer",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/dropdown-menu.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/drawer.gts",
+        "type": "registry:ui"
+      }
     ],
-    dependencies: [
-      '@floating-ui/dom',
-      'ember-click-outside',
-      'ember-modifier',
-      'ember-provide-consume-context',
-    ],
+    "dependencies": [
+      "ember-modifier",
+      "ember-provide-consume-context"
+    ]
   },
   {
-    name: 'empty',
-    type: 'registry:ui',
-    files: [
+    "name": "dropdown-menu",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/empty.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/dropdown-menu.gts",
+        "type": "registry:ui"
+      }
     ],
-    dependencies: ['class-variance-authority'],
+    "dependencies": [
+      "@floating-ui/dom",
+      "ember-click-outside",
+      "ember-modifier",
+      "ember-provide-consume-context"
+    ]
   },
   {
-    name: 'field',
-    type: 'registry:ui',
-    files: [
+    "name": "empty",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/field.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/empty.gts",
+        "type": "registry:ui"
+      }
     ],
-    registryDependencies: ['label', 'separator'],
+    "dependencies": [
+      "class-variance-authority"
+    ]
   },
   {
-    name: 'hover-card',
-    type: 'registry:ui',
-    files: [
+    "name": "field",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/hover-card.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/field.gts",
+        "type": "registry:ui"
+      }
     ],
-    dependencies: [
-      '@floating-ui/dom',
-      'ember-modifier',
-      'ember-provide-consume-context',
-    ],
+    "registryDependencies": [
+      "label",
+      "separator"
+    ]
   },
   {
-    name: 'input-group',
-    type: 'registry:ui',
-    files: [
+    "name": "hover-card",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/input-group.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/hover-card.gts",
+        "type": "registry:ui"
+      }
     ],
-    registryDependencies: ['button', 'input', 'textarea'],
+    "dependencies": [
+      "@floating-ui/dom",
+      "ember-modifier",
+      "ember-provide-consume-context"
+    ]
   },
   {
-    name: 'input-otp',
-    type: 'registry:ui',
-    files: [
+    "name": "input-group",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/input-otp.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/input-group.gts",
+        "type": "registry:ui"
+      }
     ],
-    dependencies: ['ember-modifier', 'ember-provide-consume-context'],
+    "registryDependencies": [
+      "button",
+      "input",
+      "textarea"
+    ]
   },
   {
-    name: 'input',
-    type: 'registry:ui',
-    files: [
+    "name": "input-otp",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/input.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/input-otp.gts",
+        "type": "registry:ui"
+      }
     ],
+    "dependencies": [
+      "ember-modifier",
+      "ember-provide-consume-context"
+    ]
   },
   {
-    name: 'item',
-    type: 'registry:ui',
-    files: [
+    "name": "input",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/item.gts',
-        type: 'registry:ui',
-      },
-    ],
-    registryDependencies: ['separator'],
+        "path": "ui/input.gts",
+        "type": "registry:ui"
+      }
+    ]
   },
   {
-    name: 'kbd',
-    type: 'registry:ui',
-    files: [
+    "name": "item",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/kbd.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/item.gts",
+        "type": "registry:ui"
+      }
     ],
+    "registryDependencies": [
+      "separator"
+    ]
   },
   {
-    name: 'label',
-    type: 'registry:ui',
-    files: [
+    "name": "kbd",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/label.gts',
-        type: 'registry:ui',
-      },
-    ],
+        "path": "ui/kbd.gts",
+        "type": "registry:ui"
+      }
+    ]
   },
   {
-    name: 'native-select',
-    type: 'registry:ui',
-    files: [
+    "name": "label",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/native-select.gts',
-        type: 'registry:ui',
-      },
-    ],
+        "path": "ui/label.gts",
+        "type": "registry:ui"
+      }
+    ]
   },
   {
-    name: 'pagination',
-    type: 'registry:ui',
-    files: [
+    "name": "native-select",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/pagination.gts',
-        type: 'registry:ui',
-      },
-    ],
+        "path": "ui/native-select.gts",
+        "type": "registry:ui"
+      }
+    ]
   },
   {
-    name: 'popover',
-    type: 'registry:ui',
-    files: [
+    "name": "pagination",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/popover.gts',
-        type: 'registry:ui',
-      },
-    ],
-    dependencies: [
-      '@floating-ui/dom',
-      'ember-click-outside',
-      'ember-modifier',
-      'ember-provide-consume-context',
-    ],
+        "path": "ui/pagination.gts",
+        "type": "registry:ui"
+      }
+    ]
   },
   {
-    name: 'progress',
-    type: 'registry:ui',
-    files: [
+    "name": "popover",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/progress.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/popover.gts",
+        "type": "registry:ui"
+      }
     ],
+    "dependencies": [
+      "@floating-ui/dom",
+      "ember-click-outside",
+      "ember-modifier",
+      "ember-provide-consume-context"
+    ]
   },
   {
-    name: 'radio-group',
-    type: 'registry:ui',
-    files: [
+    "name": "progress",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/radio-group.gts',
-        type: 'registry:ui',
-      },
-    ],
-    dependencies: ['ember-provide-consume-context'],
+        "path": "ui/progress.gts",
+        "type": "registry:ui"
+      }
+    ]
   },
   {
-    name: 'scroll-area',
-    type: 'registry:ui',
-    files: [
+    "name": "radio-group",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/scroll-area.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/radio-group.gts",
+        "type": "registry:ui"
+      }
     ],
+    "dependencies": [
+      "ember-provide-consume-context"
+    ]
   },
   {
-    name: 'select',
-    type: 'registry:ui',
-    files: [
+    "name": "scroll-area",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/select.gts',
-        type: 'registry:ui',
-      },
-    ],
-    dependencies: [
-      '@floating-ui/dom',
-      'ember-click-outside',
-      'ember-modifier',
-      'ember-provide-consume-context',
-    ],
+        "path": "ui/scroll-area.gts",
+        "type": "registry:ui"
+      }
+    ]
   },
   {
-    name: 'separator',
-    type: 'registry:ui',
-    files: [
+    "name": "select",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/separator.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/select.gts",
+        "type": "registry:ui"
+      }
     ],
+    "dependencies": [
+      "@floating-ui/dom",
+      "ember-click-outside",
+      "ember-modifier",
+      "ember-provide-consume-context"
+    ]
   },
   {
-    name: 'sheet',
-    type: 'registry:ui',
-    files: [
+    "name": "separator",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/sheet.gts',
-        type: 'registry:ui',
-      },
-    ],
-    dependencies: ['ember-modifier', 'ember-provide-consume-context'],
+        "path": "ui/separator.gts",
+        "type": "registry:ui"
+      }
+    ]
   },
   {
-    name: 'sidebar',
-    type: 'registry:ui',
-    files: [
+    "name": "sheet",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/sidebar.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/sheet.gts",
+        "type": "registry:ui"
+      }
     ],
-    registryDependencies: [
-      'button',
-      'input',
-      'separator',
-      'sheet',
-      'skeleton',
-      'tooltip',
-    ],
-    dependencies: [
-      'ember-modifier',
-      'ember-provide-consume-context',
-      'ember-truth-helpers',
-    ],
+    "dependencies": [
+      "ember-modifier",
+      "ember-provide-consume-context"
+    ]
   },
   {
-    name: 'skeleton',
-    type: 'registry:ui',
-    files: [
+    "name": "sidebar",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/skeleton.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/sidebar.gts",
+        "type": "registry:ui"
+      }
     ],
+    "registryDependencies": [
+      "button",
+      "input",
+      "separator",
+      "sheet",
+      "skeleton",
+      "tooltip"
+    ],
+    "dependencies": [
+      "ember-modifier",
+      "ember-provide-consume-context",
+      "ember-truth-helpers"
+    ]
   },
   {
-    name: 'slider',
-    type: 'registry:ui',
-    files: [
+    "name": "skeleton",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/slider.gts',
-        type: 'registry:ui',
-      },
-    ],
+        "path": "ui/skeleton.gts",
+        "type": "registry:ui"
+      }
+    ]
   },
   {
-    name: 'sonner',
-    type: 'registry:ui',
-    files: [
+    "name": "slider",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/sonner.gts',
-        type: 'registry:ui',
-      },
-    ],
-    registryDependencies: ['toast'],
-    dependencies: [
-      'ember-click-outside',
-      'ember-modifier',
-      'ember-truth-helpers',
-      'ember-cli-flash',
-    ],
+        "path": "ui/slider.gts",
+        "type": "registry:ui"
+      }
+    ]
   },
   {
-    name: 'spinner',
-    type: 'registry:ui',
-    files: [
+    "name": "sonner",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/spinner.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/sonner.gts",
+        "type": "registry:ui"
+      }
     ],
+    "registryDependencies": [
+      "toast"
+    ],
+    "dependencies": [
+      "ember-click-outside",
+      "ember-modifier",
+      "ember-truth-helpers",
+      "ember-cli-flash"
+    ]
   },
   {
-    name: 'switch',
-    type: 'registry:ui',
-    files: [
+    "name": "spinner",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/switch.gts',
-        type: 'registry:ui',
-      },
-    ],
+        "path": "ui/spinner.gts",
+        "type": "registry:ui"
+      }
+    ]
   },
   {
-    name: 'table',
-    type: 'registry:ui',
-    files: [
+    "name": "switch",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/table.gts',
-        type: 'registry:ui',
-      },
-    ],
+        "path": "ui/switch.gts",
+        "type": "registry:ui"
+      }
+    ]
   },
   {
-    name: 'tabs',
-    type: 'registry:ui',
-    files: [
+    "name": "table",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/tabs.gts',
-        type: 'registry:ui',
-      },
-    ],
-    dependencies: ['ember-provide-consume-context'],
+        "path": "ui/table.gts",
+        "type": "registry:ui"
+      }
+    ]
   },
   {
-    name: 'textarea',
-    type: 'registry:ui',
-    files: [
+    "name": "tabs",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/textarea.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/tabs.gts",
+        "type": "registry:ui"
+      }
     ],
+    "dependencies": [
+      "ember-provide-consume-context"
+    ]
   },
   {
-    name: 'toggle-group',
-    type: 'registry:ui',
-    files: [
+    "name": "textarea",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/toggle-group.gts',
-        type: 'registry:ui',
-      },
-    ],
-    registryDependencies: ['toggle'],
-    dependencies: ['ember-provide-consume-context'],
+        "path": "ui/textarea.gts",
+        "type": "registry:ui"
+      }
+    ]
   },
   {
-    name: 'toggle',
-    type: 'registry:ui',
-    files: [
+    "name": "toggle-group",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/toggle.gts',
-        type: 'registry:ui',
-      },
+        "path": "ui/toggle-group.gts",
+        "type": "registry:ui"
+      }
     ],
+    "registryDependencies": [
+      "toggle"
+    ],
+    "dependencies": [
+      "ember-provide-consume-context"
+    ]
   },
   {
-    name: 'tooltip',
-    type: 'registry:ui',
-    files: [
+    "name": "toggle",
+    "type": "registry:ui",
+    "files": [
       {
-        path: 'ui/tooltip.gts',
-        type: 'registry:ui',
-      },
-    ],
-    dependencies: [
-      '@floating-ui/dom',
-      'ember-modifier',
-      'ember-provide-consume-context',
-    ],
+        "path": "ui/toggle.gts",
+        "type": "registry:ui"
+      }
+    ]
   },
-];
+  {
+    "name": "tooltip",
+    "type": "registry:ui",
+    "files": [
+      {
+        "path": "ui/tooltip.gts",
+        "type": "registry:ui"
+      }
+    ],
+    "dependencies": [
+      "@floating-ui/dom",
+      "ember-modifier",
+      "ember-provide-consume-context"
+    ]
+  }
+]

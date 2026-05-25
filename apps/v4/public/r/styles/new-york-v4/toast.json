@@ -2,7 +2,9 @@
   "$schema": "https://shadcn-ember.com/schema/registry-item.json",
   "name": "toast",
   "type": "registry:composable",
-  "dependencies": ["ember-cli-flash"],
+  "dependencies": [
+    "ember-cli-flash"
+  ],
   "files": [
     {
       "path": "registry/new-york-v4/services/toast.ts",
