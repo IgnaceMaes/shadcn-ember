@@ -428,6 +428,21 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  menubar: {
+    name: 'menubar',
+    description: '',
+    type: 'registry:ui',
+    registryDependencies: undefined,
+    files: [
+      {
+        path: 'registry/new-york-v4/ui/menubar.gts',
+        type: 'registry:ui',
+        target: '',
+      },
+    ],
+    categories: undefined,
+    meta: undefined,
+  },
   'native-select': {
     name: 'native-select',
     description: '',
