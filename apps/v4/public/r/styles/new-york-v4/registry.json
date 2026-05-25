@@ -5,42 +5,25 @@
     {
       "name": "index",
       "type": "registry:style",
-      "dependencies": [
-        "class-variance-authority",
-        "@iconify-json/lucide"
-      ],
-      "devDependencies": [
-        "tw-animate-css"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
+      "dependencies": ["class-variance-authority", "@iconify-json/lucide"],
+      "devDependencies": ["tw-animate-css"],
+      "registryDependencies": ["utils"],
       "files": [],
       "cssVars": {}
     },
     {
       "name": "style",
       "type": "registry:style",
-      "dependencies": [
-        "class-variance-authority",
-        "@iconify-json/lucide"
-      ],
-      "devDependencies": [
-        "tw-animate-css"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
+      "dependencies": ["class-variance-authority", "@iconify-json/lucide"],
+      "devDependencies": ["tw-animate-css"],
+      "registryDependencies": ["utils"],
       "files": [],
       "cssVars": {}
     },
     {
       "name": "accordion",
       "type": "registry:ui",
-      "dependencies": [
-        "ember-modifier",
-        "ember-provide-consume-context"
-      ],
+      "dependencies": ["ember-modifier", "ember-provide-consume-context"],
       "files": [
         {
           "path": "registry/new-york-v4/ui/accordion.gts",
@@ -51,10 +34,7 @@
     {
       "name": "alert-dialog",
       "type": "registry:ui",
-      "dependencies": [
-        "ember-modifier",
-        "ember-provide-consume-context"
-      ],
+      "dependencies": ["ember-modifier", "ember-provide-consume-context"],
       "files": [
         {
           "path": "registry/new-york-v4/ui/alert-dialog.gts",
@@ -85,9 +65,7 @@
     {
       "name": "avatar",
       "type": "registry:ui",
-      "dependencies": [
-        "ember-truth-helpers"
-      ],
+      "dependencies": ["ember-truth-helpers"],
       "files": [
         {
           "path": "registry/new-york-v4/ui/avatar.gts",
@@ -118,9 +96,7 @@
     {
       "name": "button-group",
       "type": "registry:ui",
-      "registryDependencies": [
-        "separator"
-      ],
+      "registryDependencies": ["separator"],
       "files": [
         {
           "path": "registry/new-york-v4/ui/button-group.gts",
@@ -139,27 +115,22 @@
       ]
     },
     {
-      "name": "card",
+      "name": "calendar",
       "type": "registry:ui",
+      "registryDependencies": ["button"],
       "files": [
         {
-          "path": "registry/new-york-v4/ui/card.gts",
+          "path": "registry/new-york-v4/ui/calendar.gts",
           "type": "registry:ui"
         }
       ]
     },
     {
-      "name": "calendar",
+      "name": "card",
       "type": "registry:ui",
-      "dependencies": [
-        "date-fns"
-      ],
-      "registryDependencies": [
-        "button"
-      ],
       "files": [
         {
-          "path": "registry/new-york-v4/ui/calendar.gts",
+          "path": "registry/new-york-v4/ui/card.gts",
           "type": "registry:ui"
         }
       ]
@@ -177,9 +148,7 @@
     {
       "name": "collapsible",
       "type": "registry:ui",
-      "dependencies": [
-        "ember-provide-consume-context"
-      ],
+      "dependencies": ["ember-provide-consume-context"],
       "files": [
         {
           "path": "registry/new-york-v4/ui/collapsible.gts",
@@ -195,9 +164,7 @@
         "ember-provide-consume-context",
         "tracked-built-ins"
       ],
-      "registryDependencies": [
-        "dialog"
-      ],
+      "registryDependencies": ["dialog"],
       "files": [
         {
           "path": "registry/new-york-v4/ui/command.gts",
@@ -224,10 +191,7 @@
     {
       "name": "dialog",
       "type": "registry:ui",
-      "dependencies": [
-        "ember-modifier",
-        "ember-provide-consume-context"
-      ],
+      "dependencies": ["ember-modifier", "ember-provide-consume-context"],
       "files": [
         {
           "path": "registry/new-york-v4/ui/dialog.gts",
@@ -254,9 +218,7 @@
     {
       "name": "empty",
       "type": "registry:ui",
-      "dependencies": [
-        "class-variance-authority"
-      ],
+      "dependencies": ["class-variance-authority"],
       "files": [
         {
           "path": "registry/new-york-v4/ui/empty.gts",
@@ -267,10 +229,7 @@
     {
       "name": "field",
       "type": "registry:ui",
-      "registryDependencies": [
-        "label",
-        "separator"
-      ],
+      "registryDependencies": ["label", "separator"],
       "files": [
         {
           "path": "registry/new-york-v4/ui/field.gts",
@@ -296,11 +255,7 @@
     {
       "name": "input-group",
       "type": "registry:ui",
-      "registryDependencies": [
-        "button",
-        "input",
-        "textarea"
-      ],
+      "registryDependencies": ["button", "input", "textarea"],
       "files": [
         {
           "path": "registry/new-york-v4/ui/input-group.gts",
@@ -311,10 +266,7 @@
     {
       "name": "input-otp",
       "type": "registry:ui",
-      "dependencies": [
-        "ember-modifier",
-        "ember-provide-consume-context"
-      ],
+      "dependencies": ["ember-modifier", "ember-provide-consume-context"],
       "files": [
         {
           "path": "registry/new-york-v4/ui/input-otp.gts",
@@ -335,9 +287,7 @@
     {
       "name": "item",
       "type": "registry:ui",
-      "registryDependencies": [
-        "separator"
-      ],
+      "registryDependencies": ["separator"],
       "files": [
         {
           "path": "registry/new-york-v4/ui/item.gts",
@@ -414,9 +364,7 @@
     {
       "name": "radio-group",
       "type": "registry:ui",
-      "dependencies": [
-        "ember-provide-consume-context"
-      ],
+      "dependencies": ["ember-provide-consume-context"],
       "files": [
         {
           "path": "registry/new-york-v4/ui/radio-group.gts",
@@ -463,10 +411,7 @@
     {
       "name": "sheet",
       "type": "registry:ui",
-      "dependencies": [
-        "ember-modifier",
-        "ember-provide-consume-context"
-      ],
+      "dependencies": ["ember-modifier", "ember-provide-consume-context"],
       "files": [
         {
           "path": "registry/new-york-v4/ui/sheet.gts",
@@ -526,9 +471,7 @@
         "ember-truth-helpers",
         "ember-cli-flash"
       ],
-      "registryDependencies": [
-        "toast"
-      ],
+      "registryDependencies": ["toast"],
       "files": [
         {
           "path": "registry/new-york-v4/ui/sonner.gts",
@@ -569,9 +512,7 @@
     {
       "name": "tabs",
       "type": "registry:ui",
-      "dependencies": [
-        "ember-provide-consume-context"
-      ],
+      "dependencies": ["ember-provide-consume-context"],
       "files": [
         {
           "path": "registry/new-york-v4/ui/tabs.gts",
@@ -592,12 +533,8 @@
     {
       "name": "toggle-group",
       "type": "registry:ui",
-      "dependencies": [
-        "ember-provide-consume-context"
-      ],
-      "registryDependencies": [
-        "toggle"
-      ],
+      "dependencies": ["ember-provide-consume-context"],
+      "registryDependencies": ["toggle"],
       "files": [
         {
           "path": "registry/new-york-v4/ui/toggle-group.gts",
@@ -633,10 +570,7 @@
     {
       "name": "utils",
       "type": "registry:lib",
-      "dependencies": [
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["clsx", "tailwind-merge"],
       "files": [
         {
           "path": "registry/new-york-v4/lib/utils.ts",
@@ -647,9 +581,7 @@
     {
       "name": "toast",
       "type": "registry:composable",
-      "dependencies": [
-        "ember-cli-flash"
-      ],
+      "dependencies": ["ember-cli-flash"],
       "files": [
         {
           "path": "registry/new-york-v4/services/toast.ts",

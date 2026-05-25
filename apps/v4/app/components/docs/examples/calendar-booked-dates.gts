@@ -7,15 +7,11 @@ import { Card, CardContent } from '@/components/ui/card';
 import type { DateRange } from '@/components/ui/calendar';
 
 export default class CalendarBookedDates extends Component {
-  @tracked date: Date | undefined = new Date(
-    new Date().getFullYear(),
-    1,
-    3,
-  );
+  @tracked date: Date | undefined = new Date(new Date().getFullYear(), 1, 3);
 
   bookedDates = Array.from(
     { length: 15 },
-    (_, i) => new Date(new Date().getFullYear(), 1, 12 + i),
+    (_, i) => new Date(new Date().getFullYear(), 1, 12 + i)
   );
 
   handleSelect = (date: Date | DateRange | undefined) => {

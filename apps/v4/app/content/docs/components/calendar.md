@@ -124,23 +124,23 @@ Use `@showWeekNumber` to show week numbers.
 
 ## API Reference
 
-| Argument | Type | Default | Description |
-| --- | --- | --- | --- |
-| `@mode` | `'single' \| 'range'` | `'single'` | Selection mode. |
-| `@selected` | `Date \| DateRange` | — | The selected date or range. |
-| `@onSelect` | `(value) => void` | — | Callback when the selection changes. |
-| `@defaultMonth` | `Date` | — | The initial month to display. |
-| `@month` | `Date` | — | Controlled display month. |
-| `@onMonthChange` | `(month: Date) => void` | — | Callback when display month changes. |
-| `@showOutsideDays` | `boolean` | `true` | Show days from adjacent months. |
-| `@numberOfMonths` | `number` | `1` | Number of months to display. |
-| `@captionLayout` | `'label' \| 'dropdown'` | `'label'` | Caption display mode. |
-| `@disabled` | `Date[] \| (date: Date) => boolean` | — | Dates to disable. |
-| `@modifiers` | `Record<string, Date[]>` | — | Custom date modifiers. |
-| `@modifiersClassNames` | `Record<string, string>` | — | Class names for modifiers. |
-| `@showWeekNumber` | `boolean` | `false` | Show week numbers. |
-| `@fixedWeeks` | `boolean` | `false` | Always show 6 weeks. |
-| `@buttonVariant` | `'default' \| 'ghost' \| 'outline'` | `'ghost'` | Variant for nav buttons. |
-| `@startMonth` | `Date` | — | Earliest month navigable. |
-| `@endMonth` | `Date` | — | Latest month navigable. |
-| `@class` | `string` | — | Additional CSS classes. |
+| Argument               | Type                                | Default    | Description                          |
+| ---------------------- | ----------------------------------- | ---------- | ------------------------------------ |
+| `@mode`                | `'single' \| 'range'`               | `'single'` | Selection mode.                      |
+| `@selected`            | `Date \| DateRange`                 | —          | The selected date or range.          |
+| `@onSelect`            | `(value) => void`                   | —          | Callback when the selection changes. |
+| `@defaultMonth`        | `Date`                              | —          | The initial month to display.        |
+| `@month`               | `Date`                              | —          | Controlled display month.            |
+| `@onMonthChange`       | `(month: Date) => void`             | —          | Callback when display month changes. |
+| `@showOutsideDays`     | `boolean`                           | `true`     | Show days from adjacent months.      |
+| `@numberOfMonths`      | `number`                            | `1`        | Number of months to display.         |
+| `@captionLayout`       | `'label' \| 'dropdown'`             | `'label'`  | Caption display mode.                |
+| `@disabled`            | `Date[] \| (date: Date) => boolean` | —          | Dates to disable.                    |
+| `@modifiers`           | `Record<string, Date[]>`            | —          | Custom date modifiers.               |
+| `@modifiersClassNames` | `Record<string, string>`            | —          | Class names for modifiers.           |
+| `@showWeekNumber`      | `boolean`                           | `false`    | Show week numbers.                   |
+| `@fixedWeeks`          | `boolean`                           | `false`    | Always show 6 weeks.                 |
+| `@buttonVariant`       | `'default' \| 'ghost' \| 'outline'` | `'ghost'`  | Variant for nav buttons.             |
+| `@startMonth`          | `Date`                              | —          | Earliest month navigable.            |
+| `@endMonth`            | `Date`                              | —          | Latest month navigable.              |
+| `@class`               | `string`                            | —          | Additional CSS classes.              |

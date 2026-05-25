@@ -19,15 +19,11 @@ const PRESETS = [
 ];
 
 export default class CalendarPresets extends Component {
-  @tracked date: Date | undefined = new Date(
-    new Date().getFullYear(),
-    1,
-    12,
-  );
+  @tracked date: Date | undefined = new Date(new Date().getFullYear(), 1, 12);
   @tracked currentMonth: Date = new Date(
     new Date().getFullYear(),
     new Date().getMonth(),
-    1,
+    1
   );
 
   handleSelect = (date: Date | DateRange | undefined) => {
@@ -41,11 +37,7 @@ export default class CalendarPresets extends Component {
   handlePreset = (value: number) => {
     const newDate = addDays(new Date(), value);
     this.date = newDate;
-    this.currentMonth = new Date(
-      newDate.getFullYear(),
-      newDate.getMonth(),
-      1,
-    );
+    this.currentMonth = new Date(newDate.getFullYear(), newDate.getMonth(), 1);
   };
 
   <template>

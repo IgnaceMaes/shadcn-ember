@@ -118,10 +118,7 @@ function and(a: unknown, b: unknown): boolean {
 
 function selectedSingle(day: DayInfo): boolean {
   return (
-    day.isSelected &&
-    !day.isRangeStart &&
-    !day.isRangeEnd &&
-    !day.isRangeMiddle
+    day.isSelected && !day.isRangeStart && !day.isRangeEnd && !day.isRangeMiddle
   );
 }
 
@@ -180,8 +177,7 @@ class Calendar extends Component<CalendarSignature> {
 
   get endYear(): number {
     return (
-      this.args.endMonth?.getFullYear() ??
-      this.displayMonth.getFullYear() + 10
+      this.args.endMonth?.getFullYear() ?? this.displayMonth.getFullYear() + 10
     );
   }
 
@@ -224,7 +220,10 @@ class Calendar extends Component<CalendarSignature> {
     const calendarStart = startOfWeek(monthStart);
     const calendarEnd = endOfWeek(monthEnd);
 
-    const allDays = eachDayOfInterval({ start: calendarStart, end: calendarEnd });
+    const allDays = eachDayOfInterval({
+      start: calendarStart,
+      end: calendarEnd,
+    });
 
     if (this.args.fixedWeeks) {
       const targetDays = 42;
@@ -347,17 +346,13 @@ class Calendar extends Component<CalendarSignature> {
   handleMonthSelect = (event: Event) => {
     const target = event.target as HTMLSelectElement;
     const month = parseInt(target.value, 10);
-    this.setDisplayMonth(
-      new Date(this.displayMonth.getFullYear(), month, 1),
-    );
+    this.setDisplayMonth(new Date(this.displayMonth.getFullYear(), month, 1));
   };
 
   handleYearSelect = (event: Event) => {
     const target = event.target as HTMLSelectElement;
     const year = parseInt(target.value, 10);
-    this.setDisplayMonth(
-      new Date(year, this.displayMonth.getMonth(), 1),
-    );
+    this.setDisplayMonth(new Date(year, this.displayMonth.getMonth(), 1));
   };
 
   selectDate = (day: DayInfo) => {
@@ -477,9 +472,7 @@ class Calendar extends Component<CalendarSignature> {
                       class="flex items-center gap-1 rounded-(--cell-radius) text-sm"
                     >
                       {{monthNameShort monthData.month}}
-                      <ChevronDown
-                        class="size-3.5 text-muted-foreground"
-                      />
+                      <ChevronDown class="size-3.5 text-muted-foreground" />
                     </span>
                     <select
                       aria-label="Select month"
@@ -501,9 +494,7 @@ class Calendar extends Component<CalendarSignature> {
                       class="flex items-center gap-1 rounded-(--cell-radius) text-sm"
                     >
                       {{monthData.year}}
-                      <ChevronDown
-                        class="size-3.5 text-muted-foreground"
-                      />
+                      <ChevronDown class="size-3.5 text-muted-foreground" />
                     </span>
                     <select
                       aria-label="Select year"
@@ -667,7 +658,7 @@ class CalendarDayButton extends Component<CalendarDayButtonSignature> {
       'data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground',
       'data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground',
       'data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground',
-      'dark:hover:text-foreground [&>span]:text-xs [&>span]:opacity-70',
+      'dark:hover:text-foreground [&>span]:text-xs [&>span]:opacity-70'
     );
   }
 

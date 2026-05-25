@@ -7,11 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import type { DateRange } from '@/components/ui/calendar';
 
 export default class CalendarWeekNumbers extends Component {
-  @tracked date: Date | undefined = new Date(
-    new Date().getFullYear(),
-    1,
-    12,
-  );
+  @tracked date: Date | undefined = new Date(new Date().getFullYear(), 1, 12);
 
   handleSelect = (date: Date | DateRange | undefined) => {
     this.date = date as Date | undefined;

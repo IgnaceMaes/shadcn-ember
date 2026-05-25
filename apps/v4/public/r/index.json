@@ -8,10 +8,7 @@
         "type": "registry:ui"
       }
     ],
-    "dependencies": [
-      "ember-modifier",
-      "ember-provide-consume-context"
-    ]
+    "dependencies": ["ember-modifier", "ember-provide-consume-context"]
   },
   {
     "name": "alert-dialog",
@@ -22,10 +19,7 @@
         "type": "registry:ui"
       }
     ],
-    "dependencies": [
-      "ember-modifier",
-      "ember-provide-consume-context"
-    ]
+    "dependencies": ["ember-modifier", "ember-provide-consume-context"]
   },
   {
     "name": "alert",
@@ -56,9 +50,7 @@
         "type": "registry:ui"
       }
     ],
-    "dependencies": [
-      "ember-truth-helpers"
-    ]
+    "dependencies": ["ember-truth-helpers"]
   },
   {
     "name": "badge",
@@ -89,9 +81,7 @@
         "type": "registry:ui"
       }
     ],
-    "registryDependencies": [
-      "separator"
-    ]
+    "registryDependencies": ["separator"]
   },
   {
     "name": "button",
@@ -99,16 +89,6 @@
     "files": [
       {
         "path": "ui/button.gts",
-        "type": "registry:ui"
-      }
-    ]
-  },
-  {
-    "name": "card",
-    "type": "registry:ui",
-    "files": [
-      {
-        "path": "ui/card.gts",
         "type": "registry:ui"
       }
     ]
@@ -122,11 +102,16 @@
         "type": "registry:ui"
       }
     ],
-    "registryDependencies": [
-      "button"
-    ],
-    "dependencies": [
-      "date-fns"
+    "registryDependencies": ["button"]
+  },
+  {
+    "name": "card",
+    "type": "registry:ui",
+    "files": [
+      {
+        "path": "ui/card.gts",
+        "type": "registry:ui"
+      }
     ]
   },
   {
@@ -148,9 +133,7 @@
         "type": "registry:ui"
       }
     ],
-    "dependencies": [
-      "ember-provide-consume-context"
-    ]
+    "dependencies": ["ember-provide-consume-context"]
   },
   {
     "name": "command",
@@ -161,9 +144,7 @@
         "type": "registry:ui"
       }
     ],
-    "registryDependencies": [
-      "dialog"
-    ],
+    "registryDependencies": ["dialog"],
     "dependencies": [
       "ember-modifier",
       "ember-provide-consume-context",
@@ -195,10 +176,7 @@
         "type": "registry:ui"
       }
     ],
-    "dependencies": [
-      "ember-modifier",
-      "ember-provide-consume-context"
-    ]
+    "dependencies": ["ember-modifier", "ember-provide-consume-context"]
   },
   {
     "name": "dropdown-menu",
@@ -225,9 +203,7 @@
         "type": "registry:ui"
       }
     ],
-    "dependencies": [
-      "class-variance-authority"
-    ]
+    "dependencies": ["class-variance-authority"]
   },
   {
     "name": "field",
@@ -238,10 +214,7 @@
         "type": "registry:ui"
       }
     ],
-    "registryDependencies": [
-      "label",
-      "separator"
-    ]
+    "registryDependencies": ["label", "separator"]
   },
   {
     "name": "hover-card",
@@ -267,11 +240,7 @@
         "type": "registry:ui"
       }
     ],
-    "registryDependencies": [
-      "button",
-      "input",
-      "textarea"
-    ]
+    "registryDependencies": ["button", "input", "textarea"]
   },
   {
     "name": "input-otp",
@@ -282,10 +251,7 @@
         "type": "registry:ui"
       }
     ],
-    "dependencies": [
-      "ember-modifier",
-      "ember-provide-consume-context"
-    ]
+    "dependencies": ["ember-modifier", "ember-provide-consume-context"]
   },
   {
     "name": "input",
@@ -306,9 +272,7 @@
         "type": "registry:ui"
       }
     ],
-    "registryDependencies": [
-      "separator"
-    ]
+    "registryDependencies": ["separator"]
   },
   {
     "name": "kbd",
@@ -385,9 +349,7 @@
         "type": "registry:ui"
       }
     ],
-    "dependencies": [
-      "ember-provide-consume-context"
-    ]
+    "dependencies": ["ember-provide-consume-context"]
   },
   {
     "name": "scroll-area",
@@ -434,10 +396,7 @@
         "type": "registry:ui"
       }
     ],
-    "dependencies": [
-      "ember-modifier",
-      "ember-provide-consume-context"
-    ]
+    "dependencies": ["ember-modifier", "ember-provide-consume-context"]
   },
   {
     "name": "sidebar",
@@ -491,9 +450,7 @@
         "type": "registry:ui"
       }
     ],
-    "registryDependencies": [
-      "toast"
-    ],
+    "registryDependencies": ["toast"],
     "dependencies": [
       "ember-click-outside",
       "ember-modifier",
@@ -540,9 +497,7 @@
         "type": "registry:ui"
       }
     ],
-    "dependencies": [
-      "ember-provide-consume-context"
-    ]
+    "dependencies": ["ember-provide-consume-context"]
   },
   {
     "name": "textarea",
@@ -563,12 +518,8 @@
         "type": "registry:ui"
       }
     ],
-    "registryDependencies": [
-      "toggle"
-    ],
-    "dependencies": [
-      "ember-provide-consume-context"
-    ]
+    "registryDependencies": ["toggle"],
+    "dependencies": ["ember-provide-consume-context"]
   },
   {
     "name": "toggle",
