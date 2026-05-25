@@ -52,10 +52,7 @@ export default class DatePickerTime extends Component {
               <ChevronDownIcon />
             </Button>
           </PopoverTrigger>
-          <PopoverContent
-            @align="start"
-            @class="w-auto overflow-hidden p-0"
-          >
+          <PopoverContent @align="start" @class="w-auto overflow-hidden p-0">
             <Calendar
               @captionLayout="dropdown"
               @defaultMonth={{this.date}}

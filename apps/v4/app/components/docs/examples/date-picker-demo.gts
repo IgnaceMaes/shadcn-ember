@@ -29,7 +29,10 @@ export default class DatePickerDemo extends Component {
     <Popover>
       <PopoverTrigger @asChild={{true}} as |trigger|>
         <Button
-          @class="w-[212px] justify-between text-left font-normal {{unless this.date 'text-muted-foreground'}}"
+          @class="w-[212px] justify-between text-left font-normal {{unless
+            this.date
+            'text-muted-foreground'
+          }}"
           @variant="outline"
           {{trigger.modifiers}}
         >
