@@ -21,10 +21,11 @@ import {
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
+import type Owner from '@ember/owner';
+
 import ChevronDown from '~icons/lucide/chevron-down';
 import ChevronLeft from '~icons/lucide/chevron-left';
 import ChevronRight from '~icons/lucide/chevron-right';
-import type Owner from '@ember/owner';
 
 interface DateRange {
   from?: Date;
@@ -56,6 +57,7 @@ interface CalendarSignature {
   };
   Blocks: {
     default: [];
+    day: [DayInfo];
   };
 }
 
@@ -423,7 +425,7 @@ class Calendar extends Component<CalendarSignature> {
   <template>
     <div
       class={{cn
-        "bg-background p-2 [--cell-radius:var(--radius-md)] [--cell-size:--spacing(7)] in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent"
+        "bg-background p-3 [--cell-radius:var(--radius-md)] [--cell-size:--spacing(8)] in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent"
         @class
       }}
       data-slot="calendar"
@@ -565,7 +567,12 @@ class Calendar extends Component<CalendarSignature> {
                               (and day.isOutside (notFn this.showOutsideDays))
                             )
                             (cn
-                              "group/day relative aspect-square h-full w-full rounded-(--cell-radius) p-0 text-center select-none"
+                              "group/day relative aspect-square h-full w-full rounded-(--cell-radius) p-0 text-center select-none [&:last-child[data-selected=true]_button]:rounded-r-(--cell-radius)"
+                              (if
+                                @showWeekNumber
+                                "[&:nth-child(2)[data-selected=true]_button]:rounded-l-(--cell-radius)"
+                                "[&:first-child[data-selected=true]_button]:rounded-l-(--cell-radius)"
+                              )
                               (if
                                 day.isRangeStart
                                 "relative isolate z-0 rounded-l-(--cell-radius) bg-muted after:absolute after:inset-y-0 after:right-0 after:w-4 after:bg-muted"
@@ -606,12 +613,23 @@ class Calendar extends Component<CalendarSignature> {
                             (and day.isOutside (notFn this.showOutsideDays))
                           )
                         }}
-                          <CalendarDayButton
-                            @day={{day}}
-                            @isSelectedSingle={{selectedSingle day}}
-                            @onKeydown={{fn this.handleKeydown day}}
-                            @onSelect={{fn this.selectDate day}}
-                          />
+                          {{#if (has-block "day")}}
+                            <CalendarDayButton
+                              @day={{day}}
+                              @isSelectedSingle={{selectedSingle day}}
+                              @onKeydown={{fn this.handleKeydown day}}
+                              @onSelect={{fn this.selectDate day}}
+                            >
+                              {{yield day to="day"}}
+                            </CalendarDayButton>
+                          {{else}}
+                            <CalendarDayButton
+                              @day={{day}}
+                              @isSelectedSingle={{selectedSingle day}}
+                              @onKeydown={{fn this.handleKeydown day}}
+                              @onSelect={{fn this.selectDate day}}
+                            />
+                          {{/if}}
                         {{/if}}
                       </td>
                     {{/each}}
@@ -633,6 +651,9 @@ interface CalendarDayButtonSignature {
     isSelectedSingle: boolean;
     onSelect: () => void;
     onKeydown: (event: KeyboardEvent) => void;
+  };
+  Blocks: {
+    default: [];
   };
 }
 
@@ -664,7 +685,11 @@ class CalendarDayButton extends Component<CalendarDayButtonSignature> {
       {{on "click" @onSelect}}
       {{on "keydown" @onKeydown}}
     >
-      {{@day.dayOfMonth}}
+      {{#if (has-block)}}
+        {{yield}}
+      {{else}}
+        {{@day.dayOfMonth}}
+      {{/if}}
     </button>
   </template>
 }

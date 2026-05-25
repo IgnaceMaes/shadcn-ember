@@ -70,7 +70,7 @@ A basic calendar component. We used `@class="rounded-lg border"` to style the ca
 
 Use `@mode="range"` to enable range selection.
 
-<ComponentPreview name="calendar-range" />
+<ComponentPreview name="calendar-range" class="[&_.preview]:h-[36rem] [&_.preview]:md:h-96" />
 
 ### Month and Year Selector
 
@@ -80,13 +80,19 @@ Use `@captionLayout="dropdown"` to show month and year dropdowns.
 
 ### Presets
 
-<ComponentPreview name="calendar-presets" />
+<ComponentPreview name="calendar-presets" class="[&_.preview]:h-[650px]" />
+
+### Date and Time Picker
+
+<ComponentPreview name="calendar-time" class="[&_.preview]:h-[600px]" />
 
 ### Booked dates
 
 <ComponentPreview name="calendar-booked-dates" />
 
 ### Custom Cell Size
+
+<ComponentPreview name="calendar-custom-days" class="[&_.preview]:h-[560px]" />
 
 You can customize the size of calendar cells using the `--cell-size` CSS variable. You can also make it responsive by using breakpoint-specific values:
 
