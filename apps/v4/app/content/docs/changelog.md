@@ -4,6 +4,36 @@ description: Latest updates and announcements.
 order: 10
 ---
 
+## May 2026 - Calendar & Date Picker
+
+Two new components are now available: [Calendar](/docs/components/calendar) and [Date Picker](/docs/components/date-picker).
+
+### Calendar
+
+The `Calendar` component provides a full-featured date selection UI built on top of [date-fns](https://date-fns.org). It supports single and range selection modes, month/year dropdown navigation, week numbers, custom cell sizing, booked date indicators, and a built-in time picker.
+
+```bash
+npx shadcn-ember@latest add calendar
+```
+
+Key features:
+
+- **Single & range selection** — Use `@mode="single"` or `@mode="range"` to switch between modes.
+- **Dropdown caption** — Use `@captionLayout="dropdown"` for month and year dropdowns, useful for date-of-birth pickers.
+- **Custom cell size** — Adjust cell dimensions with the `--cell-size` CSS variable, including responsive breakpoint values.
+- **Week numbers** — Enable with `@showWeekNumber`.
+- **Disabled & booked dates** — Pass dates or a predicate function to `@disabled`, or use `@modifiers` and `@modifiersClassNames` for custom styling.
+- **Time picker** — Combine the calendar with a time input for full date-time selection.
+- **Timezone support** — Use `@timeZone` to ensure dates are interpreted in the correct timezone.
+
+### Date Picker
+
+The [Date Picker](/docs/components/date-picker) page documents how to compose `<Popover>` and `<Calendar>` into a date picker — there is no separate `DatePicker` component. This keeps the API flexible and composable.
+
+Examples include a basic date picker, range picker, date of birth selector, input-based picker, and a time picker variant.
+
+---
+
 ## May 2026 - ESLint Plugin
 
 shadcn-ember now ships a built-in [ESLint plugin](/docs/eslint) to help you catch common mistakes when using components.
