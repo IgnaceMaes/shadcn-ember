@@ -122,6 +122,26 @@ Use `@showWeekNumber` to show week numbers.
 
 <ComponentPreview name="calendar-week-numbers" />
 
+### Locale
+
+Use `@locale` to localize the calendar. Pass a [date-fns locale](https://date-fns.org/docs/Locale) to translate month names, weekday labels, and set the first day of the week. Use `@weekStartsOn` to override the week start day.
+
+```gts showLineNumbers
+import { nl } from 'date-fns/locale';
+```
+
+```hbs showLineNumbers
+<Calendar
+  @mode="single"
+  @locale={{this.nlLocale}}
+  @selected={{this.date}}
+  @onSelect={{this.setDate}}
+  @class="rounded-lg border"
+/>
+```
+
+<ComponentPreview name="calendar-locale" />
+
 ## API Reference
 
 | Argument               | Type                                | Default    | Description                          |
@@ -141,6 +161,8 @@ Use `@showWeekNumber` to show week numbers.
 | `@showWeekNumber`      | `boolean`                           | `false`    | Show week numbers.                   |
 | `@fixedWeeks`          | `boolean`                           | `false`    | Always show 6 weeks.                 |
 | `@buttonVariant`       | `'default' \| 'ghost' \| 'outline'` | `'ghost'`  | Variant for nav buttons.             |
+| `@locale`              | `Locale`                            | —          | date-fns locale for i18n.            |
+| `@weekStartsOn`        | `0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6`  | `0`        | First day of the week (0=Sun).       |
 | `@startMonth`          | `Date`                              | —          | Earliest month navigable.            |
 | `@endMonth`            | `Date`                              | —          | Latest month navigable.              |
 | `@class`               | `string`                            | —          | Additional CSS classes.              |
