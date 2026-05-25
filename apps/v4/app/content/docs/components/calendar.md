@@ -84,7 +84,7 @@ Use `@captionLayout="dropdown"` to show month and year dropdowns.
 
 ### Date and Time Picker
 
-<ComponentPreview name="calendar-time" class="h-[600px]" />
+<ComponentPreview name="calendar-time" class="h-[650px]" />
 
 ### Booked dates
 
