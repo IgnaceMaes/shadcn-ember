@@ -125,10 +125,7 @@ function selectedSingle(day: DayInfo): boolean {
   );
 }
 
-function monthNameShort(
-  index: number,
-  monthNames: string[],
-): string {
+function monthNameShort(index: number, monthNames: string[]): string {
   return monthNames[index] ?? '';
 }
 
@@ -161,9 +158,7 @@ class Calendar extends Component<CalendarSignature> {
 
   get weekStartsOn(): 0 | 1 | 2 | 3 | 4 | 5 | 6 {
     return (
-      this.args.weekStartsOn ??
-      this.args.locale?.options?.weekStartsOn ??
-      0
+      this.args.weekStartsOn ?? this.args.locale?.options?.weekStartsOn ?? 0
     );
   }
 
@@ -177,7 +172,7 @@ class Calendar extends Component<CalendarSignature> {
       return Array.from({ length: 7 }, (_, i) =>
         format(addDays(refDate, i), 'EEEEEE', {
           locale: this.args.locale,
-        }),
+        })
       );
     }
     const wso = this.weekStartsOn;
@@ -191,7 +186,7 @@ class Calendar extends Component<CalendarSignature> {
   get monthNamesShort(): string[] {
     if (this.args.locale) {
       return Array.from({ length: 12 }, (_, i) =>
-        format(new Date(2024, i, 1), 'MMM', { locale: this.args.locale }),
+        format(new Date(2024, i, 1), 'MMM', { locale: this.args.locale })
       );
     }
     return DEFAULT_MONTH_NAMES_SHORT;
