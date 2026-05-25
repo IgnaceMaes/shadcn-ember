@@ -8,9 +8,7 @@
     "ember-truth-helpers",
     "ember-cli-flash"
   ],
-  "registryDependencies": [
-    "toast"
-  ],
+  "registryDependencies": ["toast"],
   "files": [
     {
       "path": "registry/new-york-v4/ui/sonner.gts",

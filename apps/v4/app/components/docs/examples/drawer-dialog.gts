@@ -25,12 +25,13 @@ import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 
 import type { TOC } from '@ember/component/template-only';
+import type Owner from '@ember/owner';
 
 export default class DrawerDialogDemo extends Component {
   @tracked open = false;
   @tracked isDesktop = window.matchMedia('(min-width: 768px)').matches;
 
-  constructor(owner: unknown, args: Record<string, never>) {
+  constructor(owner: Owner, args: Record<string, never>) {
     super(owner, args);
     this.mediaQuery = window.matchMedia('(min-width: 768px)');
     this.handleMediaChange(this.mediaQuery);
