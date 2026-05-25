@@ -25,6 +25,8 @@ const SHADCN_COMPONENTS = new Set([
   'ButtonGroup', 'ButtonGroupText', 'ButtonGroupSeparator',
   // button
   'Button',
+  // calendar
+  'Calendar',
   // card
   'Card', 'CardHeader', 'CardTitle', 'CardDescription', 'CardAction', 'CardContent', 'CardFooter',
   // checkbox
