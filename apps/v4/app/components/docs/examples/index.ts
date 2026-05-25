@@ -39,6 +39,7 @@ export { default as CalendarBookedDates } from './calendar-booked-dates';
 export { default as CalendarCaption } from './calendar-caption';
 export { default as CalendarCustomDays } from './calendar-custom-days';
 export { default as CalendarDemo } from './calendar-demo';
+export { default as CalendarLocale } from './calendar-locale';
 export { default as CalendarPresets } from './calendar-presets';
 export { default as CalendarRange } from './calendar-range';
 export { default as CalendarTime } from './calendar-time';

@@ -22,6 +22,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 import type Owner from '@ember/owner';
+import type { Locale } from 'date-fns/locale';
 
 import ChevronDown from '~icons/lucide/chevron-down';
 import ChevronLeft from '~icons/lucide/chevron-left';
@@ -51,6 +52,8 @@ interface CalendarSignature {
     fixedWeeks?: boolean;
     class?: string;
     buttonVariant?: 'default' | 'ghost' | 'outline';
+    locale?: Locale;
+    weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
     timeZone?: string;
     startMonth?: Date;
     endMonth?: Date;
@@ -88,8 +91,8 @@ interface MonthData {
   weeks: WeekInfo[];
 }
 
-const WEEKDAY_LABELS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-const MONTH_NAMES_SHORT = [
+const DEFAULT_WEEKDAY_LABELS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+const DEFAULT_MONTH_NAMES_SHORT = [
   'Jan',
   'Feb',
   'Mar',
@@ -122,8 +125,11 @@ function selectedSingle(day: DayInfo): boolean {
   );
 }
 
-function monthNameShort(index: number): string {
-  return MONTH_NAMES_SHORT[index] ?? '';
+function monthNameShort(
+  index: number,
+  monthNames: string[],
+): string {
+  return monthNames[index] ?? '';
 }
 
 class Calendar extends Component<CalendarSignature> {
@@ -151,6 +157,44 @@ class Calendar extends Component<CalendarSignature> {
 
   get btnVariant(): 'default' | 'ghost' | 'outline' {
     return this.args.buttonVariant ?? 'ghost';
+  }
+
+  get weekStartsOn(): 0 | 1 | 2 | 3 | 4 | 5 | 6 {
+    return (
+      this.args.weekStartsOn ??
+      this.args.locale?.options?.weekStartsOn ??
+      0
+    );
+  }
+
+  get weekOptions(): { weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6 } {
+    return { weekStartsOn: this.weekStartsOn };
+  }
+
+  get weekdayLabels(): string[] {
+    if (this.args.locale) {
+      const refDate = startOfWeek(new Date(), this.weekOptions);
+      return Array.from({ length: 7 }, (_, i) =>
+        format(addDays(refDate, i), 'EEEEEE', {
+          locale: this.args.locale,
+        }),
+      );
+    }
+    const wso = this.weekStartsOn;
+    if (wso === 0) return DEFAULT_WEEKDAY_LABELS;
+    return [
+      ...DEFAULT_WEEKDAY_LABELS.slice(wso),
+      ...DEFAULT_WEEKDAY_LABELS.slice(0, wso),
+    ];
+  }
+
+  get monthNamesShort(): string[] {
+    if (this.args.locale) {
+      return Array.from({ length: 12 }, (_, i) =>
+        format(new Date(2024, i, 1), 'MMM', { locale: this.args.locale }),
+      );
+    }
+    return DEFAULT_MONTH_NAMES_SHORT;
   }
 
   get displayMonth(): Date {
@@ -190,7 +234,7 @@ class Calendar extends Component<CalendarSignature> {
   }
 
   get monthOptions(): { value: number; label: string }[] {
-    return MONTH_NAMES_SHORT.map((label, i) => ({ value: i, label }));
+    return this.monthNamesShort.map((label, i) => ({ value: i, label }));
   }
 
   get months(): MonthData[] {
@@ -217,8 +261,8 @@ class Calendar extends Component<CalendarSignature> {
   buildMonthData(monthDate: Date): MonthData {
     const monthStart = startOfMonth(monthDate);
     const monthEnd = endOfMonth(monthDate);
-    const calendarStart = startOfWeek(monthStart);
-    const calendarEnd = endOfWeek(monthEnd);
+    const calendarStart = startOfWeek(monthStart, this.weekOptions);
+    const calendarEnd = endOfWeek(monthEnd, this.weekOptions);
 
     const allDays = eachDayOfInterval({
       start: calendarStart,
@@ -262,7 +306,7 @@ class Calendar extends Component<CalendarSignature> {
       });
 
       weeks.push({
-        weekNumber: getWeek(weekDays[0]!),
+        weekNumber: getWeek(weekDays[0]!, this.weekOptions),
         days,
       });
     }
@@ -270,8 +314,10 @@ class Calendar extends Component<CalendarSignature> {
     return {
       month: monthDate.getMonth(),
       year: monthDate.getFullYear(),
-      label: format(monthDate, 'MMMM yyyy'),
-      labelShort: format(monthDate, 'MMM'),
+      label: format(monthDate, 'MMMM yyyy', {
+        locale: this.args.locale,
+      }),
+      labelShort: format(monthDate, 'MMM', { locale: this.args.locale }),
       weeks,
     };
   }
@@ -471,7 +517,7 @@ class Calendar extends Component<CalendarSignature> {
                     <span
                       class="flex items-center gap-1 rounded-(--cell-radius) text-sm"
                     >
-                      {{monthNameShort monthData.month}}
+                      {{monthNameShort monthData.month this.monthNamesShort}}
                       <ChevronDown class="size-3.5 text-muted-foreground" />
                     </span>
                     <select
@@ -527,7 +573,7 @@ class Calendar extends Component<CalendarSignature> {
                       <span class="sr-only">Week number</span>
                     </th>
                   {{/if}}
-                  {{#each WEEKDAY_LABELS as |label|}}
+                  {{#each this.weekdayLabels as |label|}}
                     <th
                       class="flex-1 rounded-(--cell-radius) text-[0.8rem] font-normal text-muted-foreground select-none"
                       scope="col"
