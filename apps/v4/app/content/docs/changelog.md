@@ -4,7 +4,7 @@ description: Latest updates and announcements.
 order: 10
 ---
 
-## May 2026 - Calendar & Date Picker
+## June 2026 - Calendar & Date Picker
 
 Two new components are now available: [Calendar](/docs/components/calendar) and [Date Picker](/docs/components/date-picker).
 
