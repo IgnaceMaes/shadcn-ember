@@ -10,9 +10,7 @@ type GlimmerNode = Rule.Node & {
   modifiers?: GlimmerNode[];
   path?: GlimmerNode;
   params?: GlimmerNode[];
-  hash?: {
-    pairs?: Array<{ value?: GlimmerNode }>;
-  } | null;
+  parts?: GlimmerNode[];
   head?: {
     type: string;
     name?: string;
@@ -83,34 +81,21 @@ function asNode(value: unknown): GlimmerNode | undefined {
     : undefined;
 }
 
-function isYieldedPropPath(
-  node: GlimmerNode | undefined,
+function pathMatches(
+  path: GlimmerNode | undefined,
   blockParam: string,
   prop: string,
 ): boolean {
   return Boolean(
-    node &&
-    node.type === "GlimmerPathExpression" &&
-    node.head?.type === "VarHead" &&
-    node.head.name === blockParam &&
-    node.tail?.length === 1 &&
-    node.tail[0] === prop,
+    path?.type === "GlimmerPathExpression" &&
+    path.head?.type === "VarHead" &&
+    path.head.name === blockParam &&
+    ((prop === "classes" && path.tail?.length === 0) ||
+      (path.tail?.length === 1 && path.tail[0] === prop)),
   );
 }
 
-function hashContainsYieldedPropReference(
-  hash: GlimmerNode["hash"],
-  blockParam: string,
-  prop: string,
-): boolean {
-  return Boolean(
-    hash?.pairs?.some((pair) =>
-      nodeContainsYieldedPropReference(pair.value, blockParam, prop),
-    ),
-  );
-}
-
-function nodeContainsYieldedPropReference(
+function valueContainsPath(
   node: GlimmerNode | undefined,
   blockParam: string,
   prop: string,
@@ -119,24 +104,28 @@ function nodeContainsYieldedPropReference(
     return false;
   }
 
-  if (isYieldedPropPath(node, blockParam, prop)) {
+  if (pathMatches(node, blockParam, prop)) {
     return true;
   }
 
-  if (node.type === "GlimmerMustacheStatement") {
+  if (
+    node.type === "GlimmerMustacheStatement" ||
+    node.type === "GlimmerSubExpression"
+  ) {
     return (
-      isYieldedPropPath(node.path, blockParam, prop) ||
+      pathMatches(node.path, blockParam, prop) ||
       Boolean(
         node.params?.some((param) =>
-          nodeContainsYieldedPropReference(param, blockParam, prop),
+          valueContainsPath(param, blockParam, prop),
         ),
-      ) ||
-      hashContainsYieldedPropReference(node.hash, blockParam, prop)
+      )
     );
   }
 
-  if (node.type === "GlimmerHash") {
-    return hashContainsYieldedPropReference(node, blockParam, prop);
+  if (node.type === "GlimmerConcatStatement") {
+    return Boolean(
+      node.parts?.some((part) => valueContainsPath(part, blockParam, prop)),
+    );
   }
 
   return false;
@@ -183,7 +172,7 @@ function hasAttributeRequirement(
         return false;
       }
 
-      return nodeContainsYieldedPropReference(
+      return valueContainsPath(
         asNode(attr.value),
         blockParam,
         requirement.prop,
@@ -204,57 +193,31 @@ function hasModifierRequirement(
       }
 
       if (requirement.prop === "modifiers") {
-        return isYieldedPropPath(modifier.path, blockParam, requirement.prop);
+        return pathMatches(modifier.path, blockParam, requirement.prop);
       }
 
       return (
-        isYieldedPropPath(modifier.path, blockParam, requirement.prop) ||
+        pathMatches(modifier.path, blockParam, requirement.prop) ||
         Boolean(
           modifier.params?.some((param) =>
-            nodeContainsYieldedPropReference(
-              param,
-              blockParam,
-              requirement.prop,
-            ),
+            valueContainsPath(param, blockParam, requirement.prop),
           ),
-        ) ||
-        hashContainsYieldedPropReference(
-          modifier.hash,
-          blockParam,
-          requirement.prop,
         )
       );
     }),
   );
 }
 
-function childSatisfiesRequirement(
-  child: Rule.Node,
+function elementSatisfiesRequirement(
+  element: GlimmerNode,
   blockParam: string,
   requirement: PropRequirement,
 ): boolean {
-  if (!isGlimmerElementNode(child)) {
-    return false;
-  }
-
   if (requirement.kind === "attribute") {
-    return hasAttributeRequirement(child, blockParam, requirement);
+    return hasAttributeRequirement(element, blockParam, requirement);
   }
 
-  return hasModifierRequirement(child, blockParam, requirement);
-}
-
-function getMissingPropsForChild(
-  child: Rule.Node,
-  blockParam: string,
-  requirements: PropRequirement[],
-): string[] {
-  return requirements
-    .filter(
-      (requirement) =>
-        !childSatisfiesRequirement(child, blockParam, requirement),
-    )
-    .map((requirement) => requirement.prop);
+  return hasModifierRequirement(element, blockParam, requirement);
 }
 
 function getMissingProps(
@@ -268,20 +231,14 @@ function getMissingProps(
     return requirements.map((requirement) => requirement.prop);
   }
 
-  return glimmerChildren.reduce<string[]>(
-    (bestMissingProps, child) => {
-      const missingProps = getMissingPropsForChild(
-        child,
-        blockParam,
-        requirements,
-      );
-
-      return missingProps.length < bestMissingProps.length
-        ? missingProps
-        : bestMissingProps;
-    },
-    requirements.map((requirement) => requirement.prop),
-  );
+  return requirements
+    .filter(
+      (requirement) =>
+        !glimmerChildren.some((child) =>
+          elementSatisfiesRequirement(child, blockParam, requirement),
+        ),
+    )
+    .map((requirement) => requirement.prop);
 }
 
 function getDescendantElements(node: GlimmerNode): GlimmerNode[] {
