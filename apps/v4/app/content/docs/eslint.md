@@ -72,10 +72,7 @@ Correct:
 </Button>
 
 <DropdownMenuTrigger @asChild={{true}} as |trigger|>
-  <Button>
-    Open
-    {{trigger.modifiers}}
-  </Button>
+  <Button {{trigger.modifiers}}>Open</Button>
 </DropdownMenuTrigger>
 ```
 

@@ -36,6 +36,7 @@ export default class CollapsibleDemo extends Component {
             aria-controls={{trigger.aria-controls}}
             aria-expanded={{trigger.aria-expanded}}
             data-disabled={{trigger.data-disabled}}
+            data-slot={{trigger.data-slot}}
             data-state={{trigger.data-state}}
             disabled={{trigger.disabled}}
             {{on "click" trigger.onClick}}

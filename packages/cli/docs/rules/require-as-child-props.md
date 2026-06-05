@@ -24,9 +24,6 @@ Some components yield the properties needed to make the custom child behave like
 </Button>
 
 <DropdownMenuTrigger @asChild={{true}} as |trigger|>
-  <Button>
-    Open
-    {{trigger.modifiers}}
-  </Button>
+  <Button {{trigger.modifiers}}>Open</Button>
 </DropdownMenuTrigger>
 ```
