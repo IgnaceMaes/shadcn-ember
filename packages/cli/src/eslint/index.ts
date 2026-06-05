@@ -1,14 +1,16 @@
-import type { ESLint, Linter } from 'eslint'
+import type { ESLint, Linter } from "eslint";
 
-import requireClassArg from './rules/require-class-arg'
+import requireAsChildProps from "./rules/require-as-child-props";
+import requireClassArg from "./rules/require-class-arg";
 
 const rules = {
-  'require-class-arg': requireClassArg,
-}
+  "require-as-child-props": requireAsChildProps,
+  "require-class-arg": requireClassArg,
+};
 
 const plugin: ESLint.Plugin = {
   rules,
-}
+};
 
 /**
  * Flat config for enabling all shadcn-ember recommended rules.
@@ -29,14 +31,15 @@ const configs: Record<string, Linter.Config[]> = {
   recommended: [
     {
       plugins: {
-        'shadcn-ember': plugin,
+        "shadcn-ember": plugin,
       },
       rules: {
-        'shadcn-ember/require-class-arg': 'error',
+        "shadcn-ember/require-as-child-props": "error",
+        "shadcn-ember/require-class-arg": "error",
       },
     },
   ],
-}
+};
 
-export default plugin
-export { configs, rules }
+export default plugin;
+export { configs, rules };

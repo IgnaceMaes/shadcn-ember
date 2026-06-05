@@ -41,6 +41,44 @@ export default ts.config(
 
 ## Rules
 
+### `shadcn-ember/require-as-child-props`
+
+Severity: **error**  
+Fixable: not auto-fixable
+
+Enforces applying yielded properties when using `@asChild` on shadcn-ember components.
+
+Some components yield required values for the custom child. For example, `Button`, `Badge`, `BreadcrumbLink`, and `DropdownMenuItem` yield classes, while trigger components like `DropdownMenuTrigger`, `PopoverTrigger`, and `HoverCardTrigger` yield modifiers.
+
+#### Examples
+
+Incorrect:
+
+```hbs
+<Button @asChild={{true}} as |button|>
+  <LinkTo @route="index">Login</LinkTo>
+</Button>
+
+<DropdownMenuTrigger @asChild={{true}} as |trigger|>
+  <Button>Open</Button>
+</DropdownMenuTrigger>
+```
+
+Correct:
+
+```hbs
+<Button @asChild={{true}} as |button|>
+  <LinkTo @route="index" class={{button.classes}}>Login</LinkTo>
+</Button>
+
+<DropdownMenuTrigger @asChild={{true}} as |trigger|>
+  <Button>
+    Open
+    {{trigger.modifiers}}
+  </Button>
+</DropdownMenuTrigger>
+```
+
 ### `shadcn-ember/require-class-arg`
 
 Severity: **error**  
