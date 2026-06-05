@@ -30,7 +30,9 @@ describe("require-as-child-props", () => {
     '<Badge @asChild={{true}} as |badge|><LinkTo @route="index" class={{badge.classes}}>Badge</LinkTo></Badge>',
     '<BreadcrumbLink @asChild={{true}} as |link|><LinkTo @route="index" class={{link.classes}}>Home</LinkTo></BreadcrumbLink>',
     '<DropdownMenuItem @asChild={{true}} as |item|><LinkTo @route="index" class={{item.classes}}>Profile</LinkTo></DropdownMenuItem>',
+    '<Button @asChild={{true}} as |button|><div><LinkTo @route="index" class={{button.classes}}>Login</LinkTo></div></Button>',
     "<DropdownMenuTrigger @asChild={{true}} as |trigger|><Button {{trigger.modifiers}}>Open</Button></DropdownMenuTrigger>",
+    "<DropdownMenuTrigger @asChild={{true}} as |trigger|><div><Button {{trigger.modifiers}}>Open</Button></div></DropdownMenuTrigger>",
     "<PopoverTrigger @asChild={{true}} as |trigger|><button {{trigger.modifiers}}>Open</button></PopoverTrigger>",
     '<HoverCardTrigger @asChild={{true}} as |trigger|><a href="#" {{trigger.modifiers}}>Hover</a></HoverCardTrigger>',
     `<Item @asChild={{true}} as |item|>
@@ -69,10 +71,6 @@ describe("require-as-child-props", () => {
       errors: [{ messageId: "missingYieldedProps" as const }],
     },
     {
-      code: '<Button @asChild={{true}} as |button|><div><LinkTo @route="index" class={{button.classes}}>Login</LinkTo></div></Button>',
-      errors: [{ messageId: "missingYieldedProps" as const }],
-    },
-    {
       code: '<Badge @asChild={{true}} as |badge|><LinkTo @route="index">Badge</LinkTo></Badge>',
       errors: [{ messageId: "missingYieldedProps" as const }],
     },
@@ -85,11 +83,7 @@ describe("require-as-child-props", () => {
       errors: [{ messageId: "missingYieldedProps" as const }],
     },
     {
-      code: '<DropdownMenuTrigger @asChild={{true}} as |trigger|><Button {{some-modifier trigger.modifiers}}>Open</Button></DropdownMenuTrigger>',
-      errors: [{ messageId: "missingYieldedProps" as const }],
-    },
-    {
-      code: "<DropdownMenuTrigger @asChild={{true}} as |trigger|><div><Button {{trigger.modifiers}}>Open</Button></div></DropdownMenuTrigger>",
+      code: "<DropdownMenuTrigger @asChild={{true}} as |trigger|><Button {{some-modifier trigger.modifiers}}>Open</Button></DropdownMenuTrigger>",
       errors: [{ messageId: "missingYieldedProps" as const }],
     },
     {

@@ -1,48 +1,23 @@
 import type { Rule } from "eslint";
 
-type GlimmerElementNode = Rule.Node & {
-  tag: string;
+type GlimmerNode = Rule.Node & {
+  tag?: string;
+  name?: string;
+  value?: unknown;
   blockParams?: string[];
-  attributes?: GlimmerAttrNode[];
-  children?: Rule.Node[];
-  modifiers?: Rule.Node[];
-};
-
-type GlimmerAttrNode = Rule.Node & {
-  name: string;
-  value?: Rule.Node;
-};
-
-type GlimmerBooleanLiteralNode = Rule.Node & {
-  value: boolean;
-};
-
-type GlimmerPathExpressionNode = Rule.Node & {
+  attributes?: GlimmerNode[];
+  children?: GlimmerNode[];
+  modifiers?: GlimmerNode[];
+  path?: GlimmerNode;
+  params?: GlimmerNode[];
+  hash?: {
+    pairs?: Array<{ value?: GlimmerNode }>;
+  } | null;
   head?: {
     type: string;
     name?: string;
   };
   tail?: string[];
-};
-
-type GlimmerMustacheStatementNode = Rule.Node & {
-  path?: Rule.Node;
-  params?: Rule.Node[];
-  hash?: GlimmerHashNode | null;
-};
-
-type GlimmerElementModifierStatementNode = Rule.Node & {
-  path?: Rule.Node;
-  params?: Rule.Node[];
-  hash?: GlimmerHashNode | null;
-};
-
-type GlimmerHashNode = Rule.Node & {
-  pairs?: GlimmerHashPairNode[];
-};
-
-type GlimmerHashPairNode = Rule.Node & {
-  value?: Rule.Node;
 };
 
 type PropRequirement = {
@@ -94,62 +69,37 @@ const AS_CHILD_COMPONENTS = new Map<string, PropRequirement[]>([
   ],
 ]);
 
-function isGlimmerElementNode(value: Rule.Node): value is GlimmerElementNode {
+function isGlimmerElementNode(value: Rule.Node): value is GlimmerNode {
   return value.type === "GlimmerElementNode";
 }
 
-function getAttr(
-  node: GlimmerElementNode,
-  name: string,
-): GlimmerAttrNode | undefined {
+function getAttr(node: GlimmerNode, name: string): GlimmerNode | undefined {
   return node.attributes?.find((attr) => attr.name === name);
 }
 
-function isGlimmerBooleanLiteral(
-  node: Rule.Node,
-): node is GlimmerBooleanLiteralNode {
-  return node.type === "GlimmerBooleanLiteral";
-}
-
-function isGlimmerPathExpression(
-  node: Rule.Node,
-): node is GlimmerPathExpressionNode {
-  return node.type === "GlimmerPathExpression";
-}
-
-function isGlimmerMustacheStatement(
-  node: Rule.Node,
-): node is GlimmerMustacheStatementNode {
-  return node.type === "GlimmerMustacheStatement";
-}
-
-function isGlimmerElementModifierStatement(
-  node: Rule.Node,
-): node is GlimmerElementModifierStatementNode {
-  return node.type === "GlimmerElementModifierStatement";
-}
-
-function isGlimmerHash(node: Rule.Node): node is GlimmerHashNode {
-  return node.type === "GlimmerHash";
+function asNode(value: unknown): GlimmerNode | undefined {
+  return value && typeof value === "object"
+    ? (value as GlimmerNode)
+    : undefined;
 }
 
 function isYieldedPropPath(
-  node: Rule.Node | undefined,
+  node: GlimmerNode | undefined,
   blockParam: string,
   prop: string,
 ): boolean {
   return Boolean(
     node &&
-      isGlimmerPathExpression(node) &&
-      node.head?.type === "VarHead" &&
-      node.head.name === blockParam &&
-      node.tail?.length === 1 &&
-      node.tail[0] === prop,
+    node.type === "GlimmerPathExpression" &&
+    node.head?.type === "VarHead" &&
+    node.head.name === blockParam &&
+    node.tail?.length === 1 &&
+    node.tail[0] === prop,
   );
 }
 
 function hashContainsYieldedPropReference(
-  hash: GlimmerHashNode | null | undefined,
+  hash: GlimmerNode["hash"],
   blockParam: string,
   prop: string,
 ): boolean {
@@ -161,7 +111,7 @@ function hashContainsYieldedPropReference(
 }
 
 function nodeContainsYieldedPropReference(
-  node: Rule.Node | undefined,
+  node: GlimmerNode | undefined,
   blockParam: string,
   prop: string,
 ): boolean {
@@ -173,7 +123,7 @@ function nodeContainsYieldedPropReference(
     return true;
   }
 
-  if (isGlimmerMustacheStatement(node)) {
+  if (node.type === "GlimmerMustacheStatement") {
     return (
       isYieldedPropPath(node.path, blockParam, prop) ||
       Boolean(
@@ -185,44 +135,45 @@ function nodeContainsYieldedPropReference(
     );
   }
 
-  if (isGlimmerHash(node)) {
+  if (node.type === "GlimmerHash") {
     return hashContainsYieldedPropReference(node, blockParam, prop);
   }
 
   return false;
 }
 
-function isFalseLiteral(node: Rule.Node): boolean {
+function isFalseLiteral(node: GlimmerNode | undefined): boolean {
+  if (!node) {
+    return false;
+  }
+
   return (
-    isGlimmerMustacheStatement(node) &&
-    Boolean(node.path) &&
-    isGlimmerBooleanLiteral(node.path) &&
+    node.type === "GlimmerMustacheStatement" &&
+    node.path?.type === "GlimmerBooleanLiteral" &&
     node.path.value === false
   );
 }
 
-function hasEnabledAsChildArg(
-  node: GlimmerElementNode,
-): boolean {
+function hasEnabledAsChildArg(node: GlimmerNode): boolean {
   const asChildAttr = getAttr(node, "@asChild");
 
   if (!asChildAttr) {
     return false;
   }
 
-  if (asChildAttr.value && isFalseLiteral(asChildAttr.value)) {
+  if (isFalseLiteral(asNode(asChildAttr.value))) {
     return false;
   }
 
   return true;
 }
 
-function getBlockParam(node: GlimmerElementNode): string | undefined {
+function getBlockParam(node: GlimmerNode): string | undefined {
   return node.blockParams?.[0];
 }
 
 function hasAttributeRequirement(
-  node: GlimmerElementNode,
+  node: GlimmerNode,
   blockParam: string,
   requirement: PropRequirement,
 ): boolean {
@@ -233,7 +184,7 @@ function hasAttributeRequirement(
       }
 
       return nodeContainsYieldedPropReference(
-        attr.value,
+        asNode(attr.value),
         blockParam,
         requirement.prop,
       );
@@ -242,13 +193,13 @@ function hasAttributeRequirement(
 }
 
 function hasModifierRequirement(
-  node: GlimmerElementNode,
+  node: GlimmerNode,
   blockParam: string,
   requirement: PropRequirement,
 ): boolean {
   return Boolean(
     node.modifiers?.some((modifier) => {
-      if (!isGlimmerElementModifierStatement(modifier)) {
+      if (modifier.type !== "GlimmerElementModifierStatement") {
         return false;
       }
 
@@ -307,11 +258,11 @@ function getMissingPropsForChild(
 }
 
 function getMissingProps(
-  node: GlimmerElementNode,
+  node: GlimmerNode,
   blockParam: string,
   requirements: PropRequirement[],
 ): string[] {
-  const glimmerChildren = node.children?.filter(isGlimmerElementNode) ?? [];
+  const glimmerChildren = getDescendantElements(node);
 
   if (glimmerChildren.length === 0) {
     return requirements.map((requirement) => requirement.prop);
@@ -331,6 +282,20 @@ function getMissingProps(
     },
     requirements.map((requirement) => requirement.prop),
   );
+}
+
+function getDescendantElements(node: GlimmerNode): GlimmerNode[] {
+  const descendants: GlimmerNode[] = [];
+
+  for (const child of node.children ?? []) {
+    if (!isGlimmerElementNode(child)) {
+      continue;
+    }
+
+    descendants.push(child, ...getDescendantElements(child));
+  }
+
+  return descendants;
 }
 
 function formatMissingProps(props: string[]): string {
@@ -379,11 +344,7 @@ const rule: Rule.RuleModule = {
           return;
         }
 
-        const missingProps = getMissingProps(
-          node,
-          blockParam,
-          requirements,
-        );
+        const missingProps = getMissingProps(node, blockParam, requirements);
 
         if (missingProps.length > 0) {
           context.report({
