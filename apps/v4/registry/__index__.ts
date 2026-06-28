@@ -443,6 +443,21 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  marker: {
+    name: 'marker',
+    description: '',
+    type: 'registry:ui',
+    registryDependencies: undefined,
+    files: [
+      {
+        path: 'registry/new-york-v4/ui/marker.gts',
+        type: 'registry:ui',
+        target: '',
+      },
+    ],
+    categories: undefined,
+    meta: undefined,
+  },
   'native-select': {
     name: 'native-select',
     description: '',

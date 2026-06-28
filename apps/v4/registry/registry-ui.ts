@@ -318,6 +318,16 @@ export const ui: Registry['items'] = [
     ],
   },
   {
+    name: 'marker',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/marker.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
     name: 'native-select',
     type: 'registry:ui',
     files: [

@@ -237,6 +237,12 @@ const components: ComponentItem[] = [
     hasPage: hasMarkdownPage('label'),
   },
   {
+    name: 'Marker',
+    route: 'docs.components.marker',
+    isNew: true,
+    hasPage: hasMarkdownPage('marker'),
+  },
+  {
     name: 'Menubar',
     route: 'docs.components.menubar',
     isNew: false,
