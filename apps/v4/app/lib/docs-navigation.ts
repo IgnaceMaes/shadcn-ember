@@ -82,8 +82,22 @@ function generateSidebar(): DocSidebarSection[] {
     title: 'Components',
     items: [],
   };
+  const utilitiesSection: DocSidebarSection = {
+    title: 'Utilities',
+    items: [],
+  };
 
   for (const item of docsNavigation) {
+    // Utilities section - only show docs.utils.X
+    if (item.route.startsWith('docs.utils.')) {
+      const routeAfterUtils = item.route.substring(11); // Remove "docs.utils."
+      const depth = (routeAfterUtils.match(/\./g) || []).length;
+
+      if (depth === 0) {
+        utilitiesSection.items.push(item);
+      }
+      continue;
+    }
     // Top-level pages go into "Sections"
     if (
       item.route === 'docs.index' ||
@@ -124,7 +138,12 @@ function generateSidebar(): DocSidebarSection[] {
     href: '/llms.txt',
   });
 
-  return [sectionsSection, getStartedSection, componentsSection];
+  return [
+    sectionsSection,
+    getStartedSection,
+    componentsSection,
+    utilitiesSection,
+  ];
 }
 
 export const docsSidebar: DocSidebarSection[] = generateSidebar();
