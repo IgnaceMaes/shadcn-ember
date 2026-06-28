@@ -57,6 +57,12 @@ const components: ComponentItem[] = [
     hasPage: hasMarkdownPage('aspect-ratio'),
   },
   {
+    name: 'Attachment',
+    route: 'docs.components.attachment',
+    isNew: true,
+    hasPage: hasMarkdownPage('attachment'),
+  },
+  {
     name: 'Avatar',
     route: 'docs.components.avatar',
     isNew: false,
