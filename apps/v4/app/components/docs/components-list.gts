@@ -75,6 +75,12 @@ const components: ComponentItem[] = [
     hasPage: hasMarkdownPage('breadcrumb'),
   },
   {
+    name: 'Bubble',
+    route: 'docs.components.bubble',
+    isNew: true,
+    hasPage: hasMarkdownPage('bubble'),
+  },
+  {
     name: 'Button Group',
     route: 'docs.components.button-group',
     isNew: true,
