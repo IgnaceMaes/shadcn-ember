@@ -249,6 +249,12 @@ const components: ComponentItem[] = [
     hasPage: hasMarkdownPage('menubar'),
   },
   {
+    name: 'Message',
+    route: 'docs.components.message',
+    isNew: true,
+    hasPage: hasMarkdownPage('message'),
+  },
+  {
     name: 'Native Select',
     route: 'docs.components.native-select',
     isNew: false,

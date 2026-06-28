@@ -328,6 +328,16 @@ export const ui: Registry['items'] = [
     ],
   },
   {
+    name: 'message',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/message.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
     name: 'native-select',
     type: 'registry:ui',
     files: [
