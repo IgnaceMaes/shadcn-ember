@@ -128,6 +128,21 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  bubble: {
+    name: 'bubble',
+    description: '',
+    type: 'registry:ui',
+    registryDependencies: undefined,
+    files: [
+      {
+        path: 'registry/new-york-v4/ui/bubble.gts',
+        type: 'registry:ui',
+        target: '',
+      },
+    ],
+    categories: undefined,
+    meta: undefined,
+  },
   'button-group': {
     name: 'button-group',
     description: '',

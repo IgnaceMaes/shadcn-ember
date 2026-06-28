@@ -50,8 +50,10 @@ const NavMainComponent: TOC<Signature> = <template>
                 @tooltip={{item.title}}
                 aria-controls={{trigger.aria-controls}}
                 aria-expanded={{trigger.aria-expanded}}
+                data-disabled={{trigger.data-disabled}}
                 data-slot={{trigger.data-slot}}
                 data-state={{trigger.data-state}}
+                disabled={{trigger.disabled}}
                 {{on "click" trigger.onClick}}
               >
                 {{#if item.icon}}

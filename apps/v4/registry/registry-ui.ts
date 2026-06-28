@@ -75,6 +75,16 @@ export const ui: Registry['items'] = [
     ],
   },
   {
+    name: 'bubble',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/bubble.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
     name: 'button-group',
     type: 'registry:ui',
     files: [

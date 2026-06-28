@@ -94,6 +94,16 @@
       ]
     },
     {
+      "name": "bubble",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/bubble.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "button-group",
       "type": "registry:ui",
       "registryDependencies": ["separator"],
