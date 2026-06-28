@@ -4,6 +4,48 @@ description: Latest updates and announcements.
 order: 10
 ---
 
+## July 2026 - Components for Chat Interfaces
+
+A new set of components and utilities for building chat interfaces is now available: [Message](/docs/components/message), [Bubble](/docs/components/bubble), [Attachment](/docs/components/attachment), and [Marker](/docs/components/marker), along with two CSS utilities, [scroll-fade](/docs/utils/scroll-fade) and [shimmer](/docs/utils/shimmer).
+
+This is the conversation layer: message rows, bubbles, attachments, and markers. They are intentionally small, and meant to be composed together for AI chats, support inboxes, team threads, group chats, and product-specific conversations.
+
+```bash
+npx shadcn-ember@latest add message bubble attachment marker
+```
+
+### Message
+
+The [Message](/docs/components/message) component lays out a single row in a conversation: avatar, alignment, header, content, and footer. It handles the layout around the message surface so you can drop your content in, and `MessageGroup` keeps consecutive messages from the same author together.
+
+For AI apps, you can render reasoning steps, tool calls, and assistant replies through `Message`.
+
+### Bubble
+
+The [Bubble](/docs/components/bubble) component renders the message surface itself. It ships with variants, start/end alignment, reactions, links, buttons, and collapsible content.
+
+`Bubble` is intentionally scoped to the bubble surface — use it for chat text, short structured output, quoted replies, and suggestions. Place avatars, names, timestamps, and message-level actions in `Message`.
+
+### Attachment
+
+The [Attachment](/docs/components/attachment) component displays files and images with media, metadata, upload state, and actions. It supports `idle`, `uploading`, `processing`, `error`, and `done` states, multiple sizes and orientations, and a full-card trigger that keeps individual actions separately clickable. Use `AttachmentGroup` for rows of attachments in a composer or message thread.
+
+### Marker
+
+The [Marker](/docs/components/marker) component renders inline conversation markers: status updates, system notes, bordered rows, and labeled separators. Use it for streaming state, tool activity, and date breaks, composed alongside `Message` in a thread.
+
+### scroll-fade and shimmer
+
+Two new CSS utilities cover the details that make chat interfaces feel better.
+
+[scroll-fade](/docs/utils/scroll-fade) adds scroll-aware edge fades to scroll containers. Use it on long lists, attachment rows, and any scrollable region where you want to hint at more content without overlays or scroll listeners. It supports per-axis and per-edge variants (`scroll-fade-y`, `scroll-fade-x`, `scroll-fade-t`, `scroll-fade-b`, …) and a configurable fade size.
+
+[shimmer](/docs/utils/shimmer) adds a text shimmer for live status, ideal for "Thinking…", "Generating response…", running tools, and streaming markers. It's configurable via `shimmer-once`, `shimmer-reverse`, and the `shimmer-color`, `shimmer-duration`, `shimmer-spread`, and `shimmer-angle` modifiers.
+
+Both utilities ship with `shadcn/tailwind.css`, so projects initialized with shadcn-ember already have them.
+
+---
+
 ## June 2026 - Calendar & Date Picker
 
 Two new components are now available: [Calendar](/docs/components/calendar) and [Date Picker](/docs/components/date-picker).
