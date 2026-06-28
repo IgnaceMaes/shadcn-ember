@@ -44,6 +44,17 @@ export const ui: Registry['items'] = [
     ],
   },
   {
+    name: 'attachment',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/attachment.gts',
+        type: 'registry:ui',
+      },
+    ],
+    registryDependencies: ['button'],
+  },
+  {
     name: 'avatar',
     type: 'registry:ui',
     files: [
