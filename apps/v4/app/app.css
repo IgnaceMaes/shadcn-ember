@@ -506,23 +506,27 @@ html {
 @property --scroll-fade-t {
   syntax: '<length-percentage>';
   inherits: false;
-  initial-value: 0px;
+  initial-value: 0;
 }
+
 @property --scroll-fade-b {
   syntax: '<length-percentage>';
   inherits: false;
-  initial-value: 0px;
+  initial-value: 0;
 }
+
 @property --scroll-fade-s {
   syntax: '<length-percentage>';
   inherits: false;
-  initial-value: 0px;
+  initial-value: 0;
 }
+
 @property --scroll-fade-e {
   syntax: '<length-percentage>';
   inherits: false;
-  initial-value: 0px;
+  initial-value: 0;
 }
+
 @property --scroll-fade-mask {
   syntax: '*';
   inherits: false;
@@ -533,6 +537,7 @@ html {
     from {
       --scroll-fade-t: 0px;
     }
+
     to {
       --scroll-fade-t: var(
         --_scroll-fade-size-t,
@@ -540,6 +545,7 @@ html {
       );
     }
   }
+
   @keyframes scroll-fade-reveal-b {
     from {
       --scroll-fade-b: var(
@@ -547,14 +553,17 @@ html {
         var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10)))
       );
     }
+
     to {
       --scroll-fade-b: 0px;
     }
   }
+
   @keyframes scroll-fade-reveal-s {
     from {
       --scroll-fade-s: 0px;
     }
+
     to {
       --scroll-fade-s: var(
         --_scroll-fade-size-s,
@@ -562,6 +571,7 @@ html {
       );
     }
   }
+
   @keyframes scroll-fade-reveal-e {
     from {
       --scroll-fade-e: var(
@@ -569,6 +579,7 @@ html {
         var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10)))
       );
     }
+
     to {
       --scroll-fade-e: 0px;
     }
@@ -591,6 +602,7 @@ html {
     #000 calc(100% - var(--scroll-fade-b, 0px)),
     transparent 100%
   );
+
   -webkit-mask-image: var(--scroll-fade-mask, var(--scroll-fade-block));
   mask-image: var(--scroll-fade-mask, var(--scroll-fade-block));
   -webkit-mask-composite: source-in;
@@ -631,6 +643,7 @@ html {
     #000 calc(100% - var(--scroll-fade-b, 0px)),
     transparent 100%
   );
+
   -webkit-mask-image: var(--scroll-fade-mask, var(--scroll-fade-block));
   mask-image: var(--scroll-fade-mask, var(--scroll-fade-block));
   -webkit-mask-composite: source-in;
@@ -671,6 +684,7 @@ html {
     #000 calc(100% - var(--scroll-fade-e, 0px)),
     transparent 100%
   );
+
   &:where([dir='rtl'], [dir='rtl'] *) {
     --scroll-fade-inline: linear-gradient(
       to left,
@@ -680,6 +694,7 @@ html {
       transparent 100%
     );
   }
+
   -webkit-mask-image: var(--scroll-fade-mask, var(--scroll-fade-inline));
   mask-image: var(--scroll-fade-mask, var(--scroll-fade-inline));
   -webkit-mask-composite: source-in;
@@ -715,6 +730,7 @@ html {
     #000 var(--scroll-fade-t, 0px),
     #000 100%
   );
+
   -webkit-mask-image: var(--scroll-fade-mask);
   mask-image: var(--scroll-fade-mask);
   -webkit-mask-composite: source-in;
@@ -745,6 +761,7 @@ html {
     #000 calc(100% - var(--scroll-fade-b, 0px)),
     transparent 100%
   );
+
   -webkit-mask-image: var(--scroll-fade-mask);
   mask-image: var(--scroll-fade-mask);
   -webkit-mask-composite: source-in;
@@ -778,6 +795,7 @@ html {
     #000 var(--scroll-fade-s, 0px),
     #000 100%
   );
+
   -webkit-mask-image: var(--scroll-fade-mask);
   mask-image: var(--scroll-fade-mask);
   -webkit-mask-composite: source-in;
@@ -808,6 +826,7 @@ html {
     #000 calc(100% - var(--scroll-fade-e, 0px)),
     transparent 100%
   );
+
   -webkit-mask-image: var(--scroll-fade-mask);
   mask-image: var(--scroll-fade-mask);
   -webkit-mask-composite: source-in;
@@ -841,6 +860,7 @@ html {
     #000 var(--scroll-fade-s, 0px),
     #000 100%
   );
+
   &:where([dir='rtl'], [dir='rtl'] *) {
     --scroll-fade-mask: linear-gradient(
       to left,
@@ -849,6 +869,7 @@ html {
       #000 100%
     );
   }
+
   -webkit-mask-image: var(--scroll-fade-mask);
   mask-image: var(--scroll-fade-mask);
   -webkit-mask-composite: source-in;
@@ -879,6 +900,7 @@ html {
     #000 calc(100% - var(--scroll-fade-e, 0px)),
     transparent 100%
   );
+
   &:where([dir='rtl'], [dir='rtl'] *) {
     --scroll-fade-mask: linear-gradient(
       to left,
@@ -887,6 +909,7 @@ html {
       transparent 100%
     );
   }
+
   -webkit-mask-image: var(--scroll-fade-mask);
   mask-image: var(--scroll-fade-mask);
   -webkit-mask-composite: source-in;
@@ -941,6 +964,7 @@ html {
 /* scrollbar-none */
 @utility scrollbar-none {
   scrollbar-width: none;
+
   &::-webkit-scrollbar {
     display: none;
   }
