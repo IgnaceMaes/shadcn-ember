@@ -5,6 +5,8 @@ import { eq } from 'ember-truth-helpers';
 
 import { Button } from '@/components/ui/button';
 
+import DocFallax from './doc-fallax';
+
 export interface TocItem {
   id: string;
   title: string;
@@ -86,7 +88,7 @@ export default class DocToc extends Component<DocTocSignature> {
           <div class="h-12"></div>
         {{/if}}
       </div>
-      <div class="flex flex-1 flex-col gap-12 px-6">
+      <div class="flex flex-1 flex-col gap-6 px-6">
         <div
           class="bg-muted group relative flex flex-col gap-2 rounded-lg p-6 text-sm"
         >
@@ -113,6 +115,7 @@ export default class DocToc extends Component<DocTocSignature> {
             <span class="sr-only">Contribute on GitHub</span>
           </a>
         </div>
+        <DocFallax />
       </div>
     </div>
   </template>
