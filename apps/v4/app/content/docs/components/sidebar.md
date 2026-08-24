@@ -554,7 +554,7 @@ import ChevronDown from '~icons/lucide/chevron-down';
 <template>
   <Collapsible @defaultOpen={{true}} class="group/collapsible">
     <SidebarGroup>
-      <SidebarGroupLabel @asChild={{true}}>
+      <SidebarGroupLabel>
         <CollapsibleTrigger>
           Help
           <ChevronDown
