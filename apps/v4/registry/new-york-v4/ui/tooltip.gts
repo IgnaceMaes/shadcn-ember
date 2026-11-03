@@ -1,6 +1,5 @@
 import { on } from '@ember/modifier';
 import { htmlSafe } from '@ember/template';
-import { next } from '@ember/runloop';
 import {
   computePosition,
   flip,
@@ -27,6 +26,124 @@ interface TooltipContextValue {
   finishClose: () => void;
   triggerElement: HTMLElement | null;
   setTriggerElement: (element: HTMLElement | null) => void;
+  setContentElement: (element: HTMLElement | null) => void;
+  onTriggerLeave: (event: MouseEvent) => void;
+  onContentLeave: (event: MouseEvent) => void;
+}
+
+interface Point {
+  x: number;
+  y: number;
+}
+
+type Side = 'top' | 'right' | 'bottom' | 'left';
+
+function getExitSideFromRect(point: Point, rect: DOMRect): Side {
+  const top = Math.abs(rect.top - point.y);
+  const bottom = Math.abs(rect.bottom - point.y);
+  const right = Math.abs(rect.right - point.x);
+  const left = Math.abs(rect.left - point.x);
+  const min = Math.min(top, bottom, right, left);
+  if (min === left) return 'left';
+  if (min === right) return 'right';
+  if (min === top) return 'top';
+  return 'bottom';
+}
+
+function getPaddedExitPoints(exitPoint: Point, exitSide: Side, padding = 5) {
+  const { x, y } = exitPoint;
+  switch (exitSide) {
+    case 'top':
+      return [
+        { x: x - padding, y: y + padding },
+        { x: x + padding, y: y + padding },
+      ];
+    case 'bottom':
+      return [
+        { x: x - padding, y: y - padding },
+        { x: x + padding, y: y - padding },
+      ];
+    case 'left':
+      return [
+        { x: x + padding, y: y - padding },
+        { x: x + padding, y: y + padding },
+      ];
+    case 'right':
+      return [
+        { x: x - padding, y: y - padding },
+        { x: x - padding, y: y + padding },
+      ];
+  }
+}
+
+function getPointsFromRect(rect: DOMRect): Point[] {
+  const { top, right, bottom, left } = rect;
+  return [
+    { x: left, y: top },
+    { x: right, y: top },
+    { x: right, y: bottom },
+    { x: left, y: bottom },
+  ];
+}
+
+// Ray casting: https://github.com/substack/point-in-polygon (MIT)
+function isPointInPolygon(point: Point, polygon: Point[]) {
+  const { x, y } = point;
+  let inside = false;
+  for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+    const { x: xi, y: yi } = polygon[i]!;
+    const { x: xj, y: yj } = polygon[j]!;
+    const intersect =
+      yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
+    if (intersect) inside = !inside;
+  }
+  return inside;
+}
+
+// Andrew's monotone chain convex hull
+function getHull(points: Point[]): Point[] {
+  const sorted = points
+    .slice()
+    .sort((a, b) => (a.x === b.x ? a.y - b.y : a.x - b.x));
+  if (sorted.length <= 1) return sorted;
+
+  const cross = (o: Point, a: Point, b: Point) =>
+    (a.x - o.x) * (b.y - o.y) - (a.y - o.y) * (b.x - o.x);
+
+  const upper: Point[] = [];
+  for (const p of sorted) {
+    while (
+      upper.length >= 2 &&
+      cross(upper[upper.length - 2]!, upper[upper.length - 1]!, p) <= 0
+    ) {
+      upper.pop();
+    }
+    upper.push(p);
+  }
+  upper.pop();
+
+  const lower: Point[] = [];
+  for (let i = sorted.length - 1; i >= 0; i--) {
+    const p = sorted[i]!;
+    while (
+      lower.length >= 2 &&
+      cross(lower[lower.length - 2]!, lower[lower.length - 1]!, p) <= 0
+    ) {
+      lower.pop();
+    }
+    lower.push(p);
+  }
+  lower.pop();
+
+  if (
+    upper.length === 1 &&
+    lower.length === 1 &&
+    upper[0]!.x === lower[0]!.x &&
+    upper[0]!.y === lower[0]!.y
+  ) {
+    return upper;
+  }
+  return upper.concat(lower);
 }
 
 interface ContextRegistry {
@@ -48,7 +165,8 @@ class Tooltip extends Component<TooltipSignature> {
   @tracked currentOpen?: boolean;
   @tracked isOpenOrClosing = false;
   triggerElement: HTMLElement | null = null;
-  shouldClose = false;
+  contentElement: HTMLElement | null = null;
+  graceArea: Point[] | null = null;
 
   get isOpen() {
     return this.args.open ?? this.currentOpen ?? this.args.defaultOpen ?? false;
@@ -58,22 +176,73 @@ class Tooltip extends Component<TooltipSignature> {
     return this.isOpen || this.isOpenOrClosing;
   }
 
+  willDestroy() {
+    super.willDestroy();
+    this.removeGraceArea();
+  }
+
   setOpen = (open: boolean) => {
+    this.removeGraceArea();
     if (open) {
-      this.shouldClose = false;
       this.isOpenOrClosing = true;
-      this.currentOpen = true;
-    } else {
-      this.shouldClose = true;
-      // eslint-disable-next-line ember/no-runloop
-      next(() => {
-        if (this.shouldClose) {
-          this.currentOpen = false;
-          this.shouldClose = false;
-        }
-      });
     }
+    this.currentOpen = open;
     this.args.onOpenChange?.(open);
+  };
+
+  // Keep the tooltip open while the pointer travels between the trigger and
+  // the content, by tracking it within the polygon spanning the exit point
+  // and the element being moved towards (mirrors Radix's hoverable content).
+  createGraceArea = (event: MouseEvent, hoverTarget: HTMLElement | null) => {
+    const currentTarget = event.currentTarget as HTMLElement | null;
+    if (!this.isOpen || !hoverTarget || !currentTarget) {
+      this.setOpen(false);
+      return;
+    }
+
+    const exitPoint = { x: event.clientX, y: event.clientY };
+    const exitSide = getExitSideFromRect(
+      exitPoint,
+      currentTarget.getBoundingClientRect()
+    );
+    this.removeGraceArea();
+    this.graceArea = getHull([
+      ...getPaddedExitPoints(exitPoint, exitSide),
+      ...getPointsFromRect(hoverTarget.getBoundingClientRect()),
+    ]);
+    document.addEventListener('pointermove', this.trackPointerGrace);
+  };
+
+  removeGraceArea = () => {
+    this.graceArea = null;
+    document.removeEventListener('pointermove', this.trackPointerGrace);
+  };
+
+  trackPointerGrace = (event: PointerEvent) => {
+    if (!this.graceArea) return;
+
+    const target = event.target as Node;
+    const hasEnteredTarget =
+      this.triggerElement?.contains(target) ||
+      this.contentElement?.contains(target);
+    const isPointerOutsideGraceArea = !isPointInPolygon(
+      { x: event.clientX, y: event.clientY },
+      this.graceArea
+    );
+
+    if (hasEnteredTarget) {
+      this.removeGraceArea();
+    } else if (isPointerOutsideGraceArea) {
+      this.setOpen(false);
+    }
+  };
+
+  onTriggerLeave = (event: MouseEvent) => {
+    this.createGraceArea(event, this.contentElement);
+  };
+
+  onContentLeave = (event: MouseEvent) => {
+    this.createGraceArea(event, this.triggerElement);
   };
 
   finishClose = () => {
@@ -86,6 +255,10 @@ class Tooltip extends Component<TooltipSignature> {
     this.triggerElement = element;
   };
 
+  setContentElement = (element: HTMLElement | null) => {
+    this.contentElement = element;
+  };
+
   @cached
   @provide(TooltipContext)
   get context(): TooltipContextValue {
@@ -96,6 +269,9 @@ class Tooltip extends Component<TooltipSignature> {
       finishClose: this.finishClose,
       triggerElement: this.triggerElement,
       setTriggerElement: this.setTriggerElement,
+      setContentElement: this.setContentElement,
+      onTriggerLeave: this.onTriggerLeave,
+      onContentLeave: this.onContentLeave,
     };
   }
 
@@ -124,8 +300,8 @@ class TooltipTrigger extends Component<TooltipTriggerSignature> {
     this.context.setOpen(true);
   };
 
-  handleMouseLeave = () => {
-    this.context.setOpen(false);
+  handleMouseLeave = (event: MouseEvent) => {
+    this.context.onTriggerLeave(event);
   };
 
   handleFocus = () => {
@@ -208,6 +384,13 @@ class TooltipContent extends Component<TooltipContentSignature> {
   get destinationElement() {
     return document.body;
   }
+
+  registerElement = modifier((element: HTMLElement) => {
+    this.context.setContentElement(element);
+    return () => {
+      this.context.setContentElement(null);
+    };
+  });
 
   positionContent = modifier((element: HTMLElement) => {
     const triggerElement = this.context.triggerElement;
@@ -317,8 +500,8 @@ class TooltipContent extends Component<TooltipContentSignature> {
     this.context.setOpen(true);
   };
 
-  handleMouseLeave = () => {
-    this.context.setOpen(false);
+  handleMouseLeave = (event: MouseEvent) => {
+    this.context.onContentLeave(event);
   };
 
   <template>
@@ -339,6 +522,7 @@ class TooltipContent extends Component<TooltipContentSignature> {
           {{on "mouseenter" this.handleMouseEnter}}
           {{on "mouseleave" this.handleMouseLeave}}
           {{this.positionContent}}
+          {{this.registerElement}}
           ...attributes
         >
           {{yield}}
