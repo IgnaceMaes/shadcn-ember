@@ -39,37 +39,7 @@ export default defineConfig({
     Icons({ compiler: 'ember' }),
     emberSsg({
       routes: ['index', 'blocks', ...docsRoutes],
-      rehydrate: true,
     }),
-    // Suppress expected errors during SSG cleanup.
-    // Ember's Backburner schedules destruction tasks via native setTimeout
-    // after HappyDOM globals are restored. These tasks reference browser
-    // globals or DOM nodes that are no longer available. The HTML has already
-    // been extracted at this point, so it's safe to ignore these cleanup
-    // errors. The RangeError is from ember-provide-consume-context's
-    // @consume decorator recursing when re-rendering across SSG pages
-    // (known SSR limitation).
-    //
-    // This handler is installed in closeBundle (not at module scope) so it
-    // only suppresses errors during the SSG phase, not during the main build.
-    {
-      name: 'ssg-error-handler',
-      closeBundle() {
-        process.on('uncaughtException', (err) => {
-          const msg = err?.message ?? '';
-          if (
-            (err?.name === 'DOMException' && msg.includes('removeChild')) ||
-            (err instanceof ReferenceError &&
-              msg.includes('window is not defined')) ||
-            (err instanceof RangeError && msg.includes('Maximum call stack'))
-          ) {
-            return;
-          }
-          console.error(err);
-          process.exit(1);
-        });
-      },
-    },
   ],
   build: {
     rollupOptions: {
