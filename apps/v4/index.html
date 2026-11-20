@@ -2,6 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <script>
+      // Apply the theme before first paint; prerendered HTML can't know it.
+      // Must stay in sync with app/services/theme.ts.
+      (function () {
+        var theme = 'system';
+        try {
+          theme = localStorage.getItem('theme') || 'system';
+        } catch (e) {}
+        var dark =
+          theme === 'dark' ||
+          (theme === 'system' &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.add(dark ? 'dark' : 'light');
+      })();
+    </script>
     <title>The Foundation for your Design System - shadcn-ember</title>
     <meta name="description" content="A set of beautifully designed components that you can customize, extend, and build on. Start here then make it your own. Open Source. Open Code.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,28 +28,15 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
 
-    {{content-for "head"}}
-
-    <link integrity="" rel="stylesheet" href="/@embroider/virtual/vendor.css">
-    <link integrity="" rel="stylesheet" href="/@embroider/virtual/app.css">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
-    {{content-for "head-footer"}}
+    <!-- VITE_EMBER_SSR_HEAD -->
   </head>
   <body class="group/body overscroll-none antialiased [--footer-height:calc(var(--spacing)*14)] [--header-height:calc(var(--spacing)*14)] xl:[--footer-height:calc(var(--spacing)*24)]">
-    {{content-for "body"}}
+    <!-- VITE_EMBER_SSR_BODY -->
 
-    <script src="/@embroider/virtual/vendor.js"></script>
-    <script type="module">
-      import Application from './app/app';
-      import environment from './app/config/environment';
-
-      Application.create(environment.APP);
-    </script>
-
-    {{content-for "body-footer"}}
+    <script type="module" src="/app/entry.ts"></script>
   </body>
 </html>

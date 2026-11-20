@@ -4,6 +4,9 @@
   "compatibility_date": "2025-12-26",
   "assets": {
     "directory": "./dist",
+    // Prerendered pages live at <route>/index.html. Serve them at /<route>
+    // (no trailing slash) so the Ember router recognises the URL.
+    "html_handling": "drop-trailing-slash",
     "not_found_handling": "single-page-application"
   }
 }

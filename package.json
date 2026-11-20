@@ -29,5 +29,10 @@
   "engines": {
     "node": ">= 20",
     "pnpm": ">= 10"
+  },
+  "pnpm": {
+    "overrides": {
+      "ember-concurrency": "^5.2.0"
+    }
   }
 }
