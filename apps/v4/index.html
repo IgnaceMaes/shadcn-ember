@@ -28,6 +28,10 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
 
+    <!-- Preload the self-hosted (fontsource) latin subsets so text doesn't flash/shift on font swap. -->
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="./node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="./node_modules/@fontsource-variable/geist-mono/files/geist-mono-latin-wght-normal.woff2">
+
     <!-- VITE_EMBER_SSR_HEAD -->
   </head>
   <body class="group/body overscroll-none antialiased [--footer-height:calc(var(--spacing)*14)] [--header-height:calc(var(--spacing)*14)] xl:[--footer-height:calc(var(--spacing)*24)]">
