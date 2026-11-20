@@ -6,6 +6,7 @@
 // and it bundles cleanly into the ESM SSR build.
 import { createHighlighterCore } from 'shiki/core';
 import { createJavaScriptRegexEngine } from 'shiki/engine/javascript';
+import astro from 'shiki/langs/astro.mjs';
 import bash from 'shiki/langs/bash.mjs';
 import css from 'shiki/langs/css.mjs';
 import glimmerTs from 'shiki/langs/glimmer-ts.mjs';
@@ -21,6 +22,7 @@ export function createHighlighter() {
   return createHighlighterCore({
     themes: [githubLight, githubDark],
     langs: [
+      astro,
       bash,
       css,
       glimmerTs,
