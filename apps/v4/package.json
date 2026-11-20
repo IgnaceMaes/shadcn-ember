@@ -52,6 +52,8 @@
     "@embroider/router": "^3.0.6",
     "@embroider/vite": "^1.8.1",
     "@eslint/js": "^9.39.1",
+    "@fontsource-variable/geist": "^5.3.0",
+    "@fontsource-variable/geist-mono": "^5.3.0",
     "@glimmer/component": "^2.0.0",
     "@glint/ember-tsc": "^1.0.8",
     "@glint/template": "^1.7.3",
