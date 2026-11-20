@@ -8,19 +8,6 @@ const ENV = {
     FEATURES: {},
   },
   APP: {} as Record<string, unknown>,
-  'ember-shiki': {
-    defaultLanguages: [
-      'gjs',
-      'gts',
-      'typescript',
-      'javascript',
-      'tsx',
-      'bash',
-      'css',
-      'json',
-    ],
-    defaultThemes: ['github-dark', 'github-light'],
-  },
 };
 
 export default ENV;

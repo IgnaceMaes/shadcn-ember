@@ -1,11 +1,9 @@
-import { service } from '@ember/service';
 import Component from '@glimmer/component';
-import { CodeBlock } from 'ember-shiki';
 
+import CodeHighlight from '@/components/docs/code-highlight';
 import CopyButton from '@/components/docs/copy-button';
 import { cn } from '@/lib/utils';
 
-import type ThemeService from '@/services/theme';
 import type { ComponentLike } from '@glint/template';
 
 // Load all example components and their raw source code
@@ -33,8 +31,6 @@ interface ComponentPreviewSignature {
 }
 
 export default class ComponentPreviewRender extends Component<ComponentPreviewSignature> {
-  @service declare theme: ThemeService;
-
   get showLineNumbers() {
     return this.args.showLineNumbers ?? true;
   }
@@ -89,13 +85,11 @@ export default class ComponentPreviewRender extends Component<ComponentPreviewSi
           style="--shiki-dark: #e1e4e8; --shiki-light: #1f2328; --shiki-dark-bg: #24292e; --shiki-light-bg: var(--surface); background-color: var(--surface);"
         >
           <CopyButton @value={{this.code}} />
-          <CodeBlock
+          <CodeHighlight
             @code={{this.code}}
             @language="gts"
-            @showCopyButton={{false}}
             @showLineNumbers={{this.showLineNumbers}}
-            @theme={{this.theme.codeBlockTheme}}
-            style="--ember-shiki-padding-x: 1rem; --ember-shiki-padding-y: 0.875rem; --ember-shiki-border-radius: 0; --ember-shiki-background-color: transparent; --ember-shiki-line-height: 1.6; --ember-shiki-font-size: 0.875rem;"
+            style="--code-block-padding-x: 1rem; --code-block-padding-y: 0.875rem; --code-block-line-height: 1.6; --code-block-font-size: 0.875rem;"
           />
         </div>
       </div>

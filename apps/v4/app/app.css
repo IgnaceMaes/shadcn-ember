@@ -215,11 +215,11 @@
   --selection: lab(2.75381% 0 0);
   --selection-foreground: lab(100% 0 0);
 
-  /* Ember Shiki - Copy button styles */
-  --ember-shiki-copy-background-color: transparent;
-  --ember-shiki-copy-border-color: transparent;
-  --ember-shiki-icon-copy: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(113,113,122,1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>');
-  --ember-shiki-icon-copied: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(113,113,122,1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>');
+  /* Code blocks; wrappers can override these by inheritance */
+  --code-block-padding-x: 24px;
+  --code-block-padding-y: 20px;
+  --code-block-line-height: 1.8;
+  --code-block-font-size: 0.875rem;
 }
 
 .dark {
@@ -264,12 +264,6 @@
   --code-number: #a4a4a4;
   --selection: #e5e5e5;
   --selection-foreground: #171717;
-
-  /* Ember Shiki - Dark mode copy button styles */
-  --ember-shiki-copy-background-color: transparent;
-  --ember-shiki-copy-border-color: transparent;
-  --ember-shiki-icon-copy: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(161,161,170,1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>');
-  --ember-shiki-icon-copied: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(161,161,170,1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>');
 }
 
 @layer base {
@@ -282,28 +276,62 @@
   }
 }
 
-/* Ember Shiki copy button overrides */
-[data-copy-button],
-button[class*='copy'] {
-  border: transparent !important;
-  padding: 0.5rem !important;
-  opacity: 0.7 !important;
-  transition: opacity 0.2s !important;
-  background-size: 14px !important;
+/* Code blocks (Shiki output, see app/components/docs/code-highlight.gts) */
+.shiki-code-block {
+  overflow: auto;
+  font-family: var(--font-mono);
+  font-size: var(--code-block-font-size);
+  line-height: var(--code-block-line-height);
 }
 
-[data-copy-button]:hover,
-button[class*='copy']:hover {
-  opacity: 1 !important;
+.shiki-code-block__code {
+  position: relative;
 }
 
 /* Override Shiki's inline background-color on pre elements */
 pre.shiki {
-  --ember-shiki-line-height: 1.8;
-  --ember-shiki-line-number-color: var(--code-number);
-  --ember-shiki-font: var(--font-mono);
-
+  margin: 0;
   background-color: transparent !important;
+}
+
+/* Shiki renders both themes; light colors inline, dark ones as variables */
+.dark .shiki,
+.dark .shiki span {
+  color: var(--shiki-dark) !important;
+}
+
+.shiki code {
+  display: block;
+  overflow-x: auto;
+  padding: var(--code-block-padding-y) 0;
+  font-family: var(--font-mono);
+  font-size: var(--code-block-font-size);
+  line-height: var(--code-block-line-height);
+}
+
+.shiki code .line {
+  display: inline-block;
+  box-sizing: border-box;
+  min-width: 100%;
+  padding: 0 var(--code-block-padding-x);
+}
+
+.shiki code .line.line--highlight-neutral {
+  background-color: var(--code-highlight);
+}
+
+.line-numbers {
+  counter-reset: step;
+}
+
+.line-numbers code .line::before {
+  content: counter(step);
+  counter-increment: step;
+  display: inline-block;
+  width: 1em;
+  margin-right: 1.5em;
+  color: var(--code-number);
+  text-align: right;
 }
 
 html {
@@ -315,9 +343,8 @@ html {
   color: var(--background);
 }
 
-/* Override ember-shiki line highlight */
-.line.line--highlight-neutral {
-  background-color: var(--code-highlight);
+.shiki ::selection {
+  background: var(--code-number);
 }
 
 /* Color theme overrides */
