@@ -1,10 +1,10 @@
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
-import { CodeBlock } from 'ember-shiki';
 import { eq, or } from 'ember-truth-helpers';
 
 import glimmerTsDark from '@/assets/images/glimmer-ts-dark.svg';
 import glimmerTsLight from '@/assets/images/glimmer-ts-light.svg';
+import CodeHighlight from '@/components/docs/code-highlight';
 import CopyButton from '@/components/docs/copy-button';
 
 import type ThemeService from '@/services/theme';
@@ -55,22 +55,11 @@ export default class CodeBlockThemed extends Component<CodeBlockThemedSignature>
     return this.iconSrc !== undefined || this.iconComponent !== undefined;
   }
 
-  get lineHighlights() {
-    if (!this.args.highlightLines || this.args.highlightLines.length === 0) {
-      return undefined;
-    }
-    // Convert line numbers to ember-shiki LineHighlight format
-    return this.args.highlightLines.map((line) => ({
-      start: line,
-      type: 'neutral' as const,
-    }));
-  }
-
   <template>
     {{! template-lint-disable no-inline-styles }}
     <div
       class="relative overflow-hidden rounded-lg [&_pre]:m-0! [&_pre]:rounded-none! mt-4"
-      style="--shiki-dark: #e1e4e8; --shiki-light: #1f2328; --shiki-dark-bg: #24292e; --shiki-light-bg: var(--surface); background-color: var(--surface); --ember-shiki-padding-y: 14px;"
+      style="--shiki-dark: #e1e4e8; --shiki-light: #1f2328; --shiki-dark-bg: #24292e; --shiki-light-bg: var(--surface); background-color: var(--surface); --code-block-padding-y: 14px;"
     >
       {{#if @title}}
         <div
@@ -116,13 +105,11 @@ export default class CodeBlockThemed extends Component<CodeBlockThemedSignature>
         </div>
       {{/if}}
       <CopyButton @class={{if @title "!top-1.5 !right-2"}} @value={{@code}} />
-      <CodeBlock
+      <CodeHighlight
         @code={{@code}}
+        @highlightLines={{@highlightLines}}
         @language={{@language}}
-        @lineHighlights={{this.lineHighlights}}
-        @showCopyButton={{false}}
-        @showLineNumbers={{if @showLineNumbers @showLineNumbers false}}
-        @theme={{this.theme.codeBlockTheme}}
+        @showLineNumbers={{@showLineNumbers}}
       />
     </div>
   </template>

@@ -11,10 +11,6 @@ export default class ThemeService extends Service {
 
   mediaQuery?: MediaQueryList;
 
-  get codeBlockTheme() {
-    return this.resolvedTheme === 'dark' ? 'github-dark' : 'github-light';
-  }
-
   get resolvedTheme(): 'light' | 'dark' {
     if (this.theme === 'system') {
       return this.mediaQuery?.matches ? 'dark' : 'light';

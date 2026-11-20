@@ -1,13 +1,12 @@
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
-import { CodeBlock } from 'ember-shiki';
 
+import CodeHighlight from '@/components/docs/code-highlight';
 import CopyButton from '@/components/docs/copy-button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
 import type PackageManagerService from '@/services/package-manager';
 import type { PackageManager } from '@/services/package-manager';
-import type ThemeService from '@/services/theme';
 
 import Terminal from '~icons/lucide/terminal';
 
@@ -22,7 +21,6 @@ interface PackageManagerCommandSignature {
 
 export default class PackageManagerCommand extends Component<PackageManagerCommandSignature> {
   @service declare packageManager: PackageManagerService;
-  @service declare theme: ThemeService;
 
   handleTabChange = (value: string) => {
     this.packageManager.setPackageManager(value as PackageManager);
@@ -164,52 +162,40 @@ export default class PackageManagerCommand extends Component<PackageManagerComma
             @class="flex-1 outline-none mt-0 px-4 py-3.5"
             @value="pnpm"
           >
-            <CodeBlock
+            <CodeHighlight
               @code={{this.pnpmCommand}}
               @language="bash"
-              @showCopyButton={{false}}
-              @showLineNumbers={{false}}
-              @theme={{this.theme.codeBlockTheme}}
-              style="--ember-shiki-padding-x: 0; --ember-shiki-padding-y: 0; --ember-shiki-border-radius: 0; --ember-shiki-background-color: transparent; --ember-shiki-line-height: 1.5; --ember-shiki-font-size: 0.875rem;"
+              style="--code-block-padding-x: 0; --code-block-padding-y: 0; --code-block-line-height: 1.5; --code-block-font-size: 0.875rem;"
             />
           </TabsContent>
           <TabsContent
             @class="flex-1 outline-none mt-0 px-4 py-3.5"
             @value="npm"
           >
-            <CodeBlock
+            <CodeHighlight
               @code={{this.npmCommand}}
               @language="bash"
-              @showCopyButton={{false}}
-              @showLineNumbers={{false}}
-              @theme={{this.theme.codeBlockTheme}}
-              style="--ember-shiki-padding-x: 0; --ember-shiki-padding-y: 0; --ember-shiki-border-radius: 0; --ember-shiki-background-color: transparent; --ember-shiki-line-height: 1.5; --ember-shiki-font-size: 0.875rem;"
+              style="--code-block-padding-x: 0; --code-block-padding-y: 0; --code-block-line-height: 1.5; --code-block-font-size: 0.875rem;"
             />
           </TabsContent>
           <TabsContent
             @class="flex-1 outline-none mt-0 px-4 py-3.5"
             @value="yarn"
           >
-            <CodeBlock
+            <CodeHighlight
               @code={{this.yarnCommand}}
               @language="bash"
-              @showCopyButton={{false}}
-              @showLineNumbers={{false}}
-              @theme={{this.theme.codeBlockTheme}}
-              style="--ember-shiki-padding-x: 0; --ember-shiki-padding-y: 0; --ember-shiki-border-radius: 0; --ember-shiki-background-color: transparent; --ember-shiki-line-height: 1.5; --ember-shiki-font-size: 0.875rem;"
+              style="--code-block-padding-x: 0; --code-block-padding-y: 0; --code-block-line-height: 1.5; --code-block-font-size: 0.875rem;"
             />
           </TabsContent>
           <TabsContent
             @class="flex-1 outline-none mt-0 px-4 py-3.5"
             @value="bun"
           >
-            <CodeBlock
+            <CodeHighlight
               @code={{this.bunCommand}}
               @language="bash"
-              @showCopyButton={{false}}
-              @showLineNumbers={{false}}
-              @theme={{this.theme.codeBlockTheme}}
-              style="--ember-shiki-padding-x: 0; --ember-shiki-padding-y: 0; --ember-shiki-border-radius: 0; --ember-shiki-background-color: transparent; --ember-shiki-line-height: 1.5; --ember-shiki-font-size: 0.875rem;"
+              style="--code-block-padding-x: 0; --code-block-padding-y: 0; --code-block-line-height: 1.5; --code-block-font-size: 0.875rem;"
             />
           </TabsContent>
         </div>

@@ -1,8 +1,8 @@
 import { run } from '@ember/runloop';
-import { modifier } from 'ember-modifier';
 
 import App, { appModules } from './app.ts';
 import config from './config/environment.ts';
+import { loadHighlighter } from './lib/highlighter.ts';
 import ThemeService from './services/theme.ts';
 
 import type ApplicationInstance from '@ember/application/instance';
@@ -18,11 +18,6 @@ class SsrThemeService extends ThemeService {
 class SsrApp extends App {
   modules = {
     ...appModules,
-    // Shiki can't load its WASM engine inside the ESM SSR bundle. Skip
-    // highlighting on the server: CodeBlock then renders its plain-text
-    // fallback, which is also what the client renders on first paint, so
-    // rehydration matches and the client highlights afterwards.
-    './modifiers/shiki-render': modifier(() => {}),
     // The server can't know the visitor's theme. Don't bake a light/dark
     // class into <html>; the inline script in index.html sets it before
     // first paint.
@@ -41,6 +36,9 @@ export function createSsrApp() {
   // already been captured at this point.
   const visit = app.visit.bind(app);
   app.visit = async (...args: Parameters<typeof visit>) => {
+    // Have the highlighter ready before rendering, so code blocks are
+    // prerendered with syntax highlighting rather than as plain text.
+    await loadHighlighter();
     const instance = (await visit(...args)) as ApplicationInstance;
     const destroy = instance.destroy.bind(instance);
     instance.destroy = () => {
