@@ -102,6 +102,7 @@
     "remark-gfm": "^4.0.1",
     "remark-parse": "^11.0.0",
     "rimraf": "^6.1.2",
+    "shadcn-ember": "workspace:^",
     "stylelint": "^16.26.1",
     "stylelint-config-standard": "^38.0.0",
     "testem": "^3.16.0",
@@ -126,8 +127,10 @@
   "dependencies": {
     "@floating-ui/dom": "^1.7.4",
     "@tailwindcss/vite": "^4.1.18",
+    "@tanstack/table-core": "^8.21.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "date-fns": "^4.3.0",
     "ember-cli-flash": "^7.0.0",
     "ember-keyboard": "^9.0.4",
     "tailwind-merge": "^3.4.0",

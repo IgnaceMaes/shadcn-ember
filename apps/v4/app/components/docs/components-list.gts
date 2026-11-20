@@ -57,6 +57,12 @@ const components: ComponentItem[] = [
     hasPage: hasMarkdownPage('aspect-ratio'),
   },
   {
+    name: 'Attachment',
+    route: 'docs.components.attachment',
+    isNew: true,
+    hasPage: hasMarkdownPage('attachment'),
+  },
+  {
     name: 'Avatar',
     route: 'docs.components.avatar',
     isNew: false,
@@ -73,6 +79,12 @@ const components: ComponentItem[] = [
     route: 'docs.components.breadcrumb',
     isNew: false,
     hasPage: hasMarkdownPage('breadcrumb'),
+  },
+  {
+    name: 'Bubble',
+    route: 'docs.components.bubble',
+    isNew: true,
+    hasPage: hasMarkdownPage('bubble'),
   },
   {
     name: 'Button Group',
@@ -231,10 +243,22 @@ const components: ComponentItem[] = [
     hasPage: hasMarkdownPage('label'),
   },
   {
+    name: 'Marker',
+    route: 'docs.components.marker',
+    isNew: true,
+    hasPage: hasMarkdownPage('marker'),
+  },
+  {
     name: 'Menubar',
     route: 'docs.components.menubar',
     isNew: false,
     hasPage: hasMarkdownPage('menubar'),
+  },
+  {
+    name: 'Message',
+    route: 'docs.components.message',
+    isNew: true,
+    hasPage: hasMarkdownPage('message'),
   },
   {
     name: 'Native Select',

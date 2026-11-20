@@ -25,13 +25,13 @@ import {
         </BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbSeparator />
-      <BreadcrumbItem class="hidden md:block">
+      <BreadcrumbItem @class="hidden md:block">
         <BreadcrumbLink @asChild={{true}} as |link|>
           <LinkTo @route="docs" class={{link.classes}}>Documentation</LinkTo>
         </BreadcrumbLink>
       </BreadcrumbItem>
-      <BreadcrumbSeparator class="hidden md:block" />
-      <BreadcrumbItem class="hidden md:block">
+      <BreadcrumbSeparator @class="hidden md:block" />
+      <BreadcrumbItem @class="hidden md:block">
         <BreadcrumbLink @asChild={{true}} as |link|>
           <LinkTo
             @model="components"
@@ -40,11 +40,11 @@ import {
           >Components</LinkTo>
         </BreadcrumbLink>
       </BreadcrumbItem>
-      <BreadcrumbSeparator class="hidden md:block" />
-      <BreadcrumbItem class="md:hidden">
+      <BreadcrumbSeparator @class="hidden md:block" />
+      <BreadcrumbItem @class="md:hidden">
         <DropdownMenu>
           <DropdownMenuTrigger @class="flex items-center gap-1">
-            <BreadcrumbEllipsis class="size-4" />
+            <BreadcrumbEllipsis @class="size-4" />
             <span class="sr-only">Toggle menu</span>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
@@ -54,7 +54,7 @@ import {
           </DropdownMenuContent>
         </DropdownMenu>
       </BreadcrumbItem>
-      <BreadcrumbSeparator class="md:hidden" />
+      <BreadcrumbSeparator @class="md:hidden" />
       <BreadcrumbItem>
         <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
       </BreadcrumbItem>

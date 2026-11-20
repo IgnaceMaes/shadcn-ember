@@ -36,7 +36,7 @@ export default class ButtonGroupDemo extends Component {
 
   <template>
     <ButtonGroup>
-      <ButtonGroup class="hidden sm:flex">
+      <ButtonGroup @class="hidden sm:flex">
         <Button @size="icon-sm" @variant="outline" aria-label="Go Back">
           <ArrowLeftIcon />
         </Button>

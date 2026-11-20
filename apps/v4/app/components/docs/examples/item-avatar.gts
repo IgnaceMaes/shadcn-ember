@@ -41,11 +41,11 @@ import Plus from '~icons/lucide/plus';
         <div
           class="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:grayscale"
         >
-          <Avatar class="hidden sm:flex">
+          <Avatar @class="hidden sm:flex">
             <AvatarImage @alt="@shadcn" @src="https://github.com/shadcn.png" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
-          <Avatar class="hidden sm:flex">
+          <Avatar @class="hidden sm:flex">
             <AvatarImage
               @alt="@maxleiter"
               @src="https://github.com/maxleiter.png"

@@ -41,7 +41,7 @@ const autofocus = modifier((element: HTMLElement) => {
         <Separator />
         <div class="p-4 text-sm *:[p:not(:last-child)]:mb-2">
           <Textarea
-            class="mb-4 resize-none"
+            @class="mb-4 resize-none"
             placeholder="Describe your task in natural language."
             {{autofocus}}
           />

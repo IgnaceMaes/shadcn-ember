@@ -83,6 +83,21 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  attachment: {
+    name: 'attachment',
+    description: '',
+    type: 'registry:ui',
+    registryDependencies: ['button'],
+    files: [
+      {
+        path: 'registry/new-york-v4/ui/attachment.gts',
+        type: 'registry:ui',
+        target: '',
+      },
+    ],
+    categories: undefined,
+    meta: undefined,
+  },
   avatar: {
     name: 'avatar',
     description: '',
@@ -128,6 +143,21 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  bubble: {
+    name: 'bubble',
+    description: '',
+    type: 'registry:ui',
+    registryDependencies: undefined,
+    files: [
+      {
+        path: 'registry/new-york-v4/ui/bubble.gts',
+        type: 'registry:ui',
+        target: '',
+      },
+    ],
+    categories: undefined,
+    meta: undefined,
+  },
   'button-group': {
     name: 'button-group',
     description: '',
@@ -151,6 +181,21 @@ export const Index: Record<string, any> = {
     files: [
       {
         path: 'registry/new-york-v4/ui/button.gts',
+        type: 'registry:ui',
+        target: '',
+      },
+    ],
+    categories: undefined,
+    meta: undefined,
+  },
+  calendar: {
+    name: 'calendar',
+    description: '',
+    type: 'registry:ui',
+    registryDependencies: ['button'],
+    files: [
+      {
+        path: 'registry/new-york-v4/ui/calendar.gts',
         type: 'registry:ui',
         target: '',
       },
@@ -241,6 +286,21 @@ export const Index: Record<string, any> = {
     files: [
       {
         path: 'registry/new-york-v4/ui/dialog.gts',
+        type: 'registry:ui',
+        target: '',
+      },
+    ],
+    categories: undefined,
+    meta: undefined,
+  },
+  drawer: {
+    name: 'drawer',
+    description: '',
+    type: 'registry:ui',
+    registryDependencies: undefined,
+    files: [
+      {
+        path: 'registry/new-york-v4/ui/drawer.gts',
         type: 'registry:ui',
         target: '',
       },
@@ -391,6 +451,36 @@ export const Index: Record<string, any> = {
     files: [
       {
         path: 'registry/new-york-v4/ui/label.gts',
+        type: 'registry:ui',
+        target: '',
+      },
+    ],
+    categories: undefined,
+    meta: undefined,
+  },
+  marker: {
+    name: 'marker',
+    description: '',
+    type: 'registry:ui',
+    registryDependencies: undefined,
+    files: [
+      {
+        path: 'registry/new-york-v4/ui/marker.gts',
+        type: 'registry:ui',
+        target: '',
+      },
+    ],
+    categories: undefined,
+    meta: undefined,
+  },
+  message: {
+    name: 'message',
+    description: '',
+    type: 'registry:ui',
+    registryDependencies: undefined,
+    files: [
+      {
+        path: 'registry/new-york-v4/ui/message.gts',
         type: 'registry:ui',
         target: '',
       },

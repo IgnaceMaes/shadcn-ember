@@ -27,13 +27,13 @@ export default class ButtonGroupInputGroup extends Component {
   };
 
   <template>
-    <ButtonGroup class="[--radius:9999rem]">
+    <ButtonGroup @class="[--radius:9999rem]">
       <ButtonGroup>
         <Button @size="icon" @variant="outline" aria-label="Add">
           <PlusIcon />
         </Button>
       </ButtonGroup>
-      <ButtonGroup class="flex-1">
+      <ButtonGroup @class="flex-1">
         <InputGroup>
           <InputGroupInput
             disabled={{this.voiceEnabled}}
@@ -47,11 +47,11 @@ export default class ButtonGroupInputGroup extends Component {
             <Tooltip>
               <TooltipTrigger>
                 <InputGroupButton
+                  @class="data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
                   @size="icon-xs"
                   @variant="ghost"
                   aria-label="Voice Mode"
                   aria-pressed={{this.voiceEnabled}}
-                  class="data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
                   data-active={{this.voiceEnabled}}
                   {{on "click" this.toggleVoice}}
                 >

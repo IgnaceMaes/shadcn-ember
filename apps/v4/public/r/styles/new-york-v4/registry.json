@@ -63,6 +63,17 @@
       ]
     },
     {
+      "name": "attachment",
+      "type": "registry:ui",
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/attachment.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "avatar",
       "type": "registry:ui",
       "dependencies": ["ember-truth-helpers"],
@@ -94,6 +105,16 @@
       ]
     },
     {
+      "name": "bubble",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/bubble.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "button-group",
       "type": "registry:ui",
       "registryDependencies": ["separator"],
@@ -110,6 +131,17 @@
       "files": [
         {
           "path": "registry/new-york-v4/ui/button.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "calendar",
+      "type": "registry:ui",
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/calendar.gts",
           "type": "registry:ui"
         }
       ]
@@ -184,6 +216,17 @@
       "files": [
         {
           "path": "registry/new-york-v4/ui/dialog.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "drawer",
+      "type": "registry:ui",
+      "dependencies": ["ember-modifier", "ember-provide-consume-context"],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/drawer.gts",
           "type": "registry:ui"
         }
       ]
@@ -300,6 +343,26 @@
       "files": [
         {
           "path": "registry/new-york-v4/ui/label.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "marker",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/marker.gts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "message",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/message.gts",
           "type": "registry:ui"
         }
       ]

@@ -8,9 +8,9 @@ import { Spinner } from '@/components/ui/spinner';
         <Spinner />
       </ItemMedia>
       <ItemContent>
-        <ItemTitle class="line-clamp-1">Processing payment...</ItemTitle>
+        <ItemTitle @class="line-clamp-1">Processing payment...</ItemTitle>
       </ItemContent>
-      <ItemContent class="flex-none justify-end">
+      <ItemContent @class="flex-none justify-end">
         <span class="text-sm tabular-nums">$100.00</span>
       </ItemContent>
     </Item>

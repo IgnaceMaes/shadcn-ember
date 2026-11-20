@@ -57,6 +57,6 @@ export default <template>
       </div>
     {{/if}}
 
-    <Separator class="my-6" />
+    <Separator @class="my-6" />
   </div>
 </template> satisfies TOC<Signature>;

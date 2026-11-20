@@ -81,28 +81,55 @@ class Dialog extends Component<DialogSignature> {
   </template>
 }
 
-interface DialogTriggerSignature {
+interface DialogTriggerSignatureAsChild {
   Element: HTMLButtonElement;
   Args: {
     class?: string;
-    asChild?: boolean;
+    asChild: true;
+  };
+  Blocks: {
+    default: [
+      trigger: {
+        modifiers: typeof DialogTrigger.prototype.applyTriggerBehavior;
+      },
+    ];
+  };
+}
+
+interface DialogTriggerSignatureAsRoot {
+  Element: HTMLButtonElement;
+  Args: {
+    class?: string;
+    asChild?: false;
   };
   Blocks: {
     default: [];
   };
 }
 
+type DialogTriggerSignature =
+  | DialogTriggerSignatureAsChild
+  | DialogTriggerSignatureAsRoot;
+
 class DialogTrigger extends Component<DialogTriggerSignature> {
   @consume(DialogContext) context!: ContextRegistry[typeof DialogContext];
 
-  handleClick = (event: MouseEvent) => {
+  handleClick = (event: Event) => {
     event.preventDefault();
     this.context.setOpen(true);
   };
 
+  applyTriggerBehavior = modifier((element: HTMLElement) => {
+    element.setAttribute('data-slot', 'dialog-trigger');
+    element.addEventListener('click', this.handleClick);
+    return () => {
+      element.removeEventListener('click', this.handleClick);
+    };
+  });
+
   <template>
     {{#if @asChild}}
-      {{yield (hash)}}
+      {{yield (hash modifiers=this.applyTriggerBehavior)}}
     {{else}}
       <button
         class={{cn @class}}
@@ -250,10 +277,6 @@ class DialogContent extends Component<DialogContentSignature> {
     }
   );
 
-  handleOverlayClick = (event: MouseEvent) => {
-    event.stopPropagation();
-  };
-
   handleCloseClick = () => {
     this.context.setOpen(false);
   };
@@ -285,7 +308,6 @@ class DialogContent extends Component<DialogContentSignature> {
           role="dialog"
           tabindex="-1"
           {{on "animationend" this.handleAnimationEnd}}
-          {{on "click" this.handleOverlayClick}}
           {{on "keydown" this.handleKeyDown}}
           {{this.scrollLock enabled=this.context.open}}
           ...attributes

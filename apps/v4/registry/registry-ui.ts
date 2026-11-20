@@ -44,6 +44,17 @@ export const ui: Registry['items'] = [
     ],
   },
   {
+    name: 'attachment',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/attachment.gts',
+        type: 'registry:ui',
+      },
+    ],
+    registryDependencies: ['button'],
+  },
+  {
     name: 'avatar',
     type: 'registry:ui',
     files: [
@@ -75,6 +86,16 @@ export const ui: Registry['items'] = [
     ],
   },
   {
+    name: 'bubble',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/bubble.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
     name: 'button-group',
     type: 'registry:ui',
     files: [
@@ -94,6 +115,17 @@ export const ui: Registry['items'] = [
         type: 'registry:ui',
       },
     ],
+  },
+  {
+    name: 'calendar',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/calendar.gts',
+        type: 'registry:ui',
+      },
+    ],
+    registryDependencies: ['button'],
   },
   {
     name: 'card',
@@ -164,6 +196,17 @@ export const ui: Registry['items'] = [
     files: [
       {
         path: 'ui/dialog.gts',
+        type: 'registry:ui',
+      },
+    ],
+    dependencies: ['ember-modifier', 'ember-provide-consume-context'],
+  },
+  {
+    name: 'drawer',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/drawer.gts',
         type: 'registry:ui',
       },
     ],
@@ -281,6 +324,26 @@ export const ui: Registry['items'] = [
     files: [
       {
         path: 'ui/label.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'marker',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/marker.gts',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'message',
+    type: 'registry:ui',
+    files: [
+      {
+        path: 'ui/message.gts',
         type: 'registry:ui',
       },
     ],

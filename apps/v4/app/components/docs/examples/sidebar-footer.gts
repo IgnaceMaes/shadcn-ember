@@ -21,7 +21,7 @@ import ChevronUp from '~icons/lucide/chevron-up';
 import User2 from '~icons/lucide/user-2';
 
 <template>
-  <SidebarProvider class="!min-h-full h-full">
+  <SidebarProvider @class="!min-h-full h-full">
     <Sidebar>
       <SidebarHeader />
       <SidebarContent>
@@ -41,8 +41,8 @@ import User2 from '~icons/lucide/user-2';
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent
+                @class="w-[--radix-popper-anchor-width]"
                 @side="top"
-                class="w-[--radix-popper-anchor-width]"
               >
                 <DropdownMenuItem>
                   <span>Account</span>

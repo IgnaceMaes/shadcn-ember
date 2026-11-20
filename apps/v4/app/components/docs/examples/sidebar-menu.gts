@@ -25,7 +25,7 @@ const projects = [
 ];
 
 <template>
-  <SidebarProvider class="!min-h-full h-full">
+  <SidebarProvider @class="!min-h-full h-full">
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>

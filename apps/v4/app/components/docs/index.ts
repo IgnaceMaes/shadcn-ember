@@ -10,6 +10,7 @@ export { default as DocSidebarGroup } from './doc-sidebar-group';
 export { default as DocSidebarLink } from './doc-sidebar-link';
 export { default as DocLinkTo } from './doc-link-to';
 export { default as DocToc } from './doc-toc';
+export { default as DocFallax } from './doc-fallax';
 
 // Page Components
 export { default as DocPage } from './doc-page';
