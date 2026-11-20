@@ -3,12 +3,17 @@ import { modifier } from 'ember-modifier';
 
 import App, { appModules } from './app.ts';
 import config from './config/environment.ts';
+import ThemeService from './services/theme.ts';
 
 import type ApplicationInstance from '@ember/application/instance';
 
 // Lets the SSG renderer wait for the run loop, timers and test waiters
 // (e.g. ember-concurrency tasks) before capturing the DOM.
 export { settled } from '@ember/test-helpers';
+
+class SsrThemeService extends ThemeService {
+  override applyTheme() {}
+}
 
 class SsrApp extends App {
   modules = {
@@ -18,6 +23,10 @@ class SsrApp extends App {
     // fallback, which is also what the client renders on first paint, so
     // rehydration matches and the client highlights afterwards.
     './modifiers/shiki-render': modifier(() => {}),
+    // The server can't know the visitor's theme. Don't bake a light/dark
+    // class into <html>; the inline script in index.html sets it before
+    // first paint.
+    './services/theme': SsrThemeService,
   };
 }
 
