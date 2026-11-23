@@ -1,5 +1,6 @@
 import { hash } from '@ember/helper';
 import { on } from '@ember/modifier';
+import { getOwner } from '@ember/owner';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { modifier } from 'ember-modifier';
@@ -7,6 +8,7 @@ import { provide, consume } from 'ember-provide-consume-context';
 
 import { cn } from '@/lib/utils';
 
+import type ApplicationInstance from '@ember/application/instance';
 import type { TOC } from '@ember/component/template-only';
 
 type Direction = 'top' | 'right' | 'bottom' | 'left';
@@ -349,7 +351,18 @@ class DrawerContent extends Component<DrawerContentSignature> {
   @consume(DrawerContext) context!: ContextRegistry[typeof DrawerContext];
 
   get destinationElement() {
-    return document.body;
+    const rootElement = (getOwner(this) as ApplicationInstance | undefined)
+      ?.rootElement;
+
+    if (rootElement instanceof Element) {
+      return rootElement;
+    }
+
+    return (
+      (typeof rootElement === 'string' &&
+        document.querySelector(rootElement)) ||
+      document.body
+    );
   }
 
   get classes() {

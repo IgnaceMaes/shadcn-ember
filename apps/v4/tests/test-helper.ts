@@ -7,7 +7,15 @@ import Application from 'shadcn-ember-docs/app';
 import config from 'shadcn-ember-docs/config/environment';
 
 export function start() {
-  setApplication(Application.create(config.APP));
+  config.locationType = 'none';
+
+  setApplication(
+    Application.create({
+      ...config.APP,
+      rootElement: '#ember-testing',
+      autoboot: false,
+    })
+  );
 
   setup(QUnit.assert);
   setupEmberOnerrorValidation();
