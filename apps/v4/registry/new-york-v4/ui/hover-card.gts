@@ -1,6 +1,7 @@
 import { hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { htmlSafe } from '@ember/template';
+import { getOwner } from '@ember/owner';
 import {
   computePosition,
   flip,
@@ -13,6 +14,7 @@ import Component from '@glimmer/component';
 import { tracked, cached } from '@glimmer/tracking';
 import { modifier } from 'ember-modifier';
 import { provide, consume } from 'ember-provide-consume-context';
+import type ApplicationInstance from '@ember/application/instance';
 
 import { cn } from '@/lib/utils';
 
@@ -140,9 +142,10 @@ class HoverCardTrigger extends Component<HoverCardTriggerSignature> {
   };
 
   registerElement = modifier((element: HTMLElement) => {
-    this.context.setTriggerElement(element);
+    const { setTriggerElement } = this.context;
+    setTriggerElement(element);
     return () => {
-      this.context.setTriggerElement(null);
+      setTriggerElement(null);
     };
   });
 
@@ -150,11 +153,12 @@ class HoverCardTrigger extends Component<HoverCardTriggerSignature> {
     element.setAttribute('data-slot', 'hover-card-trigger');
     element.addEventListener('mouseenter', this.handleMouseEnter);
     element.addEventListener('mouseleave', this.handleMouseLeave);
-    this.context.setTriggerElement(element);
+    const { setTriggerElement } = this.context;
+    setTriggerElement(element);
     return () => {
       element.removeEventListener('mouseenter', this.handleMouseEnter);
       element.removeEventListener('mouseleave', this.handleMouseLeave);
-      this.context.setTriggerElement(null);
+      setTriggerElement(null);
     };
   });
 
@@ -196,7 +200,18 @@ class HoverCardContent extends Component<HoverCardContentSignature> {
   cleanup?: () => void;
 
   get destinationElement() {
-    return document.body;
+    const rootElement = (getOwner(this) as ApplicationInstance | undefined)
+      ?.rootElement;
+
+    if (rootElement instanceof Element) {
+      return rootElement;
+    }
+
+    return (
+      (typeof rootElement === 'string' &&
+        document.querySelector(rootElement)) ||
+      document.body
+    );
   }
 
   positionContent = modifier((element: HTMLElement) => {

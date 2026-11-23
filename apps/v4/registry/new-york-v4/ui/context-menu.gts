@@ -1,5 +1,6 @@
 import { on } from '@ember/modifier';
 import { htmlSafe } from '@ember/template';
+import { getOwner } from '@ember/owner';
 import {
   computePosition,
   flip,
@@ -16,6 +17,7 @@ import { provide, consume } from 'ember-provide-consume-context';
 
 import { cn } from '@/lib/utils';
 
+import type ApplicationInstance from '@ember/application/instance';
 import type { TOC } from '@ember/component/template-only';
 
 import Check from '~icons/lucide/check';
@@ -76,16 +78,20 @@ interface ContextMenuSignature {
 
 class ContextMenu extends Component<ContextMenuSignature> {
   @tracked isOpen?: boolean;
-  @tracked isRendered = false;
+  @tracked isOpenOrClosing = false;
   mousePosition: { x: number; y: number } | null = null;
 
   get open() {
     return this.args.open ?? this.isOpen ?? this.args.defaultOpen ?? false;
   }
 
+  get isRendered() {
+    return this.open || this.isOpenOrClosing;
+  }
+
   setOpen = (open: boolean) => {
     if (open) {
-      this.isRendered = true;
+      this.isOpenOrClosing = true;
       this.isOpen = true;
     } else {
       this.isOpen = false;
@@ -94,8 +100,8 @@ class ContextMenu extends Component<ContextMenuSignature> {
   };
 
   finishClose = () => {
-    if (!this.isOpen) {
-      this.isRendered = false;
+    if (!this.open) {
+      this.isOpenOrClosing = false;
     }
   };
 
@@ -250,13 +256,17 @@ class ContextMenuSub extends Component<ContextMenuSubSignature> {
   menuContext!: ContextRegistry[typeof ContextMenuContext];
 
   @tracked isOpen?: boolean;
-  @tracked isRendered = false;
+  @tracked isOpenOrClosing = false;
   triggerElement: HTMLElement | null = null;
   unregister?: () => void;
   closeTimeout?: ReturnType<typeof setTimeout>;
 
   get open() {
     return this.args.open ?? this.isOpen ?? this.args.defaultOpen ?? false;
+  }
+
+  get isRendered() {
+    return this.open || this.isOpenOrClosing;
   }
 
   register = modifier(() => {
@@ -277,7 +287,7 @@ class ContextMenuSub extends Component<ContextMenuSubSignature> {
   setOpen = (open: boolean) => {
     if (open) {
       this.groupContext?.closeAllSubmenus();
-      this.isRendered = true;
+      this.isOpenOrClosing = true;
       this.isOpen = true;
     } else {
       this.isOpen = false;
@@ -286,8 +296,8 @@ class ContextMenuSub extends Component<ContextMenuSubSignature> {
   };
 
   finishClose = () => {
-    if (!this.isOpen) {
-      this.isRendered = false;
+    if (!this.open) {
+      this.isOpenOrClosing = false;
     }
   };
 
@@ -466,9 +476,10 @@ class ContextMenuSubTrigger extends Component<ContextMenuSubTriggerSignature> {
   };
 
   registerElement = modifier((element: HTMLElement) => {
-    this.context.setTriggerElement(element);
+    const { setTriggerElement } = this.context;
+    setTriggerElement(element);
     return () => {
-      this.context.setTriggerElement(null);
+      setTriggerElement(null);
     };
   });
 
@@ -514,7 +525,18 @@ class ContextMenuSubContent extends Component<ContextMenuSubContentSignature> {
   cleanup?: () => void;
 
   get destinationElement() {
-    return document.body;
+    const rootElement = (getOwner(this) as ApplicationInstance | undefined)
+      ?.rootElement;
+
+    if (rootElement instanceof Element) {
+      return rootElement;
+    }
+
+    return (
+      (typeof rootElement === 'string' &&
+        document.querySelector(rootElement)) ||
+      document.body
+    );
   }
 
   @cached
@@ -617,7 +639,18 @@ class ContextMenuContent extends Component<ContextMenuContentSignature> {
   pendingItemCloseTimeout?: ReturnType<typeof setTimeout>;
 
   get destinationElement() {
-    return document.body;
+    const rootElement = (getOwner(this) as ApplicationInstance | undefined)
+      ?.rootElement;
+
+    if (rootElement instanceof Element) {
+      return rootElement;
+    }
+
+    return (
+      (typeof rootElement === 'string' &&
+        document.querySelector(rootElement)) ||
+      document.body
+    );
   }
 
   closeAllSubmenus = () => {

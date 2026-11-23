@@ -1,6 +1,7 @@
 import { hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { htmlSafe } from '@ember/template';
+import { getOwner } from '@ember/owner';
 import {
   computePosition,
   flip,
@@ -17,6 +18,7 @@ import { provide, consume } from 'ember-provide-consume-context';
 
 import { cn } from '@/lib/utils';
 
+import type ApplicationInstance from '@ember/application/instance';
 import type { TOC } from '@ember/component/template-only';
 
 const PopoverContext = 'popover-context' as const;
@@ -136,19 +138,21 @@ class PopoverTrigger extends Component<PopoverTriggerSignature> {
   };
 
   registerElement = modifier((element: HTMLElement) => {
-    this.context.setTriggerElement(element);
+    const { setTriggerElement } = this.context;
+    setTriggerElement(element);
     return () => {
-      this.context.setTriggerElement(null);
+      setTriggerElement(null);
     };
   });
 
   applyTriggerBehavior = modifier((element: HTMLElement) => {
     element.setAttribute('data-slot', 'popover-trigger');
     element.addEventListener('click', this.handleClick);
-    this.context.setTriggerElement(element);
+    const { setTriggerElement } = this.context;
+    setTriggerElement(element);
     return () => {
       element.removeEventListener('click', this.handleClick);
-      this.context.setTriggerElement(null);
+      setTriggerElement(null);
     };
   });
 
@@ -206,7 +210,18 @@ class PopoverContent extends Component<PopoverContentSignature> {
   cleanup?: () => void;
 
   get destinationElement() {
-    return document.body;
+    const rootElement = (getOwner(this) as ApplicationInstance | undefined)
+      ?.rootElement;
+
+    if (rootElement instanceof Element) {
+      return rootElement;
+    }
+
+    return (
+      (typeof rootElement === 'string' &&
+        document.querySelector(rootElement)) ||
+      document.body
+    );
   }
 
   handleClickOutside = () => {

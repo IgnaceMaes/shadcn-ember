@@ -1,5 +1,6 @@
 import { on } from '@ember/modifier';
 import { htmlSafe } from '@ember/template';
+import { getOwner } from '@ember/owner';
 import {
   computePosition,
   flip,
@@ -14,6 +15,7 @@ import { tracked } from '@glimmer/tracking';
 import { cached } from '@glimmer/tracking';
 import { modifier } from 'ember-modifier';
 import { provide, consume } from 'ember-provide-consume-context';
+import type ApplicationInstance from '@ember/application/instance';
 
 import { cn } from '@/lib/utils';
 
@@ -317,9 +319,10 @@ class TooltipTrigger extends Component<TooltipTriggerSignature> {
   };
 
   registerElement = modifier((element: HTMLElement) => {
-    this.context.setTriggerElement(element);
+    const { setTriggerElement } = this.context;
+    setTriggerElement(element);
     return () => {
-      this.context.setTriggerElement(null);
+      setTriggerElement(null);
     };
   });
 
@@ -382,13 +385,25 @@ class TooltipContent extends Component<TooltipContentSignature> {
   arrowElement: HTMLElement | null = null;
 
   get destinationElement() {
-    return document.body;
+    const rootElement = (getOwner(this) as ApplicationInstance | undefined)
+      ?.rootElement;
+
+    if (rootElement instanceof Element) {
+      return rootElement;
+    }
+
+    return (
+      (typeof rootElement === 'string' &&
+        document.querySelector(rootElement)) ||
+      document.body
+    );
   }
 
   registerElement = modifier((element: HTMLElement) => {
-    this.context.setContentElement(element);
+    const { setContentElement } = this.context;
+    setContentElement(element);
     return () => {
-      this.context.setContentElement(null);
+      setContentElement(null);
     };
   });
 

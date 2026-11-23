@@ -1,5 +1,6 @@
 import { on } from '@ember/modifier';
 import { htmlSafe } from '@ember/template';
+import { getOwner } from '@ember/owner';
 import {
   computePosition,
   flip,
@@ -17,6 +18,7 @@ import { provide, consume } from 'ember-provide-consume-context';
 
 import { cn } from '@/lib/utils';
 
+import type ApplicationInstance from '@ember/application/instance';
 import type { TOC } from '@ember/component/template-only';
 
 import Check from '~icons/lucide/check';
@@ -150,9 +152,10 @@ class SelectTrigger extends Component<SelectTriggerSignature> {
   }
 
   registerElement = modifier((element: HTMLElement) => {
-    this.context.setTriggerElement(element);
+    const { setTriggerElement } = this.context;
+    setTriggerElement(element);
     return () => {
-      this.context.setTriggerElement(null);
+      setTriggerElement(null);
     };
   });
 
@@ -229,7 +232,18 @@ class SelectContent extends Component<SelectContentSignature> {
   cleanup?: () => void;
 
   get destinationElement() {
-    return document.body;
+    const rootElement = (getOwner(this) as ApplicationInstance | undefined)
+      ?.rootElement;
+
+    if (rootElement instanceof Element) {
+      return rootElement;
+    }
+
+    return (
+      (typeof rootElement === 'string' &&
+        document.querySelector(rootElement)) ||
+      document.body
+    );
   }
 
   get positionClass() {
